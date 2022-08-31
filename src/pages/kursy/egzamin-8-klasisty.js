@@ -57,7 +57,7 @@ export default function Courses8Exam() {
                                     <div className="course-price-wrapper">
                                         <div className="course-price ml-3">
                                             <h4>
-                                                Cena: <span>810 zł</span>
+                                                Cena: <span>945 zł</span>
                                             </h4>
                                         </div>
                                         <div className="buy-btn">

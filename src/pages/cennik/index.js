@@ -17,7 +17,7 @@ export default function Pricing() {
                             cards={[
                                 {
                                     title: 'Lekcje indywidualne:',
-                                    price: '95 zł',
+                                    price: '105 zł',
                                     priceInfo: 'za 45 min',
                                     id: '1',
                                     items: [
@@ -55,7 +55,7 @@ export default function Pricing() {
                             cards={[
                                 {
                                     title: 'Kurs przygotowujący do egzaminu ósmoklasisty:',
-                                    price: '810 zł',
+                                    price: '945 zł',
                                     priceInfo: 'za semestr',
                                     id: '2',
                                     items: [
@@ -68,7 +68,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Kurs przygotowujący do egzaminu maturalnego:',
-                                    price: '810 zł',
+                                    price: '945 zł',
                                     priceInfo: 'za semestr',
                                     id: '3',
                                     items: [
@@ -81,7 +81,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Kurs dla dzieci i młodzieży:',
-                                    price: '1020 zł',
+                                    price: '1190 zł',
                                     priceInfo: 'za semestr',
                                     id: '4',
                                     items: [
@@ -95,7 +95,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Kurs dla dorosłych:',
-                                    price: '1020 zł',
+                                    price: '1190 zł',
                                     priceInfo: 'za semestr',
                                     id: '5',
                                     items: [
@@ -109,7 +109,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Kurs konwersacji:',
-                                    price: '1020 zł',
+                                    price: '1190 zł',
                                     priceInfo: 'za semestr',
                                     id: '6',
                                     items: [
@@ -131,7 +131,7 @@ export default function Pricing() {
                             cards={[
                                 {
                                     title: 'Lekcje w 2 osoby:',
-                                    price: '50 zł',
+                                    price: '60 zł',
                                     priceInfo: 'za lekcje od osoby',
                                     id: '1',
                                     items: [
@@ -142,7 +142,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Lekcje w 3 osoby:',
-                                    price: '45 zł',
+                                    price: '50 zł',
                                     priceInfo: 'za lekcje od osoby',
                                     id: '2',
                                     items: [
@@ -153,7 +153,7 @@ export default function Pricing() {
                                 },
                                 {
                                     title: 'Lekcje w 4 osoby:',
-                                    price: '40 zł',
+                                    price: '45 zł',
                                     priceInfo: 'za lekcje od osoby',
                                     id: '3',
                                     items: [
