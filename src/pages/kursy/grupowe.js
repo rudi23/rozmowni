@@ -158,7 +158,7 @@ export default function CoursesGroup() {
                                     <div className="course-price-wrapper">
                                         <div className="course-price ml-3">
                                             <h4>
-                                                Cena: <span>1020 zł</span>
+                                                Cena: <span>1190 zł</span>
                                             </h4>
                                         </div>
                                         <div className="buy-btn">
