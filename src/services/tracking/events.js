@@ -43,18 +43,6 @@ export const MATURA_EXAM_COURSE_CLICK_ENROLL = {
     label: 'Enroll',
 };
 
-export const HOLIDAY_COURSE_CLICK_BANNER = {
-    category: 'Holiday course',
-    action: 'Click',
-    label: 'Banner',
-};
-
-export const HOLIDAY_COURSE_CLICK_ENROLL = {
-    category: 'Holiday course',
-    action: 'Click',
-    label: 'Enroll',
-};
-
 export const CONTACT_SEND_FORM = {
     category: 'Contact',
     action: 'Send',
