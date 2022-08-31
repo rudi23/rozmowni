@@ -1,3 +1,56 @@
+## [1.1.0](https://github.com/rudi23/rozmowni-nextjs/compare/v1.0.0...v1.1.0) (2022-08-31)
+
+### Features
+
+- remove holiday courses ([#64](https://github.com/rudi23/rozmowni-nextjs/issues/64)) ([b1b758e](https://github.com/rudi23/rozmowni-nextjs/commit/b1b758eb5b0539b26861caf275f5d7d9b0aa9695))
+- setup codeql ([6906dd9](https://github.com/rudi23/rozmowni-nextjs/commit/6906dd9ceb2021a62f97442e8eb58551916df14b))
+
+### Bug Fixes
+
+- **deps:** update dependency bootstrap to v4.6.2 ([#26](https://github.com/rudi23/rozmowni-nextjs/issues/26)) ([cbc739e](https://github.com/rudi23/rozmowni-nextjs/commit/cbc739e913694a192eea9d531dbb736a51e84d82))
+- **deps:** update dependency next to v12.2.3 ([#29](https://github.com/rudi23/rozmowni-nextjs/issues/29)) ([7507649](https://github.com/rudi23/rozmowni-nextjs/commit/750764995d86409e0fd4913c3df18b922b473b64))
+- **deps:** update dependency next to v12.2.4 ([#42](https://github.com/rudi23/rozmowni-nextjs/issues/42)) ([021864c](https://github.com/rudi23/rozmowni-nextjs/commit/021864c3d8b7566d5602abca026ffac7cf151041))
+- **deps:** update dependency next to v12.2.5 ([#48](https://github.com/rudi23/rozmowni-nextjs/issues/48)) ([e5efeac](https://github.com/rudi23/rozmowni-nextjs/commit/e5efeaca34c21df6d18a1a2877687f9177cb6c0d))
+- **deps:** update dependency react-cookie-consent to v7.6.0 ([#35](https://github.com/rudi23/rozmowni-nextjs/issues/35)) ([f3468e0](https://github.com/rudi23/rozmowni-nextjs/commit/f3468e0a66a69331b940d2b0718b5d2d908ea671))
+- **deps:** update dependency react-google-recaptcha-v3 to v1.10.0 ([#24](https://github.com/rudi23/rozmowni-nextjs/issues/24)) ([6da8044](https://github.com/rudi23/rozmowni-nextjs/commit/6da80446307278f299fe5cac0b625c1b54106f1b))
+- **deps:** update dependency react-hook-form to v7.34.0 ([#36](https://github.com/rudi23/rozmowni-nextjs/issues/36)) ([346c807](https://github.com/rudi23/rozmowni-nextjs/commit/346c807083b20c573b418f63635701bec08dbdff))
+- **deps:** update dependency react-hook-form to v7.34.1 ([#49](https://github.com/rudi23/rozmowni-nextjs/issues/49)) ([7f8e7f8](https://github.com/rudi23/rozmowni-nextjs/commit/7f8e7f8ee7ba8b01f75d87e5b4bdfc1fa856855a))
+- **deps:** update dependency react-hook-form to v7.34.2 ([#51](https://github.com/rudi23/rozmowni-nextjs/issues/51)) ([f167836](https://github.com/rudi23/rozmowni-nextjs/commit/f167836c5aa4be076d89b4372a11e4fb273e6119))
+- **deps:** update font awesome to v6.1.2 ([#33](https://github.com/rudi23/rozmowni-nextjs/issues/33)) ([640852e](https://github.com/rudi23/rozmowni-nextjs/commit/640852e14d09dc378c846b06bb93c0be60fd6c84))
+- **deps:** update font awesome to v6.2.0 ([#59](https://github.com/rudi23/rozmowni-nextjs/issues/59)) ([0549796](https://github.com/rudi23/rozmowni-nextjs/commit/0549796ae6233f8df7b9c3ec0677a8aebb4835af))
+- update prices ([#63](https://github.com/rudi23/rozmowni-nextjs/issues/63)) ([b502e86](https://github.com/rudi23/rozmowni-nextjs/commit/b502e8698ee47bd33c34aee79f15ed632d76c633))
+
+### Miscellaneous Chores
+
+- **deps:** pin dependencies ([#20](https://github.com/rudi23/rozmowni-nextjs/issues/20)) ([d864f73](https://github.com/rudi23/rozmowni-nextjs/commit/d864f73bb60e9736591f04bc7be1d1f451e0744b))
+- **deps:** pin dependency lint-staged to 13.0.3 ([#22](https://github.com/rudi23/rozmowni-nextjs/issues/22)) ([d1c8bb8](https://github.com/rudi23/rozmowni-nextjs/commit/d1c8bb8345971ca95670aa1a8e55c6c7b90262c9))
+- **deps:** update dependency @commitlint/cli to v17.1.2 ([#57](https://github.com/rudi23/rozmowni-nextjs/issues/57)) ([2387de3](https://github.com/rudi23/rozmowni-nextjs/commit/2387de36582939a9a0f285300b4f1f4ecf89a886))
+- **deps:** update dependency @release-it/conventional-changelog to v5.1.0 ([#52](https://github.com/rudi23/rozmowni-nextjs/issues/52)) ([06a796c](https://github.com/rudi23/rozmowni-nextjs/commit/06a796c5d3462c35c424b62aabb4bbb71c9ed5f9))
+- **deps:** update dependency eslint to v8.20.0 ([#25](https://github.com/rudi23/rozmowni-nextjs/issues/25)) ([b029a53](https://github.com/rudi23/rozmowni-nextjs/commit/b029a53ddfdc8639ab4d929ceca16d92dba4e57f))
+- **deps:** update dependency eslint to v8.21.0 ([#38](https://github.com/rudi23/rozmowni-nextjs/issues/38)) ([a4deca4](https://github.com/rudi23/rozmowni-nextjs/commit/a4deca4fb49f3c70a9876abc52893e3f02caf695))
+- **deps:** update dependency eslint to v8.22.0 ([#50](https://github.com/rudi23/rozmowni-nextjs/issues/50)) ([7674ece](https://github.com/rudi23/rozmowni-nextjs/commit/7674ece099d4ff2996b0515044f6e956daf1d0c9))
+- **deps:** update dependency eslint to v8.23.0 ([#55](https://github.com/rudi23/rozmowni-nextjs/issues/55)) ([55e0352](https://github.com/rudi23/rozmowni-nextjs/commit/55e0352d5895d4e680fac29eb16cadd6067fde05))
+- **deps:** update dependency eslint-config-next to v12.2.3 ([#28](https://github.com/rudi23/rozmowni-nextjs/issues/28)) ([9d3ba92](https://github.com/rudi23/rozmowni-nextjs/commit/9d3ba9211653b969eb1f969008503d8d1a025b3d))
+- **deps:** update dependency eslint-config-next to v12.2.4 ([#41](https://github.com/rudi23/rozmowni-nextjs/issues/41)) ([29cd138](https://github.com/rudi23/rozmowni-nextjs/commit/29cd138026ac0862e9ff09a7c53f07fbdff51bba))
+- **deps:** update dependency eslint-config-next to v12.2.5 ([#47](https://github.com/rudi23/rozmowni-nextjs/issues/47)) ([60a5faa](https://github.com/rudi23/rozmowni-nextjs/commit/60a5faa344b536dbec48440749ea3408df41aa1f))
+- **deps:** update dependency lint-staged to v13 ([#5](https://github.com/rudi23/rozmowni-nextjs/issues/5)) ([1355c7e](https://github.com/rudi23/rozmowni-nextjs/commit/1355c7e6cc51d3bb44eec6c249e0c35f47aace51))
+- **deps:** update dependency release-it to v15.1.2 ([#23](https://github.com/rudi23/rozmowni-nextjs/issues/23)) ([f5aa39c](https://github.com/rudi23/rozmowni-nextjs/commit/f5aa39c8aa19a9dea0e01219debb7338fe906387))
+- **deps:** update dependency release-it to v15.1.3 ([#27](https://github.com/rudi23/rozmowni-nextjs/issues/27)) ([990b8a9](https://github.com/rudi23/rozmowni-nextjs/commit/990b8a97826a1ea4cf3e3f2d77b415750714d01f))
+- **deps:** update dependency release-it to v15.1.4 ([#32](https://github.com/rudi23/rozmowni-nextjs/issues/32)) ([fedd885](https://github.com/rudi23/rozmowni-nextjs/commit/fedd8857ae38d29e7ba67623d2f06d140819f92f))
+- **deps:** update dependency release-it to v15.2.0 ([#34](https://github.com/rudi23/rozmowni-nextjs/issues/34)) ([9cf2a6b](https://github.com/rudi23/rozmowni-nextjs/commit/9cf2a6ba879e4339c070ada7cc5b655c11e4664a))
+- **deps:** update dependency release-it to v15.3.0 ([#45](https://github.com/rudi23/rozmowni-nextjs/issues/45)) ([62f30ce](https://github.com/rudi23/rozmowni-nextjs/commit/62f30ce2803e854c724e49cd78ca3fd976438914))
+- **deps:** update dependency release-it to v15.4.0 ([#54](https://github.com/rudi23/rozmowni-nextjs/issues/54)) ([0df9930](https://github.com/rudi23/rozmowni-nextjs/commit/0df9930fff6b9ba4a0828aca011c6aec5b350207))
+- **deps:** update dependency release-it to v15.4.1 ([#61](https://github.com/rudi23/rozmowni-nextjs/issues/61)) ([01af1c7](https://github.com/rudi23/rozmowni-nextjs/commit/01af1c79e9afe1e4d682310a4dd7b54f6d054f45))
+- **deps:** update dependency sass to v1.54.0 ([#30](https://github.com/rudi23/rozmowni-nextjs/issues/30)) ([bd86712](https://github.com/rudi23/rozmowni-nextjs/commit/bd86712bb3b5ff70f41fe00491739df9d2575468))
+- **deps:** update dependency sass to v1.54.1 ([#39](https://github.com/rudi23/rozmowni-nextjs/issues/39)) ([ee5654f](https://github.com/rudi23/rozmowni-nextjs/commit/ee5654fe97521bc5726ee7d5b1a6de5765980a39))
+- **deps:** update dependency sass to v1.54.2 ([#40](https://github.com/rudi23/rozmowni-nextjs/issues/40)) ([4c32f18](https://github.com/rudi23/rozmowni-nextjs/commit/4c32f18ec77c40db6222e43d6ad2be47da86b834))
+- **deps:** update dependency sass to v1.54.3 ([#43](https://github.com/rudi23/rozmowni-nextjs/issues/43)) ([b591c23](https://github.com/rudi23/rozmowni-nextjs/commit/b591c238282a1e9b35a298ea37502664a7540fe1))
+- **deps:** update dependency sass to v1.54.4 ([#46](https://github.com/rudi23/rozmowni-nextjs/issues/46)) ([9596a9b](https://github.com/rudi23/rozmowni-nextjs/commit/9596a9b7fbc432c9d9bef27274dfc7db783224f0))
+- **deps:** update dependency sass to v1.54.5 ([#53](https://github.com/rudi23/rozmowni-nextjs/issues/53)) ([02b6615](https://github.com/rudi23/rozmowni-nextjs/commit/02b6615cce9b062845a16b0cbeecc69f686eaa1f))
+- **deps:** update dependency sass to v1.54.6 ([#58](https://github.com/rudi23/rozmowni-nextjs/issues/58)) ([c7e5e32](https://github.com/rudi23/rozmowni-nextjs/commit/c7e5e32377591a9d36b618db1cbd827d3b133afd))
+- **deps:** update dependency sass to v1.54.7 ([#60](https://github.com/rudi23/rozmowni-nextjs/issues/60)) ([30dd736](https://github.com/rudi23/rozmowni-nextjs/commit/30dd736255d553cfdf205247e6a07a1c76473a78))
+- **deps:** update release-related tools ([#56](https://github.com/rudi23/rozmowni-nextjs/issues/56)) ([9c7ec01](https://github.com/rudi23/rozmowni-nextjs/commit/9c7ec010cc10ec62a39cd4182ad5be19d3a1628e))
+
 ## 1.0.0 (2022-07-11)
 
 ### Features
