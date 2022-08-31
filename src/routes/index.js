@@ -5,7 +5,6 @@ export const routeNames = {
     PRICING: 'PRICING',
     INDIVIDUAL_COURSE: 'INDIVIDUAL_COURSE',
     GROUP_COURSE: 'GROUP_COURSE',
-    HOLIDAY_COURSE: 'HOLIDAY_COURSE',
     EXAM_8_COURSE: 'EXAM_8_COURSE',
     MATURA_EXAM_COURSE: 'MATURA_EXAM_COURSE',
     CONTACT: 'CONTACT',
@@ -34,7 +33,6 @@ export const routeMap = {
     [routeNames.GROUP_COURSE]: '/kursy/grupowe',
     [routeNames.EXAM_8_COURSE]: '/kursy/egzamin-8-klasisty',
     [routeNames.MATURA_EXAM_COURSE]: '/kursy/egzamin-maturalny',
-    [routeNames.HOLIDAY_COURSE]: '/kursy/intensywne-kursy-wakacyjne',
     [routeNames.CONTACT]: '/kontakt',
     [routeNames.PRIVACY_POLICY]: '/polityka-prywatnosci',
 };
