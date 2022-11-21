@@ -37,7 +37,7 @@
     "react-facebook-pixel": "1.0.4",
     "react-ga4": "1.4.1",
     "react-google-recaptcha-v3": "1.10.0",
-    "react-hook-form": "7.39.4",
+    "react-hook-form": "7.39.5",
     "react-multi-carousel": "2.8.2"
   },
   "devDependencies": {
