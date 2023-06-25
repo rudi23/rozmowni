@@ -36,7 +36,7 @@ export default function Opinions() {
                         setOpen(!isOpen);
                     }}
                 >
-                    przeczytaj więcej >>
+                    przeczytaj więcej &gt;&gt;
                 </a>
             )
         );
