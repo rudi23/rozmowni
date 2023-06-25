@@ -1,3 +1,4 @@
-export function decryptEmail(encoded) {
-    window.location.href = 'mailto:' + atob(encoded);
+export function decryptEmail(encoded, subject) {
+    const url = 'mailto:' + atob(encoded) + (subject ? `?subject=${subject}` : '');
+    window.location.href = url;
 }

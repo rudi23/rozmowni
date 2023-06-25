@@ -214,6 +214,19 @@ function getMaturaExamCourse(canonicalUrl) {
     };
 }
 
+function getHolidayCourse(canonicalUrl) {
+    const title = 'Intensywne kursy wakacyjne';
+    const description =
+        'Nastawiamy się przede wszystkim na ćwiczenie umiejętności mówienia (dyskusje, negocjacje, interakcje językowe) oraz ogólnym podniesieniu poziomu angielskiego (elementy gramatyki, nowe słownictwo oraz zwroty)';
+
+    return {
+        title,
+        description,
+        robots: 'index, follow',
+        jsonLd: [getWebPageJsonLd(canonicalUrl), getBreadcrumbsJsonLd('Intensywne kursy wakacyjne', canonicalUrl)],
+    };
+}
+
 function getContact(canonicalUrl) {
     const title = 'Kontakt | Jak dołączyć na lekcje angielskiego online';
     const description =
@@ -247,6 +260,7 @@ export const getPropertiesMap = {
     [routeNames.INDIVIDUAL_COURSE]: getIndividualCourse,
     [routeNames.GROUP_COURSE]: getGroupCourse,
     [routeNames.EXAM_8_COURSE]: getExam8Course,
+    [routeNames.HOLIDAY_COURSE]: getHolidayCourse,
     [routeNames.MATURA_EXAM_COURSE]: getMaturaExamCourse,
     [routeNames.CONTACT]: getContact,
     [routeNames.PRIVACY_POLICY]: getPrivacyPolicy,
