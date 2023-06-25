@@ -245,7 +245,7 @@ export default function Header() {
                                     title="Facebook profile page"
                                 >
                                     <span className="icon">
-                                        <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+                                        <FontAwesomeIcon icon={faFacebookF} />
                                     </span>
                                 </a>
                             </li>
@@ -258,7 +258,7 @@ export default function Header() {
                                     title="Instagram profile page"
                                 >
                                     <span className="icon">
-                                        <FontAwesomeIcon icon={['fab', 'instagram']} />
+                                        <FontAwesomeIcon icon={faInstagram} />
                                     </span>
                                 </a>
                             </li>
@@ -271,7 +271,7 @@ export default function Header() {
                                     title="TikTok profile page"
                                 >
                                     <span className="icon">
-                                        <FontAwesomeIcon icon={['fab', 'tiktok']} />
+                                        <FontAwesomeIcon icon={faTiktok} />
                                     </span>
                                 </a>
                             </li>
