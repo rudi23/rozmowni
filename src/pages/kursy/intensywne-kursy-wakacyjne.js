@@ -10,6 +10,14 @@ import holidayCourseImage from '../../../public/images/course-holiday-2023.jpg';
 import { decryptEmail } from '../../utils';
 import styles from './Course.module.scss';
 
+export const getServerSideProps = async () => {
+    if (!routeMap[routeNames.HOLIDAY_COURSE]) {
+        return {
+            notFound: true, //redirects to 404 page
+        };
+    }
+};
+
 export default function HolidayCourse() {
     const trackClick = useClickTracking();
 

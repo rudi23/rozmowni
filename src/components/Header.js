@@ -50,13 +50,15 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
                             </a>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
-                                Intensywne kursy wakacyjne
-                            </a>
-                        </Link>
-                    </li>
+                    {routeMap[routeNames.HOLIDAY_COURSE] && (
+                        <li className="nav-item">
+                            <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
+                                <a className="nav-link" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
+                                    Intensywne kursy wakacyjne
+                                </a>
+                            </Link>
+                        </li>
+                    )}
                     <li className="nav-item">
                         <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
                             <a className="nav-link" onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}>
@@ -140,11 +142,13 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
                         </span>
                     </div>
                     <div className={isDropDownOpen ? 'dropdown-menu show' : 'dropdown-menu '} aria-labelledby="navbar3">
-                        <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                            <a className="dropdown-item" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
-                                Intensywne kursy wakacyjne
-                            </a>
-                        </Link>
+                        {routeMap[routeNames.HOLIDAY_COURSE] && (
+                            <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
+                                <a className="dropdown-item" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
+                                    Intensywne kursy wakacyjne
+                                </a>
+                            </Link>
+                        )}
                         <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
                             <a className="dropdown-item" onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}>
                                 Indywidualne

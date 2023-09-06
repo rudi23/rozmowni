@@ -35,7 +35,7 @@ export const routeMap = {
     [routeNames.EXAM_8_COURSE]: '/kursy/egzamin-8-klasisty',
     [routeNames.MATURA_EXAM_COURSE]: '/kursy/egzamin-maturalny',
     [routeNames.CONTACT]: '/kontakt',
-    [routeNames.HOLIDAY_COURSE]: '/kursy/intensywne-kursy-wakacyjne',
+    // [routeNames.HOLIDAY_COURSE]: '/kursy/intensywne-kursy-wakacyjne',
     [routeNames.PRIVACY_POLICY]: '/polityka-prywatnosci',
 };
 

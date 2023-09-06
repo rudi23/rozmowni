@@ -152,19 +152,23 @@ export default function Footer() {
                         <div className="footer-widget mb-5 mb-lg-0">
                             <div className="widget-title">Kursy</div>
                             <ul className="list-unstyled footer-links">
-                                <li>
-                                    <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeNames[routeNames.HOLIDAY_COURSE])
-                                                )
-                                            }
-                                        >
-                                            Intensywne kursy wakacyjne
-                                        </a>
-                                    </Link>
-                                </li>
+                                {routeMap[routeNames.HOLIDAY_COURSE] && (
+                                    <li>
+                                        <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
+                                            <a
+                                                onClick={() =>
+                                                    trackClick(
+                                                        events.FOOTER_CLICK_MENU_ITEM(
+                                                            routeNames[routeNames.HOLIDAY_COURSE]
+                                                        )
+                                                    )
+                                                }
+                                            >
+                                                Intensywne kursy wakacyjne
+                                            </a>
+                                        </Link>
+                                    </li>
+                                )}
                                 <li>
                                     <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
                                         <a
