@@ -2,42 +2,42 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
         <loc>https://rozmowni.pl</loc>
-        <lastmod>2022-04-02T00:00:00+00:00</lastmod>
+        <lastmod>2023-09-06T00:00:00+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/dlaczego-my</loc>
-        <lastmod>2022-04-02T00:24:10+00:00</lastmod>
+        <lastmod>2023-09-06T00:24:10+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/o-nas</loc>
-        <lastmod>2022-04-02T00:23:33+00:00</lastmod>
+        <lastmod>2023-09-06T00:23:33+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/cennik</loc>
-        <lastmod>2022-04-02T00:00:00+00:00</lastmod>
+        <lastmod>2023-09-06T00:00:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/kursy/indywidualne</loc>
-        <lastmod>2022-04-02T00:23:24+00:00</lastmod>
+        <lastmod>2023-09-06T00:23:24+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/kursy/grupowe</loc>
-        <lastmod>2022-04-02T00:23:52+00:00</lastmod>
+        <lastmod>2023-09-06T00:23:52+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/kursy/egzamin-8-klasisty</loc>
-        <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+        <lastmod>2023-09-06T00:00:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://rozmowni.pl/kursy/egzamin-maturalny</loc>
-        <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+        <lastmod>2023-09-06T00:00:00+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
@@ -47,7 +47,7 @@
     </url>
     <url>
         <loc>https://rozmowni.pl/kontakt</loc>
-        <lastmod>2022-04-02T00:23:29+00:00</lastmod>
+        <lastmod>2023-09-06T00:23:29+00:00</lastmod>
         <priority>0.80</priority>
     </url>
 </urlset>

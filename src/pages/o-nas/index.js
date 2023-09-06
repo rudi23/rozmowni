@@ -4,7 +4,8 @@ import PageHeader from '../../components/PageHeader';
 import Opinions from '../../components/Opinions';
 import aboutUsImage from '../../../public/images/about-us.jpg';
 import denisImage from '../../../public/images/denis.jpg';
-import adriannaImage from '../../../public/images/adrianna.jpg';
+import angelikaImage from '../../../public/images/angelika.jpg';
+import aniaImage from '../../../public/images/ania.jpg';
 
 export default function AboutUs() {
     return (
@@ -91,7 +92,7 @@ export default function AboutUs() {
                         </p>
 
                         <p>
-                            👉 Who doesn't love telling stories? Talks over a cup of coffee, fiery debates, friendly
+                            👉 Who doesn’t love telling stories? Talks over a cup of coffee, fiery debates, friendly
                             jokes and thought-provoking monologues, whatever you may choose, they carry a story behind
                             them—a story we want to tell.
                         </p>
@@ -102,7 +103,7 @@ export default function AboutUs() {
                             and find the best means possible to express themselves in English, tell stories of their
                             own, and listen to others without any fear or insecurities. I base my classes on
                             communication rather than meticulous work with tests and grammar exercises. There is no
-                            avoiding grammar, but why can't it be interesting? When you learn things in context, it can.
+                            avoiding grammar, but why can’t it be interesting? When you learn things in context, it can.
                         </p>
 
                         <p>
@@ -118,8 +119,8 @@ export default function AboutUs() {
                     <div className="col-lg-6 col-md-12">
                         <div className="img-block">
                             <Image
-                                src={adriannaImage}
-                                alt="Adrianna"
+                                src={angelikaImage}
+                                alt="Angelika"
                                 placeholder="blur"
                                 layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
@@ -128,31 +129,55 @@ export default function AboutUs() {
                         </div>
                     </div>
                     <div className="col-lg-6 col-md-12 order-md-1">
-                        <h3 className="pb-3">Adrianna</h3>
+                        <h3 className="pb-3">Angelika</h3>
                         <p>
-                            Niezależnie od tego, czy dopiero zaczynasz swoją przygodę z językiem angielskim, czy twój
-                            poziom jest zaawansowany, dodatkowe konwersacje wniosą w twoje życie ogromną zmianę. Razem
-                            na pewno zbliżymy się do twoich wymarzonych rezultatów.
+                            Specjalizuję się w nauczaniu najmłodszych i młodzieży, od których nieustannie czerpię
+                            ogromną dawkę dobrej energii i inspiracji.
                         </p>
-
                         <p>
-                            Moim głównym celem jest pomóc uczniom przełamać barierę językową, aby mogli z satysfakcją i
-                            pewnością komunikować się zarówno w codziennych jak i profesjonalnych sytuacjach.
+                            Moja pasja do nauczania zrodziła się w szkołach walijskich, gdzie pracowałam jako asystent
+                            nauczyciela pomagając dzieciom pochodzącym z polskojęzycznych rodzin. Od tego czasu
+                            doświadczenie zdobywałam w wielu szkołach i przedszkolach dwujęzycznych, dlatego idea
+                            wychowania dwujęzycznego jest mi bardzo bliska.
                         </p>
-
                         <p>
-                            Języki obce towarzyszą mi od najmłodszych lat. Od kiedy pamiętam uczęszczałam na dodatkowe
-                            lekcje, na których przekonałam się, jakim wyzwaniem potrafi być nauka czegoś całkowicie
-                            nieznanego. Często podróżuję i uwielbiam zarażać tą pasją innych ludzi, a język angielski
-                            jest dla mnie podstawą w rozwiązywaniu nawet najtrudniejszych sytuacji.
+                            W związku z tym na lekcjach kładę nacisk przede wszystkim na rozmowę i poszerzanie
+                            słownictwa. Lubię też wykorzystywać wiedzę i doświadczenie moich uczniów jako pretekst do
+                            omawiania i ćwiczenia zagadnień gramatycznych, starając się przy tym wykorzenić utrwalone
+                            błędy powtarzające się w łatwiejszych i nieco trudniejszych strukturach językowych.
                         </p>
-
+                    </div>
+                </div>
+            </Section>
+            <Section>
+                <div className="row">
+                    <div className="col-lg-6 col-md-12 order-lg-2">
+                        <div className="img-block">
+                            <Image
+                                src={aniaImage}
+                                alt="Ania"
+                                placeholder="blur"
+                                layout="responsive"
+                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                quality="75"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12 order-lg-1">
+                        <h2 className="pb-3">Ania</h2>
+                        <p>Hey guys 👋</p>
                         <p>
-                            Podczas zajęć staram się tworzyć swobodną atmosferę, aby kursant na każdym poziomie mógł
-                            poczuć się pewnie. Jeśli wciąż rozważasz kurs języka angielskiego, nie zastanawiaj się
-                            dłużej i umów się na lekcję próbną, abyśmy mogli się poznać.
+                            In my classes you can expect to have a lot of speaking and vocabulary practice around the
+                            topics that are matched up to your personal needs. I mainly work with adults who have
+                            already mastered English to a certain degree and wish to bring their language skills to a
+                            higher level. I do Business classes as well as General English, or we can have a bit of both
+                            if you wish.
                         </p>
-                        <p>Think no more and hit me up!</p>
+                        <p>
+                            I’ve worked and lived in London for the last 14 years and I have gained experience in a
+                            variety of work environments, including teaching ESOL in London-based Colleges.
+                        </p>
+                        <p>I’m happy to share my language experience with you in an easy-going and encouraging way😉</p>
                     </div>
                 </div>
             </Section>
