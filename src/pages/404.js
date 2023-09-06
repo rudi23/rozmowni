@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import Section from '../components/Section';
-import PageHeader from '../components/PageHeader';
 import image404 from '../../public/images/404.jpg';
 
-export default function AboutUs() {
+export default function Page404() {
     return (
         <div className="container">
             <div className="row align-items-center">
