@@ -69,6 +69,12 @@ export const HOLIDAY_COURSE_CLICK_ENROLL = {
     label: 'Enroll',
 };
 
+export const NOTIFCATION_CLICK = {
+    category: 'Notification',
+    action: 'Click',
+    label: 'Notification',
+};
+
 export const CONTACT_SEND_FORM = {
     category: 'Contact',
     action: 'Send',
