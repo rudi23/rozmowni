@@ -24,7 +24,61 @@ export default function Courses8Exam() {
                         <div className="col-lg-8">
                             <div className="course-single-header">
                                 <h2 className="single-course-title">Zajęcia grupowe z języka angielskiego</h2>
-                                <p>Rezultatem kursu jest przygotowanie do egzaminu ósmoklasisty</p>
+                                <p>
+                                    Czy Twój ósmoklasista/Twoja ósmoklasistka zbliża się do ważnego egzaminu z języka
+                                    angielskiego? Czy szukasz profesjonalnej pomocy w przygotowaniach do tego kluczowego
+                                    testu?
+                                </p>
+                                <p>Nasz kurs przygotowawczy to idealne rozwiązanie!</p>
+                                <p>Czego możesz się spodziewać po naszym kursie?</p>
+                                <ul className="mb-2">
+                                    <li>
+                                        Doświadczeni nauczyciele: Nasz zespół składa się z doświadczonych nauczycieli
+                                        języka angielskiego, którzy posiadają bogate doświadczenie w przygotowywaniu
+                                        uczniów do egzaminów.
+                                    </li>
+                                    <li>
+                                        Indywidualne podejście: Rozumiemy, że każdy uczeń jest inny i ma różne potrzeby.
+                                        Nasz kurs jest dostosowany do poziomu i wymagań każdego uczestnika, zapewniając
+                                        indywidualne podejście do nauki.
+                                    </li>
+                                    <li>
+                                        Materiały egzaminacyjne: Oferujemy dostęp do najnowszych materiałów
+                                        egzaminacyjnych, testów próbnych i zadań, które pomogą uczniom oswoić się z
+                                        formatem egzaminu.
+                                    </li>
+                                    <li>
+                                        Ćwiczenia praktyczne: Nasze zajęcia skupiają się na praktycznym wykorzystaniu
+                                        języka angielskiego. Uczniowie będą mieli okazję do rozwijania swoich
+                                        umiejętności rozumienia ze słuchu, czytania, mówienia i pisania.
+                                    </li>
+                                    <li>
+                                        Wsparcie psychologiczne: Rozumiemy, że egzamin może być stresujący, dlatego
+                                        oferujemy także wsparcie psychologiczne, które pomoże uczniom radzić sobie ze
+                                        stresem i poprawić ich pewność siebie.
+                                    </li>
+                                    <li>
+                                        Elastyczny harmonogram: Nasze zajęcia odbywają się w dogodnych godzinach, aby
+                                        umożliwić uczniom dostosowanie nauki do swojego planu dnia.
+                                    </li>
+                                    <li>
+                                        Śledzenie postępów: Regularnie oceniamy postępy uczniów i dostarczamy informacje
+                                        zwrotne, dzięki czemu każdy uczeń wie, nad czym musi jeszcze popracować.
+                                    </li>
+                                    <li>
+                                        Przyjazna atmosfera: Nasze zajęcia odbywają się w przyjaznej i motywującej
+                                        atmosferze, co sprzyja efektywnej nauce.
+                                    </li>
+                                </ul>
+                                <p>
+                                    Zapisz swojego ósmoklasistę na nasz kurs przygotowawczy do egzaminu z języka
+                                    angielskiego i daj mu najlepszą szansę na osiągnięcie sukcesu!
+                                </p>
+                                <p>
+                                    Skontaktuj się z nami już dziś, aby dowiedzieć się więcej o naszym kursie i
+                                    dostępnych terminach.
+                                </p>
+                                <p>Wspólnie pomożemy Twojemu dziecku osiągnąć swoje cele edukacyjne.</p>
                             </div>
 
                             <div className="single-course-details ">
