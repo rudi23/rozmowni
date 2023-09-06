@@ -1,3 +1,13 @@
+## [1.4.0](https://github.com/rudi23/rozmowni/compare/v1.3.0...v1.4.0) (2023-09-06)
+
+### Features
+
+- add free lesson notification ([db5515d](https://github.com/rudi23/rozmowni/commit/db5515d4c81cf34d54d7801840b6857420734d81))
+
+### Miscellaneous Chores
+
+- add some texts to courses ([b1a7d6f](https://github.com/rudi23/rozmowni/commit/b1a7d6f5c1e3a5a76957f43eb96298acc96d0f59))
+
 ## [1.3.0](https://github.com/rudi23/rozmowni/compare/v1.2.0...v1.3.0) (2023-09-06)
 
 ### Features
