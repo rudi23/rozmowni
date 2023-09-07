@@ -1,3 +1,9 @@
+## [1.6.1](https://github.com/rudi23/rozmowni/compare/v1.6.0...v1.6.1) (2023-09-07)
+
+### Bug Fixes
+
+- shorten dennis summary ([5f499e8](https://github.com/rudi23/rozmowni/commit/5f499e8e83939af67dd9aa7079d7c7f324b9b6f3))
+
 ## [1.6.0](https://github.com/rudi23/rozmowni/compare/v1.5.0...v1.6.0) (2023-09-07)
 
 ### Features
