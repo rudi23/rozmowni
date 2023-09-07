@@ -6,6 +6,8 @@ import aboutUsImage from '../../../public/images/about-us.jpg';
 import denisImage from '../../../public/images/denis.jpg';
 import angelikaImage from '../../../public/images/angelika.jpg';
 import aniaImage from '../../../public/images/ania.jpg';
+import dannyImage from '../../../public/images/danny.jpg';
+import georgiaImage from '../../../public/images/georgia.jpg';
 
 export default function AboutUs() {
     return (
@@ -178,6 +180,75 @@ export default function AboutUs() {
                             variety of work environments, including teaching ESOL in London-based Colleges.
                         </p>
                         <p>I’m happy to share my language experience with you in an easy-going and encouraging way😉</p>
+                    </div>
+                </div>
+            </Section>
+            <Section>
+                <div className="row">
+                    <div className="col-lg-6 col-md-12">
+                        <div className="img-block">
+                            <Image
+                                src={dannyImage}
+                                alt="Danny"
+                                placeholder="blur"
+                                layout="responsive"
+                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                quality="75"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12 order-md-1">
+                        <h3 className="pb-3">Danny</h3>
+                        <p>Hello I’m teacher Danny, I’m from Los Angeles, California, USA.</p>
+                        <p>
+                            Prior to becoming a teacher, I used to work in the PR (public relations) industry. As a PR
+                            agent, I represented technology companies based in the San Francisco, California area. I
+                            have worked in education since 2015 and I have been fortunate enough to work in multiple
+                            countries including the USA, China, U.K., Poland and Spain.
+                        </p>
+                        <p>
+                            Over the years, teaching has become a great passion of mine. I have loved watching my
+                            students develop their language skills and unlock greater career opportunities for
+                            themselves.
+                        </p>
+                    </div>
+                </div>
+            </Section>
+            <Section>
+                <div className="row">
+                    <div className="col-lg-6 col-md-12 order-lg-2">
+                        <div className="img-block">
+                            <Image
+                                src={georgiaImage}
+                                alt="Georgia"
+                                placeholder="blur"
+                                layout="responsive"
+                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                quality="75"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12 order-lg-1">
+                        <h2 className="pb-3">Georgia</h2>
+                        <p>Hi everyone! My name is Georgia and I come from London.</p>
+                        <p>
+                            I’ve been working abroad as a teacher since I graduated from university 7 years ago and I’ve
+                            loved every minute! I spent 3 and a half years in China, teaching 5 to 7 year olds through
+                            inquiry-based International Baccalaureate programme. Then I continued my adventure onto
+                            Spain where I’ve been teaching Cambridge English to a range of different ages and levels,
+                            from young children to adults, from beginners to advanced! These last 3 years have made me
+                            realise that I love teaching teenagers and adults the most because we never run out of
+                            interesting topics to talk about!
+                        </p>
+                        <p>
+                            I’m CELTA-qualified, enthusiastic and nothing makes me happier than helping others achieve
+                            their language learning goals. What’s more, I’m a second language learner myself so can
+                            empathise with how challenging it can be!
+                        </p>
+                        <p>
+                            Besides studying Spanish in my free time, I also enjoy crocheting, reading books and eating
+                            good food!
+                        </p>
                     </div>
                 </div>
             </Section>
