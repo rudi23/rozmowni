@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/rudi23/rozmowni/compare/v1.5.0...v1.6.0) (2023-09-07)
+
+### Features
+
+- add lolita ([f077249](https://github.com/rudi23/rozmowni/commit/f0772490354a504f755e6e79e3f9a77e6df3707b))
+
 ## [1.5.0](https://github.com/rudi23/rozmowni/compare/v1.4.0...v1.5.0) (2023-09-07)
 
 ### Features
