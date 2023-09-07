@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/rudi23/rozmowni/compare/v1.4.0...v1.5.0) (2023-09-07)
+
+### Features
+
+- add danny and georgia ([8212f34](https://github.com/rudi23/rozmowni/commit/8212f343ec32bc425dbf5fbdfbd495c3ff4b42da))
+
 ## [1.4.0](https://github.com/rudi23/rozmowni/compare/v1.3.0...v1.4.0) (2023-09-06)
 
 ### Features
