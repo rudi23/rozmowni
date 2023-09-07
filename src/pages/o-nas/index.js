@@ -8,6 +8,7 @@ import angelikaImage from '../../../public/images/angelika.jpg';
 import aniaImage from '../../../public/images/ania.jpg';
 import dannyImage from '../../../public/images/danny.jpg';
 import georgiaImage from '../../../public/images/georgia.jpg';
+import lolitaImage from '../../../public/images/lolita.jpg';
 
 export default function AboutUs() {
     return (
@@ -248,6 +249,38 @@ export default function AboutUs() {
                         <p>
                             Besides studying Spanish in my free time, I also enjoy crocheting, reading books and eating
                             good food!
+                        </p>
+                    </div>
+                </div>
+            </Section>
+            <Section>
+                <div className="row">
+                    <div className="col-lg-6 col-md-12">
+                        <div className="img-block">
+                            <Image
+                                src={lolitaImage}
+                                alt="Lolita"
+                                placeholder="blur"
+                                layout="responsive"
+                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                quality="75"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12 order-md-1">
+                        <h3 className="pb-3">Lolita</h3>
+                        <p>
+                            Najważniejszą cechą, która mnie charakteryzuje, jest moja absolutna miłość do języków
+                            obcych. Obecnie posługuję się biegle sześcioma różnymi językami. Mam stopień naukowy w
+                            dziedzinie filologii angielskiej i chińskiej.
+                        </p>
+                        <p>
+                            Dodatkowo, ukończyłem studia z zarządzania biznesem prowadzone w języku angielskim. Dlatego
+                            też język angielski w kontekście biznesowym to obszar, w którym czuję się naprawdę pewnie.
+                        </p>
+                        <p>
+                            Uwielbiam zgłębiać nowe metody nauczania oraz praktyki. Kocham podróżować i codziennie
+                            używam języka angielskiego.
                         </p>
                     </div>
                 </div>
