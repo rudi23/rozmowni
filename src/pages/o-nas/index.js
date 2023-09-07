@@ -73,33 +73,12 @@ export default function AboutUs() {
                     </div>
                     <div className="col-lg-6 col-md-12 order-lg-1">
                         <h2 className="pb-3">Denis</h2>
-                        <p>
-                            🙋‍♂️ Poznajcie naszego nauczyciela Dennisa, który od ośmiu lat prowadzi zajęcia z języka
-                            angielskiego. Jego kursanci to głównie osoby dorosłe, pracownicy firm, którzy używają języka
-                            angielskiego na co dzień.
-                        </p>
-
-                        <p>
-                            🤗 Zobaczcie jak Dennis opowiada o swoim podejściu do nauczania i napiszcie do nas
-                            wiadomość, jeśli chcecie dołączyć do jego grupy.
-                        </p>
-
-                        <p>
-                            👉 There are so many ways to tell the stories, but language – is one of the best.
-                            <br />
-                            I have always been fascinated with the ingenuity of the ways people can interact with each
-                            other. Insignificant gestures, a wave of a hand or even a passing shadow of a smile; all of
-                            these are masterful means of communicating with each other without saying a word.
-                            <br />
-                            But it’s a language that can pave a path from one stranger to another.
-                        </p>
-
+                        <p>👉 There are so many ways to tell the stories, but language – is one of the best.</p>
                         <p>
                             👉 Who doesn’t love telling stories? Talks over a cup of coffee, fiery debates, friendly
                             jokes and thought-provoking monologues, whatever you may choose, they carry a story behind
                             them—a story we want to tell.
                         </p>
-
                         <p>
                             👉 I was lucky enough to encounter great teachers who helped discover and fuel my passion
                             for languages. And for over eight years, I’ve been helping people overcome their barriers
@@ -108,12 +87,10 @@ export default function AboutUs() {
                             communication rather than meticulous work with tests and grammar exercises. There is no
                             avoiding grammar, but why can’t it be interesting? When you learn things in context, it can.
                         </p>
-
                         <p>
                             The key to learning a language is love, passion and a pinch of dedication and work. Let’s
                             start telling your own story!!
                         </p>
-                        <p>See you soon.</p>
                     </div>
                 </div>
             </Section>
