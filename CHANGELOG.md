@@ -1,3 +1,52 @@
+## [1.7.0](https://github.com/rudi23/rozmowni/compare/v1.6.2...v1.7.0) (2024-09-11)
+
+### Features
+
+- add wiktor ([63a198b](https://github.com/rudi23/rozmowni/commit/63a198be1795f2e363e357e9a8fd35206962e714))
+
+### Bug Fixes
+
+- **deps:** update dependency classnames to v2.3.3 ([#278](https://github.com/rudi23/rozmowni/issues/278)) ([8c5db6f](https://github.com/rudi23/rozmowni/commit/8c5db6f182d2e588974d24cb469e0cc6c8688ed9))
+- **deps:** update dependency classnames to v2.4.0 ([#279](https://github.com/rudi23/rozmowni/issues/279)) ([8cf42a8](https://github.com/rudi23/rozmowni/commit/8cf42a877df65527d6dd8a4f7d55f37632a82515))
+- **deps:** update dependency classnames to v2.5.0 ([#280](https://github.com/rudi23/rozmowni/issues/280)) ([9439d64](https://github.com/rudi23/rozmowni/commit/9439d644b5ee65f71ed995b47b18bcf4ea2dc343))
+- **deps:** update dependency classnames to v2.5.1 ([#282](https://github.com/rudi23/rozmowni/issues/282)) ([f77cd1b](https://github.com/rudi23/rozmowni/commit/f77cd1b54badb21571fcca0afa7344c9e97a9903))
+- **deps:** update dependency react-hook-form to v7.46.2 ([#250](https://github.com/rudi23/rozmowni/issues/250)) ([0e049f6](https://github.com/rudi23/rozmowni/commit/0e049f67430bbac270c764fe2a41b19505f446a6))
+- **deps:** update dependency react-hook-form to v7.47.0 ([#253](https://github.com/rudi23/rozmowni/issues/253)) ([f07f63f](https://github.com/rudi23/rozmowni/commit/f07f63f7e27ccb9366f8cd0309158bfa83f1c168))
+- **deps:** update dependency react-hook-form to v7.48.1 ([#267](https://github.com/rudi23/rozmowni/issues/267)) ([a3a1e87](https://github.com/rudi23/rozmowni/commit/a3a1e870d9d1d96dbf0f21decbdb962946d60726))
+- **deps:** update dependency react-hook-form to v7.48.2 ([#268](https://github.com/rudi23/rozmowni/issues/268)) ([fce61e6](https://github.com/rudi23/rozmowni/commit/fce61e6c7eaf920dff3a32125be729a380135868))
+- **deps:** update dependency react-hook-form to v7.49.0 ([#273](https://github.com/rudi23/rozmowni/issues/273)) ([0ca4ef7](https://github.com/rudi23/rozmowni/commit/0ca4ef7ebddc4b9f36480aba70abdd827129c3b1))
+- **deps:** update dependency react-hook-form to v7.49.1 ([#274](https://github.com/rudi23/rozmowni/issues/274)) ([4660401](https://github.com/rudi23/rozmowni/commit/4660401bc678e2ad6e2f3c416fbdfbca84f88d3d))
+- **deps:** update dependency react-hook-form to v7.49.2 ([#275](https://github.com/rudi23/rozmowni/issues/275)) ([5e27a35](https://github.com/rudi23/rozmowni/commit/5e27a35d81e13a7c374b9a94451b179cd869b7fc))
+- **deps:** update dependency react-hook-form to v7.49.3 ([#284](https://github.com/rudi23/rozmowni/issues/284)) ([db6194f](https://github.com/rudi23/rozmowni/commit/db6194f3db7b13e7c46c6eee0d76764892985829))
+- **deps:** update font awesome to v6.5.0 ([#270](https://github.com/rudi23/rozmowni/issues/270)) ([b5e1607](https://github.com/rudi23/rozmowni/commit/b5e160787cf88c9e4f5f969841395b0093712489))
+- **deps:** update font awesome to v6.5.1 ([#271](https://github.com/rudi23/rozmowni/issues/271)) ([9cf8f6f](https://github.com/rudi23/rozmowni/commit/9cf8f6f85a6cf58b179ce0b8256551ab6bf02588))
+- update prices ([3e94830](https://github.com/rudi23/rozmowni/commit/3e9483044b38ec19d84b10c80c3715e2aff3a715))
+
+### Miscellaneous Chores
+
+- **deps:** update dependency @commitlint/cli to v17.7.2 ([#252](https://github.com/rudi23/rozmowni/issues/252)) ([c7de0a8](https://github.com/rudi23/rozmowni/commit/c7de0a88d991618078d6e47ff61fab41748c051d))
+- **deps:** update dependency eslint to v8.49.0 ([#247](https://github.com/rudi23/rozmowni/issues/247)) ([35e96b3](https://github.com/rudi23/rozmowni/commit/35e96b317f24a3e03b5ddd46f98d138a7d7cc641))
+- **deps:** update dependency eslint to v8.50.0 ([#251](https://github.com/rudi23/rozmowni/issues/251)) ([c46d539](https://github.com/rudi23/rozmowni/commit/c46d539e2af7af2866e79a91eba483dcf2fbbcc5))
+- **deps:** update dependency eslint to v8.51.0 ([#255](https://github.com/rudi23/rozmowni/issues/255)) ([3906933](https://github.com/rudi23/rozmowni/commit/39069336454dd28f9e6ef8f670c722e0d4238fd6))
+- **deps:** update dependency eslint to v8.52.0 ([#263](https://github.com/rudi23/rozmowni/issues/263)) ([d8d59e4](https://github.com/rudi23/rozmowni/commit/d8d59e4d6a32a9593cf4e7aa9ff0c1b8eed4ea3c))
+- **deps:** update dependency eslint to v8.53.0 ([#266](https://github.com/rudi23/rozmowni/issues/266)) ([f3ef8e6](https://github.com/rudi23/rozmowni/commit/f3ef8e689e1d13f62b65829ae7eca910ab7592c1))
+- **deps:** update dependency eslint to v8.54.0 ([#269](https://github.com/rudi23/rozmowni/issues/269)) ([612fca1](https://github.com/rudi23/rozmowni/commit/612fca1713bf6395cb37153dace6e1bfbd6abf46))
+- **deps:** update dependency eslint to v8.55.0 ([#272](https://github.com/rudi23/rozmowni/issues/272)) ([14a1c40](https://github.com/rudi23/rozmowni/commit/14a1c40afece21124acba0a4d27995bc3928618a))
+- **deps:** update dependency eslint to v8.56.0 ([#277](https://github.com/rudi23/rozmowni/issues/277)) ([69d9b55](https://github.com/rudi23/rozmowni/commit/69d9b552a0cb50a46c8b701acbd0ba0ee7cc0da9))
+- **deps:** update dependency sass to v1.67.0 ([#248](https://github.com/rudi23/rozmowni/issues/248)) ([7f9571c](https://github.com/rudi23/rozmowni/commit/7f9571ce1f8efe9259749843299edefb20ab2f7c))
+- **deps:** update dependency sass to v1.68.0 ([#249](https://github.com/rudi23/rozmowni/issues/249)) ([0799a7f](https://github.com/rudi23/rozmowni/commit/0799a7f93753880e6cfbf0f110df71e812c1e978))
+- **deps:** update dependency sass to v1.69.0 ([#254](https://github.com/rudi23/rozmowni/issues/254)) ([7ca0124](https://github.com/rudi23/rozmowni/commit/7ca01247c02f3b211eaebcc86f75de1dd7acb2cd))
+- **deps:** update dependency sass to v1.69.1 ([#256](https://github.com/rudi23/rozmowni/issues/256)) ([73a0c48](https://github.com/rudi23/rozmowni/commit/73a0c48fd6b6c579cfa06cc54710de475b8b9bdf))
+- **deps:** update dependency sass to v1.69.2 ([#257](https://github.com/rudi23/rozmowni/issues/257)) ([f8c4b6e](https://github.com/rudi23/rozmowni/commit/f8c4b6eb88015430e4d59e2443d8349c529343d6))
+- **deps:** update dependency sass to v1.69.3 ([#258](https://github.com/rudi23/rozmowni/issues/258)) ([f14e5ea](https://github.com/rudi23/rozmowni/commit/f14e5eaabca99ac5944706ee4e7b48042f599f7d))
+- **deps:** update dependency sass to v1.69.4 ([#261](https://github.com/rudi23/rozmowni/issues/261)) ([451ada1](https://github.com/rudi23/rozmowni/commit/451ada1b9a4039dfcf5db6bb7fbbba819678b44f))
+- **deps:** update dependency sass to v1.69.5 ([#265](https://github.com/rudi23/rozmowni/issues/265)) ([e7ef1c1](https://github.com/rudi23/rozmowni/commit/e7ef1c15a67f3d85a64988c26e124378fd0acad6))
+- **deps:** update dependency sass to v1.69.6 ([#281](https://github.com/rudi23/rozmowni/issues/281)) ([13c4fdc](https://github.com/rudi23/rozmowni/commit/13c4fdce4c0fe8bfaa69d7fbfcbe69715b7a4266))
+- **deps:** update dependency sass to v1.69.7 ([#283](https://github.com/rudi23/rozmowni/issues/283)) ([2400b5c](https://github.com/rudi23/rozmowni/commit/2400b5cec5a5b247bbca29342b5c7ac1968076c2))
+- **deps:** update dependency sass to v1.70.0 ([#285](https://github.com/rudi23/rozmowni/issues/285)) ([efc2033](https://github.com/rudi23/rozmowni/commit/efc2033bcdd394e2cdb3e1f4a55a49f4ce9a7ac8))
+- **deps:** update release-related tools to v17.8.0 ([#259](https://github.com/rudi23/rozmowni/issues/259)) ([8f15144](https://github.com/rudi23/rozmowni/commit/8f151442adb127803ba4e3171c28bc43960ed0a6))
+- **deps:** update release-related tools to v17.8.1 ([#262](https://github.com/rudi23/rozmowni/issues/262)) ([4f14d23](https://github.com/rudi23/rozmowni/commit/4f14d234637ca01d612428d3a42e95403ccf53f7))
+
 ## [1.6.2](https://github.com/rudi23/rozmowni/compare/v1.6.1...v1.6.2) (2023-09-07)
 
 ### Bug Fixes
