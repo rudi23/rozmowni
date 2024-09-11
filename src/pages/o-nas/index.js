@@ -9,6 +9,7 @@ import aniaImage from '../../../public/images/ania.jpg';
 import dannyImage from '../../../public/images/danny.jpg';
 import georgiaImage from '../../../public/images/georgia.jpg';
 import lolitaImage from '../../../public/images/lolita.jpg';
+import wiktorImage from '../../../public/images/wiktor.jpg';
 
 export default function AboutUs() {
     return (
@@ -259,6 +260,44 @@ export default function AboutUs() {
                             Uwielbiam zgłębiać nowe metody nauczania oraz praktyki. Kocham podróżować i codziennie
                             używam języka angielskiego.
                         </p>
+                    </div>
+                </div>
+            </Section>
+            <Section>
+                <div className="row">
+                    <div className="col-lg-6 col-md-12 order-lg-2">
+                        <div className="img-block">
+                            <Image
+                                src={wiktorImage}
+                                alt="Wiktor"
+                                placeholder="blur"
+                                layout="responsive"
+                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                quality="75"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12 order-lg-1">
+                        <h2 className="pb-3">Wiktor</h2>
+                        <p>
+                            Angielski przyszedł do mnie sam, dość naturalnie: zaczęło się od oglądania kreskówek w wieku
+                            3 lat, zajęć w przedszkolu, a następnie w szkole podstawowej i poza szkołą. Potem wyjazdy do
+                            Anglii oraz Kanady, studia w Trójmieście.
+                        </p>
+
+                        <p>
+                            W nauczaniu uwielbiam kontakt z ludźmi i obserwację jak progresują, wspólne osiąganie celów.
+                            Największą przyjemność czerpię z nauki osób dorosłych, szczególnie zawodowo związanych z IT
+                            i biznesem ze względu na ich potrzeby i międzynarodowy charakter pracy.
+                        </p>
+
+                        <p>
+                            Jestem spokojnym, cierpliwym i wyluzowanym nauczycielem nastawionym na konwersacje i naukę
+                            języka użytkowego, codziennego, praktycznego. Lubię skupiać się na słownictwie, precyzyjnym
+                            wyrażaniu siebie, a następnie na gramatyce.
+                        </p>
+
+                        <p>Zajawki? Enologia i koszykówka w wolnym czasie + wyjazdy na wystawy z naszym psem :)</p>
                     </div>
                 </div>
             </Section>
