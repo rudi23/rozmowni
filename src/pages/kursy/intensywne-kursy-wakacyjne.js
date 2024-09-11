@@ -149,7 +149,7 @@ export default function HolidayCourse() {
                                     zajęcia indywidualne odbywają się <strong>1 lub 2 razy w tygodniu</strong>
                                 </p>
                                 <p>
-                                    Cena: <strong>105 zł za lekcję 45 min</strong>
+                                    Cena: <strong>110 zł za lekcję 45 min</strong>
                                 </p>
 
                                 <h4 className="pt-4 pb-2">Jak zapisać się na zajęcia?</h4>
