@@ -12,8 +12,8 @@ export default function CourseRequirements() {
                     Zoom
                 </a>
                 ,{' '}
-                <a href="https://www.skype.com/" target="_blank" rel="noreferrer nofollow">
-                    Skype
+                <a href="https://meet.google.com/" target="_blank" rel="noreferrer nofollow">
+                    Google Meet
                 </a>{' '}
                 lub{' '}
                 <a href="https://www.microsoft.com/microsoft-teams/" target="_blank" rel="noreferrer nofollow">

@@ -38,7 +38,10 @@ export default function Features() {
                             </div>
                             <div className="feature-text">
                                 <h4>Nauczanie on-line</h4>
-                                <p>Możliwość zajęć zdalnych, z dowolnego miejsca za pomocą platformy Zoom lub Skype</p>
+                                <p>
+                                    Możliwość zajęć zdalnych, z dowolnego miejsca za pomocą platformy Zoom lub Google
+                                    Meet
+                                </p>
                             </div>
                         </div>
                     </div>

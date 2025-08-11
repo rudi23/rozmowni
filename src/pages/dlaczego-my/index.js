@@ -43,8 +43,8 @@ export default function WhyUs() {
                                 wzajemnym zaufaniu)
                             </li>
                             <li>
-                                korzystanie ze świata technologii (zajęcia odbywają się na platformie Zoom, Skype lub
-                                Teams a zadania często będą czekać na ciebie na naszych Social Media)
+                                korzystanie ze świata technologii (zajęcia odbywają się na platformie Zoom, Google Meet
+                                lub Teams a zadania często będą czekać na ciebie na naszych Social Media)
                             </li>
                         </ul>
 

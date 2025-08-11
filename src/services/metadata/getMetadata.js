@@ -24,7 +24,7 @@ const logo = {
 };
 
 const fallback = {
-    title: 'Nauka języka przez Internet | Angielski online przez Skype, Zoom',
+    title: 'Nauka języka przez Internet | Angielski online przez Google Meet, Zoom',
     description:
         'Praktyczne lekcje angielskiego z naciskiem na konwersacje w ciekawych tematach dotyczących rozwoju osobistego, psychologii, coachingu, relacji społecznych. Równoczesny rozwój kompetencji przyszłości: komunikacji, kreatywności, radzenie sobie z trudnymi emocjami, przełamywaniem bariery językowej.',
 };
@@ -98,7 +98,7 @@ function getBreadcrumbsJsonLd(name, canonicalUrl) {
 }
 
 function getHomeMetadata(canonicalUrl) {
-    const title = 'Rozmowni.pl | Nauka języka angielskiego online przez Skype, Zoom';
+    const title = 'Rozmowni.pl | Nauka języka angielskiego online przez Google Meet, Zoom';
     const description = '';
 
     return {
@@ -165,7 +165,7 @@ function getPricing(canonicalUrl) {
 function getIndividualCourse(canonicalUrl) {
     const title = `Indywidualne kursy angielskiego dla dorosłych online ${postfix}`;
     const description =
-        'Kurs języka angielskiego online dla dorosłych i młodzieży. Ucz się w domu przez Skype, Zoom lub Teams i nie trać czasu na dojazdy do szkoły językowej. Rozwijaj kompetencje przyszłości, zdobądź pracę marzeń lub przygotuj się do wyjazdu zagranicznego';
+        'Kurs języka angielskiego online dla dorosłych i młodzieży. Ucz się w domu przez Google Meet, Zoom lub Teams i nie trać czasu na dojazdy do szkoły językowej. Rozwijaj kompetencje przyszłości, zdobądź pracę marzeń lub przygotuj się do wyjazdu zagranicznego';
 
     return {
         title,
