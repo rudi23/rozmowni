@@ -111,7 +111,7 @@ export default function Courses8Exam() {
                                     <div className="course-price-wrapper">
                                         <div className="course-price ml-3">
                                             <h4>
-                                                Cena: <span>945 zł</span>
+                                                Cena: <span>1430 zł</span>
                                             </h4>
                                         </div>
                                         <div className="buy-btn">
@@ -136,8 +136,18 @@ export default function Courses8Exam() {
                                         },
                                         {
                                             title: 'Liczba lekcji:',
-                                            content: '54 w ciągu roku',
+                                            content: '26 w semestrze',
                                             icon: 'refresh-time',
+                                        },
+                                        {
+                                            title: 'Liczba semestrów:',
+                                            content: '2 semestry',
+                                            icon: 'calendar',
+                                        },
+                                        {
+                                            title: 'Liczba osób:',
+                                            content: '3-4 osoby w grupie',
+                                            icon: 'group',
                                         },
                                         {
                                             title: 'Płatność:',
@@ -146,7 +156,7 @@ export default function Courses8Exam() {
                                         },
                                         {
                                             title: 'Gdzie:',
-                                            content: 'Online',
+                                            content: 'Nauka on-line',
                                             icon: 'location-pointer',
                                         },
                                     ]}

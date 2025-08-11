@@ -181,7 +181,7 @@ export default function CoursesIndividual() {
                                     <div className="course-price-wrapper">
                                         <div className="course-price ml-3">
                                             <h4>
-                                                Cena: <span>110 zł</span>
+                                                Cena: <span>120 zł</span>
                                             </h4>
                                         </div>
                                         <div className="buy-btn">
@@ -206,7 +206,7 @@ export default function CoursesIndividual() {
                                         },
                                         {
                                             title: 'Koszt:',
-                                            content: '110 zł',
+                                            content: '120 zł',
                                             icon: 'money',
                                         },
                                         {
@@ -221,7 +221,7 @@ export default function CoursesIndividual() {
                                         },
                                         {
                                             title: 'Gdzie:',
-                                            content: 'Online',
+                                            content: 'Nauka on-line',
                                             icon: 'location-pointer',
                                         },
                                     ]}
