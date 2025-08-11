@@ -164,38 +164,7 @@ export default function AboutUs() {
             </Section>
             <Section>
                 <div className="row">
-                    <div className="col-lg-6 col-md-12">
-                        <div className="img-block">
-                            <Image
-                                src={dannyImage}
-                                alt="Danny"
-                                placeholder="blur"
-                                layout="responsive"
-                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
-                                quality="75"
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 order-md-1">
-                        <h3 className="pb-3">Danny</h3>
-                        <p>Hello I’m teacher Danny, I’m from Los Angeles, California, USA.</p>
-                        <p>
-                            Prior to becoming a teacher, I used to work in the PR (public relations) industry. As a PR
-                            agent, I represented technology companies based in the San Francisco, California area. I
-                            have worked in education since 2015 and I have been fortunate enough to work in multiple
-                            countries including the USA, China, U.K., Poland and Spain.
-                        </p>
-                        <p>
-                            Over the years, teaching has become a great passion of mine. I have loved watching my
-                            students develop their language skills and unlock greater career opportunities for
-                            themselves.
-                        </p>
-                    </div>
-                </div>
-            </Section>
-            <Section>
-                <div className="row">
-                    <div className="col-lg-6 col-md-12 order-lg-2">
+                    <div className="col-lg-6 col-md-12 order-lg-1">
                         <div className="img-block">
                             <Image
                                 src={georgiaImage}
@@ -207,7 +176,7 @@ export default function AboutUs() {
                             />
                         </div>
                     </div>
-                    <div className="col-lg-6 col-md-12 order-lg-1">
+                    <div className="col-lg-6 col-md-12 order-lg-2">
                         <h2 className="pb-3">Georgia</h2>
                         <p>Hi everyone! My name is Georgia and I come from London.</p>
                         <p>
@@ -227,38 +196,6 @@ export default function AboutUs() {
                         <p>
                             Besides studying Spanish in my free time, I also enjoy crocheting, reading books and eating
                             good food!
-                        </p>
-                    </div>
-                </div>
-            </Section>
-            <Section>
-                <div className="row">
-                    <div className="col-lg-6 col-md-12">
-                        <div className="img-block">
-                            <Image
-                                src={lolitaImage}
-                                alt="Lolita"
-                                placeholder="blur"
-                                layout="responsive"
-                                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
-                                quality="75"
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 order-md-1">
-                        <h3 className="pb-3">Lolita</h3>
-                        <p>
-                            Najważniejszą cechą, która mnie charakteryzuje, jest moja absolutna miłość do języków
-                            obcych. Obecnie posługuję się biegle sześcioma różnymi językami. Mam stopień naukowy w
-                            dziedzinie filologii angielskiej i chińskiej.
-                        </p>
-                        <p>
-                            Dodatkowo, ukończyłem studia z zarządzania biznesem prowadzone w języku angielskim. Dlatego
-                            też język angielski w kontekście biznesowym to obszar, w którym czuję się naprawdę pewnie.
-                        </p>
-                        <p>
-                            Uwielbiam zgłębiać nowe metody nauczania oraz praktyki. Kocham podróżować i codziennie
-                            używam języka angielskiego.
                         </p>
                     </div>
                 </div>
