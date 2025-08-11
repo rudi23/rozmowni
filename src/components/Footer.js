@@ -282,7 +282,7 @@ export default function Footer() {
                     <div className="row justify-content-center align-items-center">
                         <div className="col-12">
                             <div className="copyright text-lg-center">
-                                <p>Copyright © 2022 by Rozmowni.pl | All Rights Reserved</p>
+                                <p>Copyright © 2025 by Rozmowni.pl | All Rights Reserved</p>
                             </div>
                         </div>
                     </div>
