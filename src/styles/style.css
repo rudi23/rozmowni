@@ -328,6 +328,7 @@ Feature Style 2
 }
 
 .course-sidebar .course-widget {
+  background-color: #fff;
   border: 1px solid #eee;
   padding: 25px;
   margin-bottom: 25px;
