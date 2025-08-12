@@ -1,0 +1,52 @@
+import Link from 'next/link';
+import Image from 'next/image';
+import useClickTracking from '../hooks/useClickTracking';
+import { routeMap, routeNames } from '../routes';
+import CourseRequirements from './CourseRequirements';
+import CourseDetails from './CourseDetails';
+
+export default function CourseSidebar({
+    image,
+    imageAlt,
+    price,
+    enrollEvent,
+    courseDetails,
+    showRequirements = true,
+    className = '',
+    thumbClassName = '',
+}) {
+    const trackClick = useClickTracking();
+
+    return (
+        <div className={`course-sidebar ${className}`}>
+            <div className={`course-single-thumb ${thumbClassName}`}>
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    placeholder="blur"
+                    layout="responsive"
+                    sizes="(min-width: 1200px) 318px, (min-width: 992px) 258px, (min-width: 768px) 658px, (min-width: 576px) 478px, calc(100vw - 62px)"
+                    quality="75"
+                />
+                <div className="course-price-wrapper">
+                    <div className="course-price ml-3">
+                        <h4>
+                            Cena: <span>{price}</span>
+                        </h4>
+                    </div>
+                    <div className="buy-btn">
+                        <Link href={routeMap[routeNames.CONTACT]}>
+                            <a className="btn btn-main btn-block" onClick={() => trackClick(enrollEvent)}>
+                                Zapisz się
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            <CourseDetails items={courseDetails} />
+
+            {showRequirements && <CourseRequirements />}
+        </div>
+    );
+}

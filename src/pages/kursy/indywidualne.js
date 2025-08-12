@@ -1,18 +1,13 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import PageHeader from '../../components/PageHeader';
 import Accordion from '../../components/Accordion';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
-import { routeMap, routeNames } from '../../routes';
-import CourseRequirements from '../../components/CourseRequirements';
-import CourseDetails from '../../components/CourseDetails';
+import CourseSidebar from '../../components/CourseSidebar';
 import courseIndividualImage from '../../../public/images/course-individual.jpg';
 import NewSemesterSignUp from '../../components/NewSemesterSignUp';
 import Section from '../../components/Section';
-import styles from './Course.module.scss';
 
 export default function CoursesIndividual() {
     const trackClick = useClickTracking();
@@ -20,9 +15,7 @@ export default function CoursesIndividual() {
     return (
         <>
             <PageHeader title="Kursy indywidualne" />
-
             <NewSemesterSignUp />
-
             <Section background="gray">
                 <div className="row">
                     <div className="col-lg-8">
@@ -168,67 +161,40 @@ export default function CoursesIndividual() {
                     </div>
 
                     <div className="col-lg-4">
-                        <div className="course-sidebar">
-                            <div className="course-single-thumb bg-white">
-                                <Image
-                                    src={courseIndividualImage}
-                                    alt="Nauczycielka z kawą przy stoliku"
-                                    placeholder="blur"
-                                    layout="responsive"
-                                    sizes="(min-width: 1200px) 318px, (min-width: 992px) 258px, (min-width: 768px) 658px, (min-width: 576px) 478px, calc(100vw - 62px)"
-                                    quality="75"
-                                />
-                                <div className="course-price-wrapper">
-                                    <div className="course-price ml-3">
-                                        <h4>
-                                            Cena: <span>120 zł</span>
-                                        </h4>
-                                    </div>
-                                    <div className="buy-btn">
-                                        <Link href={routeMap[routeNames.CONTACT]}>
-                                            <a
-                                                className="btn btn-main btn-block"
-                                                onClick={() => trackClick(events.INDIVIDUAL_COURSE_CLICK_ENROLL)}
-                                            >
-                                                Zapisz się
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <CourseDetails
-                                items={[
-                                    {
-                                        title: 'Czas',
-                                        content: '45 min.',
-                                        icon: 'alarm-clock',
-                                    },
-                                    {
-                                        title: 'Koszt:',
-                                        content: '120 zł',
-                                        icon: 'money',
-                                    },
-                                    {
-                                        title: 'Płatność:',
-                                        content: 'za miesiąc z góry',
-                                        icon: 'money-bag',
-                                    },
-                                    {
-                                        title: 'Poziom:',
-                                        content: 'A2, B1, B2, C1, C2',
-                                        icon: 'graph-bar',
-                                    },
-                                    {
-                                        title: 'Gdzie:',
-                                        content: 'Nauka on-line',
-                                        icon: 'location-pointer',
-                                    },
-                                ]}
-                            />
-
-                            <CourseRequirements />
-                        </div>
+                        <CourseSidebar
+                            image={courseIndividualImage}
+                            imageAlt="Nauczycielka z kawą przy stoliku"
+                            price="120 zł"
+                            enrollEvent={events.INDIVIDUAL_COURSE_CLICK_ENROLL}
+                            thumbClassName="bg-white"
+                            courseDetails={[
+                                {
+                                    title: 'Czas',
+                                    content: '45 min.',
+                                    icon: 'alarm-clock',
+                                },
+                                {
+                                    title: 'Koszt:',
+                                    content: '120 zł',
+                                    icon: 'money',
+                                },
+                                {
+                                    title: 'Płatność:',
+                                    content: 'za miesiąc z góry',
+                                    icon: 'money-bag',
+                                },
+                                {
+                                    title: 'Poziom:',
+                                    content: 'A2, B1, B2, C1, C2',
+                                    icon: 'graph-bar',
+                                },
+                                {
+                                    title: 'Gdzie:',
+                                    content: 'Nauka on-line',
+                                    icon: 'location-pointer',
+                                },
+                            ]}
+                        />
                     </div>
                 </div>
             </Section>
