@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import PageHeader from '../../components/PageHeader';
+import CourseHeader from '../../components/CourseHeader';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
 import { routeMap, routeNames } from '../../routes';
@@ -49,9 +50,7 @@ export default function HolidayCourse() {
                 </div>
                 <div className="row">
                     <div className="col-lg-12">
-                        <div className="course-single-header">
-                            <h2 className="pt-3 pb-3">ROZGADAJ SIĘ W WAKACJE</h2>
-
+                        <CourseHeader title="ROZGADAJ SIĘ W WAKACJE" className="pt-3 pb-3">
                             <p>
                                 Dziękujemy za zainteresowanie ofertą wakacyjnych kursów języka angielskiego dla
                                 dorosłych w Rozmowni.pl!
@@ -187,7 +186,7 @@ export default function HolidayCourse() {
                             </Link>
 
                             <h4 className="pt-4 pb-2">Do zobaczenia!</h4>
-                        </div>
+                        </CourseHeader>
                     </div>
                 </div>
             </Section>
