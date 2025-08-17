@@ -24,17 +24,21 @@ const responsive = {
 };
 
 export default function Opinions() {
-    const [isOpen, setOpen] = useState(false);
+    const [openStates, setOpenStates] = useState({});
 
-    function ReadMoreButton() {
+    function ReadMoreButton({ opinionIndex }) {
         return (
-            !isOpen && (
+            !openStates[opinionIndex] && (
                 <a
                     href="#"
                     onClick={(e) => {
                         e.preventDefault();
-                        setOpen(!isOpen);
+                        setOpenStates((prev) => ({
+                            ...prev,
+                            [opinionIndex]: !prev[opinionIndex],
+                        }));
                     }}
+                    aria-label="Przeczytaj pełną opinię"
                 >
                     przeczytaj więcej &gt;&gt;
                 </a>
@@ -42,9 +46,13 @@ export default function Opinions() {
         );
     }
 
-    function ReadMoreText({ children }) {
+    function ReadMoreText({ children, opinionIndex }) {
         return (
-            <div className="more" style={{ display: isOpen ? 'block' : 'none' }}>
+            <div
+                className="more"
+                style={{ display: openStates[opinionIndex] ? 'block' : 'none' }}
+                aria-expanded={openStates[opinionIndex] ? 'true' : 'false'}
+            >
                 {children}
             </div>
         );
@@ -53,7 +61,7 @@ export default function Opinions() {
     const opinions = [
         {
             author: 'Magdalena Groń',
-            content: (
+            content: (opinionIndex) => (
                 <Fragment>
                     <p>
                         3 lata temu zdecydowałam, że chciałabym odświeżyć swój angielski i wreszcie po tylu latach móc
@@ -65,9 +73,10 @@ export default function Opinions() {
                         lekcjach poruszamy wszystkie możliwe tematy, czytamy artykuły z gazet o których później
                         dyskutujemy, oglądamy różne filmiki o bardzo różnorodnej tematyce, począwszy od tych bardzo
                         zabawnych, a kończąc na tych bardzo poważnych. Także nie zawsze ulubiona gramatyka podana jest w
-                        sposób bardzo zrozumiały i lekki, a co najważniejsze skuteczny. <ReadMoreButton />
+                        sposób bardzo zrozumiały i lekki, a co najważniejsze skuteczny.{' '}
+                        <ReadMoreButton opinionIndex={opinionIndex} />
                     </p>
-                    <ReadMoreText>
+                    <ReadMoreText opinionIndex={opinionIndex}>
                         <p>
                             Gosia skupia się na potrzebach swoich studentów, na początku zawsze pyta na czym im
                             najbardziej zależy jeśli chodzi o naukę języka. To Ty możesz mieć duży wpływ na to jakie
@@ -87,7 +96,7 @@ export default function Opinions() {
         },
         {
             author: 'Łukasz Skotarczak',
-            content: (
+            content: () => (
                 <p>
                     Od pół roku z chęcią uczęszczam na indywidualne zajęcia do Małgorzaty. Zajęcia odbywają się na
                     zasadzie konwersacji i każda lekcja dopasowana jest do moich potrzeb. Lekcje są ciekawe i praktyczne
@@ -99,7 +108,7 @@ export default function Opinions() {
         },
         {
             author: 'Paulina Badan',
-            content: (
+            content: (opinionIndex) => (
                 <Fragment>
                     <p>
                         Od listopada ubiegłego roku biorę udział w zajęciach indywidualnych – językowych z Gosią. Bardzo
@@ -110,9 +119,9 @@ export default function Opinions() {
                         twórczy sposób motywuje do dalszej pracy. Swobodna konwersacja jest świetnym pretekstem do
                         szlifowania praktycznych umiejętności językowych, a ćwiczenia gramatyczne zobrazowane są
                         ciekawymi przykładami, które pomagają w opanowaniu nowych, ale i starych (pokrytych kurzem
-                        niepamięci) wiadomości. <ReadMoreButton />
+                        niepamięci) wiadomości. <ReadMoreButton opinionIndex={opinionIndex} />
                     </p>
-                    <ReadMoreText>
+                    <ReadMoreText opinionIndex={opinionIndex}>
                         <p>
                             Dla mnie, to duża dawka świeżości w dotychczasowej nauce języka obcego, a metodyka
                             nauczenia, którą proponuje Gosia jest świetna! Pozwala na nowo odkryć radość z używania
@@ -125,7 +134,7 @@ export default function Opinions() {
         },
         {
             author: 'Aleksandra Bańka',
-            content: (
+            content: () => (
                 <Fragment>
                     <p>
                         Moim marzeniem było MÓWIĆ po angielsku. Kiedyś miałam z tym duży problem. Postanowiłam zapisać
@@ -139,14 +148,14 @@ export default function Opinions() {
         },
     ];
 
-    function renderOpinion({ author, content }) {
+    function renderOpinion({ author, content }, index) {
         return (
             <div className={styles.root} key={author}>
                 <div className={styles.content}>
                     <div className={styles.quote}>
-                        <i className="bi bi-quote" />
+                        <i className="bi bi-quote" aria-hidden="true" />
                     </div>
-                    {content}
+                    {typeof content === 'function' ? content(index) : content}
                     <div className={styles.author}>{author}</div>
                 </div>
             </div>
@@ -169,12 +178,27 @@ export default function Opinions() {
                         removeArrowOnDeviceType={['tablet', 'mobile']}
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                        beforeChange={(nextSlide, { currentSlide, onMove }) => {
-                            setOpen(false);
-                        }}
                     >
                         {opinions.map(renderOpinion)}
                     </Carousel>
+                </div>
+            </div>
+
+            {/* Google Reviews Link */}
+            <div className="row justify-content-center mt-4">
+                <div className="col-lg-8 text-center">
+                    <div className={styles.googleReviews}>
+                        <p className={styles.googleText}>Sprawdź więcej opinii naszych uczniów na Google</p>
+                        <a
+                            href="https://search.google.com/local/reviews?placeid=ChIJRfTrnfxbFkcRCtSKA73F6g0"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.googleLink}
+                        >
+                            <i className="bi bi-google" aria-hidden="true" />
+                            Zobacz opinie na Google
+                        </a>
+                    </div>
                 </div>
             </div>
         </Section>

@@ -1,0 +1,288 @@
+@import "../../styles/mixins";
+
+.heroSection {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include onMobile() {
+    padding: 0 1rem;
+  }
+}
+
+.heroDescription {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-top: 1.5rem;
+
+  @include onMobile() {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+  }
+}
+
+.featuresSection {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  @include onMobile() {
+    margin-bottom: 1rem;
+  }
+}
+
+.testFeatures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
+
+  @include onMobile() {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 100%;
+    margin: 1.5rem auto 0;
+  }
+}
+
+.feature {
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border-top: 4px solid #0f8d8c;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  @include onMobile() {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    @include onMobile() {
+      transform: translateY(-2px);
+    }
+  }
+
+  span {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+
+    @include onMobile() {
+      font-size: 1rem;
+      margin-top: 0.75rem;
+    }
+  }
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  color: #0f8d8c;
+  margin-bottom: 1rem;
+
+  @include onMobile() {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.bonusSection {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bonusInfo {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+
+    @include onMobile() {
+      margin: 1.5rem 0;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+
+      @include onMobile() {
+        padding: 0.75rem 0;
+        font-size: 1rem;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      svg {
+        color: #0f8d8c;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+
+        @include onMobile() {
+          font-size: 1.3rem;
+          margin-right: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+.selectionContainer {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.selectionDescription {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 1.5rem 0 3rem;
+
+  @include onMobile() {
+    font-size: 1rem;
+    margin: 1rem 0 2rem;
+  }
+}
+
+.testOptions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include onMobile() {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 100%;
+  }
+}
+
+.testOption {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border-top: 4px solid #0f8d8c;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  @include onMobile() {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @include onMobile() {
+      transform: translateY(-4px);
+    }
+  }
+
+  h3 {
+    margin: 1.5rem 0 1rem;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 600;
+
+    @include onMobile() {
+      margin: 1rem 0 0.75rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  p {
+    color: #666;
+    margin: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    @include onMobile() {
+      margin: 0.6rem 0;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.testIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #0f8d8c, #148a89);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(15, 141, 140, 0.3);
+  transition: transform 0.3s ease;
+
+  @include onMobile() {
+    width: 60px;
+    height: 60px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+
+    @include onMobile() {
+      transform: scale(1.05);
+    }
+  }
+
+  svg {
+    font-size: 2rem;
+    color: white;
+
+    @include onMobile() {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.inlineIcon {
+  color: #0f8d8c !important;
+  font-size: 1rem !important;
+  flex-shrink: 0;
+
+  @include onMobile() {
+    font-size: 0.9rem !important;
+  }
+}
+
+.selectButton {
+  @include ctaSmall();
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+
+  @include onMobile() {
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 16px; // Prevents zoom on iOS
+  }
+}

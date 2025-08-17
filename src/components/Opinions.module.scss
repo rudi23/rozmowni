@@ -1,4 +1,4 @@
-@import '../styles/mixins';
+@import "../styles/mixins";
 
 .root {
   align-items: center;
@@ -48,7 +48,7 @@
 
       i {
         font-size: 45px;
-        opacity: .4;
+        opacity: 0.4;
 
         @include onDesktop() {
           font-size: 60px;
@@ -58,4 +58,54 @@
   }
 }
 
+.googleReviews {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
 
+.googleText {
+  color: #535967;
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.googleLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 24px;
+  background: #0f8d8c;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #0c6b6a;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 141, 140, 0.3);
+  }
+
+  i {
+    font-size: 18px;
+  }
+
+  @include onMobile() {
+    padding: 10px 20px;
+    font-size: 15px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+}

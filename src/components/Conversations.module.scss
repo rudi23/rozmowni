@@ -1,0 +1,149 @@
+@import "../styles/mixins";
+
+.textWithFloatingImage {
+  position: relative;
+}
+
+.floatingImage {
+  float: right;
+  margin: 0 0 1.5rem 2rem;
+  max-width: 350px;
+  width: 40%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  @include onMobile() {
+    float: none;
+    margin: 1.5rem 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    max-width: 300px;
+    width: 35%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    max-width: 400px;
+    margin-left: 2.5rem;
+  }
+}
+
+.conversationCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+
+  @include onMobile() {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.conversationCard {
+  background: linear-gradient(135deg, #fff 0%, #f8fcff 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(15, 141, 140, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0f8d8c 0%, #17a2b8 100%);
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(15, 141, 140, 0.15);
+    border-color: rgba(15, 141, 140, 0.2);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.levelBadge {
+  font-size: 1.2rem;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.levelBasic {
+    background: linear-gradient(135deg, #d4f7d4 0%, #a8e6a3 100%);
+  }
+
+  &.levelIntermediate {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  }
+
+  &.levelAdvanced {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  }
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.cardContent {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.topicItem {
+  background: rgba(15, 141, 140, 0.08);
+  color: #2c3e50;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid #0f8d8c;
+
+  &:hover {
+    background: rgba(15, 141, 140, 0.15);
+    transform: translateX(5px);
+  }
+}
+
+.ctaSection {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.ctaText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+
+  @include onMobile() {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+}

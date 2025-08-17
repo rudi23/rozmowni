@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faLinkedin, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { useRouter } from 'next/router';
 import SectionHeading from '../../components/SectionHeading';
 import Section from '../../components/Section';
 import ContactForm from '../../components/ContactForm';
@@ -13,6 +14,7 @@ import { decryptEmail } from '../../utils';
 import contactImage from '../../../public/images/contact.png';
 
 export default function Contact() {
+    const router = useRouter();
     const trackClick = useClickTracking();
 
     return (
@@ -23,7 +25,7 @@ export default function Contact() {
                 defer: true,
             }}
         >
-            <PageHeader title="Kontakt" notificationLink={false} />
+            <PageHeader title="Kontakt" />
             <Section>
                 <div className="row">
                     <div className="col-lg-7 col-md-12">
@@ -196,7 +198,7 @@ export default function Contact() {
 
                     <div className="col-lg-8">
                         <p className="contact-item-header">Skontaktuj się z nami przez formularz kontaktowy</p>
-                        <ContactForm />
+                        <ContactForm testParams={router.query} />
                     </div>
                 </div>
             </Section>

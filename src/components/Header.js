@@ -36,20 +36,6 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
 
             <div className={isOpen ? 'collapse navbar-collapse show' : 'collapse navbar-collapse'} id="navbarMenu">
                 <ul className="navbar-nav mx-auto">
-                    <li className="nav-item">
-                        <Link href={routeMap[routeNames.WHY_US]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.WHY_US)}>
-                                Dlaczego my?
-                            </a>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link href={routeMap[routeNames.ABOUT_US]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
-                                O nas
-                            </a>
-                        </Link>
-                    </li>
                     {routeMap[routeNames.HOLIDAY_COURSE] && (
                         <li className="nav-item">
                             <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
@@ -96,9 +82,23 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
                         </Link>
                     </li>
                     <li className="nav-item">
+                        <Link href={routeMap[routeNames.ABOUT_US]}>
+                            <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
+                                O nas
+                            </a>
+                        </Link>
+                    </li>
+                    <li className="nav-item">
                         <Link href={routeMap[routeNames.CONTACT]}>
                             <a className="nav-link" onClick={onLinkClick(routeNames.CONTACT)}>
                                 Kontakt
+                            </a>
+                        </Link>
+                    </li>
+                    <li className="nav-item test-cta">
+                        <Link href={routeMap[routeNames.TEST]}>
+                            <a className="nav-link" onClick={onLinkClick(routeNames.TEST)}>
+                                Test poziomujący
                             </a>
                         </Link>
                     </li>
@@ -112,20 +112,6 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
     return (
         <div className="collapse navbar-collapse">
             <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                    <Link href={routeMap[routeNames.WHY_US]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.WHY_US)}>
-                            Dlaczego my?
-                        </a>
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link href={routeMap[routeNames.ABOUT_US]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
-                            O nas
-                        </a>
-                    </Link>
-                </li>
                 <li data-key="refresh" className={isDropDownOpen ? 'nav-item dropdown show' : 'nav-item dropdown'}>
                     <div
                         className="nav-link dropdown-toggle"
@@ -178,10 +164,24 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
                         </a>
                     </Link>
                 </li>
-                <li className="nav-item ">
+                <li className="nav-item">
+                    <Link href={routeMap[routeNames.ABOUT_US]}>
+                        <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
+                            O nas
+                        </a>
+                    </Link>
+                </li>
+                <li className="nav-item">
                     <Link href={routeMap[routeNames.CONTACT]}>
                         <a className="nav-link" onClick={onLinkClick(routeNames.CONTACT)}>
                             Kontakt
+                        </a>
+                    </Link>
+                </li>
+                <li className="nav-item test-cta">
+                    <Link href={routeMap[routeNames.TEST]}>
+                        <a className="nav-link" onClick={onLinkClick(routeNames.TEST)}>
+                            Test poziomujący
                         </a>
                     </Link>
                 </li>
@@ -240,7 +240,7 @@ export default function Header() {
                             />
                         )}
 
-                        <div className="header-contact-phone d-none d-lg-block">
+                        {/* <div className="header-contact-phone d-none d-lg-block">
                             <span>Tel.:</span>&nbsp;
                             <a
                                 href="tel:+48506262227"
@@ -249,7 +249,7 @@ export default function Header() {
                             >
                                 506 262 227
                             </a>
-                        </div>
+                        </div> */}
 
                         <ul className="header-contact-right d-none d-lg-block">
                             <li>

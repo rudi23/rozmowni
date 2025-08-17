@@ -1,9 +1,9 @@
-@import '../styles/mixins';
+@import "../styles/mixins";
 
 .section {
   padding: 40px 0;
 
-  @include onTabletAndDesktop(){
+  @include onTabletAndDesktop() {
     padding: 48px 0;
   }
 

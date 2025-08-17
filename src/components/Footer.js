@@ -79,19 +79,6 @@ export default function Footer() {
                             <div className="widget-title">Rozmowni.pl</div>
                             <ul className="list-unstyled footer-links">
                                 <li>
-                                    <Link href={routeMap[routeNames.WHY_US]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.WHY_US])
-                                                )
-                                            }
-                                        >
-                                            Dlaczego my?
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
                                     <Link href={routeMap[routeNames.ABOUT_US]}>
                                         <a
                                             onClick={() =>

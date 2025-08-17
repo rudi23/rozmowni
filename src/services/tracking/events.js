@@ -3,10 +3,60 @@ export const HOME_BANNER_CLICK_CONTACT = {
     action: 'Click',
     label: 'Banner - contact',
 };
+export const HOME_BANNER_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Banner - test',
+};
+export const HOME_BANNER_CLICK_LEARN_MORE = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Banner - learn more',
+};
+export const HOME_SOCIAL_PROOF_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Social proof - test',
+};
+export const HOME_TEST_BENEFITS_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Test benefits - test',
+};
+export const HOME_FAQ_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'FAQ - test',
+};
+export const HOME_FAQ_CLICK_CONTACT = {
+    category: 'Home',
+    action: 'Click',
+    label: 'FAQ - contact',
+};
+export const HOME_FINAL_CTA_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Final CTA - test',
+};
+export const HOME_STICKY_CTA_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Sticky CTA - test',
+};
 export const HOME_WHY_US_CLICK_CONTACT = {
     category: 'Home',
     action: 'Click',
     label: 'Why us - contact',
+};
+export const HOME_WHY_US_EXPANDED_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Why us expanded - test top',
+};
+export const HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST = {
+    category: 'Home',
+    action: 'Click',
+    label: 'Why us expanded - test bottom',
 };
 export const HOME_CONVERSATIONS_CLICK_CONTACT = {
     category: 'Home',

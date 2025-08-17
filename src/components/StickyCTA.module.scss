@@ -1,0 +1,282 @@
+@import "../styles/mixins";
+
+.stickyCTA {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+
+  @include onMobile() {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  &.minimized {
+    .ctaContent {
+      transform: scale(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+.ctaContent {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50px;
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  max-width: 368px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  @include onMobile() {
+    max-width: 260px;
+    padding: 8px 12px;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 25px;
+    font-size: 12px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+  }
+
+  // Animowane tło
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border-radius: inherit;
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+.minimizeButton {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #ff6b35;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+
+  @include onMobile() {
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+.expandButton {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+  }
+
+  @include onMobile() {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+}
+
+.ctaText {
+  flex: 1;
+  margin-right: 12px;
+
+  @include onMobile() {
+    margin-right: 8px;
+    margin-bottom: 0;
+  }
+}
+
+.ctaTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.1;
+  margin-bottom: 1px;
+
+  @include onMobile() {
+    font-size: 11px;
+    line-height: 1;
+  }
+}
+
+.ctaSubtitle {
+  font-size: 11px;
+  opacity: 0.9;
+  line-height: 1.1;
+
+  @include onMobile() {
+    font-size: 9px;
+    line-height: 1;
+  }
+}
+
+.ctaButton {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 8px 16px !important;
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.05) !important;
+    color: white !important;
+    text-decoration: none !important;
+  }
+
+  @include onMobile() {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+}
+
+// Animacje
+@keyframes shimmer {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6),
+      0 0 0 8px rgba(255, 107, 53, 0.1);
+  }
+}
+
+// Animacja wejścia
+.stickyCTA {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Responsywność dla bardzo małych ekranów
+@media screen and (max-width: 360px) {
+  .stickyCTA {
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .ctaContent {
+    max-width: 240px;
+    padding: 6px 8px;
+  }
+
+  .ctaTitle {
+    font-size: 10px;
+  }
+
+  .ctaSubtitle {
+    font-size: 8px;
+  }
+
+  .ctaButton {
+    padding: 3px 6px !important;
+    font-size: 9px !important;
+  }
+}
+
+// Dodatkowe optymalizacje dla landscape mobile
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .stickyCTA {
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .ctaContent {
+    padding: 6px 10px;
+    max-width: 220px;
+  }
+
+  .ctaTitle {
+    font-size: 10px;
+    margin-bottom: 0;
+  }
+
+  .ctaSubtitle {
+    display: none; // Ukryj podtytuł w landscape
+  }
+
+  .expandButton {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,228 @@
+@import "../styles/mixins";
+
+.socialProofSection {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 40px 0;
+  border-top: 3px solid #0f8d8c;
+  position: relative;
+
+  @media screen and (min-width: 1200px) {
+    padding: 50px 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #0f8d8c, transparent);
+  }
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 2rem;
+
+  @include onMobile() {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    gap: 2.5rem;
+  }
+}
+
+.stat {
+  text-align: center;
+  padding: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 140px;
+  animation: fadeInUp 0.6s ease-out;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .statIcon {
+    font-size: 1.8rem;
+    color: #0f8d8c;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: block;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .number {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #0f8d8c;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include onMobile() {
+      font-size: 2rem;
+      height: 48px;
+      margin-bottom: 0.75rem;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 3rem;
+      height: 72px;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .label {
+    font-size: 0.9rem;
+    color: #495057; // Better contrast (was #6c757d)
+    font-weight: 600;
+    line-height: 1.2;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+
+    @include onMobile() {
+      color: #343a40; // Stronger on mobile
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 1rem;
+      min-height: 40px;
+    }
+  }
+}
+
+.quickTestimonial {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border-left: 4px solid #0f8d8c;
+  transition: all 0.3s ease;
+  animation: fadeInRight 0.8s ease-out;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+  }
+
+  @include onMobile() {
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    margin-top: 3rem;
+  }
+
+  .quoteIcon {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 4rem;
+    color: #0f8d8c;
+    font-family: Georgia, serif;
+    opacity: 0.3;
+  }
+
+  .quote {
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .author {
+    font-weight: 600;
+    color: #495057; // Better contrast (was #6c757d)
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    @include onMobile() {
+      color: #343a40; // Stronger on mobile
+    }
+  }
+
+  .stars {
+    color: #ffc107;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+
+    svg {
+      margin-right: 2px;
+    }
+  }
+
+  .testimonialCta {
+    color: #0f8d8c;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    background: rgba(15, 141, 140, 0.08);
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    &:hover {
+      color: #0c6b6a;
+      text-decoration: none;
+    }
+  }
+}
+
+// Keyframes animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -1,0 +1,382 @@
+@import "../styles/mixins";
+
+.finalCTA {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (min-width: 1200px) {
+    padding: 80px 0;
+  }
+
+  // Animated background pattern
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+        circle at 20% 50%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 80%,
+        rgba(255, 255, 255, 0.06) 0%,
+        transparent 50%
+      );
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+.socialProof {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+
+  .socialIcon {
+    margin-right: 0.5rem;
+    color: #ffd700;
+  }
+}
+
+.mainHeading {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  @include onMobile() {
+    font-size: 2rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 3rem;
+  }
+
+  .highlight {
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #ffd700;
+      border-radius: 2px;
+    }
+  }
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+  line-height: 1.4;
+
+  @include onMobile() {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.finalBenefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 3rem 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include onMobile() {
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+}
+
+.benefitRow {
+  display: flex;
+  gap: 1.5rem;
+
+  @include onMobile() {
+    gap: 1rem;
+  }
+
+  .finalBenefit {
+    flex: 1;
+  }
+}
+
+.finalBenefit {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1.25rem;
+  border-radius: 10px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  svg {
+    display: block;
+    margin: 0 auto 0.5rem;
+    font-size: 1.5rem;
+    color: #ffd700;
+  }
+
+  @include onMobile() {
+    padding: 1rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+.urgencyBanner {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 3rem 0;
+  position: relative;
+  animation: pulse 2s infinite;
+
+  .urgencyContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    @include onMobile() {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+    }
+  }
+
+  .warningIcon {
+    color: #ffd700;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .urgencyTitle {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .urgencyText {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+}
+
+.valueBox {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 3rem 0;
+  backdrop-filter: blur(10px);
+
+  .valueTitle {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: #ffd700;
+  }
+
+  .valueGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .valueRow {
+    display: flex;
+    gap: 1rem;
+
+    @include onMobile() {
+      flex-direction: column;
+    }
+
+    .valueItem {
+      flex: 1;
+    }
+  }
+
+  .valueItem {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+
+    .valueIcon {
+      color: #ffd700;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+
+    span {
+      color: #ffd700;
+      font-weight: 600;
+    }
+  }
+
+  .totalValue {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+
+    .oldPrice {
+      text-decoration: line-through;
+      opacity: 0.7;
+      margin-right: 1rem;
+    }
+
+    .newPrice {
+      color: #ffd700;
+      font-size: 1.4em;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+  }
+}
+
+.ctaSection {
+  margin: 3rem 0;
+}
+
+.finalButton {
+  @include ctaInverted();
+
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover {
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.countdown {
+  margin-top: 1.5rem;
+
+  p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+.guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0 2rem 0;
+  font-size: 0.9rem;
+
+  @include onMobile() {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .lockIcon {
+    color: #ffd700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .guaranteeText {
+    opacity: 0.9;
+    line-height: 1.4;
+
+    small {
+      opacity: 0.8;
+    }
+  }
+}
+
+.lastTestimonial {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  font-style: italic;
+  border-left: 4px solid #ffd700;
+
+  p {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 600;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    border-color: #ffd700;
+  }
+  50% {
+    border-color: rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    border-color: #ffd700;
+  }
+}

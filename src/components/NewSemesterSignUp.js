@@ -47,7 +47,7 @@ export default function WhyUs() {
                     </p>
                     <p>Dołącz do nas i odkryj, jak angielski może stać się narzędziem Twojego osobistego rozwoju.</p>
 
-                    <Link href={routeMap[routeNames.WHY_US]}>
+                    <Link href={routeMap[routeNames.TEST]}>
                         <a className="btn btn-main mt-4" onClick={() => trackClick(events.HOME_WHY_US_CLICK_CONTACT)}>
                             <FontAwesomeIcon icon={faCheck} className="mr-2" />
                             Zrób test i dowiedz się, czy jesteś gotowy(a) do egzaminu!

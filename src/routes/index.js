@@ -1,6 +1,5 @@
 export const routeNames = {
     HOME: 'HOME',
-    WHY_US: 'WHY_US',
     ABOUT_US: 'ABOUT_US',
     PRICING: 'PRICING',
     INDIVIDUAL_COURSE: 'INDIVIDUAL_COURSE',
@@ -9,12 +8,12 @@ export const routeNames = {
     EXAM_8_COURSE: 'EXAM_8_COURSE',
     MATURA_EXAM_COURSE: 'MATURA_EXAM_COURSE',
     CONTACT: 'CONTACT',
+    TEST: 'TEST',
     PRIVACY_POLICY: 'PRIVACY_POLICY',
 };
 
 export const routeTitles = {
     [routeNames.HOME]: 'Home',
-    [routeNames.WHY_US]: 'Why us',
     [routeNames.ABOUT_US]: 'About us',
     [routeNames.PRICING]: 'Pricing',
     [routeNames.INDIVIDUAL_COURSE]: 'Individual course',
@@ -22,12 +21,12 @@ export const routeTitles = {
     [routeNames.EXAM_8_COURSE]: 'Exam for 8 class course',
     [routeNames.MATURA_EXAM_COURSE]: 'Matura exam course',
     [routeNames.CONTACT]: 'Contact',
+    [routeNames.TEST]: 'Test',
     [routeNames.PRIVACY_POLICY]: 'Privacy policy',
 };
 
 export const routeMap = {
     [routeNames.HOME]: '/',
-    [routeNames.WHY_US]: '/dlaczego-my',
     [routeNames.ABOUT_US]: '/o-nas',
     [routeNames.PRICING]: '/cennik',
     [routeNames.INDIVIDUAL_COURSE]: '/kursy/indywidualne',
@@ -36,6 +35,7 @@ export const routeMap = {
     [routeNames.MATURA_EXAM_COURSE]: '/kursy/egzamin-maturalny',
     [routeNames.CONTACT]: '/kontakt',
     // [routeNames.HOLIDAY_COURSE]: '/kursy/intensywne-kursy-wakacyjne',
+    [routeNames.TEST]: '/test-poziomujacy',
     [routeNames.PRIVACY_POLICY]: '/polityka-prywatnosci',
 };
 

@@ -1,6 +1,8 @@
+import styles from './Features.module.scss';
+
 export default function Features() {
     return (
-        <section className="feature-2 mt--100">
+        <section className={`feature-2 mt--100 ${styles.featuresSection}`}>
             <div className="container">
                 <div className="row no-gutters">
                     <div className="col-lg-3 col-md-6">
@@ -10,10 +12,7 @@ export default function Features() {
                             </div>
                             <div className="feature-text">
                                 <h4>Konwersacje</h4>
-                                <p>
-                                    Tematy związane z rozwojem osobistym, psychologią, coachingiem, relacjami, wiedzą o
-                                    świecie
-                                </p>
+                                <p>Rozwój osobisty, psychologia, relacje i wiedza o świecie</p>
                             </div>
                         </div>
                     </div>
@@ -24,10 +23,7 @@ export default function Features() {
                             </div>
                             <div className="feature-text">
                                 <h4>Ciekawe zajęcia</h4>
-                                <p>
-                                    Poruszamy tematy kontrowersyjne, które zachęcą cię do kreowania swojej opinii i
-                                    sprowokują do dyskusji
-                                </p>
+                                <p>Dyskusje o kontrowersyjnych tematach, które rozwijają krytyczne myślenie</p>
                             </div>
                         </div>
                     </div>
@@ -38,10 +34,7 @@ export default function Features() {
                             </div>
                             <div className="feature-text">
                                 <h4>Nauczanie on-line</h4>
-                                <p>
-                                    Możliwość zajęć zdalnych, z dowolnego miejsca za pomocą platformy Zoom lub Google
-                                    Meet
-                                </p>
+                                <p>Zajęcia zdalne z dowolnego miejsca przez Zoom lub Google Meet</p>
                             </div>
                         </div>
                     </div>
@@ -52,7 +45,7 @@ export default function Features() {
                             </div>
                             <div className="feature-text">
                                 <h4>Szybkie efekty</h4>
-                                <p>Skuteczne metody nauczania, pozwalające wykorzystać język w praktyce</p>
+                                <p>Skuteczne metody, które szybko przełożysz na praktykę</p>
                             </div>
                         </div>
                     </div>

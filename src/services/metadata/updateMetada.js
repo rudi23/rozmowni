@@ -61,10 +61,19 @@ function convertMetasToMetaObjects(metas) {
     return metas.reduce(
         (acc, meta) => {
             if (meta.property) {
-                return { ...acc, metaPropertyObject: { ...acc.metaPropertyObject, [meta.property]: meta.content } };
+                return {
+                    ...acc,
+                    metaPropertyObject: {
+                        ...acc.metaPropertyObject,
+                        [meta.property]: meta.content,
+                    },
+                };
             }
             if (meta.name) {
-                return { ...acc, metaNameObject: { ...acc.metaNameObject, [meta.name]: meta.content } };
+                return {
+                    ...acc,
+                    metaNameObject: { ...acc.metaNameObject, [meta.name]: meta.content },
+                };
             }
 
             return acc;

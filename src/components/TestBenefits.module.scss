@@ -1,0 +1,230 @@
+@import "../styles/mixins";
+
+.intro {
+  font-size: 1.1rem;
+  color: #495057; // Better contrast (was #6c757d)
+  margin-bottom: 3rem;
+
+  @include onMobile() {
+    color: #343a40; // Stronger on mobile
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 1.2rem;
+  }
+}
+
+.benefit {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include onMobile() {
+    margin-bottom: 1.5rem;
+  }
+
+  @include onTabletAndDesktop() {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  &.highlighted {
+    border-color: #ff6b35;
+    background: linear-gradient(135deg, #fff 0%, #fff8f4 100%);
+
+    .icon {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    }
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  }
+
+  h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+  }
+
+  p {
+    color: #495057; // Better contrast (was #6c757d)
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+
+    @include onMobile() {
+      color: #343a40; // Stronger on mobile
+    }
+  }
+
+  .value {
+    font-size: 0.9rem;
+    color: #28a745;
+    font-weight: 600;
+    background: #e8f5e8;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff6b35;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
+  }
+}
+
+.additionalBenefit {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-left: 4px solid #28a745;
+
+  .smallIcon {
+    color: #28a745;
+    font-size: 1.2rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  h5 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: #495057; // Better contrast (was #6c757d)
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+
+    @include onMobile() {
+      color: #343a40; // Stronger on mobile
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.urgencyBox {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @include onMobile() {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    animation: shine 3s infinite;
+  }
+
+  h4 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    @include onMobile() {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+
+    @include onMobile() {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .freeText {
+    font-size: 1.3em;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.mainCta {
+  @include ctaInverted();
+
+  // Ensure consistent transition timing
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.guarantee {
+  margin-top: 0.5rem;
+
+  small {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

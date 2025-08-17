@@ -1,10 +1,8 @@
-import Notification from './Notification';
 import styles from './PageHeader.module.scss';
 
-export default function PageHeader({ title, showNotification = true, notificationLink = true }) {
+export default function PageHeader({ title }) {
     return (
         <>
-            {showNotification && <Notification showLink={notificationLink} />}
             <section className={styles.root}>
                 <div className="container">
                     <div className="row justify-content-center">

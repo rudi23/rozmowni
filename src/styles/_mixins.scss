@@ -2,13 +2,13 @@ $breakpoint-mobile: 768px;
 $breakpoint-tablet: 980px;
 
 @mixin notOnDesktop() {
-  @media screen and (max-width: $breakpoint-tablet - 1) {
+  @media screen and (max-width: #{$breakpoint-tablet - 1px}) {
     @content;
   }
 }
 
 @mixin notOnTablet() {
-  @media screen and (max-width: $breakpoint-mobile - 1) and (min-width: $breakpoint-tablet) {
+  @media screen and (max-width: #{$breakpoint-mobile - 1px}) and (min-width: $breakpoint-tablet) {
     @content;
   }
 
@@ -44,7 +44,7 @@ $breakpoint-tablet: 980px;
 }
 
 @mixin onTablet() {
-  @media screen and (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet - 1) {
+  @media screen and (min-width: $breakpoint-mobile) and (max-width: #{$breakpoint-tablet - 1px}) {
     @content;
   }
 }
@@ -60,7 +60,7 @@ $breakpoint-tablet: 980px;
 }
 
 @mixin onMobile() {
-  @media screen and (max-width: $breakpoint-mobile - 1) {
+  @media screen and (max-width: #{$breakpoint-mobile - 1px}) {
     @content;
   }
 }
@@ -71,18 +71,260 @@ $breakpoint-tablet: 980px;
   }
 }
 
-@mixin desktopOnly { @include notOnDesktop { display: none; } }
+@mixin desktopOnly {
+  @include notOnDesktop {
+    display: none;
+  }
+}
 
-@mixin tabletOnly { @include notOnTablet { display: none; } }
+@mixin tabletOnly {
+  @include notOnTablet {
+    display: none;
+  }
+}
 
-@mixin mobileOnly { @include notOnMobile { display: none; } }
+@mixin mobileOnly {
+  @include notOnMobile {
+    display: none;
+  }
+}
 
-@mixin printOnly { @include notOnPrint { display: none; } }
+@mixin printOnly {
+  @include notOnPrint {
+    display: none;
+  }
+}
 
-@mixin desktopHide { @include onDesktop { display: none; } }
+@mixin desktopHide {
+  @include onDesktop {
+    display: none;
+  }
+}
 
-@mixin tabletHide { @include onTablet { display: none; } }
+@mixin tabletHide {
+  @include onTablet {
+    display: none;
+  }
+}
 
-@mixin mobileHide { @include onMobile { display: none; } }
+@mixin mobileHide {
+  @include onMobile {
+    display: none;
+  }
+}
 
-@mixin printHide { @include onPrint { display: none; } }
+@mixin printHide {
+  @include onPrint {
+    display: none;
+  }
+}
+
+// ========================================
+// UNIFIED CTA BUTTON MIXINS
+// ========================================
+
+// Import contrast improvements
+@import "./contrast-improvements";
+
+// Color variables
+$primary-cta-bg: #ff6b35;
+$primary-cta-hover: #e55a2b;
+$primary-cta-text: white;
+
+$secondary-cta-bg: transparent;
+$secondary-cta-border: #2c3e50;
+$secondary-cta-hover-bg: #2c3e50;
+$secondary-cta-hover-text: white;
+
+$teal-cta-bg: #0f8d8c;
+$teal-cta-hover: #0c6b6a;
+
+// Base CTA mixin
+@mixin ctaBase() {
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+  }
+}
+
+// Standard CTA size
+@mixin ctaStandard() {
+  padding: 19px 32px;
+  font-size: 16px;
+
+  @include onMobile() {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+
+// Large CTA size
+@mixin ctaLarge() {
+  padding: 20px 40px;
+  font-size: 18px;
+  border-radius: 10px;
+
+  @include onMobile() {
+    padding: 16px 32px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+}
+
+// Primary CTA Large
+@mixin ctaPrimary() {
+  @include ctaBase();
+  @include ctaLarge();
+
+  background: $primary-cta-bg;
+  color: $primary-cta-text;
+  border-color: $primary-cta-bg;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+
+  &:hover {
+    background: $primary-cta-hover;
+    border-color: $primary-cta-hover;
+    color: $primary-cta-text;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+  }
+}
+
+// Secondary CTA (outline)
+@mixin ctaSecondary() {
+  @include ctaBase();
+  @include ctaStandard();
+
+  background: $secondary-cta-bg;
+  color: $secondary-cta-border;
+  border: 2px solid $secondary-cta-border;
+
+  &:hover {
+    background: $secondary-cta-hover-bg;
+    color: $secondary-cta-hover-text;
+    border-color: $secondary-cta-hover-bg;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+  }
+}
+
+// Teal CTA (brand color)
+@mixin ctaTeal() {
+  @include ctaBase();
+  @include ctaStandard();
+
+  background: $teal-cta-bg;
+  color: white;
+  border-color: $teal-cta-bg;
+  box-shadow: 0 4px 15px rgba(15, 141, 140, 0.3);
+
+  &:hover {
+    background: $teal-cta-hover;
+    border-color: $teal-cta-hover;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(15, 141, 140, 0.5);
+  }
+}
+
+// Inverted CTA (white with orange text)
+@mixin ctaInverted() {
+  @include ctaBase();
+  @include ctaLarge();
+
+  background: white;
+  color: $primary-cta-bg;
+  border-color: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: $primary-cta-hover;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Success CTA (green)
+@mixin ctaSuccess() {
+  @include ctaBase();
+
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+
+  &:hover {
+    background: #218838;
+    border-color: #218838;
+    transform: translateY(-2px);
+  }
+
+  @include onMobile() {
+    width: 100%;
+  }
+}
+
+// Gray CTA (outline gray) - improved contrast
+@mixin ctaGray() {
+  @include ctaBase();
+
+  background: transparent;
+  color: #495057; // Darker gray for better contrast (was #6c757d)
+  border: 2px solid #495057;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+
+  &:hover {
+    color: white;
+    background: #495057;
+    border-color: #495057;
+    transform: translateY(-2px);
+  }
+
+  @include onMobile() {
+    width: 100%;
+    // Stronger contrast on mobile for better readability
+    color: #343a40;
+    border-color: #343a40;
+
+    &:hover {
+      background: #343a40;
+      border-color: #343a40;
+    }
+  }
+}
+
+// Small CTA for navigation
+@mixin ctaSmall() {
+  @include ctaBase();
+
+  background: $primary-cta-bg;
+  color: $primary-cta-text;
+  border-color: $primary-cta-bg;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 8px 10px;
+
+  &:hover {
+    background: $primary-cta-hover;
+    border-color: $primary-cta-hover;
+    color: $primary-cta-text;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  }
+}

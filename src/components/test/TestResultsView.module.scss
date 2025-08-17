@@ -1,0 +1,658 @@
+@import "../../styles/mixins";
+
+.testCompletionForm {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include onMobile() {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+.quickScore {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h2 {
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+
+.scoreDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  border: 2px solid #0f8d8c;
+  box-shadow: 0 4px 20px rgba(15, 141, 140, 0.1);
+}
+
+.scoreNumber {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f8d8c;
+  line-height: 1;
+}
+
+.levelText {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.infoBox {
+  background: #e8f5f5;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  border-left: 4px solid #0f8d8c;
+
+  @include onMobile() {
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    color: #0f8d8c;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+
+    @include onMobile() {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+  }
+
+  p {
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+
+    @include onMobile() {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+.contactForm {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+
+  @include onMobile() {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+
+  @include onMobile() {
+    margin-bottom: 1.25rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+
+    @include onMobile() {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
+.formControl {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  @include onMobile() {
+    padding: 0.75rem 0.875rem;
+    font-size: 16px; // Prevents zoom on iOS
+    border-radius: 6px;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #0f8d8c;
+    box-shadow: 0 0 0 3px rgba(15, 141, 140, 0.1);
+  }
+
+  &:invalid {
+    border-color: #dc3545;
+  }
+}
+
+.radioLabel {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 1rem;
+  display: block;
+
+  @include onMobile() {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.5rem;
+
+  @include onMobile() {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include onMobile() {
+    padding: 0.5rem 0;
+  }
+
+  input[type="radio"] {
+    width: auto;
+    margin: 0;
+    accent-color: #0f8d8c;
+
+    @include onMobile() {
+      transform: scale(1.1);
+    }
+  }
+
+  label {
+    margin: 0;
+    cursor: pointer;
+    font-weight: normal;
+
+    @include onMobile() {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.submitButton {
+  @include ctaPrimary();
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+
+  @include onMobile() {
+    margin-top: 1.5rem;
+    font-size: 16px; // Prevents zoom on iOS
+    padding: 16px 32px; // Larger touch target
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+
+  @include onMobile() {
+    font-size: 0.8rem;
+  }
+}
+
+.successMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  @include onMobile() {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+}
+
+.successIcon {
+  margin-bottom: 2rem;
+
+  @include onMobile() {
+    margin-bottom: 1.5rem;
+  }
+
+  svg {
+    font-size: 4rem;
+    color: #28a745;
+
+    @include onMobile() {
+      font-size: 3rem;
+    }
+  }
+}
+
+.successContent {
+  h3 {
+    color: #2c3e50; // Spójny z nagłówkami na stronie głównej
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+
+    @include onMobile() {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  p {
+    color: #535967; // Spójny z tekstem na stronie głównej
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+
+    @include onMobile() {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+
+      @include onMobile() {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+
+.mailCheckReminder {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+
+  p {
+    margin-bottom: 0.5rem;
+
+    &:first-child {
+      color: #0f8d8c; // Spójny z kolorem brand na stronie głównej
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .reminderText {
+    color: #535967; // Spójny z tekstem na stronie głównej
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  @include onMobile() {
+    padding: 1rem;
+    margin: 1rem 0;
+
+    p:first-child {
+      font-size: 1rem;
+    }
+
+    .reminderText {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.inlineIcon {
+  color: #0f8d8c;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+
+  // Hide icon on mobile to prevent layout issues with line breaks
+  @include onMobile() {
+    display: none;
+  }
+}
+
+// Modern sections styles inspired by homepage
+.congratsSection {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.congratsContent {
+  h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @include onMobile() {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+  }
+}
+
+.socialProof {
+  font-size: 1.2rem;
+  color: #535967;
+  margin: 0;
+  line-height: 1.5;
+
+  @include onMobile() {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  strong {
+    color: #0f8d8c;
+    font-weight: 600;
+  }
+}
+
+// Section headings
+.sectionHeading {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include onMobile() {
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @include onMobile() {
+      font-size: 1.6rem;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+
+.sectionSubtitle {
+  font-size: 1.1rem;
+  color: #535967;
+  margin: 0;
+  line-height: 1.5;
+
+  @include onMobile() {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+}
+
+// Value cards section
+
+.introText {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin: 0;
+
+    @include onMobile() {
+      font-size: 1rem;
+    }
+
+    strong {
+      color: #0f8d8c;
+    }
+  }
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+
+  @include onMobile() {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.valueCard {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border-top: 4px solid #0f8d8c;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  @include onMobile() {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    @include onMobile() {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.cardIcon {
+  margin-bottom: 1.5rem;
+
+  @include onMobile() {
+    margin-bottom: 1rem;
+  }
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #e8f5f5, #d4edec);
+  border-radius: 50%;
+  border: 3px solid #0f8d8c;
+
+  @include onMobile() {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+  }
+
+  svg {
+    font-size: 2.2rem;
+    color: #0f8d8c;
+
+    @include onMobile() {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.cardContent {
+  h4 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+
+    @include onMobile() {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    color: #535967;
+    margin: 0;
+    line-height: 1.5;
+
+    @include onMobile() {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Trial benefits section
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @include onMobile() {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.benefitCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  @include onMobile() {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+
+    @include onMobile() {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.benefitIcon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include onMobile() {
+    margin-bottom: 1rem;
+  }
+
+  svg {
+    font-size: 2.5rem;
+    color: #0f8d8c;
+
+    @include onMobile() {
+      font-size: 2rem;
+    }
+  }
+}
+
+.benefitContent {
+  h4 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0 0 0.75rem 0;
+    font-weight: 600;
+
+    @include onMobile() {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #535967;
+    margin: 0;
+    line-height: 1.5;
+
+    @include onMobile() {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+.socialProofBanner {
+  text-align: center;
+  background: rgba(15, 141, 140, 0.08);
+  color: #2c3e50;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  border-left: 4px solid #0f8d8c;
+
+  @include onMobile() {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  strong {
+    color: #0f8d8c;
+    font-weight: 700;
+  }
+}

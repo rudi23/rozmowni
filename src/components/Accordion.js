@@ -28,11 +28,8 @@ export default function Accordion({ id = 'accordion', cards }) {
                     >
                         <h4>
                             {title}
-                            <span className={cx('fa-plus2', styles.plusIcon)}>
+                            <span className={cx(styles.chevronIcon, { [styles.expanded]: collapsedTab === id })}>
                                 <FontAwesomeIcon icon={faChevronDown} />
-                            </span>
-                            <span className={cx('fa-plus2', styles.minusIcon)}>
-                                <FontAwesomeIcon icon={faChevronUp} />
                             </span>
                         </h4>
                     </button>

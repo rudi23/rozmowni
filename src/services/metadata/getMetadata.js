@@ -99,7 +99,8 @@ function getBreadcrumbsJsonLd(name, canonicalUrl) {
 
 function getHomeMetadata(canonicalUrl) {
     const title = 'Rozmowni.pl | Nauka języka angielskiego online przez Google Meet, Zoom';
-    const description = '';
+    const description =
+        'Sprawdź swój poziom angielskiego za darmo! 10-minutowy test + bezpłatna lekcja próbna + spersonalizowany plan nauki + e-book. Konwersacje na ciekawe tematy. Rozmowni.pl - skuteczna nauka angielskiego online.';
 
     return {
         title,
@@ -254,7 +255,6 @@ function getPrivacyPolicy(canonicalUrl) {
 
 export const getPropertiesMap = {
     [routeNames.HOME]: getHomeMetadata,
-    [routeNames.WHY_US]: getWhyUs,
     [routeNames.ABOUT_US]: getAboutUs,
     [routeNames.PRICING]: getPricing,
     [routeNames.INDIVIDUAL_COURSE]: getIndividualCourse,
