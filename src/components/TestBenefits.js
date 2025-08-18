@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartBar, faBullseye, faGem, faBook, faRocket, faClock, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faBullseye, faGem, faBook, faClock, faPlay } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames } from '../routes';

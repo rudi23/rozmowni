@@ -355,7 +355,7 @@ const TestResultsSuccessView = () => {
 };
 
 // Main component that manages state and renders appropriate view
-const TestResultsView = ({ score, selectedTest, onResetTest }) => {
+const TestResultsView = ({ score, selectedTest }) => {
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const handleFormSubmitted = () => {

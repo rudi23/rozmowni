@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import image404 from '../../public/images/404.jpg';
 import ResponsiveImage from '../components/ResponsiveImage';
 

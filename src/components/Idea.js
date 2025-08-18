@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import lifelongLearningImage from '../../public/images/lifelong-learning.jpg';
 import Section from './Section';
 import SectionHeading from './SectionHeading';
@@ -7,7 +6,7 @@ import ResponsiveImage from './ResponsiveImage';
 export default function Idea() {
     return (
         <>
-            <style jsx>{`
+            <style>{`
                 .floating-image-idea {
                     float: right;
                     margin: 0 0 1.5rem 2rem;

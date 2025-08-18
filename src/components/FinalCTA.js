@@ -3,12 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faRocket,
     faClock,
-    faCheck,
     faUsers,
-    faExclamationTriangle,
     faLock,
     faChartBar,
-    faBullseye,
     faGem,
     faBook,
     faEnvelope,

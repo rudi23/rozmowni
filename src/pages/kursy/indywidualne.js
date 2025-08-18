@@ -1,6 +1,5 @@
 import PageHeader from '../../components/PageHeader';
 import Accordion from '../../components/Accordion';
-import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
 import CourseHeader from '../../components/CourseHeader';
@@ -10,8 +9,6 @@ import courseIndividualImage from '../../../public/images/course-individual.jpg'
 import NewSemesterSignUp from '../../components/NewSemesterSignUp';
 
 export default function CoursesIndividual() {
-    const trackClick = useClickTracking();
-
     return (
         <>
             <PageHeader title="Kursy indywidualne" />

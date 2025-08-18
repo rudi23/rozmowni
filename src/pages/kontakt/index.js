@@ -92,7 +92,6 @@ export default function Contact() {
                                 <div className="contact-item">
                                     <p>Napisz do nas</p>
                                     <h4>
-                                        {/* eslint-disable jsx-a11y/anchor-is-valid  */}
                                         <a
                                             href="#"
                                             onClick={(e) => {
