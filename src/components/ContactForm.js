@@ -8,22 +8,18 @@ import { events } from '../services/tracking';
 import styles from './ContactForm.module.scss';
 
 const sendForm = async (data) =>
-    fetch('/mail.php', {
+    fetch('/api/send-contact-email-notification', {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
         body: JSON.stringify(data),
     });
 
 export default function ContactForm() {
     const [isSent, setSent] = useState(false);
     const [isSentError, setSentError] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const {
         reset,
         register,
@@ -40,15 +36,23 @@ export default function ContactForm() {
 
         const token = await executeRecaptcha('sendForm');
         if (token) {
+            setLoading(true);
             setSent(false);
             setSentError(false);
-            const res = await sendForm(data);
-            if (res.ok) {
-                setSent(true);
-                trackClick(events.CONTACT_SEND_FORM);
-                reset();
-            } else {
+
+            try {
+                const res = await sendForm(data);
+                if (res.ok) {
+                    setSent(true);
+                    trackClick(events.CONTACT_SEND_FORM);
+                    reset();
+                } else {
+                    setSentError(true);
+                }
+            } catch (error) {
                 setSentError(true);
+            } finally {
+                setLoading(false);
             }
         }
     };
@@ -157,9 +161,22 @@ export default function ContactForm() {
 
             <div className="col-lg-12">
                 <div className="mt-4 text-right">
-                    <button className="btn btn-main" type="submit">
-                        Wyślij wiadomość
-                        <FontAwesomeIcon icon={faAngleRight} className="ml-2" />
+                    <button className="btn btn-main" type="submit" disabled={isLoading}>
+                        {isLoading ? (
+                            <>
+                                <span
+                                    className="spinner-border spinner-border-sm me-2"
+                                    role="status"
+                                    aria-hidden="true"
+                                ></span>
+                                Wysyłanie...
+                            </>
+                        ) : (
+                            <>
+                                Wyślij wiadomość
+                                <FontAwesomeIcon icon={faAngleRight} className="ml-2" />
+                            </>
+                        )}
                     </button>
                 </div>
             </div>

@@ -18,6 +18,11 @@ jobs:
         run: npm ci --quiet
       - name: Build project
         run: npm run build
+      - name: Create .env.local file
+        run: |
+          cp .env.example .env.local
+          sed -i 's/<SMTP_USER>/${{ secrets.SMTP_USER }}/g' .env.local
+          sed -i 's/<SMTP_PASS>/${{ secrets.SMTP_PASS }}/g' .env.local
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
