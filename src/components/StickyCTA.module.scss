@@ -13,6 +13,13 @@
     right: 15px;
   }
 
+  // Ukryj gdy CookieConsent jest widoczny
+  &.cookieConsentVisible {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+  }
+
   &.minimized {
     .ctaContent {
       transform: scale(0);
