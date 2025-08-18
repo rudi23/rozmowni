@@ -29,7 +29,7 @@ export default function CourseSidebar({
                     quality="75"
                 />
                 <div className="course-price-wrapper">
-                    <div className="course-price ml-3">
+                    <div className="course-price ms-3">
                         <h4>
                             Cena: <span>{price}</span>
                         </h4>
@@ -37,7 +37,7 @@ export default function CourseSidebar({
                     <div className="buy-btn">
                         <Link
                             href={routeMap[routeNames.CONTACT]}
-                            className="btn btn-main btn-block"
+                            className="btn btn-main w-100"
                             onClick={() => trackClick(enrollEvent)}
                         >
                             Zapisz się

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import image404 from '../../public/images/404.jpg';
-import ResponsiveImage from '../../components/ResponsiveImage';
+import ResponsiveImage from '../components/ResponsiveImage';
 
 export default function Page404() {
     return (

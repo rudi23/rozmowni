@@ -112,7 +112,7 @@ export default function FinalCTA() {
                                 className={styles.finalButton}
                                 onClick={() => trackClick(events.HOME_FINAL_CTA_CLICK_TEST)}
                             >
-                                <FontAwesomeIcon icon={faRocket} className="mr-2" />
+                                <FontAwesomeIcon icon={faRocket} className="me-2" />
                                 ZRÓB BEZPŁATNY TEST - OSTATNIA SZANSA!
                             </Link>
 

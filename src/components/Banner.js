@@ -27,7 +27,7 @@ export default function Banner() {
 
     const SocialProofBadge = () => (
         <div className={styles.socialProof}>
-            <FontAwesomeIcon icon={faUsers} className="mr-2" />
+            <FontAwesomeIcon icon={faUsers} className="me-2" />
             <span>Ponad 100 zadowolonych uczniów</span>
         </div>
     );
@@ -69,15 +69,15 @@ export default function Banner() {
                             {/* Benefits List */}
                             <div className={styles.benefits}>
                                 <div className={styles.benefit}>
-                                    <FontAwesomeIcon icon={faClock} className="mr-2" />
+                                    <FontAwesomeIcon icon={faClock} className="me-2" />
                                     <span>Test zajmuje tylko 10 minut</span>
                                 </div>
                                 <div className={styles.benefit}>
-                                    <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                                    <FontAwesomeIcon icon={faCheck} className="me-2" />
                                     <span>Natychmiastowy wynik</span>
                                 </div>
                                 <div className={styles.benefit}>
-                                    <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                                    <FontAwesomeIcon icon={faCheck} className="me-2" />
                                     <span>Indywidualne podejście</span>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ export default function Banner() {
                                 className={`btn btn-main ${styles.primaryCta}`}
                                 onClick={() => trackClick(events.HOME_BANNER_CLICK_TEST)}
                             >
-                                <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                <FontAwesomeIcon icon={faPlay} className="me-2" />
                                 ZRÓB BEZPŁATNY TEST
                             </Link>
 
@@ -106,7 +106,7 @@ export default function Banner() {
                                 className={`btn btn-outline ${styles.secondaryCta}`}
                                 onClick={() => trackClick(events.HOME_BANNER_CLICK_LEARN_MORE)}
                             >
-                                <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                <FontAwesomeIcon icon={faPlay} className="me-2" />
                                 Zobacz jak uczymy
                             </Link>
                         </div>

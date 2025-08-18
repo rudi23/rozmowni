@@ -236,7 +236,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                         </div>
 
                         <button type="submit" className={`${styles.submitButton} order-5`} disabled={isSubmitting}>
-                            {!isSubmitting && <FontAwesomeIcon icon={faPlay} className="mr-2" />}
+                            {!isSubmitting && <FontAwesomeIcon icon={faPlay} className="me-2" />}
                             {isSubmitting ? 'Wysyłanie...' : 'Wyślij i otrzymaj wynik testu + e-book'}
                         </button>
                     </form>

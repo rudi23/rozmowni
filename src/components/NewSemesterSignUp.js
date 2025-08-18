@@ -52,7 +52,7 @@ export default function WhyUs() {
                         className="btn btn-main mt-4"
                         onClick={() => trackClick(events.HOME_WHY_US_CLICK_CONTACT)}
                     >
-                        <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                        <FontAwesomeIcon icon={faCheck} className="me-2" />
                         Zrób test i dowiedz się, czy jesteś gotowy(a) do egzaminu!
                     </Link>
                 </div>

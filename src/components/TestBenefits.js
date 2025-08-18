@@ -80,7 +80,7 @@ export default function TestBenefits() {
                         <div className="row align-items-center">
                             <div className="col-lg-8">
                                 <h4>
-                                    <FontAwesomeIcon icon={faClock} className="mr-2" />
+                                    <FontAwesomeIcon icon={faClock} className="me-2" />
                                     To wszystko otrzymasz NATYCHMIAST po teście!
                                 </h4>
                                 <p className="mb-2">Wystarczy 10 minut Twojego czasu</p>
@@ -97,7 +97,7 @@ export default function TestBenefits() {
                                     className={`btn btn-main ${styles.mainCta}`}
                                     onClick={() => trackClick(events.HOME_TEST_BENEFITS_CLICK_TEST)}
                                 >
-                                    <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                    <FontAwesomeIcon icon={faPlay} className="me-2" />
                                     ZRÓB TEST TERAZ
                                 </Link>
                                 <div className={styles.guarantee}>
