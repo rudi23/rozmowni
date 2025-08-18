@@ -66,19 +66,15 @@ export default function StickyCTA() {
                     <button className={styles.minimizeButton} onClick={handleMinimize} aria-label="Zminimalizuj">
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
-
                     <div className={styles.ctaText}>
                         <div className={styles.ctaTitle}>{isMobile ? 'Sprawdź poziom!' : 'Sprawdź swój poziom!'}</div>
                         <div className={styles.ctaSubtitle}>
                             {isMobile ? 'Test + lekcja + e-book' : 'Darmowy test + lekcja próbna + e-book'}
                         </div>
                     </div>
-
-                    <Link href={routeMap[routeNames.TEST]}>
-                        <a className={styles.ctaButton} onClick={handleCTAClick}>
-                            <FontAwesomeIcon icon={faPlay} className="mr-1" />
-                            ZRÓB TEST
-                        </a>
+                    <Link href={routeMap[routeNames.TEST]} className={styles.ctaButton} onClick={handleCTAClick}>
+                        <FontAwesomeIcon icon={faPlay} className="mr-1" />
+                        ZRÓB TEST
                     </Link>
                 </div>
             )}

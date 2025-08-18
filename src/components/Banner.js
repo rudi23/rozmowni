@@ -8,6 +8,7 @@ import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
 import mainImage from '../../public/images/main.jpg';
 import styles from './Banner.module.scss';
+import ResponsiveImage from './ResponsiveImage';
 
 export default function Banner() {
     const trackClick = useClickTracking();
@@ -91,24 +92,22 @@ export default function Banner() {
                     {/* CTA Buttons Row - spans both columns */}
                     <div className={styles.ctaRow}>
                         <div className={styles.ctaButtons}>
-                            <Link href={routeMap[routeNames.TEST]}>
-                                <a
-                                    className={`btn btn-main ${styles.primaryCta}`}
-                                    onClick={() => trackClick(events.HOME_BANNER_CLICK_TEST)}
-                                >
-                                    <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                                    ZRÓB BEZPŁATNY TEST
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.TEST]}
+                                className={`btn btn-main ${styles.primaryCta}`}
+                                onClick={() => trackClick(events.HOME_BANNER_CLICK_TEST)}
+                            >
+                                <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                ZRÓB BEZPŁATNY TEST
                             </Link>
 
-                            <Link href="#dlaczego-my">
-                                <a
-                                    className={`btn btn-outline ${styles.secondaryCta}`}
-                                    onClick={() => trackClick(events.HOME_BANNER_CLICK_LEARN_MORE)}
-                                >
-                                    <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                                    Zobacz jak uczymy
-                                </a>
+                            <Link
+                                href="#dlaczego-my"
+                                className={`btn btn-outline ${styles.secondaryCta}`}
+                                onClick={() => trackClick(events.HOME_BANNER_CLICK_LEARN_MORE)}
+                            >
+                                <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                Zobacz jak uczymy
                             </Link>
                         </div>
                     </div>
@@ -116,11 +115,10 @@ export default function Banner() {
                     {/* Image Column */}
                     <div className={styles.imageColumn}>
                         <div className={styles.bannerImage}>
-                            <Image
+                            <ResponsiveImage
                                 src={mainImage}
                                 alt="Małgorzata Rudowska przy biurku"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 500px, (min-width: 992px) 400px, (min-width: 768px) 350px, 100vw"
                                 quality="75"
                             />

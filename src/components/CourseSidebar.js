@@ -4,6 +4,7 @@ import useClickTracking from '../hooks/useClickTracking';
 import { routeMap, routeNames } from '../routes';
 import CourseRequirements from './CourseRequirements';
 import CourseDetails from './CourseDetails';
+import ResponsiveImage from './ResponsiveImage';
 
 export default function CourseSidebar({
     image,
@@ -20,11 +21,10 @@ export default function CourseSidebar({
     return (
         <div className={`course-sidebar ${className}`}>
             <div className={`course-single-thumb ${thumbClassName}`}>
-                <Image
+                <ResponsiveImage
                     src={image}
                     alt={imageAlt}
                     placeholder="blur"
-                    layout="responsive"
                     sizes="(min-width: 1200px) 318px, (min-width: 992px) 258px, (min-width: 768px) 658px, (min-width: 576px) 478px, calc(100vw - 62px)"
                     quality="75"
                 />
@@ -35,17 +35,17 @@ export default function CourseSidebar({
                         </h4>
                     </div>
                     <div className="buy-btn">
-                        <Link href={routeMap[routeNames.CONTACT]}>
-                            <a className="btn btn-main btn-block" onClick={() => trackClick(enrollEvent)}>
-                                Zapisz się
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.CONTACT]}
+                            className="btn btn-main btn-block"
+                            onClick={() => trackClick(enrollEvent)}
+                        >
+                            Zapisz się
                         </Link>
                     </div>
                 </div>
             </div>
-
             <CourseDetails items={courseDetails} />
-
             {showRequirements && <CourseRequirements />}
         </div>
     );

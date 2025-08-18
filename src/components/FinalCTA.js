@@ -107,14 +107,13 @@ export default function FinalCTA() {
 
                         {/* Main CTA */}
                         <div className={styles.ctaSection}>
-                            <Link href={routeMap[routeNames.TEST]}>
-                                <a
-                                    className={styles.finalButton}
-                                    onClick={() => trackClick(events.HOME_FINAL_CTA_CLICK_TEST)}
-                                >
-                                    <FontAwesomeIcon icon={faRocket} className="mr-2" />
-                                    ZRÓB BEZPŁATNY TEST - OSTATNIA SZANSA!
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.TEST]}
+                                className={styles.finalButton}
+                                onClick={() => trackClick(events.HOME_FINAL_CTA_CLICK_TEST)}
+                            >
+                                <FontAwesomeIcon icon={faRocket} className="mr-2" />
+                                ZRÓB BEZPŁATNY TEST - OSTATNIA SZANSA!
                             </Link>
 
                             <div className={styles.countdown}>

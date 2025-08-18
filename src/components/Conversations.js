@@ -4,6 +4,7 @@ import SectionHeading from './SectionHeading';
 import Section from './Section';
 import Accordion from './Accordion';
 import styles from './Conversations.module.scss';
+import ResponsiveImage from './ResponsiveImage';
 
 export default function Conversations() {
     return (
@@ -14,11 +15,10 @@ export default function Conversations() {
                         <SectionHeading heading="Konwersacje" subheading="Jak uczymy?" />
 
                         <div className={styles.floatingImage}>
-                            <Image
+                            <ResponsiveImage
                                 src={conversationsImage}
                                 alt="Konwersacje w grupie"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 350px, (min-width: 992px) 300px, (min-width: 768px) 250px, calc(100vw-30px)"
                                 quality="75"
                             />

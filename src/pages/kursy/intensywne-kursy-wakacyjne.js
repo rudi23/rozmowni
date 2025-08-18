@@ -10,6 +10,7 @@ import { routeMap, routeNames } from '../../routes';
 import holidayCourseImage from '../../../public/images/course-holiday-2023.jpg';
 import { decryptEmail } from '../../utils';
 import Section from '../../components/Section';
+import ResponsiveImage from '../../components/ResponsiveImage';
 
 export const getServerSideProps = async () => {
     if (!routeMap[routeNames.HOLIDAY_COURSE]) {
@@ -31,17 +32,17 @@ export default function HolidayCourse() {
                     <div className="col-lg-8">
                         <div className="course-single-header">
                             <div className="img-block">
-                                <Link href={routeMap[routeNames.CONTACT]}>
-                                    <a onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_BANNER)}>
-                                        <Image
-                                            src={holidayCourseImage}
-                                            alt="Kursy wakacyjne"
-                                            placeholder="blur"
-                                            layout="responsive"
-                                            sizes="(min-width: 1200px) 560px, (min-width: 992px) 640px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
-                                            quality="75"
-                                        />
-                                    </a>
+                                <Link
+                                    href={routeMap[routeNames.CONTACT]}
+                                    onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_BANNER)}
+                                >
+                                    <ResponsiveImage
+                                        src={holidayCourseImage}
+                                        alt="Kursy wakacyjne"
+                                        placeholder="blur"
+                                        sizes="(min-width: 1200px) 560px, (min-width: 992px) 640px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                                        quality="75"
+                                    />
                                 </Link>
                             </div>
                         </div>
@@ -175,14 +176,13 @@ export default function HolidayCourse() {
                                 zaawansowania i dowiesz się więcej na temat zajęć.
                             </p>
 
-                            <Link href={routeMap[routeNames.CONTACT]}>
-                                <a
-                                    className="btn btn-main mt-4"
-                                    onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_CONTACT)}
-                                >
-                                    <FontAwesomeIcon icon={faCheck} className="mr-2" />
-                                    Zapisz się już dziś
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.CONTACT]}
+                                className="btn btn-main mt-4"
+                                onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_CONTACT)}
+                            >
+                                <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                                Zapisz się już dziś
                             </Link>
 
                             <h4 className="pt-4 pb-2">Do zobaczenia!</h4>

@@ -11,6 +11,7 @@ import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames, routeTitles } from '../routes';
 import logoImage from '../../public/images/logo-rozmowni.png';
+import ResponsiveImage from './ResponsiveImage';
 
 library.add(faFacebookF);
 library.add(faInstagram);
@@ -33,73 +34,90 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
                     <FontAwesomeIcon icon={faBars} />
                 </span>
             </button>
-
             <div className={isOpen ? 'collapse navbar-collapse show' : 'collapse navbar-collapse'} id="navbarMenu">
                 <ul className="navbar-nav mx-auto">
                     {routeMap[routeNames.HOLIDAY_COURSE] && (
                         <li className="nav-item">
-                            <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                                <a className="nav-link" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
-                                    Intensywne kursy wakacyjne
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.HOLIDAY_COURSE]}
+                                className="nav-link"
+                                onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}
+                            >
+                                Intensywne kursy wakacyjne
                             </Link>
                         </li>
                     )}
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}>
-                                Kursy indywidualne
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.INDIVIDUAL_COURSE]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}
+                        >
+                            Kursy indywidualne
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.GROUP_COURSE]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.GROUP_COURSE)}>
-                                Kursy grupowe
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.GROUP_COURSE]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.GROUP_COURSE)}
+                        >
+                            Kursy grupowe
                         </Link>
                     </li>
 
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.EXAM_8_COURSE]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.EXAM_8_COURSE)}>
-                                Egzamin 8-klasisty
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.EXAM_8_COURSE]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.EXAM_8_COURSE)}
+                        >
+                            Egzamin 8-klasisty
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.MATURA_EXAM_COURSE]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.MATURA_EXAM_COURSE)}>
-                                Egzamin maturalny
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.MATURA_EXAM_COURSE]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.MATURA_EXAM_COURSE)}
+                        >
+                            Egzamin maturalny
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.PRICING]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.PRICING)}>
-                                Cennik
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.PRICING]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.PRICING)}
+                        >
+                            Cennik
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.ABOUT_US]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
-                                O nas
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.ABOUT_US]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.ABOUT_US)}
+                        >
+                            O nas
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={routeMap[routeNames.CONTACT]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.CONTACT)}>
-                                Kontakt
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.CONTACT]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.CONTACT)}
+                        >
+                            Kontakt
                         </Link>
                     </li>
                     <li className="nav-item test-cta">
-                        <Link href={routeMap[routeNames.TEST]}>
-                            <a className="nav-link" onClick={onLinkClick(routeNames.TEST)}>
-                                Test poziomujący
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.TEST]}
+                            className="nav-link"
+                            onClick={onLinkClick(routeNames.TEST)}
+                        >
+                            Test poziomujący
                         </Link>
                     </li>
                 </ul>
@@ -129,60 +147,74 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
                     </div>
                     <div className={isDropDownOpen ? 'dropdown-menu show' : 'dropdown-menu '} aria-labelledby="navbar3">
                         {routeMap[routeNames.HOLIDAY_COURSE] && (
-                            <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                                <a className="dropdown-item" onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}>
-                                    Intensywne kursy wakacyjne
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.HOLIDAY_COURSE]}
+                                className="dropdown-item"
+                                onClick={onLinkClick(routeNames.HOLIDAY_COURSE)}
+                            >
+                                Intensywne kursy wakacyjne
                             </Link>
                         )}
-                        <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
-                            <a className="dropdown-item" onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}>
-                                Indywidualne
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.INDIVIDUAL_COURSE]}
+                            className="dropdown-item"
+                            onClick={onLinkClick(routeNames.INDIVIDUAL_COURSE)}
+                        >
+                            Indywidualne
                         </Link>
-                        <Link href={routeMap[routeNames.GROUP_COURSE]}>
-                            <a className="dropdown-item" onClick={onLinkClick(routeNames.GROUP_COURSE)}>
-                                Grupowe
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.GROUP_COURSE]}
+                            className="dropdown-item"
+                            onClick={onLinkClick(routeNames.GROUP_COURSE)}
+                        >
+                            Grupowe
                         </Link>
-                        <Link href={routeMap[routeNames.EXAM_8_COURSE]}>
-                            <a className="dropdown-item" onClick={onLinkClick(routeNames.EXAM_8_COURSE)}>
-                                Egzamin 8-klasisty
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.EXAM_8_COURSE]}
+                            className="dropdown-item"
+                            onClick={onLinkClick(routeNames.EXAM_8_COURSE)}
+                        >
+                            Egzamin 8-klasisty
                         </Link>
-                        <Link href={routeMap[routeNames.MATURA_EXAM_COURSE]}>
-                            <a className="dropdown-item" onClick={onLinkClick(routeNames.MATURA_EXAM_COURSE)}>
-                                Egzamin maturalny
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.MATURA_EXAM_COURSE]}
+                            className="dropdown-item"
+                            onClick={onLinkClick(routeNames.MATURA_EXAM_COURSE)}
+                        >
+                            Egzamin maturalny
                         </Link>
                     </div>
                 </li>
                 <li className="nav-item">
-                    <Link href={routeMap[routeNames.PRICING]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.PRICING)}>
-                            Cennik
-                        </a>
+                    <Link
+                        href={routeMap[routeNames.PRICING]}
+                        className="nav-link"
+                        onClick={onLinkClick(routeNames.PRICING)}
+                    >
+                        Cennik
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href={routeMap[routeNames.ABOUT_US]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.ABOUT_US)}>
-                            O nas
-                        </a>
+                    <Link
+                        href={routeMap[routeNames.ABOUT_US]}
+                        className="nav-link"
+                        onClick={onLinkClick(routeNames.ABOUT_US)}
+                    >
+                        O nas
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link href={routeMap[routeNames.CONTACT]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.CONTACT)}>
-                            Kontakt
-                        </a>
+                    <Link
+                        href={routeMap[routeNames.CONTACT]}
+                        className="nav-link"
+                        onClick={onLinkClick(routeNames.CONTACT)}
+                    >
+                        Kontakt
                     </Link>
                 </li>
                 <li className="nav-item test-cta">
-                    <Link href={routeMap[routeNames.TEST]}>
-                        <a className="nav-link" onClick={onLinkClick(routeNames.TEST)}>
-                            Test poziomujący
-                        </a>
+                    <Link href={routeMap[routeNames.TEST]} className="nav-link" onClick={onLinkClick(routeNames.TEST)}>
+                        Test poziomujący
                     </Link>
                 </li>
             </ul>
@@ -214,21 +246,13 @@ export default function Header() {
             <div className="site-navigation">
                 <nav className="navbar navbar-expand-lg">
                     <div className="container pl-3 pr-3">
-                        <Link href={routeMap[routeNames.HOME]}>
-                            <a
-                                className="navbar-brand"
-                                onClick={() => trackClick(events.NAVIGATION_CLICK_LOGO)}
-                                title="Strona główna"
-                            >
-                                <Image
-                                    src={logoImage}
-                                    alt="Logo rozmowni.pl"
-                                    width="200px"
-                                    height="51px"
-                                    layout="fixed"
-                                    quality="100"
-                                />
-                            </a>
+                        <Link
+                            href={routeMap[routeNames.HOME]}
+                            className="navbar-brand"
+                            onClick={() => trackClick(events.NAVIGATION_CLICK_LOGO)}
+                            title="Strona główna"
+                        >
+                            <Image src={logoImage} alt="Logo rozmowni.pl" width="200" height="51" quality="100" />
                         </Link>
                         {width <= 976 ? (
                             <MenuMobile isOpen={isOpen} onToggleClick={onToggleClick} onLinkClick={onLinkClick} />

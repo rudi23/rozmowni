@@ -79,57 +79,45 @@ export default function Footer() {
                             <div className="widget-title">Rozmowni.pl</div>
                             <ul className="list-unstyled footer-links">
                                 <li>
-                                    <Link href={routeMap[routeNames.ABOUT_US]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.ABOUT_US])
-                                                )
-                                            }
-                                        >
-                                            O nas
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.ABOUT_US]}
+                                        onClick={() =>
+                                            trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.ABOUT_US]))
+                                        }
+                                    >
+                                        O nas
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.PRICING]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.PRICING])
-                                                )
-                                            }
-                                        >
-                                            Cennik
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.PRICING]}
+                                        onClick={() =>
+                                            trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.PRICING]))
+                                        }
+                                    >
+                                        Cennik
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.CONTACT]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.CONTACT])
-                                                )
-                                            }
-                                        >
-                                            Kontakt
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.CONTACT]}
+                                        onClick={() =>
+                                            trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.CONTACT]))
+                                        }
+                                    >
+                                        Kontakt
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.PRIVACY_POLICY]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(
-                                                        routeTitles[routeNames.PRIVACY_POLICY]
-                                                    )
-                                                )
-                                            }
-                                        >
-                                            Polityka prywatności
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.PRIVACY_POLICY]}
+                                        onClick={() =>
+                                            trackClick(
+                                                events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.PRIVACY_POLICY])
+                                            )
+                                        }
+                                    >
+                                        Polityka prywatności
                                     </Link>
                                 </li>
                             </ul>
@@ -141,75 +129,66 @@ export default function Footer() {
                             <ul className="list-unstyled footer-links">
                                 {routeMap[routeNames.HOLIDAY_COURSE] && (
                                     <li>
-                                        <Link href={routeMap[routeNames.HOLIDAY_COURSE]}>
-                                            <a
-                                                onClick={() =>
-                                                    trackClick(
-                                                        events.FOOTER_CLICK_MENU_ITEM(
-                                                            routeNames[routeNames.HOLIDAY_COURSE]
-                                                        )
-                                                    )
-                                                }
-                                            >
-                                                Intensywne kursy wakacyjne
-                                            </a>
+                                        <Link
+                                            href={routeMap[routeNames.HOLIDAY_COURSE]}
+                                            onClick={() =>
+                                                trackClick(
+                                                    events.FOOTER_CLICK_MENU_ITEM(routeNames[routeNames.HOLIDAY_COURSE])
+                                                )
+                                            }
+                                        >
+                                            Intensywne kursy wakacyjne
                                         </Link>
                                     </li>
                                 )}
                                 <li>
-                                    <Link href={routeMap[routeNames.INDIVIDUAL_COURSE]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(
-                                                        routeNames[routeNames.INDIVIDUAL_COURSE]
-                                                    )
-                                                )
-                                            }
-                                        >
-                                            Zajęcia indywidualne
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.INDIVIDUAL_COURSE]}
+                                        onClick={() =>
+                                            trackClick(
+                                                events.FOOTER_CLICK_MENU_ITEM(routeNames[routeNames.INDIVIDUAL_COURSE])
+                                            )
+                                        }
+                                    >
+                                        Zajęcia indywidualne
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.GROUP_COURSE]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.GROUP_COURSE])
-                                                )
-                                            }
-                                        >
-                                            Zajęcia grupowe
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.GROUP_COURSE]}
+                                        onClick={() =>
+                                            trackClick(
+                                                events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.GROUP_COURSE])
+                                            )
+                                        }
+                                    >
+                                        Zajęcia grupowe
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.EXAM_8_COURSE]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.EXAM_8_COURSE])
-                                                )
-                                            }
-                                        >
-                                            Egzamin 8-klasisty
-                                        </a>
+                                    <Link
+                                        href={routeMap[routeNames.EXAM_8_COURSE]}
+                                        onClick={() =>
+                                            trackClick(
+                                                events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeNames.EXAM_8_COURSE])
+                                            )
+                                        }
+                                    >
+                                        Egzamin 8-klasisty
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={routeMap[routeNames.MATURA_EXAM_COURSE]}>
-                                        <a
-                                            onClick={() =>
-                                                trackClick(
-                                                    events.FOOTER_CLICK_MENU_ITEM(
-                                                        routeTitles[routeNames.MATURA_EXAM_COURSE]
-                                                    )
+                                    <Link
+                                        href={routeMap[routeNames.MATURA_EXAM_COURSE]}
+                                        onClick={() =>
+                                            trackClick(
+                                                events.FOOTER_CLICK_MENU_ITEM(
+                                                    routeTitles[routeNames.MATURA_EXAM_COURSE]
                                                 )
-                                            }
-                                        >
-                                            Egzamin maturalny
-                                        </a>
+                                            )
+                                        }
+                                    >
+                                        Egzamin maturalny
                                     </Link>
                                 </li>
                             </ul>
@@ -263,7 +242,6 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-
             <div className="footer-btm">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
