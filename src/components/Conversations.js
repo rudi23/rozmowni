@@ -1,8 +1,6 @@
-import Image from 'next/image';
 import conversationsImage from '../../public/images/conversations.jpg';
 import SectionHeading from './SectionHeading';
 import Section from './Section';
-import Accordion from './Accordion';
 import styles from './Conversations.module.scss';
 import ResponsiveImage from './ResponsiveImage';
 

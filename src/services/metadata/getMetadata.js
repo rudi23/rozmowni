@@ -125,7 +125,7 @@ function getHomeMetadata(canonicalUrl) {
     };
 }
 
-function getWhyUs(canonicalUrl) {
+function _getWhyUs(canonicalUrl) {
     const title = 'Dlaczego my? | Czemu miałbyś uczyć się angielskiego w Rozmowni.pl';
     const description =
         'Nauka z Rozmowni.pl? Gwarancja ciekawych zajęć dotyczących rozwoju osobistego, psychologii, filozofii, coachingu. Równoczesny rozwój kompetencji przyszłości: komunikacji, kreatywności, radzenie sobie z trudnymi emocjami, przełamywaniem bariery językowej przez konwersacje online';

@@ -93,7 +93,7 @@ export default function StickyCTA() {
             window.removeEventListener('resize', checkIsMobile);
             clearInterval(cookieCheckInterval);
         };
-    }, []);
+    }, [cookieConsentVisible, isInitialized, isVisible]);
 
     const handleMinimize = () => {
         setIsMinimized(true);

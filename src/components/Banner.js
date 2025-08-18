@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faCheck, faClock, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
@@ -12,7 +11,7 @@ import ResponsiveImage from './ResponsiveImage';
 
 export default function Banner() {
     const trackClick = useClickTracking();
-    const [isMobile, setIsMobile] = useState(false);
+    const [_isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const checkIsMobile = () => {

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Section from '../../components/Section';
 import PageHeader from '../../components/PageHeader';
 import Opinions from '../../components/Opinions';
@@ -6,9 +5,7 @@ import aboutUsImage from '../../../public/images/about-us.jpg';
 import denisImage from '../../../public/images/denis.jpg';
 import angelikaImage from '../../../public/images/angelika.jpg';
 import aniaImage from '../../../public/images/ania.jpg';
-import dannyImage from '../../../public/images/danny.jpg';
 import georgiaImage from '../../../public/images/georgia.jpg';
-import lolitaImage from '../../../public/images/lolita.jpg';
 import wiktorImage from '../../../public/images/wiktor.jpg';
 import ResponsiveImage from '../../components/ResponsiveImage';
 

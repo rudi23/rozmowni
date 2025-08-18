@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import useClickTracking from '../hooks/useClickTracking';
 import { routeMap, routeNames } from '../routes';
 import CourseRequirements from './CourseRequirements';

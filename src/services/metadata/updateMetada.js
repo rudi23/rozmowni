@@ -5,7 +5,6 @@ const updateNodeProperty = curryN(4, (propertyName, node, metaObject, metaObject
         if (metaObject[metaObjectKey] !== node.getAttribute(propertyName)) {
             node.setAttribute(propertyName, metaObject[metaObjectKey]);
         }
-        // eslint-disable-next-line no-param-reassign
         delete metaObject[metaObjectKey];
     } else {
         node.remove();

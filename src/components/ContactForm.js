@@ -49,7 +49,7 @@ export default function ContactForm() {
                 } else {
                     setSentError(true);
                 }
-            } catch (error) {
+            } catch (_error) {
                 setSentError(true);
             } finally {
                 setLoading(false);

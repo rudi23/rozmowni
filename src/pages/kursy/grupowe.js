@@ -1,6 +1,5 @@
 import PageHeader from '../../components/PageHeader';
 import Accordion from '../../components/Accordion';
-import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
 import CourseHeader from '../../components/CourseHeader';
@@ -9,8 +8,6 @@ import CourseLayout from '../../components/CourseLayout';
 import courseGroupImage from '../../../public/images/course-group.jpg';
 
 export default function CoursesGroup() {
-    const trackClick = useClickTracking();
-
     return (
         <>
             <PageHeader title="Kursy grupowe" />

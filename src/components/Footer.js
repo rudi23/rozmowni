@@ -215,7 +215,6 @@ export default function Footer() {
                                     <i className="bi bi-envelop" />
                                     <div>
                                         <strong>Email</strong>
-                                        {/* eslint-disable jsx-a11y/anchor-is-valid  */}
                                         <a
                                             href="#"
                                             onClick={(e) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './Accordion.module.scss';
 
 export default function Accordion({ id = 'accordion', cards }) {
