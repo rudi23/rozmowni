@@ -181,7 +181,7 @@ export default function HolidayCourse() {
                                 className="btn btn-main mt-4"
                                 onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_CONTACT)}
                             >
-                                <FontAwesomeIcon icon={faCheck} className="mr-2" />
+                                <FontAwesomeIcon icon={faCheck} className="me-2" />
                                 Zapisz się już dziś
                             </Link>
 

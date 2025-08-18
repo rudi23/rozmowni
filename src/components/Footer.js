@@ -14,7 +14,7 @@ export default function Footer() {
         <section className="footer">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-4 mr-auto col-sm-6 col-md-6">
+                    <div className="col-lg-4 me-auto col-sm-6 col-md-6">
                         <div className="widget footer-widget mb-5 mb-lg-0">
                             <div className="widget-title">O nas</div>
                             <p className="mt-3">

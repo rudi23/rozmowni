@@ -20,7 +20,7 @@ export default function Accordion({ id = 'accordion', cards }) {
             <div className={cx('card', styles.card)} key={id}>
                 <div className={cx('card-header', styles.cardHeader)} id={`heading-${id}`}>
                     <button
-                        className="btn-block text-left"
+                        className="w-100 text-start"
                         type="button"
                         onClick={() => onClick(id)}
                         aria-expanded={collapsedTab === id}

@@ -1,9 +1,13 @@
 @import "../styles/mixins";
 
 .featuresSection {
+  margin-top: -80px;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 10;
 
   @media screen and (min-width: 1200px) {
+    margin-top: -100px;
     margin-bottom: 3rem;
   }
 

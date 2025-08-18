@@ -160,7 +160,7 @@ export default function ContactForm() {
             </div>
 
             <div className="col-lg-12">
-                <div className="mt-4 text-right">
+                <div className="mt-4 text-end">
                     <button className="btn btn-main" type="submit" disabled={isLoading}>
                         {isLoading ? (
                             <>
@@ -174,7 +174,7 @@ export default function ContactForm() {
                         ) : (
                             <>
                                 Wyślij wiadomość
-                                <FontAwesomeIcon icon={faAngleRight} className="ml-2" />
+                                <FontAwesomeIcon icon={faAngleRight} className="ms-2" />
                             </>
                         )}
                     </button>

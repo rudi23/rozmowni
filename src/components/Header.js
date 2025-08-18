@@ -5,13 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFacebookF, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
-import { useState } from 'react';
-import { useWindowWidth } from '@react-hook/window-size';
+import { useEffect, useState } from 'react';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames, routeTitles } from '../routes';
 import logoImage from '../../public/images/logo-rozmowni.png';
-import ResponsiveImage from './ResponsiveImage';
 
 library.add(faFacebookF);
 library.add(faInstagram);
@@ -226,7 +224,17 @@ export default function Header() {
     const trackClick = useClickTracking();
     const [isOpen, setOpen] = useState(false);
     const [isDropDownOpen, setDropDownOpen] = useState(false);
-    const width = useWindowWidth({ initialWidth: 1600 });
+    const [width, setWidth] = useState(1600);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+        const updateWidth = () => setWidth(window.innerWidth);
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+
+        return () => window.removeEventListener('resize', updateWidth);
+    }, []);
 
     const onLinkClick = (routeName) => () => {
         trackClick(events.NAVIGATION_CLICK_MENU_ITEM(routeTitles[routeName]));
@@ -245,7 +253,7 @@ export default function Header() {
         <header>
             <div className="site-navigation">
                 <nav className="navbar navbar-expand-lg">
-                    <div className="container pl-3 pr-3">
+                    <div className="container pl-3 pe-3">
                         <Link
                             href={routeMap[routeNames.HOME]}
                             className="navbar-brand"
@@ -254,7 +262,17 @@ export default function Header() {
                         >
                             <Image src={logoImage} alt="Logo rozmowni.pl" width="200" height="51" quality="100" />
                         </Link>
-                        {width <= 976 ? (
+                        {!isClient ? (
+                            // Server-side render both menus to prevent hydration mismatch
+                            <>
+                                <MenuMobile isOpen={isOpen} onToggleClick={onToggleClick} onLinkClick={onLinkClick} />
+                                <MenuDesktop
+                                    isDropDownOpen={isDropDownOpen}
+                                    onDropdownClick={onDropdownClick}
+                                    onLinkClick={onLinkClick}
+                                />
+                            </>
+                        ) : width <= 976 ? (
                             <MenuMobile isOpen={isOpen} onToggleClick={onToggleClick} onLinkClick={onLinkClick} />
                         ) : (
                             <MenuDesktop

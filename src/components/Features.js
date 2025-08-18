@@ -2,7 +2,7 @@ import styles from './Features.module.scss';
 
 export default function Features() {
     return (
-        <section className={`feature-2 mt--100 ${styles.featuresSection}`}>
+        <section className={`feature-2 ${styles.featuresSection}`}>
             <div className="container">
                 <div className="row no-gutters">
                     <div className="col-lg-3 col-md-6">
