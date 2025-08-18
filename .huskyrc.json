@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "npx --no-install lint-staged",
+    "commit-msg": "npx --no-install commitlint -g commitlint.config.js --edit $1"
+  }
+}
