@@ -70,7 +70,6 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
     return (
         <>
             <PageHeader title="Gratulacje! Test ukończony!" />
-
             {/* Congratulations Section - White */}
             <Section>
                 <div className={styles.congratsSection}>
@@ -83,7 +82,6 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                     </div>
                 </div>
             </Section>
-
             {/* Value Proposition Section - Gray */}
             <Section background="gray">
                 <div className={styles.valueSection}>
@@ -126,7 +124,6 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                     </div>
                 </div>
             </Section>
-
             {/* Contact Form Section - White */}
             <Section>
                 <div className={styles.testCompletionForm}>
@@ -245,7 +242,6 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                     </form>
                 </div>
             </Section>
-
             {/* Trial Benefits Section - Gray */}
             <Section background="gray">
                 <div className={styles.trialBenefitsSection}>

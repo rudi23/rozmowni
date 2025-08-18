@@ -22,7 +22,6 @@ export default function TestBenefits() {
                     </p>
                 </div>
             </div>
-
             <div className="row">
                 <div className="col-lg-6 col-md-6 mb-4">
                     <div className={styles.benefit}>
@@ -75,7 +74,6 @@ export default function TestBenefits() {
                     </div>
                 </div>
             </div>
-
             <div className="row mt-5">
                 <div className="col-12">
                     <div className={styles.urgencyBox}>
@@ -94,14 +92,13 @@ export default function TestBenefits() {
                                 </p>
                             </div>
                             <div className="col-lg-4 text-center">
-                                <Link href={routeMap[routeNames.TEST]}>
-                                    <a
-                                        className={`btn btn-main ${styles.mainCta}`}
-                                        onClick={() => trackClick(events.HOME_TEST_BENEFITS_CLICK_TEST)}
-                                    >
-                                        <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                                        ZRÓB TEST TERAZ
-                                    </a>
+                                <Link
+                                    href={routeMap[routeNames.TEST]}
+                                    className={`btn btn-main ${styles.mainCta}`}
+                                    onClick={() => trackClick(events.HOME_TEST_BENEFITS_CLICK_TEST)}
+                                >
+                                    <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                                    ZRÓB TEST TERAZ
                                 </Link>
                                 <div className={styles.guarantee}>
                                     <small>🔒 100% darmowy • Bez zobowiązań</small>

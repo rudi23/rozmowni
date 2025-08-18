@@ -91,22 +91,20 @@ export default function TestFAQ() {
                             </p>
 
                             <div className={styles.ctaButtons}>
-                                <Link href={routeMap[routeNames.TEST]}>
-                                    <a
-                                        className={`btn btn-main ${styles.primaryButton}`}
-                                        onClick={() => trackClick(events.HOME_FAQ_CLICK_TEST)}
-                                    >
-                                        ZRÓB TEST I ZAPYTAJ EKSPERTA
-                                    </a>
+                                <Link
+                                    href={routeMap[routeNames.TEST]}
+                                    className={`btn btn-main ${styles.primaryButton}`}
+                                    onClick={() => trackClick(events.HOME_FAQ_CLICK_TEST)}
+                                >
+                                    ZRÓB TEST I ZAPYTAJ EKSPERTA
                                 </Link>
 
-                                <Link href={routeMap[routeNames.CONTACT]}>
-                                    <a
-                                        className={`btn btn-outline ${styles.secondaryButton}`}
-                                        onClick={() => trackClick(events.HOME_FAQ_CLICK_CONTACT)}
-                                    >
-                                        Zadaj pytanie teraz
-                                    </a>
+                                <Link
+                                    href={routeMap[routeNames.CONTACT]}
+                                    className={`btn btn-outline ${styles.secondaryButton}`}
+                                    onClick={() => trackClick(events.HOME_FAQ_CLICK_CONTACT)}
+                                >
+                                    Zadaj pytanie teraz
                                 </Link>
                             </div>
 

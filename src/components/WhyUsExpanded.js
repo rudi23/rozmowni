@@ -10,6 +10,7 @@ import SectionHeading from './SectionHeading';
 import Section from './Section';
 import Accordion from './Accordion';
 import styles from './WhyUsExpanded.module.scss';
+import ResponsiveImage from './ResponsiveImage';
 
 export default function WhyUsExpanded() {
     const trackClick = useClickTracking();
@@ -197,11 +198,10 @@ export default function WhyUsExpanded() {
                         />
 
                         <div className={styles.imageFloat}>
-                            <Image
+                            <ResponsiveImage
                                 src={whyUsImage}
                                 alt="Małgorzata Rudowska przysłuchująca się uczniom podczas zajęć angielskiego"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 350px, (min-width: 992px) 300px, (min-width: 768px) 250px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -233,7 +233,6 @@ export default function WhyUsExpanded() {
                     </div>
                 </div>
             </div>
-
             {/* Expanded Details */}
             <div className="row mt-3">
                 <div className="col-12">
@@ -258,13 +257,12 @@ export default function WhyUsExpanded() {
                             <p>
                                 <strong>Brzmi jak coś dla Ciebie?</strong>
                             </p>
-                            <Link href={routeMap[routeNames.TEST]}>
-                                <a
-                                    className={`btn btn-main ${styles.finalCtaButton}`}
-                                    onClick={() => trackClick(events.HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST)}
-                                >
-                                    Zrób test i przekonaj się sam
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.TEST]}
+                                className={`btn btn-main ${styles.finalCtaButton}`}
+                                onClick={() => trackClick(events.HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST)}
+                            >
+                                Zrób test i przekonaj się sam
                             </Link>
                         </div>
                     </div>

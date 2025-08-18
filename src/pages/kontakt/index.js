@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faLinkedin, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { useRouter } from 'next/router';
+import ResponsiveImage from '../../components/ResponsiveImage';
 import SectionHeading from '../../components/SectionHeading';
 import Section from '../../components/Section';
 import ContactForm from '../../components/ContactForm';
@@ -80,14 +80,7 @@ export default function Contact() {
                     </div>
                     <div className="col-lg-5 col-md-12">
                         <div className="join-img img-block">
-                            <Image
-                                src={contactImage}
-                                alt="Małgorzata Rudowska z książką w rękach"
-                                placeholder="blur"
-                                layout="responsive"
-                                sizes="(min-width: 1200px) 445px, (min-width: 992px) 370px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
-                                quality="75"
-                            />
+                            <ResponsiveImage src={contactImage} alt="Małgorzata Rudowska z książką w rękach" />
                         </div>
                     </div>
                 </div>

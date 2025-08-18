@@ -54,13 +54,12 @@ export default function SocialProofStats() {
                                 <FontAwesomeIcon icon={faStar} />
                                 <FontAwesomeIcon icon={faStar} />
                             </div>
-                            <Link href={routeMap[routeNames.TEST]}>
-                                <a
-                                    className={styles.testimonialCta}
-                                    onClick={() => trackClick(events.HOME_SOCIAL_PROOF_CLICK_TEST)}
-                                >
-                                    Dołącz do zadowolonych →
-                                </a>
+                            <Link
+                                href={routeMap[routeNames.TEST]}
+                                className={styles.testimonialCta}
+                                onClick={() => trackClick(events.HOME_SOCIAL_PROOF_CLICK_TEST)}
+                            >
+                                Dołącz do zadowolonych →
                             </Link>
                         </div>
                     </div>

@@ -34,9 +34,7 @@ export function CookieConsent() {
                 jak je wyłączyć.
             </a>{' '}
             Więcej możesz przeczytać w naszej{' '}
-            <Link href={routeMap[routeNames.PRIVACY_POLICY]}>
-                <a>polityce prywatnosci.</a>
-            </Link>
+            <Link href={routeMap[routeNames.PRIVACY_POLICY]}>polityce prywatnosci.</Link>
         </CookieConsentCore>
     );
 }

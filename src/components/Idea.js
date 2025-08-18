@@ -2,6 +2,7 @@ import Image from 'next/image';
 import lifelongLearningImage from '../../public/images/lifelong-learning.jpg';
 import Section from './Section';
 import SectionHeading from './SectionHeading';
+import ResponsiveImage from './ResponsiveImage';
 
 export default function Idea() {
     return (
@@ -33,11 +34,10 @@ export default function Idea() {
                             <SectionHeading heading="Dlaczego warto się uczyć?" subheading="Nasza filozofia" />
 
                             <div className="floating-image-idea">
-                                <Image
+                                <ResponsiveImage
                                     src={lifelongLearningImage}
                                     alt="Małgorzata Rudowska przy biurku"
                                     placeholder="blur"
-                                    layout="responsive"
                                     sizes="(min-width: 1200px) 350px, (min-width: 992px) 300px, (min-width: 768px) 250px, calc(100vw-30px)"
                                     quality="75"
                                 />

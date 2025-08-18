@@ -10,6 +10,7 @@ import dannyImage from '../../../public/images/danny.jpg';
 import georgiaImage from '../../../public/images/georgia.jpg';
 import lolitaImage from '../../../public/images/lolita.jpg';
 import wiktorImage from '../../../public/images/wiktor.jpg';
+import ResponsiveImage from '../../components/ResponsiveImage';
 
 export default function AboutUs() {
     return (
@@ -19,11 +20,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={aboutUsImage}
                                 alt="Małgorzata Rudowska"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -62,11 +62,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 order-lg-2">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={denisImage}
                                 alt="Denis"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -99,11 +98,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={angelikaImage}
                                 alt="Angelika"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -134,11 +132,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 order-lg-2">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={aniaImage}
                                 alt="Ania"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -166,11 +163,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 order-lg-1">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={georgiaImage}
                                 alt="Georgia"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
@@ -204,11 +200,10 @@ export default function AboutUs() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 order-lg-2">
                         <div className="img-block">
-                            <Image
+                            <ResponsiveImage
                                 src={wiktorImage}
                                 alt="Wiktor"
                                 placeholder="blur"
-                                layout="responsive"
                                 sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
                                 quality="75"
                             />
