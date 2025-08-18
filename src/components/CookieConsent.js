@@ -13,6 +13,7 @@ export function CookieConsent() {
                 color: 'rgba(255, 255, 255, 0.8)',
                 alignItems: 'center',
                 fontSize: '14px',
+                zIndex: 9999,
             }}
             buttonStyle={{
                 fontSize: '14px',
@@ -26,15 +27,8 @@ export function CookieConsent() {
             }}
             expires={90}
         >
-            Nasza strona internetowa używa plików cookies (tzw. ciasteczka) w celach statystycznych, reklamowych oraz
-            funkcjonalnych. Dzięki nim możemy indywidualnie dostosować stronę do twoich potrzeb. Każdy może zaakceptować
-            pliki cookies albo ma możliwość wyłączenia ich w przeglądarce, dzięki czemu nie będą zbierane żadne
-            informacje. Dowiedz się{' '}
-            <a href="http://ciasteczka.eu/#jak-wylaczyc-ciasteczka" target="_blank" rel="noreferrer">
-                jak je wyłączyć.
-            </a>{' '}
-            Więcej możesz przeczytać w naszej{' '}
-            <Link href={routeMap[routeNames.PRIVACY_POLICY]}>polityce prywatnosci.</Link>
+            Używamy plików cookies, aby poprawić funkcjonalność strony. Możesz je wyłączyć w ustawieniach przeglądarki.
+            Więcej w naszej <Link href={routeMap[routeNames.PRIVACY_POLICY]}>polityce prywatności.</Link>
         </CookieConsentCore>
     );
 }
