@@ -3,6 +3,7 @@ import { render } from '@react-email/render';
 import TestResultsEmail from '../emails/TestResultsEmail.jsx';
 import ContactFormNotificationEmail from '../emails/ContactFormEmail.jsx';
 import TestResultsNotificationEmail from '../emails/TestResultsNotificationEmail.jsx';
+import { createAuthHeaders } from '../utils/apiAuth';
 
 // Constants
 const EMAIL_TYPES = {
@@ -401,7 +402,7 @@ export default function EmailPreviewPage() {
         '/api/send-test-results?emailType=results-only',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: createAuthHeaders(),
           body: JSON.stringify({
             fullName: testData.fullName,
             email,
@@ -451,7 +452,7 @@ export default function EmailPreviewPage() {
     try {
       const response = await fetch('/api/send-contact-form-notification', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: createAuthHeaders(),
         body: JSON.stringify({
           name: contactFormData.name,
           email,
@@ -501,7 +502,7 @@ export default function EmailPreviewPage() {
 
       const response = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: createAuthHeaders(),
         body: JSON.stringify({
           fullName: adultsTestData.fullName,
           email,
