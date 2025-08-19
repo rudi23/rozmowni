@@ -24,11 +24,13 @@ jobs:
           cp .env.example .env.local
           sed -i 's/<SMTP_USER>/${{ secrets.SMTP_USER }}/g' .env.local
           sed -i 's/<SMTP_PASS>/${{ secrets.SMTP_PASS }}/g' .env.local
+          sed -i 's/<BASIC_AUTH_USER>/${{ secrets.BASIC_AUTH_USER }}/g' .env.local
+          sed -i 's/<BASIC_AUTH_PASS>/${{ secrets.BASIC_AUTH_PASS }}/g' .env.local
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
       - name: Adding known hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       - name: Set release date as env variable
@@ -50,7 +52,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: | 
+          script: |
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             mv ~/app_${{ env.RELEASE }}.tar.gz ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             tar -xf ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/app_${{ env.RELEASE }}.tar.gz -C ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
@@ -62,4 +64,3 @@ jobs:
             cd ${{ env.RELEASES_DIR }} && rm -rf !($(ls ${{ env.RELEASES_DIR }} -r | head -2 | tr '\n' '|'))
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/tmp
             touch ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/tmp/restart.txt
-
