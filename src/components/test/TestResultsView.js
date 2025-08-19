@@ -61,7 +61,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
 
     try {
       // Send email with test results
-      const emailResponse = await fetch('/api/send-test-summary-email', {
+      const emailResponse = await fetch('/api/send-test-results', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
