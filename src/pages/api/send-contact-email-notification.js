@@ -47,7 +47,7 @@ ${message}
       to: process.env.NOTIFICATIONS_EMAIL,
       subject: 'Rozmowni.pl - formularz kontaktowy',
       text: emailContent,
-      replyTo: email, // Set reply-to to the sender's email
+      replayTo: process.env.SMTP_FROM,
     };
 
     await transporter.sendMail(mailOptions);

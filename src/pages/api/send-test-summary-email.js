@@ -52,6 +52,7 @@ export default async function handler(req, res) {
       to: email,
       subject: 'Twój wynik testu + darmowy e-book "Czas na angielski"',
       html: emailHtml,
+      replayTo: process.env.SMTP_FROM,
     };
 
     // Send email
