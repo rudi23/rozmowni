@@ -8,7 +8,7 @@ import { events } from '../services/tracking';
 import styles from './ContactForm.module.scss';
 
 const sendForm = async (data) =>
-  fetch('/api/send-contact-email-notification', {
+  fetch('/api/send-contact-form-notification', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
