@@ -14,6 +14,8 @@ export default function TestPage() {
     setSelectedTest(null);
     setShowResults(false);
     setScore(0);
+    // Scroll to top when resetting to intro
+    window.scrollTo(0, 0);
   };
 
   // Reset test when navigating to the main test page
@@ -28,11 +30,15 @@ export default function TestPage() {
     setSelectedTest(testType);
     setShowResults(false);
     setScore(0);
+    // Scroll to top when starting test
+    window.scrollTo(0, 0);
   };
 
   const handleTestComplete = (finalScore) => {
     setScore(finalScore);
     setShowResults(true);
+    // Scroll to top when showing results
+    window.scrollTo(0, 0);
   };
 
   // Show intro screen when no test is selected

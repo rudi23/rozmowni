@@ -471,6 +471,8 @@ const TestResultsView = ({ score, selectedTest }) => {
 
   const handleFormSubmitted = () => {
     setIsFormSubmitted(true);
+    // Scroll to top when transitioning to success view
+    window.scrollTo(0, 0);
   };
 
   if (isFormSubmitted) {
