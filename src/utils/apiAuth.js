@@ -3,7 +3,7 @@
 // Create headers with API key
 export const createAuthHeaders = () => {
   // Use NEXT_PUBLIC_ prefix to make it available in browser
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const apiKey = '<NEXT_PUBLIC_API_KEY>';
 
   if (!apiKey) {
     console.warn('No API key found for email endpoints');
