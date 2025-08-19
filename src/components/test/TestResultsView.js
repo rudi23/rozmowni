@@ -17,6 +17,7 @@ import {
 import PageHeader from '../PageHeader';
 import Section from '../Section';
 import { testData, getLevel } from '../../data/testData';
+import { createAuthHeaders } from '../../utils/apiAuth';
 import styles from './TestResultsView.module.scss';
 
 // Component for the form and results view
@@ -63,9 +64,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       // Send email with test results
       const emailResponse = await fetch('/api/send-test-results', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: createAuthHeaders(),
         body: JSON.stringify({
           fullName: data.fullName,
           email: data.email,

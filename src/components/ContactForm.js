@@ -5,14 +5,13 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useState } from 'react';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
+import { createAuthHeaders } from '../utils/apiAuth';
 import styles from './ContactForm.module.scss';
 
 const sendForm = async (data) =>
   fetch('/api/send-contact-form-notification', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: createAuthHeaders(),
     body: JSON.stringify(data),
   });
 
