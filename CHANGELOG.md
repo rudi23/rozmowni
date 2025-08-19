@@ -1,5 +1,11 @@
 # Changelog
 
+## <small>2.0.2 (2025-08-19)</small>
+
+- fix: inject api key ([e4b55ee](https://github.com/rudi23/rozmowni/commit/e4b55ee))
+- fix: load env variables ([542afaa](https://github.com/rudi23/rozmowni/commit/542afaa))
+- fix: use auth headers ([abf121b](https://github.com/rudi23/rozmowni/commit/abf121b))
+
 ## <small>2.0.1 (2025-08-19)</small>
 
 - fix: env variables ([f007cce](https://github.com/rudi23/rozmowni/commit/f007cce))
