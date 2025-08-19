@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>2.0.1 (2025-08-19)</small>
+
+- fix: env variables ([f007cce](https://github.com/rudi23/rozmowni/commit/f007cce))
+
 ## 2.0.0 (2025-08-19)
 
 - feat: use NodeJS v22, Next.JS v15 and React v19 **BREAKING_CHANGE**
