@@ -1,3 +1,38 @@
+# Changelog
+
+## 2.0.0 (2025-08-19)
+
+- feat: use NodeJS v22, Next.JS v15 and React v19 **BREAKING_CHANGE**
+- chore: prettier fixes ([f2e2361](https://github.com/rudi23/rozmowni/commit/f2e2361))
+- chore(deps): update actions/checkout action to v5 (#290) ([532d497](https://github.com/rudi23/rozmowni/commit/532d497)), closes [#290](https://github.com/rudi23/rozmowni/issues/290)
+- chore(deps): update actions/setup-node action to v4 (#264) ([cbfd4b1](https://github.com/rudi23/rozmowni/commit/cbfd4b1)), closes [#264](https://github.com/rudi23/rozmowni/issues/264)
+- chore(deps): update github/codeql-action action to v3 (#276) ([e16efc4](https://github.com/rudi23/rozmowni/commit/e16efc4)), closes [#276](https://github.com/rudi23/rozmowni/issues/276)
+- fix: add automatic sroll to top in test views changes ([8387f4a](https://github.com/rudi23/rozmowni/commit/8387f4a))
+- fix: change Skype to Google Meet ([41409ce](https://github.com/rudi23/rozmowni/commit/41409ce))
+- fix: code refactor ([1acdff2](https://github.com/rudi23/rozmowni/commit/1acdff2))
+- fix: code refactor ([dbe2588](https://github.com/rudi23/rozmowni/commit/dbe2588))
+- fix: conflict of cookie consent and sticky cta ([b723b2a](https://github.com/rudi23/rozmowni/commit/b723b2a))
+- fix: email preview refactor, send test results notification ([3e60104](https://github.com/rudi23/rozmowni/commit/3e60104))
+- fix: fix notifications receiver and replyTo ([dfa310f](https://github.com/rudi23/rozmowni/commit/dfa310f))
+- fix: husky ([62fbba9](https://github.com/rudi23/rozmowni/commit/62fbba9))
+- fix: migrate eslint ([83874a3](https://github.com/rudi23/rozmowni/commit/83874a3))
+- fix: migrate husky ([32ed81f](https://github.com/rudi23/rozmowni/commit/32ed81f))
+- fix: migrate images and links ([08538c7](https://github.com/rudi23/rozmowni/commit/08538c7))
+- fix: move to sending email using nodemailer ([9fd3e3a](https://github.com/rudi23/rozmowni/commit/9fd3e3a))
+- fix: remove lolita and danny ([c9649f1](https://github.com/rudi23/rozmowni/commit/c9649f1))
+- fix: remove migration docs ([d005ff4](https://github.com/rudi23/rozmowni/commit/d005ff4))
+- fix: sending email with test results, add basic auth, update deps ([4243f29](https://github.com/rudi23/rozmowni/commit/4243f29))
+- fix: update bootstrap to 5v ([526135f](https://github.com/rudi23/rozmowni/commit/526135f))
+- fix: update copyright year ([aaee8de](https://github.com/rudi23/rozmowni/commit/aaee8de))
+- fix: update link to ebook ([19fea8f](https://github.com/rudi23/rozmowni/commit/19fea8f))
+- fix: update node in gh actions ([44e9ccc](https://github.com/rudi23/rozmowni/commit/44e9ccc))
+- fix: update prices ([e0c15de](https://github.com/rudi23/rozmowni/commit/e0c15de))
+- fix: add new semester sign up info ([5847fda](https://github.com/rudi23/rozmowni/commit/5847fda))
+- fix: update fontawesome deps ([504d683](https://github.com/rudi23/rozmowni/commit/504d683))
+- feat: add auth and rate limiting for sending emails ([cb20d83](https://github.com/rudi23/rozmowni/commit/cb20d83))
+- feat: change main site and introduce test ([a98ba67](https://github.com/rudi23/rozmowni/commit/a98ba67))
+- feat: update to next 15 and react 19 ([3ee45c6](https://github.com/rudi23/rozmowni/commit/3ee45c6))
+
 ## [1.7.0](https://github.com/rudi23/rozmowni/compare/v1.6.2...v1.7.0) (2024-09-11)
 
 ### Features
