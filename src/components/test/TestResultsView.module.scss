@@ -1,12 +1,19 @@
 @import "../../styles/mixins";
 
 .testCompletionForm {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
+
+  @include onTablet() {
+    max-width: 900px;
+    padding: 0 1.5rem;
+  }
 
   @include onMobile() {
     max-width: none;
     margin: 0;
+    padding: 0 1rem;
   }
 }
 
@@ -128,7 +135,9 @@
   border: 2px solid #e9ecef;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   @include onMobile() {
     padding: 0.75rem 0.875rem;
@@ -358,8 +367,19 @@
 // Modern sections styles inspired by homepage
 .congratsSection {
   text-align: center;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 0 2rem;
+
+  @include onTablet() {
+    max-width: 800px;
+    padding: 0 1.5rem;
+  }
+
+  @include onMobile() {
+    max-width: none;
+    padding: 0 1rem;
+  }
 }
 
 .congratsContent {
@@ -399,12 +419,19 @@
 .sectionHeading {
   text-align: center;
   margin-bottom: 3rem;
-  max-width: 700px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 2rem;
+
+  @include onTablet() {
+    max-width: 700px;
+    padding: 0 1.5rem;
+  }
 
   @include onMobile() {
     margin-bottom: 2rem;
+    padding: 0 1rem;
   }
 
   h3 {
@@ -458,8 +485,13 @@
 
 .valueGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+
+  @include onTablet() {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
 
   @include onMobile() {
     grid-template-columns: 1fr;
@@ -474,7 +506,9 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
   border-top: 4px solid #0f8d8c;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 
   @include onMobile() {
     padding: 2rem 1.5rem;
@@ -555,9 +589,14 @@
 
 .benefitsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 3rem;
+
+  @include onTablet() {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
 
   @include onMobile() {
     grid-template-columns: 1fr;
@@ -573,7 +612,9 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   border: 1px solid #e9ecef;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 
   @include onMobile() {
     padding: 1.5rem 1rem;

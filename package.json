@@ -6,57 +6,57 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "prettier": "prettier --write",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check --ignore-unknown .",
+    "prettier:fix": "prettier --write --ignore-unknown .",
     "test": "echo 'No tests'",
     "prepare": "husky",
     "release": "GITHUB_TOKEN=$GITHUB_COM_TOKEN && release-it"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix"
+    "*.{js,jsx}": [
+      "eslint --max-warnings=0 --no-warn-ignored --fix"
     ],
-    "*.{css,scss,json,md}": [
-      "prettier --write"
+    "**/*": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^7.0.0",
-    "@fortawesome/free-brands-svg-icons": "^7.0.0",
-    "@fortawesome/free-regular-svg-icons": "^7.0.0",
-    "@fortawesome/free-solid-svg-icons": "^7.0.0",
-    "@fortawesome/react-fontawesome": "^0.2.3",
+    "@fortawesome/fontawesome-svg-core": "7.0.0",
+    "@fortawesome/free-brands-svg-icons": "7.0.0",
+    "@fortawesome/free-regular-svg-icons": "7.0.0",
+    "@fortawesome/free-solid-svg-icons": "7.0.0",
+    "@fortawesome/react-fontawesome": "0.2.3",
     "@react-email/components": "0.5.0",
-    "bootstrap": "^5.3.7",
-    "classnames": "^2.5.1",
-    "next": "15.4.6",
-    "nodemailer": "^7.0.5",
-    "react": "19.0.0",
-    "react-cookie-consent": "^9.0.0",
-    "react-dom": "19.0.0",
-    "react-facebook-pixel": "^1.0.4",
-    "react-ga4": "^1.4.1",
-    "react-google-recaptcha-v3": "^1.11.0",
-    "react-hook-form": "^7.54.2",
-    "react-multi-carousel": "^2.8.4"
+    "@react-email/render": "1.2.0",
+    "bootstrap": "5.3.7",
+    "classnames": "2.5.1",
+    "next": "15.4.7",
+    "nodemailer": "7.0.5",
+    "react": "19.1.1",
+    "react-cookie-consent": "9.0.0",
+    "react-dom": "19.1.1",
+    "react-facebook-pixel": "1.0.4",
+    "react-ga4": "1.4.1",
+    "react-google-recaptcha-v3": "1.11.0",
+    "react-hook-form": "7.62.0",
+    "react-multi-carousel": "2.8.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@eslint/js": "^9.33.0",
-    "@next/eslint-plugin-next": "^15.4.7",
-    "@release-it/conventional-changelog": "^10.0.1",
-    "eslint": "^9.33.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.6.2",
-    "release-it": "^19.0.4",
-    "sass": "^1.90.0"
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
+    "@eslint/js": "9.33.0",
+    "@next/eslint-plugin-next": "15.4.7",
+    "@release-it/conventional-changelog": "10.0.1",
+    "eslint": "9.33.0",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "husky": "9.1.7",
+    "lint-staged": "16.1.5",
+    "prettier": "3.6.2",
+    "release-it": "19.0.4",
+    "sass": "1.90.0"
   }
 }
