@@ -54,7 +54,9 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
   border-top: 4px solid #0f8d8c;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 
   @include onMobile() {
     padding: 1.5rem 1rem;

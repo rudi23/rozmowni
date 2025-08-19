@@ -14,37 +14,38 @@ import Image from 'next/image';
  * @param {string} props.sizes - Responsive sizes (optional, will be auto-generated if not provided)
  */
 export default function ResponsiveImage({
-    src,
-    alt,
-    width,
-    height,
-    placeholder = 'blur',
-    quality = 75,
-    className,
-    style,
-    sizes,
-    ...props
+  src,
+  alt,
+  width,
+  height,
+  placeholder = 'blur',
+  quality = 75,
+  className,
+  style,
+  sizes,
+  ...props
 }) {
-    // Auto-generate sizes if not provided
-    const autoSizes = sizes || `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, ${width}px`;
+  // Auto-generate sizes if not provided
+  const autoSizes =
+    sizes || `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, ${width}px`;
 
-    return (
-        <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            placeholder={placeholder}
-            quality={quality}
-            sizes={autoSizes}
-            className={className}
-            style={{
-                width: '100%',
-                height: 'auto',
-                maxWidth: `${width}px`,
-                ...style,
-            }}
-            {...props}
-        />
-    );
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      placeholder={placeholder}
+      quality={quality}
+      sizes={autoSizes}
+      className={className}
+      style={{
+        width: '100%',
+        height: 'auto',
+        maxWidth: `${width}px`,
+        ...style,
+      }}
+      {...props}
+    />
+  );
 }
