@@ -11,19 +11,19 @@ import Idea from '../components/Idea';
 import StickyCTA from '../components/StickyCTA';
 
 export default function Home() {
-    return (
-        <>
-            <Banner />
-            <Features />
-            <SocialProofStats />
-            <WhyUsExpanded />
-            <Conversations />
-            <Idea />
-            <TestBenefits />
-            <Opinions />
-            <TestFAQ />
-            <FinalCTA />
-            <StickyCTA />
-        </>
-    );
+  return (
+    <>
+      <Banner />
+      <Features />
+      <SocialProofStats />
+      <WhyUsExpanded />
+      <Conversations />
+      <Idea />
+      <TestBenefits />
+      <Opinions />
+      <TestFAQ />
+      <FinalCTA />
+      <StickyCTA />
+    </>
+  );
 }
