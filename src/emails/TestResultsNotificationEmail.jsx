@@ -18,6 +18,8 @@ import {
 const TestResultsNotificationEmail = ({
   fullName,
   email,
+  phone,
+  contactMethod,
   testScore,
   testLevel,
   testType,
@@ -67,6 +69,41 @@ const TestResultsNotificationEmail = ({
                 </Column>
                 <Column style={detailValue}>
                   <Text style={valueText}>{fullName}</Text>
+                </Column>
+              </Row>
+
+              <Row style={detailRow}>
+                <Column style={detailLabel}>
+                  <Text style={labelText}>Email:</Text>
+                </Column>
+                <Column style={detailValue}>
+                  <Link href={`mailto:${email}`} style={emailLink}>
+                    {email}
+                  </Link>
+                </Column>
+              </Row>
+
+              {phone && (
+                <Row style={detailRow}>
+                  <Column style={detailLabel}>
+                    <Text style={labelText}>Telefon:</Text>
+                  </Column>
+                  <Column style={detailValue}>
+                    <Link href={`tel:${phone}`} style={phoneLink}>
+                      {phone}
+                    </Link>
+                  </Column>
+                </Row>
+              )}
+
+              <Row style={detailRow}>
+                <Column style={detailLabel}>
+                  <Text style={labelText}>Preferowany kontakt:</Text>
+                </Column>
+                <Column style={detailValue}>
+                  <Text style={valueText}>
+                    {contactMethod === 'phone' ? 'Telefon' : 'Email'}
+                  </Text>
                 </Column>
               </Row>
 
@@ -158,6 +195,11 @@ const TestResultsNotificationEmail = ({
                 lekcji próbnej.
               </Text>
 
+              <Text style={nextStepsText}>
+                <strong>Preferowany sposób kontaktu:</strong>{' '}
+                {contactMethod === 'phone' ? 'Telefon' : 'Email'}
+              </Text>
+
               <Text style={reminderText}>
                 <strong>Pamiętaj:</strong> Skontaktuj się z użytkownikiem w
                 ciągu 24 godzin, aby zwiększyć szansę na konwersję.
@@ -177,6 +219,16 @@ const TestResultsNotificationEmail = ({
                     Wyślij email
                   </Link>
                 </Column>
+                {phone && (
+                  <Column style={actionColumn}>
+                    <Link
+                      href={`tel:${phone}`}
+                      style={{ ...actionButton, backgroundColor: '#059669' }}
+                    >
+                      Zadzwoń
+                    </Link>
+                  </Column>
+                )}
               </Row>
             </Section>
           </Section>
@@ -412,6 +464,16 @@ const footerText = {
 };
 
 const footerLink = {
+  color: '#2563eb',
+  textDecoration: 'underline',
+};
+
+const emailLink = {
+  color: '#2563eb',
+  textDecoration: 'underline',
+};
+
+const phoneLink = {
   color: '#2563eb',
   textDecoration: 'underline',
 };

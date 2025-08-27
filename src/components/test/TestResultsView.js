@@ -68,6 +68,8 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
         body: JSON.stringify({
           fullName: data.fullName,
           email: data.email,
+          phone: data.phone || '',
+          contactMethod: data.contactMethod,
           testScore: formDataWithScore.testScore,
           testLevel: formDataWithScore.testLevel,
           testType: formDataWithScore.testType,

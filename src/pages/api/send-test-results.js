@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import {
   sendTestResultsEmail,
   sendTestResultsEmailNotification,
@@ -78,6 +80,53 @@ setInterval(
   5 * 60 * 1000,
 );
 
+// Function to save test results to CSV file
+const saveToCSV = (data) => {
+  try {
+    const csvFilePath =
+      process.env.CSV_FILE_PATH || path.join(process.cwd(), 'test-results.csv');
+
+    // CSV headers
+    const headers = [
+      'timestamp',
+      'fullName',
+      'email',
+      'phone',
+      'contactMethod',
+      'testScore',
+      'testLevel',
+      'testType',
+      'totalQuestions',
+    ];
+
+    // Prepare CSV row data
+    const timestamp = new Date().toISOString();
+    const csvRow = [
+      timestamp,
+      `"${data.fullName.replace(/"/g, '""')}"`, // Escape quotes in CSV
+      data.email,
+      data.phone || '',
+      data.contactMethod || '',
+      data.testScore,
+      `"${data.testLevel.replace(/"/g, '""')}"`, // Escape quotes in CSV
+      data.testType,
+      data.totalQuestions,
+    ].join(',');
+
+    // Check if file exists, if not create with headers
+    if (!fs.existsSync(csvFilePath)) {
+      fs.writeFileSync(csvFilePath, headers.join(',') + '\n');
+    }
+
+    // Append new row
+    fs.appendFileSync(csvFilePath, csvRow + '\n');
+
+    console.log('Test result saved to CSV:', csvFilePath);
+  } catch (error) {
+    console.error('Error saving to CSV:', error);
+  }
+};
+
 export default async function handler(req, res) {
   // Only allow POST requests
   if (req.method !== 'POST') {
@@ -104,8 +153,16 @@ export default async function handler(req, res) {
       });
     }
 
-    const { fullName, email, testScore, testLevel, testType, totalQuestions } =
-      req.body;
+    const {
+      fullName,
+      email,
+      phone,
+      contactMethod,
+      testScore,
+      testLevel,
+      testType,
+      totalQuestions,
+    } = req.body;
 
     // Validate required fields
     if (
@@ -135,6 +192,18 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
+    // Save data to CSV file
+    saveToCSV({
+      fullName,
+      email,
+      phone,
+      contactMethod,
+      testScore,
+      testLevel,
+      testType,
+      totalQuestions,
+    });
+
     // Check query parameter to determine which email to send
     const { emailType } = req.query;
 
@@ -143,6 +212,8 @@ export default async function handler(req, res) {
       await sendTestResultsEmailNotification({
         fullName,
         email,
+        phone,
+        contactMethod,
         testScore,
         testLevel,
         testType,
@@ -184,6 +255,8 @@ export default async function handler(req, res) {
       await sendTestResultsEmailNotification({
         fullName,
         email,
+        phone,
+        contactMethod,
         testScore,
         testLevel,
         testType,

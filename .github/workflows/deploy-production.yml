@@ -31,6 +31,7 @@ jobs:
           sed -i 's/<BASIC_AUTH_PASS>/${{ secrets.BASIC_AUTH_PASS }}/g' .env.local
           sed -i 's/<API_KEY>/${{ secrets.API_KEY }}/g' .env.local
           sed -i 's/<NEXT_PUBLIC_API_KEY>/${{ secrets.API_KEY }}/g' .env.local
+          sed -i 's/<CSV_FILE_PATH>/\/home\/rozmowni\/rails\/shared\/prod-test-results.csv/g' .env.local
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:

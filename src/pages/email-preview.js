@@ -94,6 +94,8 @@ const TEST_DATA = {
     testLevel: 'B2 - Intermediate',
     testType: TEST_TYPES.ADULTS,
     totalQuestions: 25,
+    phone: '+48 123 456 789',
+    contactMethod: 'phone',
   },
   teens: {
     fullName: 'Anna Nowak',
@@ -101,6 +103,8 @@ const TEST_DATA = {
     testLevel: 'B1 - Poziom średniozaawansowany',
     testType: TEST_TYPES.TEENS,
     totalQuestions: 22,
+    phone: '+48 987 654 321',
+    contactMethod: 'email',
   },
   contact: {
     name: 'Jan Kowalski',
@@ -406,6 +410,8 @@ export default function EmailPreviewPage() {
           body: JSON.stringify({
             fullName: testData.fullName,
             email,
+            phone: testData.phone,
+            contactMethod: testData.contactMethod,
             testScore: testData.testScore,
             testLevel: testData.testLevel,
             testType: testData.testType,
