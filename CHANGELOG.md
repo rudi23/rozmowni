@@ -1,5 +1,19 @@
 # Changelog
 
+## <small>2.0.3 (2025-08-27)</small>
+
+- fix: send phone number, save test results to csv ([ce5847c](https://github.com/rudi23/rozmowni/commit/ce5847c))
+- fix: send phone number, save test results to csv ([73a2728](https://github.com/rudi23/rozmowni/commit/73a2728))
+- fix(deps): update dependency @fortawesome/react-fontawesome to v0.2.5 (#293) ([e9cb58b](https://github.com/rudi23/rozmowni/commit/e9cb58b)), closes [#293](https://github.com/rudi23/rozmowni/issues/293)
+- fix(deps): update dependency @fortawesome/react-fontawesome to v0.2.6 (#297) ([3036b9d](https://github.com/rudi23/rozmowni/commit/3036b9d)), closes [#297](https://github.com/rudi23/rozmowni/issues/297)
+- fix(deps): update dependency @react-email/components to v0.5.1 (#295) ([dcfc028](https://github.com/rudi23/rozmowni/commit/dcfc028)), closes [#295](https://github.com/rudi23/rozmowni/issues/295)
+- fix(deps): update dependency @react-email/render to v1.2.1 (#296) ([6616db1](https://github.com/rudi23/rozmowni/commit/6616db1)), closes [#296](https://github.com/rudi23/rozmowni/issues/296)
+- fix(deps): update dependency bootstrap to v5.3.8 (#301) ([22fdaa6](https://github.com/rudi23/rozmowni/commit/22fdaa6)), closes [#301](https://github.com/rudi23/rozmowni/issues/301)
+- fix(deps): update nextjs monorepo to v15.5.0 (#294) ([e0486cc](https://github.com/rudi23/rozmowni/commit/e0486cc)), closes [#294](https://github.com/rudi23/rozmowni/issues/294)
+- fix(deps): update nextjs monorepo to v15.5.2 (#302) ([6228d8a](https://github.com/rudi23/rozmowni/commit/6228d8a)), closes [#302](https://github.com/rudi23/rozmowni/issues/302)
+- chore(deps): update dependency sass to v1.91.0 (#300) ([30a6467](https://github.com/rudi23/rozmowni/commit/30a6467)), closes [#300](https://github.com/rudi23/rozmowni/issues/300)
+- chore(deps): update linters to v9.34.0 (#299) ([e96bba6](https://github.com/rudi23/rozmowni/commit/e96bba6)), closes [#299](https://github.com/rudi23/rozmowni/issues/299)
+
 ## <small>2.0.2 (2025-08-19)</small>
 
 - fix: inject api key ([e4b55ee](https://github.com/rudi23/rozmowni/commit/e4b55ee))
