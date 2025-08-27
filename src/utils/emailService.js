@@ -219,6 +219,8 @@ class EmailService {
   async sendTestResultsEmailNotification({
     fullName,
     email,
+    phone,
+    contactMethod,
     testScore,
     testLevel,
     testType,
@@ -247,6 +249,8 @@ class EmailService {
       {
         fullName,
         email,
+        phone,
+        contactMethod,
         testScore,
         testLevel,
         testType,
