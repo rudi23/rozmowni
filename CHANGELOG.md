@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>2.0.4 (2025-08-27)</small>
+
+- fix: sitemap ([3a87943](https://github.com/rudi23/rozmowni/commit/3a87943))
+
 ## <small>2.0.3 (2025-08-27)</small>
 
 - fix: send phone number, save test results to csv ([ce5847c](https://github.com/rudi23/rozmowni/commit/ce5847c))
