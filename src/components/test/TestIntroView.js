@@ -137,7 +137,7 @@ const TestIntroView = ({ onTestSelection }) => {
                   icon={faQuestionCircle}
                   className={styles.inlineIcon}
                 />
-                22 pytania
+                25 pytań
               </p>
               <button className={styles.selectButton}>Wybierz</button>
             </div>
