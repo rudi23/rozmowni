@@ -1,5 +1,21 @@
 # Changelog
 
+## <small>2.0.5 (2025-09-10)</small>
+
+- fix: fix adult test questions ([1584ab1](https://github.com/rudi23/rozmowni/commit/1584ab1))
+- fix: fix adult test questions ([4800b77](https://github.com/rudi23/rozmowni/commit/4800b77))
+- fix: sitemap ([044ac04](https://github.com/rudi23/rozmowni/commit/044ac04))
+- fix(deps): update dependency @react-email/components to v0.5.2 (#308) ([8ace64b](https://github.com/rudi23/rozmowni/commit/8ace64b)), closes [#308](https://github.com/rudi23/rozmowni/issues/308)
+- fix(deps): update dependency @react-email/components to v0.5.3 (#312) ([083b284](https://github.com/rudi23/rozmowni/commit/083b284)), closes [#312](https://github.com/rudi23/rozmowni/issues/312)
+- fix(deps): update dependency @react-email/render to v1.2.2 (#309) ([0f444c1](https://github.com/rudi23/rozmowni/commit/0f444c1)), closes [#309](https://github.com/rudi23/rozmowni/issues/309)
+- fix(deps): update dependency @react-email/render to v1.2.3 (#313) ([eb1e088](https://github.com/rudi23/rozmowni/commit/eb1e088)), closes [#313](https://github.com/rudi23/rozmowni/issues/313)
+- fix(deps): update dependency nodemailer to v7.0.6 (#303) ([c9e3a8b](https://github.com/rudi23/rozmowni/commit/c9e3a8b)), closes [#303](https://github.com/rudi23/rozmowni/issues/303)
+- fix(deps): update font awesome to v7.0.1 (#305) ([dbb14ef](https://github.com/rudi23/rozmowni/commit/dbb14ef)), closes [#305](https://github.com/rudi23/rozmowni/issues/305)
+- chore(deps): update dependency lint-staged to v16.1.6 (#304) ([164444d](https://github.com/rudi23/rozmowni/commit/164444d)), closes [#304](https://github.com/rudi23/rozmowni/issues/304)
+- chore(deps): update dependency sass to v1.92.0 (#306) ([76ec153](https://github.com/rudi23/rozmowni/commit/76ec153)), closes [#306](https://github.com/rudi23/rozmowni/issues/306)
+- chore(deps): update dependency sass to v1.92.1 (#311) ([f9ee65e](https://github.com/rudi23/rozmowni/commit/f9ee65e)), closes [#311](https://github.com/rudi23/rozmowni/issues/311)
+- chore(deps): update linters to v9.35.0 (#310) ([e64d94e](https://github.com/rudi23/rozmowni/commit/e64d94e)), closes [#310](https://github.com/rudi23/rozmowni/issues/310)
+
 ## <small>2.0.4 (2025-08-27)</small>
 
 - fix: sitemap ([3a87943](https://github.com/rudi23/rozmowni/commit/3a87943))
