@@ -226,8 +226,8 @@ const TestResultsEmail = ({
               <Text style={faqItem}>
                 <strong>Q: Jak często odbywają się lekcje?</strong>
                 <br />
-                A: Zazwyczaj 2 razy w tygodniu po 60 minut, ale harmonogram jest
-                elastyczny.
+                A: Zazwyczaj 1 raz w tygodniu po 45 lub 90 minut, ale
+                harmonogram jest elastyczny.
               </Text>
             </Section>
 
@@ -262,6 +262,15 @@ const TestResultsEmail = ({
             <Section style={contactSection}>
               <Text style={text}>
                 <strong>Nie chcesz czekać?</strong> Możesz:
+              </Text>
+              <Text style={text}>
+                📅{' '}
+                <Link
+                  href="https://calendar.app.google/KLQj9fsmxGDxF6Jz5"
+                  style={link}
+                >
+                  Zarezerwować termin lekcji próbnej
+                </Link>
               </Text>
               <Text style={text}>
                 📧{' '}
