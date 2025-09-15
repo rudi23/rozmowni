@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.0 (2025-09-15)
+
+- feat: add calendar booking to test results email ([1e4b35e](https://github.com/rudi23/rozmowni/commit/1e4b35e))
+- fix: add weronika info ([2f7eb82](https://github.com/rudi23/rozmowni/commit/2f7eb82))
+- fix(deps): update nextjs monorepo to v15.5.3 (#314) ([889b7f3](https://github.com/rudi23/rozmowni/commit/889b7f3)), closes [#314](https://github.com/rudi23/rozmowni/issues/314)
+- chore(deps): update actions/setup-node action to v5 (#307) ([91de71b](https://github.com/rudi23/rozmowni/commit/91de71b)), closes [#307](https://github.com/rudi23/rozmowni/issues/307)
+
 ## <small>2.0.5 (2025-09-10)</small>
 
 - fix: fix adult test questions ([1584ab1](https://github.com/rudi23/rozmowni/commit/1584ab1))
