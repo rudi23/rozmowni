@@ -7,6 +7,7 @@ import angelikaImage from '../../../public/images/angelika.jpg';
 import aniaImage from '../../../public/images/ania.jpg';
 import georgiaImage from '../../../public/images/georgia.jpg';
 import wiktorImage from '../../../public/images/wiktor.jpg';
+import weronikaImage from '../../../public/images/weronika.jpg';
 import ResponsiveImage from '../../components/ResponsiveImage';
 
 export default function AboutUs() {
@@ -260,6 +261,54 @@ export default function AboutUs() {
             <p>
               Zajawki? Enologia i koszykówka w wolnym czasie + wyjazdy na
               wystawy z naszym psem :)
+            </p>
+          </div>
+        </div>
+      </Section>
+      <Section>
+        <div className="row">
+          <div className="col-lg-6 col-md-12 order-lg-1">
+            <div className="img-block">
+              <ResponsiveImage
+                src={weronikaImage}
+                alt="Weronika"
+                placeholder="blur"
+                sizes="(min-width: 1200px) 540px, (min-width: 992px) 450px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw-30px)"
+                quality="75"
+              />
+            </div>
+          </div>
+          <div className="col-lg-6 col-md-12 order-lg-2">
+            <h2 className="pb-3">Weronika</h2>
+            <p>
+              Moja sympatia do języka angielskiego zaczęła się już w
+              dzieciństwie, kiedy to bardzo ciekawiło mnie, co mówią aktorzy
+              grający w anglojęzycznych bajkach na moim ulubionym kanale Disney
+              Channel. Uwielbiałam także sprawdzać, o czym śpiewają zagraniczni
+              piosenkarze. Z kolei później pojawiły się u mnie silne chęci
+              nauczania innych, co musiał dzielnie znosić mój młodszy brat,
+              który jednocześnie był moim pierwszym uczniem. Zaczęło się od
+              tego, a skończyło na tym, że paręnaście lat później ukończyłam
+              anglistykę wraz z modułem nauczycielskim. Wtedy mój młodszy brat
+              zyskał spokój, a ja zajęłam się nauczaniem innych w szkole
+              publicznej i szkole językowej.
+            </p>
+            <p>
+              Obecnie studiuję psychologię, co bardzo pomaga mi w dopasowywaniu
+              metod nauczania oraz form motywacji do indywidualnych potrzeb
+              ucznia.
+            </p>
+            <p>
+              Prywatnie bardzo często przekonuję się jak pomocna jest znajomość
+              języka angielskiego do rozwijania własnych zainteresowań -
+              gotowanie, czytanie książek i artykułów psychologicznych,
+              podróżowanie - to wszystko ułatwia mi język angielski ;)
+              <br />
+            </p>
+            <p>
+              Bardzo lubię spędzać czas na spacerach z moim psem. Jej obecność
+              przypomina mi o cierpliwości i radości z drobnych sukcesów –
+              wartości, które staram się przenosić także na swoje zajęcia :)
             </p>
           </div>
         </div>
