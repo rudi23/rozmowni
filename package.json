@@ -47,7 +47,7 @@
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@eslint/js": "9.39.2",
-    "@next/eslint-plugin-next": "15.5.9",
+    "@next/eslint-plugin-next": "16.1.6",
     "@release-it/conventional-changelog": "10.0.4",
     "eslint": "9.39.2",
     "eslint-plugin-import": "2.32.0",
