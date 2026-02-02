@@ -38,7 +38,7 @@
     "react-cookie-consent": "9.0.0",
     "react-dom": "19.2.3",
     "react-facebook-pixel": "1.0.4",
-    "react-ga4": "1.4.1",
+    "react-ga4": "2.1.0",
     "react-google-recaptcha-v3": "1.11.0",
     "react-hook-form": "7.70.0",
     "react-multi-carousel": "2.8.6"
