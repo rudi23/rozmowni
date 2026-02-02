@@ -11,7 +11,7 @@ jobs:
         node-version: [22.18.0]
     name: Deploy to production with Node ${{ matrix.node-version }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
