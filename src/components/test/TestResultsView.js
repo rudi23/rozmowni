@@ -18,13 +18,17 @@ import PageHeader from '../PageHeader';
 import Section from '../Section';
 import { testData, getLevel } from '../../data/testData';
 import { createAuthHeaders } from '../../utils/apiAuth';
+import useFacebookEventTracking from '../../hooks/useFacebookEventTracking';
+import { facebookEvents } from '../../services/tracking';
 import styles from './TestResultsView.module.scss';
 
 // Component for the form and results view
 const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [message, setMessage] = useState(null);
   const level = getLevel(score, selectedTest);
+  const trackFacebookEvent = useFacebookEventTracking();
 
   // Form handling
   const {
@@ -80,6 +84,15 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       if (!emailResponse.ok) {
         throw new Error('Failed to send email');
       }
+
+      // Close the form for good the moment the submission is known to be
+      // successful - the view only switches 3s later, via the timeout below
+      setIsSubmitted(true);
+
+      // Contact details accepted - track only once the email actually went out
+      trackFacebookEvent(
+        facebookEvents.TEST_CONTACT_DETAILS_SUBMITTED(selectedTest),
+      );
 
       // Here you would normally send to your backend for contact form
       console.log('Form data:', formDataWithScore);
@@ -323,7 +336,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
             <button
               type="submit"
               className={`${styles.submitButton} order-5`}
-              disabled={isSubmitting}
+              disabled={isSubmitting || isSubmitted}
             >
               {!isSubmitting && (
                 <FontAwesomeIcon icon={faPlay} className="me-2" />
