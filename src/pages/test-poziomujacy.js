@@ -3,9 +3,12 @@ import { useRouter } from 'next/router';
 import TestIntroView from '../components/test/TestIntroView';
 import TestRunner from '../components/test/TestRunner';
 import TestResultsView from '../components/test/TestResultsView';
+import useFacebookEventTracking from '../hooks/useFacebookEventTracking';
+import { facebookEvents } from '../services/tracking';
 
 export default function TestPage() {
   const router = useRouter();
+  const trackFacebookEvent = useFacebookEventTracking();
   const [selectedTest, setSelectedTest] = useState(null);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
@@ -37,6 +40,8 @@ export default function TestPage() {
   const handleTestComplete = (finalScore) => {
     setScore(finalScore);
     setShowResults(true);
+    // Fires once per completed test, at the transition to the results screen
+    trackFacebookEvent(facebookEvents.TEST_COMPLETED_LEAD(selectedTest));
     // Scroll to top when showing results
     window.scrollTo(0, 0);
   };
