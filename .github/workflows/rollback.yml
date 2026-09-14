@@ -1,0 +1,64 @@
+name: "Rollback"
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        type: choice
+        required: true
+        default: production
+        options:
+          - production
+          - staging
+      release:
+        description: "Release directory, e.g., 202609151200 (empty = previous version)"
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    name: Rollback ${{ inputs.environment }}
+    steps:
+      - name: Set application directory as env variable
+        run: echo "APP_DIR=/home/rozmowni/rails" >> $GITHUB_ENV
+      - name: Set environment specific variables
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            echo "RELEASES_DIR=/home/rozmowni/rails/rozmowni_releases" >> $GITHUB_ENV
+            echo "SYMLINK_NAME=rozmowni" >> $GITHUB_ENV
+          else
+            echo "RELEASES_DIR=/home/rozmowni/rails/rozmowni_staging_releases" >> $GITHUB_ENV
+            echo "SYMLINK_NAME=rozmowni_staging" >> $GITHUB_ENV
+          fi
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
+      - name: Adding known hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Switch app on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            CURRENT=$(basename "$(readlink ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }})")
+            TARGET="${{ inputs.release }}"
+            if [ -z "$TARGET" ]; then
+              TARGET=$(cd ${{ env.RELEASES_DIR }} && ls -1d */ | tr -d / | grep -vx "$CURRENT" | sort -r | head -1)
+            fi
+            if [ -z "$TARGET" ] || [ ! -d "${{ env.RELEASES_DIR }}/$TARGET" ]; then
+              echo "Brak release'u do przywrocenia. Dostepne wersje:"
+              ls -1 ${{ env.RELEASES_DIR }}
+              exit 1
+            fi
+            ln -sfn ${{ env.RELEASES_DIR }}/$TARGET ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
+            mkdir -p ${{ env.RELEASES_DIR }}/$TARGET/tmp
+            touch ${{ env.RELEASES_DIR }}/$TARGET/tmp/restart.txt
+            echo "Rollback: $CURRENT -> $TARGET"

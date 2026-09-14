@@ -22,6 +22,8 @@ jobs:
           sed -i 's/<NEXT_PUBLIC_API_KEY>/${{ secrets.API_KEY }}/g' src/utils/apiAuth.js
       - name: Build project
         run: npm run build
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
       - name: Create .env.local file
         run: |
           cp .env.example .env.local
@@ -48,7 +50,7 @@ jobs:
       - name: Set symlink name as env variable
         run: echo "SYMLINK_NAME=rozmowni" >> $GITHUB_ENV
       - name: Create app archive
-        run: tar --exclude=".git" --exclude=".github" -zcf app_${{ env.RELEASE }}.tar.gz * .??*
+        run: tar --exclude=".git" --exclude=".github" --exclude=".next/cache" -zcf app_${{ env.RELEASE }}.tar.gz * .??*
       - name: Upload app archive to server
         run: rsync -av ./app_${{ env.RELEASE }}.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/rozmowni
       - name: Switch app on server
@@ -59,6 +61,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            CURRENT=$(basename "$(readlink ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }})")
+            find ${{ env.RELEASES_DIR }} -mindepth 1 -maxdepth 1 ! -name "${CURRENT:-${{ env.RELEASE }}}" -exec rm -rf {} +
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             mv ~/app_${{ env.RELEASE }}.tar.gz ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             tar -xf ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/app_${{ env.RELEASE }}.tar.gz -C ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
@@ -66,7 +70,5 @@ jobs:
             rm ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
             ln -s ${{ env.RELEASES_DIR }}/${{ env.RELEASE }} ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
             ln -s ${{ env.APP_DIR }}/shared ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}/public
-            shopt -s extglob
-            cd ${{ env.RELEASES_DIR }} && rm -rf !($(ls ${{ env.RELEASES_DIR }} -r | head -2 | tr '\n' '|'))
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/tmp
             touch ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/tmp/restart.txt
