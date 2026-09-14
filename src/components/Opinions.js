@@ -1,5 +1,8 @@
 import { Fragment, useState } from 'react';
+import { useRouter } from 'next/router';
 import Carousel from 'react-multi-carousel';
+import useClickTracking from '../hooks/useClickTracking';
+import { events } from '../services/tracking';
 import Section from './Section';
 import styles from './Opinions.module.scss';
 import SectionHeading from './SectionHeading';
@@ -25,6 +28,8 @@ const responsive = {
 
 export default function Opinions() {
   const [openStates, setOpenStates] = useState({});
+  const trackClick = useClickTracking();
+  const { pathname } = useRouter();
 
   function ReadMoreButton({ opinionIndex }) {
     return (
@@ -205,6 +210,9 @@ export default function Opinions() {
             </p>
             <a
               href="https://search.google.com/local/reviews?placeid=ChIJRfTrnfxbFkcRCtSKA73F6g0"
+              onClick={() =>
+                trackClick(events.OPINIONS_CLICK_GOOGLE_REVIEWS(pathname))
+              }
               target="_blank"
               rel="noopener noreferrer"
               className={styles.googleLink}

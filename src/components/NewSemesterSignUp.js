@@ -56,7 +56,7 @@ export default function WhyUs() {
           <Link
             href={routeMap[routeNames.TEST]}
             className="btn btn-main mt-4"
-            onClick={() => trackClick(events.HOME_WHY_US_CLICK_CONTACT)}
+            onClick={() => trackClick(events.INDIVIDUAL_COURSE_CLICK_TEST)}
           >
             <FontAwesomeIcon icon={faCheck} className="me-2" />
             Zrób test i dowiedz się, czy jesteś gotowy(a) do egzaminu!

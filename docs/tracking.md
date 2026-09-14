@@ -24,7 +24,7 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 **Podział odpowiedzialności:**
 
 - **GA4** – cały ruch i wszystkie kliknięcia w CTA/nawigację/kontakt
-  (47 zdefiniowanych eventów typu category/action/label).
+  (42 zdefiniowane eventy typu category/action/label).
 - **FB Pixel** – wyłącznie page view + **dwie konwersje z testu poziomującego**
   (`Lead`, `CompleteRegistration`). Kliknięcia nie idą na Pixel.
 
@@ -37,7 +37,7 @@ src/services/tracking/
 ├── index.js             # fasada: default export (GA) + named exports eventów
 ├── googleAnalytics.js   # ID GA4, initializeAsync, sendEvent, sendPageView
 ├── facebookPixel.js     # ID Pixela, initializeAsync, sendEvent, sendPageView
-├── events.js            # 47 stałych eventów GA4 (category/action/label)
+├── events.js            # 42 stałe eventy GA4 (category/action/label)
 └── facebookEvents.js    # 2 fabryki eventów FB (Lead, CompleteRegistration)
 
 src/hooks/
@@ -158,7 +158,7 @@ Oba hooki zależą od `router.pathname`, a nie `router.asPath`:
 ### 4.1 Format
 
 Każdy event to obiekt `{ category, action, label }` w `events.js`. Etykiety są
-po angielsku, mimo że strona jest po polsku. Dwa eventy są **fabrykami** –
+po angielsku, mimo że strona jest po polsku. Trzy eventy są **fabrykami** –
 przyjmują ścieżkę i budują label dynamicznie:
 
 ```js
@@ -170,6 +170,11 @@ export const NAVIGATION_CLICK_MENU_ITEM = (path) => ({
 export const FOOTER_CLICK_MENU_ITEM = (path) => ({
   /* jw. */
 });
+export const OPINIONS_CLICK_GOOGLE_REVIEWS = (path) => ({
+  category: "Opinions",
+  action: "Click",
+  label: `Google reviews from '${path}'`,
+});
 ```
 
 Wszystkie pozostałe mają `action: 'Click'`, z jednym wyjątkiem:
@@ -179,13 +184,23 @@ Wszystkie pozostałe mają `action: 'Click'`, z jednym wyjątkiem:
 
 | Kategoria           | Ile | Gdzie                                                                                              |
 | ------------------- | --- | -------------------------------------------------------------------------------------------------- |
-| `Home`              | 14  | sekcje strony głównej (Banner, SocialProof, TestBenefits, FAQ, FinalCTA, StickyCTA, WhyUsExpanded) |
 | `Contact`           | 10  | `/kontakt` – formularz, social media, telefon, e-mail                                              |
+| `Home`              | 9   | sekcje strony głównej (Banner, SocialProof, TestBenefits, FAQ, FinalCTA, StickyCTA, WhyUsExpanded) |
 | `Footer`            | 7   | stopka – social media, kontakt, menu                                                               |
 | `Navigation`        | 6   | header – logo, social media, telefon, menu                                                         |
-| `Holiday course`    | 5   | `/kursy/intensywne-kursy-wakacyjne`                                                                |
-| `* course` (4 kat.) | 4   | przycisk „Zapisz się" w `CourseSidebar` na stronach kursów                                         |
-| `Notification`      | 1   | **nieużywany**                                                                                     |
+| `Holiday course`    | 4   | `/kursy/intensywne-kursy-wakacyjne`                                                                |
+| `Individual course` | 2   | `/kursy/indywidualne` – „Zapisz się" i CTA testu w `NewSemesterSignUp`                             |
+| `* course` (3 kat.) | 3   | przycisk „Zapisz się" w `CourseSidebar` na pozostałych stronach kursów                             |
+| `Opinions`          | 1   | link do opinii Google w `Opinions` (sekcja jest na `/` **i** `/o-nas`)                             |
+
+`Opinions` liczy się jako jedna stała, ale w GA4 daje dwa labele – fabryka
+dokleja `router.pathname`, więc kliknięcia z `/` i z `/o-nas` są rozróżnialne
+bez konfigurowania czegokolwiek po stronie GA4.
+
+Kategoria jest zwykle stroną (`Home`, `Contact`), ale komponenty współdzielone
+przez kilka stron mają własną kategorię sekcyjną (`Footer`, `Navigation`,
+`Opinions`) – inaczej ich kliknięcia zlewałyby się z ruchem strony, na której
+akurat się renderują.
 
 ### 4.3 Lejek na stronie głównej
 
@@ -203,6 +218,12 @@ więc w GA4 widać, która sekcja realnie konwertuje.
 | `TestFAQ.js:112`         | `HOME_FAQ_CLICK_CONTACT`                 | `FAQ - contact`                 |
 | `FinalCTA.js:126`        | `HOME_FINAL_CTA_CLICK_TEST`              | `Final CTA - test`              |
 | `StickyCTA.js:110`       | `HOME_STICKY_CTA_CLICK_TEST`             | `Sticky CTA - test`             |
+
+Poza lejkiem testu strona główna ma jedno wyjście na zewnątrz: link do opinii
+w Google (`Opinions.js:213`, `OPINIONS_CLICK_GOOGLE_REVIEWS`). Ta sama sekcja
+renderuje się również na `/o-nas`, dlatego event ma kategorię `Opinions`,
+a nie `Home`, a label niesie ścieżkę: `Google reviews from '/'` kontra
+`Google reviews from '/o-nas'`.
 
 `StickyCTA` ma dodatkową zależność: nie renderuje się, dopóki widoczny jest
 baner cookie (`cookieConsentVisible`), więc jego eventy nie mogą polecieć
@@ -229,6 +250,10 @@ Cztery strony przekazują: `INDIVIDUAL_COURSE_CLICK_ENROLL`,
 `MATURA_EXAM_COURSE_CLICK_ENROLL`. `useClickTracking` ignoruje `undefined`
 (`if (!eventData) return;`), więc brak propa nie wywala strony – po cichu
 nic nie wyśle.
+
+`/kursy/indywidualne` ma dodatkowo CTA prowadzące do testu poziomującego
+(`NewSemesterSignUp.js:59`, `INDIVIDUAL_COURSE_CLICK_TEST`) – to jedyne wejście
+do lejka testu spoza strony głównej, które jest otrackowane.
 
 ---
 

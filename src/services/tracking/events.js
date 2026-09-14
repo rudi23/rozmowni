@@ -1,8 +1,3 @@
-export const HOME_BANNER_CLICK_CONTACT = {
-  category: 'Home',
-  action: 'Click',
-  label: 'Banner - contact',
-};
 export const HOME_BANNER_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
@@ -43,36 +38,27 @@ export const HOME_STICKY_CTA_CLICK_TEST = {
   action: 'Click',
   label: 'Sticky CTA - test',
 };
-export const HOME_WHY_US_CLICK_CONTACT = {
-  category: 'Home',
-  action: 'Click',
-  label: 'Why us - contact',
-};
-export const HOME_WHY_US_EXPANDED_CLICK_TEST = {
-  category: 'Home',
-  action: 'Click',
-  label: 'Why us expanded - test top',
-};
 export const HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Why us expanded - test bottom',
 };
-export const HOME_CONVERSATIONS_CLICK_CONTACT = {
-  category: 'Home',
+
+export const OPINIONS_CLICK_GOOGLE_REVIEWS = (path) => ({
+  category: 'Opinions',
   action: 'Click',
-  label: 'Conversations - contact',
-};
-export const HOME_IDEA_CLICK_CONTACT = {
-  category: 'Home',
-  action: 'Click',
-  label: 'Idea - contact',
-};
+  label: `Google reviews from '${path}'`,
+});
 
 export const INDIVIDUAL_COURSE_CLICK_ENROLL = {
   category: 'Individual course',
   action: 'Click',
   label: 'Enroll',
+};
+export const INDIVIDUAL_COURSE_CLICK_TEST = {
+  category: 'Individual course',
+  action: 'Click',
+  label: 'New semester - test',
 };
 
 export const GROUP_COURSE_CLICK_ENROLL = {
@@ -113,17 +99,6 @@ export const HOLIDAY_COURSE_CLICK_PHONE = {
   action: 'Click',
   label: 'Contact phone',
 };
-export const HOLIDAY_COURSE_CLICK_ENROLL = {
-  category: 'Holiday course',
-  action: 'Click',
-  label: 'Enroll',
-};
-
-export const NOTIFCATION_CLICK = {
-  category: 'Notification',
-  action: 'Click',
-  label: 'Notification',
-};
 
 export const CONTACT_SEND_FORM = {
   category: 'Contact',
@@ -163,7 +138,7 @@ export const CONTACT_CLICK_TIKTOK_TEXT = {
 export const CONTACT_CLICK_LINKEDIN = {
   category: 'Contact',
   action: 'Click',
-  label: 'TikTok',
+  label: 'LinkedIn',
 };
 export const CONTACT_CLICK_PHONE = {
   category: 'Contact',

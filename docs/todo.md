@@ -5,11 +5,38 @@ i kodu, przez który ta warstwa przechodzi: strona główna, formularz kontaktow
 i flow testu poziomującego. **To nie jest pełny audyt projektu** – nie
 przeglądane były m.in. style, SEO, maile ani API poza ścieżką testu.
 
-Każdy punkt był sprawdzony w kodzie. `npm run lint` i `npm run prettier`
-przechodzą czysto, więc żadnego z tych błędów nie wyłapie CI.
+Każdy punkt był sprawdzony w kodzie. `npm run lint` przechodzi czysto, więc
+żadnego z tych błędów nie wyłapie CI. `npm run prettier` **nie** przechodzi na
+`master` (74 pliki) – ale z innego powodu: w repo nie ma żadnej konfiguracji
+Prettiera, więc domyślnie oczekuje podwójnych cudzysłowów, a cały kod używa
+pojedynczych. To osobna sprawa, niezwiązana z listą poniżej.
 
 Priorytety: **P1** – dane osobowe / zgodność, **P2** – zafałszowane dane
 analityczne, **P3** – martwy kod i czystość.
+
+---
+
+## Naprawione (15.09.2026)
+
+- **4** – `CONTACT_CLICK_LINKEDIN` ma label `LinkedIn` zamiast `TikTok`. Od tej
+  daty dane LinkedIna i TikToka w GA4 się rozdzielają; wcześniejsze kliknięcia
+  w LinkedIn zostają w historycznym `TikTok`.
+- **5** – CTA w `NewSemesterSignUp` wysyła nową stałą
+  `INDIVIDUAL_COURSE_CLICK_TEST` (`category: 'Individual course'`,
+  `label: 'New semester - test'`). `HOME_WHY_US_CLICK_CONTACT` została usunięta,
+  bo po tej zmianie nikt jej już nie używał.
+- **8** – link do opinii w Google ma `onClick` z nowym
+  `OPINIONS_CLICK_GOOGLE_REVIEWS`. Kategoria to `Opinions`, a nie `Home`:
+  `Opinions` renderuje się na `/` **i** `/o-nas`, więc `Home` powtórzyłoby
+  dokładnie ten błąd, który naprawia punkt 5. Event jest fabryką przyjmującą
+  `router.pathname` (jak `FOOTER_CLICK_MENU_ITEM`), więc w GA4 widać osobno
+  `Google reviews from '/'` i `Google reviews from '/o-nas'`.
+- **10 i 11** – usunięte sześć nigdy niewysyłanych stałych, w tym
+  `NOTIFCATION_CLICK` z literówką. `events.js` ma teraz 42 stałe i **wszystkie
+  są używane**.
+
+Zaktualizowany opis stanu: [tracking.md](tracking.md). Numeracja pozostałych
+punktów jest celowo bez zmian.
 
 ---
 
@@ -66,40 +93,6 @@ dla `src/components/**` i `src/pages/**` z wyłączeniem `src/pages/api/**`.
 
 ## P2 – zafałszowane dane analityczne
 
-### 4. Kliknięcia w LinkedIn raportowane jako TikTok
-
-**Gdzie:** `src/services/tracking/events.js:163-167`
-
-```js
-export const CONTACT_CLICK_LINKEDIN = {
-  category: "Contact",
-  action: "Click",
-  label: "TikTok", // ← powinno być 'LinkedIn'
-};
-```
-
-Używane w `src/pages/kontakt/index.js:191`. W GA4 kliknięcia w LinkedIn
-sumują się z `CONTACT_CLICK_TIKTOK` (label `TikTok`), więc **dane obu kanałów
-są niewiarygodne** – TikTok jest zawyżony, LinkedIn nie istnieje.
-
-**Fix:** `label: 'LinkedIn'`. Uwaga: zmiana rozjedzie historyczne dane w GA4 –
-warto odnotować datę wdrożenia.
-
-### 5. `HOME_WHY_US_CLICK_CONTACT` ma złą kategorię i zły label
-
-**Gdzie:** `src/services/tracking/events.js:46-50`, użycie w
-`src/components/NewSemesterSignUp.js:59`
-
-Event ma `category: 'Home'` i `label: 'Why us - contact'`, ale:
-
-- `NewSemesterSignUp` renderuje się na `/kursy/indywidualne`, **nie** na stronie
-  głównej → w GA4 te kliknięcia wyglądają na ruch ze strony głównej;
-- link prowadzi do `routeNames.TEST`, a nie do kontaktu → **kliknięcia w CTA
-  testu są liczone jako kliknięcia w kontakt**, więc lejek testu jest zaniżony.
-
-**Fix:** nowa stała, np. `INDIVIDUAL_COURSE_CLICK_TEST`
-(`category: 'Individual course'`, `label: 'New semester - test'`).
-
 ### 6. Brak jakiegokolwiek trackingu błędów
 
 **Gdzie:** `src/components/ContactForm.js:44-52`,
@@ -133,18 +126,6 @@ którym z 25 pytań odpadają – a to najważniejszy lejek w całym serwisie.
 **Fix:** event GA na wybór typu testu (`adults`/`teens`) i na ukończenie, plus
 opcjonalnie co N pytań. GA4 dziś **nie widzi ukończenia testu w ogóle**.
 
-### 8. Nietrackowany link wychodzący do opinii Google
-
-**Gdzie:** `src/components/Opinions.js:206-211`
-
-Link „Sprawdź więcej opinii naszych uczniów na Google" (`target="_blank"`)
-wyprowadza użytkownika z serwisu i nie ma `onClick` z trackingiem – jedyne
-wyjście z sekcji social proof, którego nie widać w analityce, i jedyny
-nieotrackowany klikalny element na stronie głównej.
-
-**Fix:** dodać `onClick` z nowym eventem, np.
-`{ category: 'Home', action: 'Click', label: 'Opinions - Google reviews' }`.
-
 ---
 
 ## P3 – martwy kod i czystość
@@ -170,38 +151,6 @@ wystarczyłby odczyt ciasteczka w `onAccept`.
 
 **Fix:** czytać ciasteczko (`Cookies.get('cookieConsent')`) albo usunąć
 martwy warunek i polling, opierając się na callbacku `onAccept` z `CookieConsent`.
-
-### 10. Literówka w nazwie `NOTIFCATION_CLICK`
-
-**Gdzie:** `src/services/tracking/events.js:122-126`
-
-Brakuje `I` (`NOTIFCATION` → `NOTIFICATION`). Stała jest przy tym nieużywana
-(patrz punkt 11), więc najprościej ją usunąć.
-
-### 11. Sześć zdefiniowanych, nigdy niewysyłanych eventów
-
-**Gdzie:** `src/services/tracking/events.js`
-
-| Stała                              | Uwaga                                                       |
-| ---------------------------------- | ----------------------------------------------------------- |
-| `HOLIDAY_COURSE_CLICK_ENROLL`      | strona kursów wakacyjnych nie używa `CourseSidebar`         |
-| `HOME_BANNER_CLICK_CONTACT`        | CTA usunięte z `Banner`                                     |
-| `HOME_CONVERSATIONS_CLICK_CONTACT` | `Conversations` nie ma dziś żadnego linku                   |
-| `HOME_IDEA_CLICK_CONTACT`          | `Idea` nie ma dziś żadnego linku                            |
-| `HOME_WHY_US_EXPANDED_CLICK_TEST`  | label „test top" – górne CTA w `WhyUsExpanded` nie istnieje |
-| `NOTIFCATION_CLICK`                | patrz punkt 10                                              |
-
-ESLint ich nie zgłasza, bo to eksporty. Zdefiniowanych jest 47 stałych,
-używanych 41.
-
-Usunięcie jest bezpieczne: `Features`, `Conversations` i `Idea` nie mają dziś
-**ani jednego klikalnego elementu** (zero `href`, `<Link>`, `<button>`),
-a `WhyUsExpanded` ma tylko jedno CTA, na dole sekcji. To martwe stałe po
-usuniętych CTA, a nie brakujący tracking – jedyny realny brak na stronie
-głównej to punkt 8.
-
-**Fix:** usunąć, albo – jeśli brakujące CTA mają wrócić – zostawić z komentarzem
-dlaczego.
 
 ### 12. Sztuczne opóźnienie i nieaktualny komentarz po wysłaniu formularza testu
 
@@ -253,13 +202,9 @@ staging bez zmiennych jest automatycznie „cichy").
 
 1. **Punkty 1 i 12** – jedna zmiana w jednym pliku, usuwa wyciek danych
    osobowych i sztuczne opóźnienie. Zero ryzyka.
-2. **Punkt 4** – jednoliniowa poprawka, odblokowuje wiarygodne dane o LinkedIn
-   i TikToku.
-3. **Punkty 10 i 11** – sprzątanie `events.js`, bez wpływu na działanie.
-4. **Punkt 5** – wymaga nowej stałej i zmiany w komponencie.
-5. **Punkt 3** – reguła ESLint, żeby punkt 1 się nie powtórzył.
-6. **Punkty 6, 7, 8** – rozbudowa trackingu; największa wartość biznesowa,
+2. **Punkt 3** – reguła ESLint, żeby punkt 1 się nie powtórzył.
+3. **Punkty 6 i 7** – rozbudowa trackingu; największa wartość biznesowa,
    ale też najwięcej pracy.
-7. **Punkt 13** – wymaga zmian w CI i sekretach.
-8. **Punkty 2 i 9** – zgoda na cookies; punkt 2 wymaga decyzji biznesowej,
+4. **Punkt 13** – wymaga zmian w CI i sekretach.
+5. **Punkty 2 i 9** – zgoda na cookies; punkt 2 wymaga decyzji biznesowej,
    punkt 9 najlepiej zrobić razem z nim.
