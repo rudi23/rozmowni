@@ -62,8 +62,8 @@ export default function Courses8Exam() {
           <p>Czego możesz się spodziewać po naszym kursie?</p>
           <ul className="mb-2">
             <li>
-              <strong>Doświadczeni nauczyciele:</strong>Nasz zespół składa się z
-              doświadczonych nauczycieli języka angielskiego, którzy posiadają
+              <strong>Doświadczeni nauczyciele:</strong> Nasz zespół składa się
+              z doświadczonych nauczycieli języka angielskiego, którzy posiadają
               bogate doświadczenie w przygotowywaniu uczniów do egzaminów.
             </li>
             <li>
