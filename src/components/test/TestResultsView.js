@@ -124,26 +124,33 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
   return (
     <>
       <PageHeader title="Gratulacje! Test ukończony!" />
-      {/* Congratulations Section - White */}
+      {/* Result Section - White */}
       <Section>
-        <div className={styles.congratsSection}>
-          <div className={styles.congratsContent}>
-            <h2>Test ukończony pomyślnie</h2>
-            <p className={styles.socialProof}>
-              Dołączasz do grona ponad <strong>100 osób</strong>, które
-              sprawdziły swój poziom angielskiego
-            </p>
+        <div className={styles.quickScore}>
+          <h2>Twój poziom języka angielskiego</h2>
+          <div className={styles.scoreDisplay}>
+            <div className={styles.scoreNumber}>{level.level}</div>
+            <div className={styles.levelText}>{level.title}</div>
+            <p className={styles.levelDescription}>{level.description}</p>
+            <div className={styles.scoreDetails}>
+              Poprawne odpowiedzi: {score} z{' '}
+              {testData[selectedTest].questions.length}
+            </div>
           </div>
+          <p className={styles.socialProof}>
+            Dołączasz do grona ponad <strong>100 osób</strong>, które sprawdziły
+            swój poziom angielskiego
+          </p>
         </div>
       </Section>
       {/* Value Proposition Section - Gray */}
       <Section background="gray">
         <div className={styles.valueSection}>
           <div className={styles.sectionHeading}>
-            <h3>Wypełnij formularz, aby otrzymać wynik</h3>
+            <h3>Odbierz e-book i bezpłatną lekcję próbną</h3>
             <p className={styles.sectionSubtitle}>
-              Wyślemy Ci na email szczegółowy wynik testu oraz wszystkie
-              materiały potrzebne do rozpoczęcia nauki
+              Znasz już swój poziom. Na email wyślemy Ci e-book, zapis wyniku
+              oraz zaproszenie na bezpłatną lekcję próbną
             </p>
           </div>
 
@@ -162,8 +169,8 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                 </div>
               </div>
               <div className={styles.cardContent}>
-                <h4>Szczegółowy wynik testu</h4>
-                <p>Z analizą Twoich mocnych i słabych stron</p>
+                <h4>Twój wynik na piśmie</h4>
+                <p>Zapis poziomu i punktacji, do którego możesz wrócić</p>
               </div>
             </div>
             <div className={styles.valueCard}>
@@ -189,7 +196,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
                 icon={faEnvelope}
                 className={styles.inlineIcon}
               />
-              Podaj swoje dane, aby otrzymać wynik testu i e-book
+              Podaj swoje dane, aby odebrać e-book i lekcję próbną
             </h3>
             <p>
               Wszystkie informacje wyślemy na Twój adres email. Dane są w 100%
@@ -343,7 +350,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
               )}
               {isSubmitting
                 ? 'Wysyłanie...'
-                : 'Wyślij i otrzymaj wynik testu + e-book'}
+                : 'Wyślij i odbierz e-book + lekcję próbną'}
             </button>
           </form>
         </div>
@@ -455,16 +462,18 @@ const TestResultsSuccessView = () => {
             <div className={styles.successContent}>
               <h3>Dziękujemy!</h3>
               <p>
-                Twój wynik testu oraz darmowy e-book "Czas na angielski" zostały
-                wysłane na podany adres email.
+                Zapis Twojego wyniku oraz e-book "Czas na angielski" wysłaliśmy
+                na podany adres email.
               </p>
               <div className={styles.mailCheckReminder}>
                 <p>
                   <strong>Mail już u Ciebie?</strong>
                 </p>
                 <p className={styles.reminderText}>
-                  Sprawdź swoją skrzynkę odbiorczą (oraz folder spam) - wynik
-                  testu i e-book powinny dotrzeć w ciągu kilku minut.
+                  Powinien dotrzeć w ciągu kilku minut. Jeśli go nie widzisz,
+                  zajrzyj do zakładki Oferty lub do folderu Spam. Przeciągnij
+                  wiadomość do Odebranych, żeby kolejne trafiały od razu we
+                  właściwe miejsce.
                 </p>
               </div>
               <p>

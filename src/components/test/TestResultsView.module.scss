@@ -19,13 +19,32 @@
 
 .quickScore {
   text-align: center;
-  margin-bottom: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @include onTablet() {
+    max-width: 800px;
+    padding: 0 1.5rem;
+  }
+
+  @include onMobile() {
+    max-width: none;
+    padding: 0 1rem;
+  }
 
   h2 {
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @include onMobile() {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
   }
 }
 
@@ -39,6 +58,11 @@
   border-radius: 16px;
   border: 2px solid #0f8d8c;
   box-shadow: 0 4px 20px rgba(15, 141, 140, 0.1);
+  margin-bottom: 2rem;
+
+  @include onMobile() {
+    padding: 1.5rem 1rem;
+  }
 }
 
 .scoreNumber {
@@ -46,11 +70,29 @@
   font-weight: 700;
   color: #0f8d8c;
   line-height: 1;
+
+  @include onMobile() {
+    font-size: 2.5rem;
+  }
 }
 
 .levelText {
   font-size: 1.2rem;
   color: #333;
+  font-weight: 500;
+}
+
+.levelDescription {
+  margin: 0;
+  max-width: 540px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.scoreDetails {
+  color: #666;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
@@ -365,39 +407,6 @@
 }
 
 // Modern sections styles inspired by homepage
-.congratsSection {
-  text-align: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
-
-  @include onTablet() {
-    max-width: 800px;
-    padding: 0 1.5rem;
-  }
-
-  @include onMobile() {
-    max-width: none;
-    padding: 0 1rem;
-  }
-}
-
-.congratsContent {
-  h2 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-
-    @include onMobile() {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-  }
-}
-
 .socialProof {
   font-size: 1.2rem;
   color: #535967;
