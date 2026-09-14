@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .bannerGrid {
   display: grid;
@@ -11,11 +11,11 @@
     grid-template-rows: auto auto auto auto auto;
     row-gap: 1rem;
     grid-template-areas:
-      "social"
-      "content-top"
-      "image"
-      "content-bottom"
-      "buttons";
+      'social'
+      'content-top'
+      'image'
+      'content-bottom'
+      'buttons';
   }
 
   // Tablet and up: two columns, 3 rows (content combines back)
@@ -25,9 +25,9 @@
     row-gap: 1.5rem;
     column-gap: 3rem;
     grid-template-areas:
-      "social social"
-      "content image"
-      "buttons buttons";
+      'social social'
+      'content image'
+      'buttons buttons';
   }
 
   // Large screens: adjust proportions

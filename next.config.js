@@ -6,7 +6,7 @@ const nextConfig = {
     imageSizes: [200, 320, 400],
   },
   sassOptions: {
-    includePaths: ["./node_modules"],
+    includePaths: ['./node_modules'],
   },
 };
 

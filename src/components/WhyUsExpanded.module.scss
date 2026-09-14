@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .textWithFloatingImage {
   position: relative;
@@ -138,7 +138,7 @@
   overflow: hidden;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -315,7 +315,7 @@
   overflow: hidden;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

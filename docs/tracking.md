@@ -66,7 +66,7 @@ faktycznie coś wysłać:
 
 ```js
 export function initializeAsync() {
-  return import("react-ga4").then((x) => x.default);
+  return import('react-ga4').then((x) => x.default);
 }
 ```
 
@@ -97,7 +97,7 @@ bo page view'y wysyła ręcznie `usePageViewTracking` (patrz 3.1).
 W obu modułach:
 
 ```js
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 ```
 
 Przy `npm run dev` **nic nie leci na zewnątrz** – zamiast tego logi w konsoli:
@@ -163,16 +163,14 @@ przyjmują ścieżkę i budują label dynamicznie:
 
 ```js
 export const NAVIGATION_CLICK_MENU_ITEM = (path) => ({
-  category: "Navigation",
-  action: "Click",
+  category: 'Navigation',
+  action: 'Click',
   label: `Navigate to '${path}'`,
 });
-export const FOOTER_CLICK_MENU_ITEM = (path) => ({
-  /* jw. */
-});
+export const FOOTER_CLICK_MENU_ITEM = (path) => ({/* jw. */});
 export const OPINIONS_CLICK_GOOGLE_REVIEWS = (path) => ({
-  category: "Opinions",
-  action: "Click",
+  category: 'Opinions',
+  action: 'Click',
   label: `Google reviews from '${path}'`,
 });
 ```

@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .finalCTA {
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
@@ -14,7 +14,7 @@
 
   // Animated background pattern
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -77,7 +77,7 @@
     position: relative;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: -5px;
       left: 0;
@@ -278,7 +278,7 @@
   overflow: hidden;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: -100%;

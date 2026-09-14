@@ -1,4 +1,4 @@
-@import "../../styles/mixins";
+@import '../../styles/mixins';
 
 .testCompletionForm {
   max-width: 1200px;
@@ -230,7 +230,7 @@
     padding: 0.5rem 0;
   }
 
-  input[type="radio"] {
+  input[type='radio'] {
     width: auto;
     margin: 0;
     accent-color: #0f8d8c;

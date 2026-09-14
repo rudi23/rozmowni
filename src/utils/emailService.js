@@ -141,9 +141,8 @@ class EmailService {
     }
 
     // Import email template dynamically to avoid circular dependencies
-    const { default: ContactFormEmail } = await import(
-      '../emails/ContactFormEmail.jsx'
-    );
+    const { default: ContactFormEmail } =
+      await import('../emails/ContactFormEmail.jsx');
 
     // Render email template
     const { html, text } = await this.renderEmailTemplate(ContactFormEmail, {
@@ -197,9 +196,8 @@ class EmailService {
     }
 
     // Import email template dynamically to avoid circular dependencies
-    const { default: TestResultsEmail } = await import(
-      '../emails/TestResultsEmail.jsx'
-    );
+    const { default: TestResultsEmail } =
+      await import('../emails/TestResultsEmail.jsx');
 
     // Render email template
     const { html, text } = await this.renderEmailTemplate(TestResultsEmail, {
@@ -252,9 +250,8 @@ class EmailService {
     }
 
     // Import email template dynamically to avoid circular dependencies
-    const { default: TestResultsNotificationEmail } = await import(
-      '../emails/TestResultsNotificationEmail.jsx'
-    );
+    const { default: TestResultsNotificationEmail } =
+      await import('../emails/TestResultsNotificationEmail.jsx');
 
     // Render email template
     const { html, text } = await this.renderEmailTemplate(

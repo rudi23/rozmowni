@@ -224,7 +224,7 @@
   gap: 0.5rem;
   cursor: pointer;
 
-  input[type="radio"] {
+  input[type='radio'] {
     margin: 0;
   }
 
@@ -324,7 +324,7 @@
   text-align: center;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

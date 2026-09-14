@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .root {
   margin-bottom: 30px;
@@ -25,7 +25,7 @@
 
 .subheading:before {
   position: absolute;
-  content: "";
+  content: '';
   left: 0;
   width: 45px;
   height: 3px;

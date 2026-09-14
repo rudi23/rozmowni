@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .socialProofSection {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -11,7 +11,7 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

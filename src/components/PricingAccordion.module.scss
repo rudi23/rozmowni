@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .root {
   .card {
@@ -57,7 +57,7 @@
       }
     }
 
-    button[aria-expanded="true"] {
+    button[aria-expanded='true'] {
       border-bottom: 0;
 
       h4 {

@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .stickyCTA {
   position: fixed;
@@ -59,7 +59,7 @@
 
   // Animowane tło
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

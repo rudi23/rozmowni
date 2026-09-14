@@ -1,4 +1,4 @@
-@import "../styles/mixins";
+@import '../styles/mixins';
 
 .root {
   align-items: center;
@@ -36,7 +36,7 @@
 
     p {
       color: #535967;
-      font-family: "Mulish", sans-serif;
+      font-family: 'Mulish', sans-serif;
       line-height: 28px;
       font-size: 16px;
       margin-bottom: 1rem;
@@ -68,7 +68,7 @@
 
 .googleText {
   color: #535967;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   font-size: 16px;
   margin-bottom: 1rem;
   line-height: 1.4;
@@ -83,7 +83,7 @@
   color: white;
   text-decoration: none;
   border-radius: 8px;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   font-weight: 600;
   font-size: 16px;
   transition: all 0.3s ease;

@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   font-size: 16px;
   line-height: 30px;
   margin: 0;
@@ -27,7 +27,7 @@ body {
 
 p {
   color: #535967;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   line-height: 28px;
   font-size: 16px;
 }
@@ -462,7 +462,7 @@ Feature Style 2
 
 .course-title:before {
   position: absolute;
-  content: "";
+  content: '';
   left: 0;
   bottom: 0;
   width: 40px;
@@ -572,7 +572,7 @@ COURse Single Details
 
 .img-block:before {
   position: absolute;
-  content: "";
+  content: '';
   right: 0;
   bottom: 0;
   width: 0;

@@ -48,7 +48,7 @@ punktów jest celowo bez zmian.
 
 ```js
 // Here you would normally send to your backend for contact form
-console.log("Form data:", formDataWithScore);
+console.log('Form data:', formDataWithScore);
 ```
 
 `formDataWithScore` zawiera **imię i nazwisko, e-mail, numer telefonu**,
@@ -136,7 +136,7 @@ opcjonalnie co N pytań. GA4 dziś **nie widzi ukończenia testu w ogóle**.
 
 ```js
 const hasCookieConsentAccepted =
-  localStorage.getItem("cookieConsent") === "true";
+  localStorage.getItem('cookieConsent') === 'true';
 ```
 
 `react-cookie-consent` zapisuje zgodę przez `Cookies.set()` (zweryfikowane
@@ -158,7 +158,7 @@ martwy warunek i polling, opierając się na callbacku `onAccept` z `CookieConse
 
 ```js
 // Here you would normally send to your backend for contact form
-console.log("Form data:", formDataWithScore);
+console.log('Form data:', formDataWithScore);
 
 // Simulate API call for contact form
 await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -181,8 +181,8 @@ sukcesu. Pozostałość po prototypie.
 `src/services/tracking/facebookPixel.js:1`
 
 ```js
-const TRACKING_ID = "G-2XD6SZL2GR";
-const PIXEL_ID = "1757361357785350";
+const TRACKING_ID = 'G-2XD6SZL2GR';
+const PIXEL_ID = '1757361357785350';
 ```
 
 Nie ma ich w `.env.example` ani `.env.local`. Skutki:
