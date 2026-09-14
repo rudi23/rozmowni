@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
-import { render } from '@react-email/render';
+import { render, toPlainText } from '@react-email/render';
+
+const UNSUBSCRIBE_SUBJECT = 'Wypisz mnie';
 
 /**
  * Email service utility for sending emails using React Email templates
@@ -52,7 +54,11 @@ class EmailService {
    */
   async renderEmailTemplate(EmailComponent, props) {
     try {
-      return await render(<EmailComponent {...props} />);
+      const html = await render(<EmailComponent {...props} />);
+
+      // A text/plain alternative raises the text-to-HTML ratio, which spam
+      // filters weigh, and covers clients that do not render HTML
+      return { html, text: toPlainText(html) };
     } catch (error) {
       console.error('Error rendering email template:', error);
       throw new Error('Failed to render email template');
@@ -140,7 +146,7 @@ class EmailService {
     );
 
     // Render email template
-    const emailHtml = await this.renderEmailTemplate(ContactFormEmail, {
+    const { html, text } = await this.renderEmailTemplate(ContactFormEmail, {
       name,
       email,
       phone,
@@ -153,7 +159,8 @@ class EmailService {
       from: process.env.SMTP_FROM,
       to: process.env.NOTIFICATIONS_EMAIL,
       subject: `Rozmowni.pl - Wiadomość z formularza kontaktowego - [${name}]`,
-      html: emailHtml,
+      html,
+      text,
       replyTo: email, // Set reply-to to the sender's email
     };
 
@@ -195,7 +202,7 @@ class EmailService {
     );
 
     // Render email template
-    const emailHtml = await this.renderEmailTemplate(TestResultsEmail, {
+    const { html, text } = await this.renderEmailTemplate(TestResultsEmail, {
       fullName,
       testScore,
       testLevel,
@@ -207,9 +214,15 @@ class EmailService {
     const mailOptions = {
       from: process.env.SMTP_FROM,
       to: email,
-      subject: 'Twój wynik testu + darmowy e-book "Czas na angielski"',
-      html: emailHtml,
+      subject: 'Wynik testu poziomującego i e-book Czas na angielski',
+      html,
+      text,
       replyTo: process.env.SMTP_FROM,
+      headers: {
+        // Gives recipients an alternative to the "report spam" button, which
+        // costs the sending domain far more reputation than an unsubscribe
+        'List-Unsubscribe': `<mailto:${process.env.NOTIFICATIONS_EMAIL}?subject=${encodeURIComponent(UNSUBSCRIBE_SUBJECT)}>`,
+      },
     };
 
     // Send email
@@ -244,7 +257,7 @@ class EmailService {
     );
 
     // Render email template
-    const emailHtml = await this.renderEmailTemplate(
+    const { html, text } = await this.renderEmailTemplate(
       TestResultsNotificationEmail,
       {
         fullName,
@@ -263,7 +276,8 @@ class EmailService {
       from: process.env.SMTP_FROM,
       to: process.env.NOTIFICATIONS_EMAIL,
       subject: `Rozmowni.pl - Nowy użytkownik ukończył test - [${fullName}]`,
-      html: emailHtml,
+      html,
+      text,
       replyTo: process.env.SMTP_FROM,
     };
 

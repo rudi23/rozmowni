@@ -13,6 +13,7 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import { getLevel } from '../data/testData';
 
 const TestResultsEmail = ({
   fullName,
@@ -23,11 +24,12 @@ const TestResultsEmail = ({
 }) => {
   const score = parseInt(testScore.split('/')[0]);
   const percentage = Math.round((score / totalQuestions) * 100);
+  const level = getLevel(score, testType);
 
   return (
     <Html>
       <Head />
-      <Preview>Twój wynik testu + darmowy e-book "Czas na angielski"</Preview>
+      <Preview>Wynik testu poziomującego i e-book Czas na angielski</Preview>
       <Body style={main}>
         <Container style={container}>
           {/* Header */}
@@ -70,45 +72,7 @@ const TestResultsEmail = ({
             {/* Level Description */}
             <Section style={levelDescription}>
               <Heading style={h3}>Co oznacza Twój poziom?</Heading>
-              <Text style={text}>
-                {testLevel.includes('A1') &&
-                  testType === 'teens' &&
-                  'Rozumiesz podstawowe wyrażenia codzienne i bardzo proste zdania. Potrafisz się przedstawić, zadawać podstawowe pytania o miejsce zamieszkania, ludzi których znasz i rzeczy które posiadasz.'}
-                {testLevel.includes('A2') &&
-                  testType === 'teens' &&
-                  'Rozumiesz zdania i często używane wyrażenia związane z podstawowymi dziedzinami życia. Potrafisz komunikować się w prostych, rutynowych sytuacjach wymagających prostej wymiany informacji.'}
-                {testLevel.includes('B1') &&
-                  testType === 'teens' &&
-                  'Rozumiesz główne punkty wypowiedzi na znane tematy spotykane w pracy, szkole, czasie wolnym. Potrafisz radzić sobie z większością sytuacji podczas podróży w krajach anglojęzycznych.'}
-                {testLevel.includes('B2') &&
-                  testType === 'teens' &&
-                  'Rozumiesz główne idee złożonych tekstów na tematy konkretne i abstrakcyjne. Potrafisz swobodnie rozmawiać z rodzimymi użytkownikami języka i tworzyć przejrzyste, szczegółowe teksty.'}
-                {testLevel.includes('C1') &&
-                  testType === 'teens' &&
-                  'Rozumiesz szeroką gamę wymagających, długich tekstów oraz dostrzegasz ukryte znaczenia. Wyrażasz się płynnie i spontanicznie, używasz języka skutecznie i elastycznie.'}
-                {testLevel.includes('C2') &&
-                  testType === 'teens' &&
-                  'Z łatwością rozumiesz praktycznie wszystko co słyszysz lub czytasz. Potrafisz streszczać informacje z różnych źródeł i wyrażać się bardzo płynnie, precyzyjnie i subtelnie.'}
-
-                {testLevel.includes('A1') &&
-                  testType === 'adults' &&
-                  'Znasz podstawowe słowa i wyrażenia. Potrafisz się przedstawić i zadawać proste pytania o codzienne sprawy.'}
-                {testLevel.includes('A2') &&
-                  testType === 'adults' &&
-                  'Rozumiesz proste teksty i potrafisz rozmawiać o znanych tematach jak szkoła, hobby i rodzina.'}
-                {testLevel.includes('B1') &&
-                  testType === 'adults' &&
-                  'Radzisz sobie z większością sytuacji codziennych. Potrafisz opowiadać o swoich planach i doświadczeniach.'}
-                {testLevel.includes('B2') &&
-                  testType === 'adults' &&
-                  'Swobodnie rozmawiasz na różne tematy. Rozumiesz filmy, książki i artykuły bez większych problemów.'}
-                {testLevel.includes('C1') &&
-                  testType === 'adults' &&
-                  'Bardzo dobrze władasz językiem. Możesz w przyszłości studiować w języku angielskim.'}
-                {testLevel.includes('C2') &&
-                  testType === 'adults' &&
-                  'Świetnie! Rozumiesz prawie wszystko i wyrażasz się bardzo precyzyjnie.'}
-              </Text>
+              <Text style={text}>{level?.description}</Text>
             </Section>
 
             {/* Social Proof Section */}
@@ -236,12 +200,12 @@ const TestResultsEmail = ({
               <Heading style={h3}>Co dalej?</Heading>
               <Text style={text}>
                 Wkrótce skontaktujemy się z Tobą w celu umówienia bezpłatnej
-                lekcji próbnej, podczas której:
+                lekcji próbnej, dzięki której:
               </Text>
 
               <ul style={list}>
                 <li style={listItem}>
-                  Otrzymasz szczegółowy feedback o swoich mocnych stronach i
+                  Otrzymasz od lektora feedback o swoich mocnych stronach i
                   obszarach do poprawy
                 </li>
                 <li style={listItem}>
@@ -301,9 +265,20 @@ const TestResultsEmail = ({
           {/* Footer */}
           <Section style={footer}>
             <Text style={footerText}>
-              © 2025 Rozmowni.pl - Szkoła języka angielskiego
+              © 2026 Rozmowni.pl - Szkoła języka angielskiego
             </Text>
             <Text style={footerText}>Wszystkie prawa zastrzeżone</Text>
+            <Text style={unsubscribeText}>
+              Otrzymujesz tę wiadomość, ponieważ wypełniono test poziomujący na
+              rozmowni.pl.{' '}
+              <Link
+                href="mailto:kontakt@rozmowni.pl?subject=Wypisz%20mnie"
+                style={unsubscribeLink}
+              >
+                Wypisz się
+              </Link>
+              , a nie będziemy się więcej kontaktować.
+            </Text>
           </Section>
         </Container>
       </Body>
@@ -565,6 +540,18 @@ const footerText = {
   fontSize: '14px',
   lineHeight: '20px',
   margin: '5px 0',
+};
+
+const unsubscribeText = {
+  color: '#9ca3af',
+  fontSize: '12px',
+  lineHeight: '18px',
+  margin: '16px 0 0',
+};
+
+const unsubscribeLink = {
+  color: '#9ca3af',
+  textDecoration: 'underline',
 };
 
 export default TestResultsEmail;
