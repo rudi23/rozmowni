@@ -29,10 +29,10 @@ export default function WhyUs() {
         <div className="col-lg-6 col-md-12">
           <SectionHeading
             heading="Język angielski"
-            subheading="Zapisy na rok szkolny 2025/2026"
+            subheading="Zapisy na rok szkolny 2026/2027"
           />
 
-          <p>Ruszyły zapisy na kursy językowe na rok szkolny 2025/2026!</p>
+          <p>Ruszyły zapisy na kursy językowe na rok szkolny 2026/2027!</p>
           <p>
             Już teraz zarezerwuj swoje miejsce na najbardziej rozgadanym kursie
             języka angielskiego online.
