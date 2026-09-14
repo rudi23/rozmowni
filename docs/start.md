@@ -23,18 +23,18 @@ testu poziomującego.
 
 ## 2. Stack technologiczny
 
-| Obszar      | Technologia                                                                                 |
-| ----------- | ------------------------------------------------------------------------------------------- |
-| Framework   | **Next.js 15** (Pages Router, `src/pages`), React 19                                        |
-| Stylowanie  | Bootstrap 5 (SCSS), CSS Modules (`*.module.scss`), globalne CSS, FontAwesome, ikony `bicon` |
-| Formularze  | `react-hook-form`                                                                           |
-| Maile       | `@react-email/components` + `@react-email/render` (szablony JSX), `nodemailer` (SMTP)       |
-| Antyspam    | Google reCAPTCHA v3 (formularz kontaktowy), klucz API + rate limiting (API routes)          |
-| Analityka   | Google Analytics 4 (`react-ga4`), Facebook Pixel (`react-facebook-pixel`)                   |
-| Inne        | `react-cookie-consent`, `react-multi-carousel` (opinie)                                     |
-| Jakość kodu | ESLint 9 (flat config), Prettier, Husky + lint-staged, commitlint                           |
-| Release     | `release-it` + conventional changelog                                                       |
-| Node (CI)   | 22.18.0                                                                                     |
+| Obszar      | Technologia                                                                                                       |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| Framework   | **Next.js 15** (Pages Router, `src/pages`), React 19                                                              |
+| Stylowanie  | Bootstrap 5 (SCSS), CSS Modules (`*.module.scss`), globalne CSS, FontAwesome, ikony `bicon`                       |
+| Formularze  | `react-hook-form`                                                                                                 |
+| Maile       | `@react-email/components` + `@react-email/render` (szablony JSX), `nodemailer` (SMTP)                             |
+| Antyspam    | Google reCAPTCHA v3 (formularz kontaktowy), klucz API + rate limiting (API routes)                                |
+| Analityka   | Google Analytics 4 (`react-ga4`), Facebook Pixel (`react-facebook-pixel`) – szczegóły: [tracking.md](tracking.md) |
+| Inne        | `react-cookie-consent`, `react-multi-carousel` (opinie)                                                           |
+| Jakość kodu | ESLint 9 (flat config), Prettier, Husky + lint-staged, commitlint                                                 |
+| Release     | `release-it` + conventional changelog                                                                             |
+| Node (CI)   | 22.18.0                                                                                                           |
 
 **Brak testów automatycznych** – `npm test` wypisuje tylko `No tests`.
 
@@ -48,7 +48,7 @@ testu poziomującego.
 ├── next.config.js              # rozmiary obrazków, includePaths dla SASS
 ├── .env.example                # szablon zmiennych środowiskowych
 ├── .github/workflows/          # CI: lint+test, CodeQL, deploy staging/production
-├── docs/                       # dokumentacja (ten plik)
+├── docs/                       # dokumentacja: start.md (ten plik), tracking.md, todo.md
 ├── public/                     # statyki: obrazki, fonty, sitemap.xml, robots.txt,
 │                               # .htaccess i mail.php (pozostałości po starym hostingu PHP)
 ├── test.md                     # STARY draft pytań testu – NIE jest źródłem danych (patrz 6.8)
@@ -69,7 +69,7 @@ testu poziomującego.
     ├── routes/index.js         # jedyne źródło prawdy o ścieżkach URL (routeMap)
     ├── services/
     │   ├── metadata/           # SEO: title, description, OpenGraph, JSON-LD per strona
-    │   └── tracking/           # GA4 + FB Pixel + definicje eventów
+    │   └── tracking/           # GA4 + FB Pixel + definicje eventów (patrz tracking.md)
     ├── styles/                 # SCSS/CSS globalne
     └── utils/                  # apiAuth.js, emailService.js, drobne helpery
 ```
@@ -98,7 +98,8 @@ Inne skrypty:
 Uwagi:
 
 - W trybie `development` GA i FB Pixel **nie wysyłają** nic na zewnątrz, tylko
-  logują do konsoli (`GA: ...`, `FB: ...`).
+  logują do konsoli (`GA: ...`, `FB: ...`). To jedyny sposób weryfikacji
+  trackingu lokalnie – patrz [tracking.md](tracking.md#23-tryb-deweloperski).
 - Wysyłka maili wymaga poprawnej konfiguracji SMTP w `.env.local`. Bez niej
   API zwróci 500 z komunikatem o brakującej konfiguracji.
 - Frontend wysyła nagłówek `x-api-key` z wartości `NEXT_PUBLIC_API_KEY`; serwer
@@ -145,19 +146,20 @@ Strony kursów używają wspólnych klocków: `CourseLayout`, `CourseHeader`,
 
 Wszystkie CTA (poza „Dowiedz się więcej” i kilkoma linkami do kontaktu)
 prowadzą do `/test-poziomujacy` i mają osobny event GA, więc widać, która
-sekcja konwertuje.
+sekcja konwertuje. Mapa „sekcja → event” jest w
+[tracking.md](tracking.md#43-lejek-na-stronie-głównej).
 
 1. `Banner` – hero „Mów swobodnie po angielsku!”, CTA test + „dowiedz się więcej”
 2. `Features` – 4 kafelki: konwersacje, ciekawe zajęcia, online, szybkie efekty
 3. `SocialProofStats` – 100+ uczniów, 95% poleca, 15+ lat, 10 min test; CTA test
-4. `WhyUsExpanded` – „Poznajmy się”, rozwijana sekcja; CTA test (góra i dół)
+4. `WhyUsExpanded` – „Poznajmy się”, rozwijana sekcja; CTA test (na dole sekcji)
 5. `Conversations` – jak uczymy, tematy konwersacji
 6. `Idea` – filozofia nauki
 7. `TestBenefits` – co zyskujesz robiąc test (wynik, lekcja próbna, plan, e-book); CTA test
 8. `Opinions` – karuzela opinii uczniów
 9. `TestFAQ` – 8 pytań w akordeonie (czas, cena, kiedy wynik, spam, poziomy, zobowiązania, powtórka, niski poziom); CTA test + kontakt
 10. `FinalCTA` – końcowe wezwanie do testu
-11. `StickyCTA` – pływający pasek „Sprawdź swój poziom!” pojawia się po przewinięciu >500px i tylko gdy baner cookies został zaakceptowany (`localStorage.cookieConsent === 'true'`)
+11. `StickyCTA` – pływający pasek „Sprawdź swój poziom!”; pokazuje się po przewinięciu >500px, gdy w DOM nie ma banera `.CookieConsent` (obecność banera jest sprawdzana co 300 ms). Uwaga: dodatkowy warunek `localStorage.getItem('cookieConsent') === 'true'` w kodzie **nigdy nie jest spełniony** – `react-cookie-consent` zapisuje zwykłe ciasteczko, nie `localStorage`. W praktyce pasek pojawia się po zamknięciu banera
 
 ### 5.4 Wspólny layout (`_app.js`)
 
@@ -166,7 +168,12 @@ Każda strona jest owinięta w: `Metadata` (title/description/OG/JSON-LD z
 (linki, social media, telefon, e-mail), `CookieConsent` (baner na dole,
 cookie `cookieConsent` na 90 dni). Hooki `usePageViewTracking` (GA4) i
 `useFacebookTracking` (FB Pixel PageView) odpalają się przy każdej zmianie
-`router.pathname`.
+`router.pathname` – zmiana samego query stringa **nie** wysyła page view
+([tracking.md](tracking.md#33-konsekwencje-użycia-routerpathname)).
+
+Baner cookies jest wyłącznie informacyjny – **nie blokuje** GA ani Pixela,
+które strzelają przed jakąkolwiek zgodą
+([tracking.md](tracking.md#6-zgoda-na-cookies)).
 
 ---
 
@@ -174,16 +181,16 @@ cookie `cookieConsent` na 90 dni). Hooki `usePageViewTracking` (GA4) i
 
 To najważniejsza funkcja biznesowa. Pliki:
 
-| Warstwa     | Plik                                                                                                          |
-| ----------- | ------------------------------------------------------------------------------------------------------------- |
-| Strona/stan | `src/pages/test-poziomujacy.js`                                                                               |
-| Ekran 1     | `src/components/test/TestIntroView.js`                                                                        |
-| Ekran 2     | `src/components/test/TestRunner.js`                                                                           |
-| Ekran 3 i 4 | `src/components/test/TestResultsView.js`                                                                      |
-| Dane        | `src/data/testData.js` (`testData`, `getLevel`)                                                               |
-| API         | `src/pages/api/send-test-results.js`                                                                          |
-| Maile       | `src/emails/TestResultsEmail.jsx`, `src/emails/TestResultsNotificationEmail.jsx`, `src/utils/emailService.js` |
-| Tracking    | `src/services/tracking/facebookEvents.js`, `src/services/tracking/events.js`                                  |
+| Warstwa     | Plik                                                                                                                                                      |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Strona/stan | `src/pages/test-poziomujacy.js`                                                                                                                           |
+| Ekran 1     | `src/components/test/TestIntroView.js`                                                                                                                    |
+| Ekran 2     | `src/components/test/TestRunner.js`                                                                                                                       |
+| Ekran 3 i 4 | `src/components/test/TestResultsView.js`                                                                                                                  |
+| Dane        | `src/data/testData.js` (`testData`, `getLevel`)                                                                                                           |
+| API         | `src/pages/api/send-test-results.js`                                                                                                                      |
+| Maile       | `src/emails/TestResultsEmail.jsx`, `src/emails/TestResultsNotificationEmail.jsx`, `src/utils/emailService.js`                                             |
+| Tracking    | `src/services/tracking/facebookEvents.js`, `src/services/tracking/events.js` – patrz [tracking.md](tracking.md#5-eventy-facebook-pixel-konwersje-z-testu) |
 
 ### 6.1 Diagram
 
@@ -205,10 +212,11 @@ flowchart TD
 ### 6.2 Wejścia do testu
 
 - Menu (desktop i mobile): pozycja „Test poziomujący” z klasą `test-cta`.
-- Strona główna: `Banner`, `SocialProofStats`, `WhyUsExpanded` (2 CTA),
+- Strona główna: `Banner`, `SocialProofStats`, `WhyUsExpanded`,
   `TestBenefits`, `TestFAQ`, `FinalCTA`, `StickyCTA`.
 - `/kursy/indywidualne`: komponent `NewSemesterSignUp` (eksportuje `WhyUs`) linkuje do testu.
-- Każde kliknięcie ma własny event GA (`HOME_*_CLICK_TEST`, `NAVIGATION_CLICK_MENU_ITEM`).
+- Każde kliknięcie ma własny event GA (`HOME_*_CLICK_TEST`, `NAVIGATION_CLICK_MENU_ITEM`)
+  – pełna lista w [tracking.md](tracking.md#43-lejek-na-stronie-głównej).
 
 ### 6.3 Stan strony (`test-poziomujacy.js`)
 
@@ -388,18 +396,30 @@ Aplikacja Next ich nie używa.
 
 ## 8. Analityka i tracking
 
+> **Pełny opis: [tracking.md](tracking.md)** – architektura, lista wszystkich
+> eventów, mapa lejka na stronie głównej, znane niespójności i instrukcja
+> dodawania nowych eventów. Poniżej tylko skrót.
+
 | Narzędzie          | ID                 | Gdzie                                      |
 | ------------------ | ------------------ | ------------------------------------------ |
 | Google Analytics 4 | `G-2XD6SZL2GR`     | `src/services/tracking/googleAnalytics.js` |
 | Facebook Pixel     | `1757361357785350` | `src/services/tracking/facebookPixel.js`   |
 
 - Biblioteki ładowane są dynamicznie (`import()`) dopiero przy pierwszym użyciu.
-- GA: page view przy każdej zmianie ścieżki + eventy kliknięć w formacie
-  `{ category, action: 'Click', label }` zdefiniowane w `services/tracking/events.js`.
+  GA i Pixel są inicjalizowane **przed każdym** strzałem – to celowe, patrz
+  [tracking.md](tracking.md#22-inicjalizacja-przy-każdym-wysłaniu).
+- **GA**: page view przy każdej zmianie `router.pathname` + 47 eventów kliknięć
+  w formacie `{ category, action, label }` z `services/tracking/events.js`.
   Hook: `useClickTracking()`.
-- FB Pixel: `PageView` przy zmianie ścieżki oraz dwa eventy konwersji z testu:
-  `Lead` (ukończenie testu) i `CompleteRegistration` (wysłanie formularza).
-  Hook: `useFacebookEventTracking()`.
+- **FB Pixel**: `PageView` przy zmianie ścieżki oraz dwa eventy konwersji
+  z testu: `Lead` (ukończenie testu) i `CompleteRegistration` (dane kontaktowe
+  wysłane i mail faktycznie doszedł). Hook: `useFacebookEventTracking()`.
+  To jedyne miejsce, gdzie mierzone są realne konwersje – GA **nie widzi**
+  ukończenia testu.
+- ID obu narzędzi są **zahardkodowane w kodzie**, nie ma ich w `.env` – staging
+  i produkcja raportują do tej samej właściwości GA4 i tego samego Pixela.
+- Baner cookies **nie bramkuje** trackingu
+  ([tracking.md](tracking.md#6-zgoda-na-cookies)).
 - W `NODE_ENV=development` nic nie wychodzi na zewnątrz – tylko `console.log`.
 
 ---
@@ -471,3 +491,4 @@ GitHub Release → automatyczny deploy na produkcję.
   i `Footer`, wpis w `public/sitemap.xml`.
 - Nowy event analityczny: `src/services/tracking/events.js` (GA) lub
   `facebookEvents.js` (FB), potem `useClickTracking` / `useFacebookEventTracking`.
+  Krok po kroku i konwencje nazw: [tracking.md](tracking.md#7-jak-dodać-nowy-event).
