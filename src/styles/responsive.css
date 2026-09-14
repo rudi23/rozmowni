@@ -48,6 +48,10 @@
 }
 
 @media (max-width: 768px) {
+  .h2,
+  h2 {
+    font-size: 28px;
+  }
   .section-heading h3 {
     font-size: 32px;
   }

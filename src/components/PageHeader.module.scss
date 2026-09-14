@@ -1,3 +1,5 @@
+@import "../styles/mixins";
+
 .root {
   padding: 30px 0;
   background: #ffefd5;
@@ -7,6 +9,10 @@
   h1 {
     color: #07294d;
     font-size: 46px;
+
+    @include onMobile() {
+      font-size: 32px;
+    }
   }
 
   ul li {

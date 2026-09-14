@@ -8,6 +8,10 @@
 
 .progressContainer {
   margin-bottom: 3rem;
+
+  @include onMobile() {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .progressBar {
@@ -49,6 +53,10 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin-bottom: 2rem;
   border: 1px solid #e9ecef;
+
+  @include onMobile() {
+    padding: 1.5rem 1rem;
+  }
 }
 
 .questionText {
@@ -75,6 +83,10 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
+
+  @include onMobile() {
+    padding: 0.625rem 0.875rem;
+  }
 
   &:hover {
     background: #e9ecef;
@@ -109,6 +121,12 @@
   margin-right: 1rem;
   flex-shrink: 0;
   transition: all 0.3s ease;
+
+  @include onMobile() {
+    width: 28px;
+    height: 28px;
+    margin-right: 0.75rem;
+  }
 }
 
 .answerText {
