@@ -17,8 +17,6 @@ export default function TestPage() {
     setSelectedTest(null);
     setShowResults(false);
     setScore(0);
-    // Scroll to top when resetting to intro
-    window.scrollTo(0, 0);
   };
 
   // Reset test when navigating to the main test page
@@ -29,12 +27,18 @@ export default function TestPage() {
     }
   }, [router.asPath, router.query]);
 
+  // Reset the scroll position after the new view has rendered, not inside the
+  // click handler. Scrolling while the previous, much taller view is still laid
+  // out lets the browser re-apply a stale offset once the shorter view mounts,
+  // which on mobile leaves the user looking at the footer.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [selectedTest, showResults]);
+
   const handleTestSelection = (testType) => {
     setSelectedTest(testType);
     setShowResults(false);
     setScore(0);
-    // Scroll to top when starting test
-    window.scrollTo(0, 0);
   };
 
   const handleTestComplete = (finalScore) => {
@@ -42,8 +46,6 @@ export default function TestPage() {
     setShowResults(true);
     // Fires once per completed test, at the transition to the results screen
     trackFacebookEvent(facebookEvents.TEST_COMPLETED_LEAD(selectedTest));
-    // Scroll to top when showing results
-    window.scrollTo(0, 0);
   };
 
   // Show intro screen when no test is selected

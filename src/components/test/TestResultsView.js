@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -485,9 +485,13 @@ const TestResultsView = ({ score, selectedTest }) => {
 
   const handleFormSubmitted = () => {
     setIsFormSubmitted(true);
-    // Scroll to top when transitioning to success view
-    window.scrollTo(0, 0);
   };
+
+  // The form view is far taller than the success view, so scroll only once the
+  // success view has rendered - see the matching effect in the test page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [isFormSubmitted]);
 
   if (isFormSubmitted) {
     return <TestResultsSuccessView />;
