@@ -10,9 +10,9 @@ const topicGroups = [
     level: 'A1–A2',
     topics: [
       'Poznawanie nowych osób',
+      'Wizyta u lekarza',
       'Sytuacje na lotnisku i w hotelu',
       'Zamawianie jedzenia w restauracji',
-      'Wizyta u lekarza',
     ],
   },
   {
