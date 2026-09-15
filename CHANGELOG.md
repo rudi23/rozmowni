@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.1](https://github.com/rudi23/rozmowni/compare/v2.3.0...v2.3.1) (2026-09-15)
+
+### Bug Fixes
+
+- regenerate package-lock.json with npm 10 so npm ci works in CI ([5195e35](https://github.com/rudi23/rozmowni/commit/5195e35473cd3bd48968bc2b51372688b63c7ed0))
+
 ## [2.3.0](https://github.com/rudi23/rozmowni/compare/v2.2.0...v2.3.0) (2026-09-15)
 
 ### Features
