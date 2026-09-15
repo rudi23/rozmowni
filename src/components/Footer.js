@@ -95,7 +95,7 @@ export default function Footer() {
       <footer className="footer">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-md-12">
+            <div className="col-lg-4 col-md-6">
               <div className="footer-widget mb-5 mb-lg-0">
                 <div className="widget-title">Rozmowni.pl</div>
                 <p>
