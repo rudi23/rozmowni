@@ -24,10 +24,6 @@ jobs:
       - name: Inject API key
         run: |
           sed -i 's/<NEXT_PUBLIC_API_KEY>/${{ secrets.API_KEY }}/g' src/utils/apiAuth.js
-      - name: Build project
-        run: npm run build
-      - name: Remove dev dependencies
-        run: npm prune --omit=dev
       - name: Create .env.local file
         run: |
           cp .env.example .env.local
@@ -40,6 +36,10 @@ jobs:
           sed -i 's|<NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN>|${{ secrets.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN }}|g' .env.local
           sed -i 's|<NEXT_PUBLIC_POSTHOG_HOST>|${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}|g' .env.local
           sed -i 's/<CSV_FILE_PATH>/\/home\/rozmowni\/rails\/prod-test-results.csv/g' .env.local
+      - name: Build project
+        run: npm run build
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
