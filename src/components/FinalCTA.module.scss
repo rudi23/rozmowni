@@ -36,7 +36,6 @@
         rgba(255, 255, 255, 0.06) 0%,
         transparent 50%
       );
-    animation: float 6s ease-in-out infinite;
   }
 }
 
@@ -45,7 +44,7 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.75rem 1.5rem;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
   margin-bottom: 2rem;
   font-size: 0.95rem;
   font-weight: 600;
@@ -84,7 +83,7 @@
       right: 0;
       height: 3px;
       background: #ffd700;
-      border-radius: 2px;
+      border-radius: var(--radius-control);
     }
   }
 }
@@ -132,14 +131,13 @@
 .finalBenefit {
   background: rgba(255, 255, 255, 0.15);
   padding: 1.25rem;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   font-weight: 600;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: translateY(-3px);
     background: rgba(255, 255, 255, 0.25);
   }
 
@@ -159,11 +157,10 @@
 .urgencyBanner {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid #ffd700;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   padding: 1.5rem;
   margin: 3rem 0;
   position: relative;
-  animation: pulse 2s infinite;
 
   .urgencyContent {
     display: flex;
@@ -198,7 +195,7 @@
 
 .valueBox {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   padding: 2rem;
   margin: 3rem 0;
   backdrop-filter: blur(10px);
@@ -232,7 +229,7 @@
   .valueItem {
     background: rgba(255, 255, 255, 0.1);
     padding: 0.75rem;
-    border-radius: 6px;
+    border-radius: var(--radius-control);
     font-size: 0.9rem;
 
     .valueIcon {
@@ -272,7 +269,7 @@
 }
 
 .finalButton {
-  @include ctaInverted();
+  @include ctaPrimary('lg', $inverse: true);
 
   position: relative;
   overflow: hidden;
@@ -342,7 +339,7 @@
 
 .lastTestimonial {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   padding: 1.5rem;
   margin-top: 2rem;
   font-style: italic;
@@ -357,27 +354,5 @@
     font-size: 0.9rem;
     opacity: 0.8;
     font-weight: 600;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    border-color: #ffd700;
-  }
-  50% {
-    border-color: rgba(255, 215, 0, 0.5);
-  }
-  100% {
-    border-color: #ffd700;
   }
 }

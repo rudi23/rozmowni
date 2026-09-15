@@ -6,13 +6,13 @@ import {
   faGem,
   faBook,
   faClock,
-  faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames } from '../routes';
 import Section from './Section';
 import SectionHeading from './SectionHeading';
+import TrustPoints from './TrustPoints';
 import styles from './TestBenefits.module.scss';
 
 export default function TestBenefits() {
@@ -116,12 +116,13 @@ export default function TestBenefits() {
                     trackClick(events.HOME_TEST_BENEFITS_CLICK_TEST)
                   }
                 >
-                  <FontAwesomeIcon icon={faPlay} className="me-2" />
-                  ZRÓB TEST TERAZ
+                  Zrób test teraz
                 </Link>
-                <div className={styles.guarantee}>
-                  <small>🔒 100% darmowy • Bez zobowiązań</small>
-                </div>
+                <TrustPoints
+                  className={styles.guarantee}
+                  variant="light"
+                  items={['100% darmowy', 'Bez zobowiązań']}
+                />
               </div>
             </div>
           </div>

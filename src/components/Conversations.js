@@ -52,9 +52,10 @@ export default function Conversations() {
           <div className={styles.conversationCards}>
             <div className={styles.conversationCard}>
               <div className={styles.cardHeader}>
-                <span className={`${styles.levelBadge} ${styles.levelBasic}`}>
-                  🟢
-                </span>
+                <span
+                  className={`${styles.levelBadge} ${styles.levelBasic}`}
+                  aria-hidden="true"
+                />
                 <h5 className={styles.cardTitle}>Poziom podstawowy</h5>
               </div>
               <div className={styles.cardContent}>
@@ -73,9 +74,8 @@ export default function Conversations() {
               <div className={styles.cardHeader}>
                 <span
                   className={`${styles.levelBadge} ${styles.levelIntermediate}`}
-                >
-                  🟡
-                </span>
+                  aria-hidden="true"
+                />
                 <h5 className={styles.cardTitle}>
                   Poziom średnio zaawansowany
                 </h5>
@@ -94,9 +94,8 @@ export default function Conversations() {
               <div className={styles.cardHeader}>
                 <span
                   className={`${styles.levelBadge} ${styles.levelAdvanced}`}
-                >
-                  🔴
-                </span>
+                  aria-hidden="true"
+                />
                 <h5 className={styles.cardTitle}>Poziom zaawansowany</h5>
               </div>
               <div className={styles.cardContent}>

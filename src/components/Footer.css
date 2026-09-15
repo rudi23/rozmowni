@@ -26,7 +26,7 @@
   margin-bottom: 20px;
 }
 
-.footer .footer-contact ul li i {
+.footer .footer-contact ul li svg {
   color: #0f8d8c;
   margin-right: 20px;
   float: left;
@@ -97,7 +97,7 @@
   height: 50px;
   border-color: rgba(255, 255, 255, 0.2);
   background: transparent;
-  border-radius: 5px;
+  border-radius: var(--radius-control);
 }
 
 .form-subscribe button {

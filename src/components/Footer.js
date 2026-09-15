@@ -7,6 +7,11 @@ import {
   faLinkedin,
   faTiktok,
 } from '@fortawesome/free-brands-svg-icons';
+import {
+  faEnvelope,
+  faLocationDot,
+  faPhone,
+} from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { decryptEmail } from '../utils';
@@ -228,7 +233,7 @@ export default function Footer() {
 
               <ul className="list-unstyled">
                 <li>
-                  <i className="bi bi-headphone" />
+                  <FontAwesomeIcon icon={faPhone} />
                   <div>
                     <strong>Telefon</strong>
                     <a
@@ -240,7 +245,7 @@ export default function Footer() {
                   </div>
                 </li>
                 <li>
-                  <i className="bi bi-envelop" />
+                  <FontAwesomeIcon icon={faEnvelope} />
                   <div>
                     <strong>Email</strong>
                     <a
@@ -256,7 +261,7 @@ export default function Footer() {
                   </div>
                 </li>
                 <li>
-                  <i className="bi bi-location-pointer" />
+                  <FontAwesomeIcon icon={faLocationDot} />
                   <div>
                     <strong>Biuro</strong>
                     Witkowicka 68G/1

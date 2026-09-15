@@ -21,37 +21,37 @@ export default function CoursesMaturaExam() {
               {
                 title: 'Czas:',
                 content: '2 lekcje tygodniowo (90 min.)',
-                icon: 'alarm-clock',
+                icon: 'time',
               },
               {
                 title: 'Liczba lekcji:',
                 content: '26 w semestrze',
-                icon: 'refresh-time',
+                icon: 'lessons',
               },
               {
                 title: 'Liczba semestrów:',
                 content: '2 semestry',
-                icon: 'calendar',
+                icon: 'semesters',
               },
               {
                 title: 'Liczba osób:',
                 content: '3-4 osoby w grupie',
-                icon: 'group',
+                icon: 'people',
               },
               {
                 title: 'Płatność:',
                 content: 'za semestr z góry',
-                icon: 'money-bag',
+                icon: 'payment',
               },
               {
                 title: 'Poziom:',
                 content: 'podst. lub rozszerzony',
-                icon: 'graph-bar',
+                icon: 'level',
               },
               {
                 title: 'Gdzie:',
                 content: 'Nauka on-line',
-                icon: 'location-pointer',
+                icon: 'place',
               },
             ]}
           />

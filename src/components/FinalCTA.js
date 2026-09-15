@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faRocket,
   faClock,
   faUsers,
   faLock,
@@ -14,6 +13,7 @@ import {
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames } from '../routes';
+import TrustPoints from './TrustPoints';
 import styles from './FinalCTA.module.scss';
 
 export default function FinalCTA() {
@@ -125,14 +125,13 @@ export default function FinalCTA() {
                 className={styles.finalButton}
                 onClick={() => trackClick(events.HOME_FINAL_CTA_CLICK_TEST)}
               >
-                <FontAwesomeIcon icon={faRocket} className="me-2" />
-                ZRÓB BEZPŁATNY TEST - OSTATNIA SZANSA!
+                Zrób bezpłatny test
               </Link>
 
               <div className={styles.countdown}>
                 <p>
-                  <strong>⏰ Nie zwlekaj!</strong> Im szybciej sprawdzisz
-                  poziom, tym szybciej zaczniesz mówić płynnie po angielsku!
+                  <strong>Nie zwlekaj!</strong> Im szybciej sprawdzisz poziom,
+                  tym szybciej zaczniesz mówić płynnie po angielsku!
                 </p>
               </div>
             </div>
@@ -143,10 +142,14 @@ export default function FinalCTA() {
               <div className={styles.guaranteeText}>
                 <strong>Gwarancja 100% bezpieczeństwa:</strong>
                 <br />
-                <small>
-                  ✓ Żadnego spamu ✓ Pełna dyskrecja ✓ Możliwość wypisania się w
-                  każdej chwili
-                </small>
+                <TrustPoints
+                  variant="light"
+                  items={[
+                    'Żadnego spamu',
+                    'Pełna dyskrecja',
+                    'Możliwość wypisania się w każdej chwili',
+                  ]}
+                />
               </div>
             </div>
           </div>

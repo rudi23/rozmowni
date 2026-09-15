@@ -55,9 +55,9 @@
   gap: 1rem;
   padding: 2rem;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   border: 2px solid #0f8d8c;
-  box-shadow: 0 4px 20px rgba(15, 141, 140, 0.1);
+  box-shadow: var(--shadow-rest);
   margin-bottom: 2rem;
 
   @include onMobile() {
@@ -99,13 +99,13 @@
 .infoBox {
   background: #e8f5f5;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   margin-bottom: 3rem;
   border-left: 4px solid #0f8d8c;
 
   @include onMobile() {
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     margin-bottom: 2rem;
   }
 
@@ -139,13 +139,13 @@
 .contactForm {
   background: white;
   padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   border: 1px solid #e9ecef;
 
   @include onMobile() {
     padding: 1.5rem 1rem;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
   }
@@ -175,7 +175,7 @@
   width: 100%;
   padding: 0.8rem 1rem;
   border: 2px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   font-size: 1rem;
   transition:
     border-color 0.3s ease,
@@ -184,7 +184,7 @@
   @include onMobile() {
     padding: 0.75rem 0.875rem;
     font-size: 16px; // Prevents zoom on iOS
-    border-radius: 6px;
+    border-radius: var(--radius-control);
   }
 
   &:focus {
@@ -292,12 +292,12 @@
   text-align: center;
   padding: 3rem 2rem;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
 
   @include onMobile() {
     padding: 2rem 1.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
   }
 }
 
@@ -356,7 +356,7 @@
 .mailCheckReminder {
   background: #f8f9fa;
   border: 1px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   padding: 1.5rem;
   margin: 1.5rem 0;
   text-align: center;
@@ -511,8 +511,8 @@
 .valueCard {
   background: white;
   padding: 2.5rem 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   text-align: center;
   border-top: 4px solid #0f8d8c;
   transition:
@@ -521,12 +521,11 @@
 
   @include onMobile() {
     padding: 2rem 1.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
   }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-rest);
 
     @include onMobile() {
       transform: translateY(-2px);
@@ -617,8 +616,8 @@
 .benefitCard {
   background: white;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   border: 1px solid #e9ecef;
   text-align: center;
   transition:
@@ -627,12 +626,11 @@
 
   @include onMobile() {
     padding: 1.5rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
   }
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-rest);
 
     @include onMobile() {
       transform: translateY(-2px);
@@ -691,14 +689,14 @@
   background: rgba(15, 141, 140, 0.08);
   color: #2c3e50;
   padding: 1.5rem 2rem;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   font-size: 1.1rem;
   border-left: 4px solid #0f8d8c;
 
   @include onMobile() {
     padding: 1rem 1.5rem;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: var(--radius-control);
   }
 
   strong {

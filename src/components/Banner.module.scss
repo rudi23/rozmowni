@@ -93,15 +93,12 @@
 }
 
 .bannerImage {
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  animation: fadeInRight 0.8s ease-out;
 
   &:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-rest);
   }
 
   @include onMobile() {
@@ -139,7 +136,7 @@
   background: #e8f5e8;
   color: #2d5016;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 600;
 
@@ -277,21 +274,9 @@
   font-size: 16px;
   color: #535967; // Spójny z głównym kolorem tekstu
   transition: all 0.2s ease;
-  animation: fadeInUp 0.6s ease-out;
 
   &:hover {
-    transform: translateX(5px);
     color: #0f8d8c; // Oficjalny teal color
-  }
-
-  &:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  &:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  &:nth-child(3) {
-    animation-delay: 0.3s;
   }
 
   @media screen and (min-width: 1200px) {
@@ -327,7 +312,7 @@
 }
 
 .primaryCta {
-  @include ctaPrimary();
+  @include ctaPrimary('lg');
 }
 
 .secondaryCta {
@@ -355,24 +340,3 @@
 }
 
 // Keyframes animations
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

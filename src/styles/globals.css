@@ -1,3 +1,35 @@
+/*
+ * Design tokens — the single source of truth for shape, elevation and rhythm.
+ * SCSS files read these through $radius-*, $shadow-* and $section-* in _tokens.scss,
+ * plain CSS files read them directly as var(--…).
+ * Colours are unchanged brand values, named here so they stop being retyped.
+ */
+:root {
+  /* Shape: one radius per role, nothing in between */
+  --radius-control: 8px; /* buttons, inputs, chips */
+  --radius-card: 16px; /* cards, panels, images */
+  --radius-pill: 999px; /* badges, tags */
+
+  /* Elevation: one resting shadow, one for a lifted element */
+  --shadow-rest: 0 1px 3px rgba(7, 41, 77, 0.08);
+  --shadow-raised: 0 8px 24px rgba(7, 41, 77, 0.1);
+
+  /* Vertical rhythm between sections */
+  --section-gap: 88px;
+  --section-gap-mobile: 56px;
+
+  /* Brand colours */
+  --color-navy: #07294d;
+  --color-teal: #0f8d8c;
+  --color-teal-dark: #0c6b6a;
+  --color-orange: #ff6b35;
+  --color-orange-dark: #e55a2b;
+  --color-cream: #ffefd5;
+  --color-surface-alt: #f5f7fa;
+  --color-text: #535967;
+  --color-line: #e9ecef;
+}
+
 html,
 body {
   padding: 0;

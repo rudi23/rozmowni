@@ -7,6 +7,8 @@ import {
   faBrain,
   faUsers,
   faGraduationCap,
+  faEarthEurope,
+  faRocket,
 } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
@@ -37,7 +39,7 @@ export default function WhyUsExpanded() {
           <div className={styles.topicCards}>
             <div className={styles.topicCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>🧠</span>
+                <FontAwesomeIcon icon={faBrain} className={styles.cardIcon} />
                 <h6 className={styles.cardTitle}>Rozwój osobisty</h6>
               </div>
               <div className={styles.cardContent}>
@@ -49,7 +51,7 @@ export default function WhyUsExpanded() {
 
             <div className={styles.topicCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>👥</span>
+                <FontAwesomeIcon icon={faUsers} className={styles.cardIcon} />
                 <h6 className={styles.cardTitle}>Relacje</h6>
               </div>
               <div className={styles.cardContent}>
@@ -61,7 +63,10 @@ export default function WhyUsExpanded() {
 
             <div className={styles.topicCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>🌍</span>
+                <FontAwesomeIcon
+                  icon={faEarthEurope}
+                  className={styles.cardIcon}
+                />
                 <h6 className={styles.cardTitle}>Świat wokół nas</h6>
               </div>
               <div className={styles.cardContent}>
@@ -166,7 +171,10 @@ export default function WhyUsExpanded() {
           <div className={styles.motivationCards}>
             <div className={styles.motivationCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>🎓</span>
+                <FontAwesomeIcon
+                  icon={faGraduationCap}
+                  className={styles.cardIcon}
+                />
                 <h6 className={styles.cardTitle}>Egzaminów</h6>
               </div>
               <div className={styles.cardContent}>
@@ -179,7 +187,7 @@ export default function WhyUsExpanded() {
 
             <div className={styles.motivationCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>🚀</span>
+                <FontAwesomeIcon icon={faRocket} className={styles.cardIcon} />
                 <h6 className={styles.cardTitle}>Celów życiowych</h6>
               </div>
               <div className={styles.cardContent}>

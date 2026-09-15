@@ -7,6 +7,7 @@ import { routeMap, routeNames } from '../routes';
 import Section from './Section';
 import SectionHeading from './SectionHeading';
 import Accordion from './Accordion';
+import TrustPoints from './TrustPoints';
 import styles from './TestFAQ.module.scss';
 
 export default function TestFAQ() {
@@ -103,7 +104,7 @@ export default function TestFAQ() {
                   className={`btn btn-main ${styles.primaryButton}`}
                   onClick={() => trackClick(events.HOME_FAQ_CLICK_TEST)}
                 >
-                  ZRÓB TEST I ZAPYTAJ EKSPERTA
+                  Zrób test i zapytaj eksperta
                 </Link>
 
                 <Link
@@ -115,12 +116,14 @@ export default function TestFAQ() {
                 </Link>
               </div>
 
-              <div className={styles.guarantee}>
-                <small>
-                  ✓ Odpowiedź w ciągu 24h ✓ Bez zobowiązań ✓ Profesjonalne
-                  doradztwo
-                </small>
-              </div>
+              <TrustPoints
+                className={styles.guarantee}
+                items={[
+                  'Odpowiedź w ciągu 24h',
+                  'Bez zobowiązań',
+                  'Profesjonalne doradztwo',
+                ]}
+              />
             </div>
           </div>
         </div>

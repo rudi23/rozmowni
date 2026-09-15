@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlay,
+  faArrowDown,
   faCheck,
   faClock,
   faUsers,
@@ -11,6 +11,7 @@ import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
 import mainImage from '../../public/images/main.jpg';
+import TrustPoints from './TrustPoints';
 import styles from './Banner.module.scss';
 import ResponsiveImage from './ResponsiveImage';
 
@@ -90,9 +91,10 @@ export default function Banner() {
               </div>
 
               {/* Trust Elements */}
-              <div className={styles.trustElements}>
-                <small>✓ Wynik od razu ✓ Bez spamu ✓ Dane bezpieczne</small>
-              </div>
+              <TrustPoints
+                className={styles.trustElements}
+                items={['Wynik od razu', 'Bez spamu', 'Dane bezpieczne']}
+              />
             </div>
           </div>
 
@@ -104,8 +106,7 @@ export default function Banner() {
                 className={`btn btn-main ${styles.primaryCta}`}
                 onClick={() => trackClick(events.HOME_BANNER_CLICK_TEST)}
               >
-                <FontAwesomeIcon icon={faPlay} className="me-2" />
-                ZRÓB BEZPŁATNY TEST
+                Zrób bezpłatny test
               </Link>
 
               <Link
@@ -113,8 +114,8 @@ export default function Banner() {
                 className={`btn btn-outline ${styles.secondaryCta}`}
                 onClick={() => trackClick(events.HOME_BANNER_CLICK_LEARN_MORE)}
               >
-                <FontAwesomeIcon icon={faPlay} className="me-2" />
-                Zobacz jak uczymy
+                <FontAwesomeIcon icon={faArrowDown} aria-hidden="true" />
+                Zobacz, jak uczymy
               </Link>
             </div>
           </div>

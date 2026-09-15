@@ -5,6 +5,7 @@ import {
   faLinkedin,
   faTiktok,
 } from '@fortawesome/free-brands-svg-icons';
+import { faPhone, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { useRouter } from 'next/router';
 import ResponsiveImage from '../../components/ResponsiveImage';
@@ -41,7 +42,7 @@ export default function Contact() {
 
             <div className="join-content">
               <div className="join-text-block">
-                <i className="bi bi-user-ID" />
+                <FontAwesomeIcon icon={faShareNodes} />
                 <h4>Śledź nas w social media</h4>
                 <p>
                   Zapraszamy na nasze profile na{' '}
@@ -80,7 +81,7 @@ export default function Contact() {
               </div>
 
               <div className="join-text-block">
-                <i className="bi bi-phone" />
+                <FontAwesomeIcon icon={faPhone} />
                 <h4>Skontaktuj się z nami</h4>
                 <p>
                   Chętnie z Tobą porozmawiamy, odpowiadając na wszystkie Twoje

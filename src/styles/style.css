@@ -121,34 +121,89 @@ h6 a:hover {
 /*-------------------
 BUTTONS STYLE
 --------------------*/
+/* One shape for every button. .btn-main is the primary action,
+   .btn-outline the secondary one, .btn-link plain text.
+   Hover darkens the surface; nothing moves and nothing grows a shadow. */
 .btn {
-  font-weight: 700;
-  position: relative;
-  /*text-transform: capitalize;*/
-  padding: 16px 30px;
-  border-radius: 5px;
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-control);
   font-family: Montserrat, sans-serif;
-  border: 1px solid transparent;
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
-  transition: all 0.3s ease-in-out;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .btn:focus {
   box-shadow: none !important;
 }
 
-.btn-main {
-  background: #0f8d8c;
-  color: #fff;
-  border-color: #0f8d8c;
+.btn:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
 }
 
-.btn-main:hover {
+.btn-main {
+  background: var(--color-orange);
   color: #fff;
-  border-color: #385777;
-  background: #385777;
+  border-color: var(--color-orange);
+}
+
+.btn-main:hover,
+.btn-main:focus-visible {
+  color: #fff;
+  background: var(--color-orange-dark);
+  border-color: var(--color-orange-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  color: #fff;
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+.btn-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-teal-dark);
+  font-family: Mulish, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-link:hover {
+  color: var(--color-navy);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
 }
 
 a {
@@ -199,9 +254,9 @@ Features
   padding: 30px 35px;
   margin-bottom: 25px;
   background: #fff;
-  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-rest);
   margin: 0 5px;
-  border-radius: 5px;
+  border-radius: var(--radius-control);
   border-top: 2px solid #0f8d8c;
   display: flex;
   transition: 0.4s;
@@ -235,7 +290,7 @@ Feature Style 2
   margin-bottom: 0;
   padding: 25px;
   background: #fff;
-  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-rest);
   border-top: 0;
 }
 
@@ -312,7 +367,7 @@ Feature Style 2
 }
 
 .course-sidebar .course-single-thumb img {
-  border-radius: 5px;
+  border-radius: var(--radius-control);
 }
 
 .course-sidebar .course-price-wrapper {
@@ -333,7 +388,7 @@ Feature Style 2
   padding: 25px;
   margin-bottom: 25px;
   border-top: 2px solid #385777;
-  border-radius: 5px;
+  border-radius: var(--radius-control);
 }
 
 .course-sidebar .course-widget.single-info {
@@ -341,7 +396,7 @@ Feature Style 2
   color: #222;
 }
 
-.course-sidebar .course-widget.single-info i {
+.course-sidebar .course-widget.single-info svg {
   color: #0f8d8c;
   margin-right: 10px;
 }
@@ -361,7 +416,7 @@ Feature Style 2
   font-size: 15px;
 }
 
-.course-sidebar .course-widget ul li i {
+.course-sidebar .course-widget ul li svg {
   margin-right: 10px;
   color: #0f8d8c;
   width: 20px;
@@ -392,7 +447,7 @@ Feature Style 2
   display: inline-block;
   background: #eee;
   text-align: center;
-  border-radius: 4px;
+  border-radius: var(--radius-control);
   line-height: 40px;
   transition: 0.4s;
 }
@@ -429,7 +484,7 @@ Feature Style 2
   line-height: 28px;
 }
 
-.course-sidebar .course-widget.course-metarials ul li i {
+.course-sidebar .course-widget.course-metarials ul li svg {
   position: absolute;
   left: 0;
   top: 13px;
@@ -473,8 +528,6 @@ Feature Style 2
 /*========================
 COURse Single Details
 ==============================*/
-.course-single-header {
-}
 
 .course-single-header .single-course-title {
   margin-bottom: 20px;
@@ -503,7 +556,7 @@ COURse Single Details
   font-weight: 600;
 }
 
-.course-single-header .single-course-meta ul span i {
+.course-single-header .single-course-meta ul span svg {
   margin-right: 10px;
   color: #0f8d8c;
 }
@@ -570,6 +623,10 @@ COURse Single Details
   padding-bottom: 20px;
 }
 
+.img-block img {
+  border-radius: var(--radius-card);
+}
+
 .img-block:before {
   position: absolute;
   content: '';
@@ -592,7 +649,7 @@ COURse Single Details
   color: #0f8d8c;
   background: #eee;
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: var(--radius-control);
 }
 
 .ptb-40 {

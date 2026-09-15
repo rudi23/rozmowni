@@ -44,24 +44,6 @@
   flex-direction: column;
   align-items: center;
   min-height: 140px;
-  animation: fadeInUp 0.6s ease-out;
-
-  &:hover {
-    transform: translateY(-8px) scale(1.05);
-  }
-
-  &:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  &:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  &:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  &:nth-child(4) {
-    animation-delay: 0.4s;
-  }
 
   .statIcon {
     font-size: 1.8rem;
@@ -125,16 +107,14 @@
 .quickTestimonial {
   background: white;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   position: relative;
   border-left: 4px solid #0f8d8c;
   transition: all 0.3s ease;
-  animation: fadeInRight 0.8s ease-out;
 
   &:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transform: translateY(-3px);
+    box-shadow: var(--shadow-rest);
   }
 
   @include onMobile() {
@@ -195,7 +175,7 @@
     transition: color 0.3s ease;
     background: rgba(15, 141, 140, 0.08);
     padding: 4px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
 
     &:hover {
       color: #0c6b6a;
@@ -205,24 +185,3 @@
 }
 
 // Keyframes animations
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}

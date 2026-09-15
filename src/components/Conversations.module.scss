@@ -9,9 +9,8 @@
   margin: 0 0 1.5rem 2rem;
   max-width: 350px;
   width: 40%;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
   @include onMobile() {
     float: none;
@@ -46,9 +45,9 @@
 
 .conversationCard {
   background: linear-gradient(135deg, #fff 0%, #f8fcff 100%);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-rest);
   border: 1px solid rgba(15, 141, 140, 0.1);
   transition: all 0.3s ease;
   position: relative;
@@ -65,8 +64,7 @@
   }
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(15, 141, 140, 0.15);
+    box-shadow: var(--shadow-rest);
     border-color: rgba(15, 141, 140, 0.2);
   }
 }
@@ -79,13 +77,9 @@
 }
 
 .levelBadge {
-  font-size: 1.2rem;
-  width: 35px;
-  height: 35px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 
   &.levelBasic {
@@ -117,7 +111,7 @@
   background: rgba(15, 141, 140, 0.08);
   color: #2c3e50;
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -125,7 +119,6 @@
 
   &:hover {
     background: rgba(15, 141, 140, 0.15);
-    transform: translateX(5px);
   }
 }
 

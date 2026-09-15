@@ -5,6 +5,7 @@ import {
   faStar,
   faGraduationCap,
   faClock,
+  faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
@@ -67,7 +68,8 @@ export default function SocialProofStats() {
                 className={styles.testimonialCta}
                 onClick={() => trackClick(events.HOME_SOCIAL_PROOF_CLICK_TEST)}
               >
-                Dołącz do zadowolonych →
+                Dołącz do zadowolonych
+                <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
               </Link>
             </div>
           </div>

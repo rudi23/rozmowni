@@ -79,26 +79,28 @@ export default function AboutUs() {
           </div>
           <div className="col-lg-6 col-md-12 order-lg-1">
             <h2 className="pb-3">Denis</h2>
+            <ul>
+              <li>
+                There are so many ways to tell the stories, but language – is
+                one of the best.
+              </li>
+              <li>
+                Who doesn’t love telling stories? Talks over a cup of coffee,
+                fiery debates, friendly jokes and thought-provoking monologues,
+                whatever you may choose, they carry a story behind them—a story
+                we want to tell.
+              </li>
+            </ul>
             <p>
-              👉 There are so many ways to tell the stories, but language – is
-              one of the best.
-            </p>
-            <p>
-              👉 Who doesn’t love telling stories? Talks over a cup of coffee,
-              fiery debates, friendly jokes and thought-provoking monologues,
-              whatever you may choose, they carry a story behind them—a story we
-              want to tell.
-            </p>
-            <p>
-              👉 I was lucky enough to encounter great teachers who helped
-              discover and fuel my passion for languages. And for over eight
-              years, I’ve been helping people overcome their barriers and find
-              the best means possible to express themselves in English, tell
-              stories of their own, and listen to others without any fear or
-              insecurities. I base my classes on communication rather than
-              meticulous work with tests and grammar exercises. There is no
-              avoiding grammar, but why can’t it be interesting? When you learn
-              things in context, it can.
+              I was lucky enough to encounter great teachers who helped discover
+              and fuel my passion for languages. And for over eight years, I’ve
+              been helping people overcome their barriers and find the best
+              means possible to express themselves in English, tell stories of
+              their own, and listen to others without any fear or insecurities.
+              I base my classes on communication rather than meticulous work
+              with tests and grammar exercises. There is no avoiding grammar,
+              but why can’t it be interesting? When you learn things in context,
+              it can.
             </p>
             <p>
               The key to learning a language is love, passion and a pinch of

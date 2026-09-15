@@ -153,7 +153,7 @@ export default function StickyCTA() {
             onClick={handleCTAClick}
           >
             <FontAwesomeIcon icon={faPlay} className="me-1" />
-            ZRÓB TEST
+            Zrób test
           </Link>
         </div>
       )}

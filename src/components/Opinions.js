@@ -1,6 +1,9 @@
 import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import Carousel from 'react-multi-carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import Section from './Section';
@@ -170,7 +173,7 @@ export default function Opinions() {
       <div className={styles.root} key={author}>
         <div className={styles.content}>
           <div className={styles.quote}>
-            <i className="bi bi-quote" aria-hidden="true" />
+            <FontAwesomeIcon icon={faQuoteLeft} aria-hidden="true" />
           </div>
           {typeof content === 'function' ? content(index) : content}
           <div className={styles.author}>{author}</div>
@@ -217,7 +220,7 @@ export default function Opinions() {
               rel="noopener noreferrer"
               className={styles.googleLink}
             >
-              <i className="bi bi-google" aria-hidden="true" />
+              <FontAwesomeIcon icon={faGoogle} aria-hidden="true" />
               Zobacz opinie na Google
             </a>
           </div>

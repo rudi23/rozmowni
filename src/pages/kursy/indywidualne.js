@@ -28,27 +28,27 @@ export default function CoursesIndividual() {
               {
                 title: 'Czas',
                 content: '45 min.',
-                icon: 'alarm-clock',
+                icon: 'time',
               },
               {
                 title: 'Koszt:',
                 content: '120 zł',
-                icon: 'money',
+                icon: 'price',
               },
               {
                 title: 'Płatność:',
                 content: 'za miesiąc z góry',
-                icon: 'money-bag',
+                icon: 'payment',
               },
               {
                 title: 'Poziom:',
                 content: 'A2, B1, B2, C1, C2',
-                icon: 'graph-bar',
+                icon: 'level',
               },
               {
                 title: 'Gdzie:',
                 content: 'Nauka on-line',
-                icon: 'location-pointer',
+                icon: 'place',
               },
             ]}
           />

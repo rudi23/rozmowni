@@ -1,3 +1,5 @@
+@import './tokens';
+
 $breakpoint-mobile: 768px;
 $breakpoint-tablet: 980px;
 
@@ -119,212 +121,183 @@ $breakpoint-tablet: 980px;
   }
 }
 
-// ========================================
-// UNIFIED CTA BUTTON MIXINS
-// ========================================
-
-// Import contrast improvements
-@import './contrast-improvements';
-
-// Color variables
-$primary-cta-bg: #ff6b35;
-$primary-cta-hover: #e55a2b;
-$primary-cta-text: white;
-
-$secondary-cta-bg: transparent;
-$secondary-cta-border: #2c3e50;
-$secondary-cta-hover-bg: #2c3e50;
-$secondary-cta-hover-text: white;
-
-$teal-cta-bg: #0f8d8c;
-$teal-cta-hover: #0c6b6a;
-
-// Base CTA mixin
-@mixin ctaBase() {
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+// Motion is opt-out for anyone who asked the system for less of it.
+@mixin motionSafe() {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
   }
 }
 
-// Standard CTA size
-@mixin ctaStandard() {
-  padding: 19px 32px;
-  font-size: 16px;
+// ========================================
+// BUTTONS
+// ========================================
+// Three variants and nothing else: ctaPrimary, ctaSecondary, ctaLink.
+// They share one shape, one padding scale and one hover behaviour —
+// the background darkens, the button does not move or grow a shadow.
+// Sizes: 'sm' | 'md' | 'lg'. Pass $inverse: true for primary on a
+// coloured or dark section, where an orange button would disappear.
 
-  @include onMobile() {
-    padding: 14px 24px;
-    font-size: 15px;
-  }
-}
-
-// Large CTA size
-@mixin ctaLarge() {
-  padding: 20px 40px;
-  font-size: 18px;
-  border-radius: 10px;
-
-  @include onMobile() {
-    padding: 16px 32px;
+@mixin ctaSize($size: 'md') {
+  @if $size == 'sm' {
+    padding: 12px 20px;
+    font-size: 14px;
+  } @else if $size == 'lg' {
+    padding: 18px 32px;
+    font-size: 17px;
+  } @else {
+    padding: 16px 28px;
     font-size: 16px;
-    border-radius: 8px;
-  }
-}
-
-// Primary CTA Large
-@mixin ctaPrimary() {
-  @include ctaBase();
-  @include ctaLarge();
-
-  background: $primary-cta-bg;
-  color: $primary-cta-text;
-  border-color: $primary-cta-bg;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-
-  &:hover {
-    background: $primary-cta-hover;
-    border-color: $primary-cta-hover;
-    color: $primary-cta-text;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
-  }
-}
-
-// Secondary CTA (outline)
-@mixin ctaSecondary() {
-  @include ctaBase();
-  @include ctaStandard();
-
-  background: $secondary-cta-bg;
-  color: $secondary-cta-border;
-  border: 2px solid $secondary-cta-border;
-
-  &:hover {
-    background: $secondary-cta-hover-bg;
-    color: $secondary-cta-hover-text;
-    border-color: $secondary-cta-hover-bg;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
-  }
-}
-
-// Teal CTA (brand color)
-@mixin ctaTeal() {
-  @include ctaBase();
-  @include ctaStandard();
-
-  background: $teal-cta-bg;
-  color: white;
-  border-color: $teal-cta-bg;
-  box-shadow: 0 4px 15px rgba(15, 141, 140, 0.3);
-
-  &:hover {
-    background: $teal-cta-hover;
-    border-color: $teal-cta-hover;
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(15, 141, 140, 0.5);
-  }
-}
-
-// Inverted CTA (white with orange text)
-@mixin ctaInverted() {
-  @include ctaBase();
-  @include ctaLarge();
-
-  background: white;
-  color: $primary-cta-bg;
-  border-color: white;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.9);
-    color: $primary-cta-hover;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-  }
-}
-
-// Success CTA (green)
-@mixin ctaSuccess() {
-  @include ctaBase();
-
-  background: #28a745;
-  color: white;
-  border-color: #28a745;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 6px;
-
-  &:hover {
-    background: #218838;
-    border-color: #218838;
-    transform: translateY(-2px);
   }
 
   @include onMobile() {
-    width: 100%;
-  }
-}
-
-// Gray CTA (outline gray) - improved contrast
-@mixin ctaGray() {
-  @include ctaBase();
-
-  background: transparent;
-  color: #495057; // Darker gray for better contrast (was #6c757d)
-  border: 2px solid #495057;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 6px;
-
-  &:hover {
-    color: white;
-    background: #495057;
-    border-color: #495057;
-    transform: translateY(-2px);
-  }
-
-  @include onMobile() {
-    width: 100%;
-    // Stronger contrast on mobile for better readability
-    color: #343a40;
-    border-color: #343a40;
-
-    &:hover {
-      background: #343a40;
-      border-color: #343a40;
+    @if $size == 'lg' {
+      padding: 16px 26px;
+      font-size: 16px;
     }
   }
 }
 
-// Small CTA for navigation
-@mixin ctaSmall() {
-  @include ctaBase();
+@mixin ctaBase($size: 'md') {
+  @include ctaSize($size);
 
-  background: $primary-cta-bg;
-  color: $primary-cta-text;
-  border-color: $primary-cta-bg;
-  padding: 12px 20px;
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1.5px solid transparent;
+  border-radius: $radius-control;
+  font-family: Montserrat, sans-serif;
   font-weight: 700;
-  margin: 8px 10px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $navy;
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@mixin ctaPrimary($size: 'md', $inverse: false) {
+  @include ctaBase($size);
+
+  @if $inverse {
+    background: #fff;
+    color: $orange-dark;
+    border-color: #fff;
+
+    &:hover,
+    &:focus-visible {
+      background: #fff5f0;
+      color: $orange-dark;
+      border-color: #fff5f0;
+    }
+
+    &:focus-visible {
+      outline-color: #fff;
+    }
+  } @else {
+    background: $orange;
+    color: #fff;
+    border-color: $orange;
+
+    &:hover,
+    &:focus-visible {
+      background: $orange-dark;
+      border-color: $orange-dark;
+      color: #fff;
+    }
+  }
+}
+
+@mixin ctaSecondary($size: 'md') {
+  @include ctaBase($size);
+
+  background: transparent;
+  color: $navy;
+  border-color: $navy;
+
+  &:hover,
+  &:focus-visible {
+    background: $navy;
+    color: #fff;
+    border-color: $navy;
+  }
+}
+
+@mixin ctaLink() {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: $teal-dark;
+  font-family: Mulish, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   &:hover {
-    background: $primary-cta-hover;
-    border-color: $primary-cta-hover;
-    color: $primary-cta-text;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    color: $navy;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $navy;
+    outline-offset: 2px;
+  }
+}
+
+// ========================================
+// SURFACES
+// ========================================
+// One card, one resting shadow. Nothing lifts on hover.
+
+@mixin card($padding: 24px) {
+  padding: $padding;
+  background: #fff;
+  border: 1px solid $line;
+  border-radius: $radius-card;
+  box-shadow: var(--shadow-rest);
+}
+
+// Images sit in a rounded, clipped frame with a fixed ratio so a portrait
+// cannot dictate the height of the section around it.
+@mixin imageFrame($ratio: null) {
+  overflow: hidden;
+  border-radius: $radius-card;
+
+  @if $ratio {
+    aspect-ratio: $ratio;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
   }
 }

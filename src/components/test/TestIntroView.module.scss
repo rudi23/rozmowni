@@ -50,8 +50,8 @@
 .feature {
   background: white;
   padding: 2rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   text-align: center;
   border-top: 4px solid #0f8d8c;
   transition:
@@ -60,12 +60,11 @@
 
   @include onMobile() {
     padding: 1.5rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
   }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-rest);
 
     @include onMobile() {
       transform: translateY(-2px);
@@ -181,8 +180,8 @@
 .testOption {
   background: white;
   padding: 2.5rem 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
   text-align: center;
   border-top: 4px solid #0f8d8c;
   cursor: pointer;
@@ -190,12 +189,11 @@
 
   @include onMobile() {
     padding: 2rem 1.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
   }
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-rest);
 
     @include onMobile() {
       transform: translateY(-4px);
@@ -238,7 +236,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(15, 141, 140, 0.3);
+  box-shadow: var(--shadow-rest);
   transition: transform 0.3s ease;
 
   @include onMobile() {
@@ -247,8 +245,6 @@
   }
 
   &:hover {
-    transform: scale(1.1);
-
     @include onMobile() {
       transform: scale(1.05);
     }
@@ -275,7 +271,7 @@
 }
 
 .selectButton {
-  @include ctaSmall();
+  @include ctaPrimary();
   margin-top: 1.5rem;
   width: 100%;
   padding: 0.8rem 1.5rem;

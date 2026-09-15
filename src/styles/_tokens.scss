@@ -1,0 +1,33 @@
+// SCSS handles for the design tokens declared in globals.css.
+// The literal values live there once; these are only convenient names.
+// Use them as plain property values — they are CSS custom properties,
+// so they cannot take part in SCSS arithmetic.
+
+// Shape
+$radius-control: var(--radius-control);
+$radius-card: var(--radius-card);
+$radius-pill: var(--radius-pill);
+
+// Elevation
+$shadow-rest: var(--shadow-rest);
+$shadow-raised: var(--shadow-raised);
+
+// Rhythm
+$section-gap: var(--section-gap);
+$section-gap-mobile: var(--section-gap-mobile);
+
+// Brand colours
+$navy: var(--color-navy);
+$teal: var(--color-teal);
+$teal-dark: var(--color-teal-dark);
+$orange: var(--color-orange);
+$orange-dark: var(--color-orange-dark);
+$cream: var(--color-cream);
+$surface-alt: var(--color-surface-alt);
+$text-body: var(--color-text);
+$line: var(--color-line);
+
+// Text colours used by older rules that need a real value, not a var()
+$text-primary: #2c3e50;
+$text-secondary: #495057;
+$text-tertiary: #343a40;
