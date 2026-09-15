@@ -560,6 +560,34 @@ poziom, sposób kontaktu i etykiety kliknięć; imię, e-mail i telefon trafiaj�
 wyłącznie do maila i do CSV-ki (`CSV_FILE_PATH`). Przy dokładaniu properties
 trzymaj tę granicę – raz wysłanego property nie da się cofnąć z projektu.
 
+### 5.6 Właściwości zdarzeń testu
+
+Trzy zdarzenia raportujące ukończony test – `test_completed`,
+`test_lead_submitted` (przeglądarka) i `test_results_processed` (serwer) –
+niosą ten sam zestaw właściwości:
+
+| Właściwość        | Typ    | Przykład   | Uwagi                                    |
+| ----------------- | ------ | ---------- | ---------------------------------------- |
+| `test_type`       | string | `'adults'` | `'adults'` albo `'teens'`                |
+| `test_level`      | string | `'B1'`     | sam kod, bez tytułu poziomu              |
+| `score`           | number | `14`       | liczba poprawnych odpowiedzi             |
+| `total_questions` | number | `25`       | różna dla `adults` i `teens`             |
+| `score_percent`   | number | `56`       | jedyna miara porównywalna między testami |
+
+`test_completed` leci **zaraz po ostatnim pytaniu**, zanim pojawi się
+formularz. To jedyne źródło wiedzy o osobach, które porzuciły lejek na
+formularzu kontaktowym: do CSV-ki one nie trafiają, bo wiersz powstaje dopiero
+przy wysłaniu danych.
+
+Właściwości pochodzą z opcjonalnego pola `posthogProperties` na stałej
+zdarzenia w `events.js`. `sendEvent` rozsypuje je obok pól `source_*`; ścieżka
+GA4 czyta wyłącznie `category`, `action` i `label`, więc pola nie widzi.
+
+Na zdarzeniu serwerowym `test_level` i `score` pochodzą z dwóch pól dodanych do
+body żądania wyłącznie na potrzeby analityki: `testLevelCode` i
+`correctAnswers`. Istniejące `testLevel` (`'B1 - Intermediate'`) i `testScore`
+(`'14/25'`) zostają w postaci, w jakiej trafiają do CSV-ki i do maili.
+
 ---
 
 ## 6. Eventy Facebook Pixel (konwersje z testu)
