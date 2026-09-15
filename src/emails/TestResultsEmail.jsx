@@ -232,9 +232,11 @@ const TestResultsEmail = ({
                   style={theme.link}
                 >
                   kontakt@rozmowni.pl
-                </Link>{' '}
-                albo zadzwoń:{' '}
-                <Link href="tel:+48506262227" style={theme.link}>
+                </Link>
+              </Text>
+              <Text style={theme.text}>
+                Albo zadzwoń:{' '}
+                <Link href="tel:+48506262227" style={phoneLink}>
                   +48 506 262 227
                 </Link>
               </Text>
@@ -269,6 +271,12 @@ const TestResultsEmail = ({
       </Body>
     </Html>
   );
+};
+
+// A phone number that wraps mid-digits is unreadable.
+const phoneLink = {
+  ...theme.link,
+  whiteSpace: 'nowrap',
 };
 
 const resultsCard = {
