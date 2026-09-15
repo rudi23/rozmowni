@@ -135,4 +135,10 @@
   .footer-btm {
     margin-top: 32px;
   }
+
+  /* Stacked, the last widget's own bottom margin lands on top of that,
+     leaving 80px of empty navy before the rule. Beats Bootstrap's mb-5. */
+  .footer .row > div:last-child .footer-widget {
+    margin-bottom: 0 !important;
+  }
 }
