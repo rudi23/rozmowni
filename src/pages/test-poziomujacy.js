@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import TestIntroView from '../components/test/TestIntroView';
 import TestRunner from '../components/test/TestRunner';
 import TestResultsView from '../components/test/TestResultsView';
+import { testData, getLevel } from '../data/testData';
 import useFacebookEventTracking from '../hooks/useFacebookEventTracking';
 import useClickTracking from '../hooks/useClickTracking';
 import { events, facebookEvents } from '../services/tracking';
@@ -49,7 +50,14 @@ export default function TestPage() {
     setScore(finalScore);
     setShowResults(true);
     // Both fire once per completed test, at the transition to the results screen
-    trackClick(events.TEST_COMPLETED(selectedTest));
+    trackClick(
+      events.TEST_COMPLETED(
+        selectedTest,
+        finalScore,
+        testData[selectedTest].questions.length,
+        getLevel(finalScore, selectedTest)?.level,
+      ),
+    );
     trackFacebookEvent(facebookEvents.TEST_COMPLETED_LEAD(selectedTest));
   };
 

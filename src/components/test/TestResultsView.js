@@ -116,7 +116,14 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       // Contact details accepted - track only once the email actually went out.
       // Last step of the GA funnel: without it the lead capture rate cannot be
       // computed in GA4 at all, since the FB event lives in a separate system.
-      trackClick(events.TEST_CONTACT_DETAILS_SENT(selectedTest));
+      trackClick(
+        events.TEST_CONTACT_DETAILS_SENT(
+          selectedTest,
+          score,
+          testData[selectedTest].questions.length,
+          level?.level,
+        ),
+      );
       trackFacebookEvent(
         facebookEvents.TEST_CONTACT_DETAILS_SUBMITTED(selectedTest),
       );

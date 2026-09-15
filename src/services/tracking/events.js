@@ -3,6 +3,19 @@
 const paddedQuestion = (question, total) =>
   String(question).padStart(String(total).length, '0');
 
+// Shared by every event that reports a finished test, so the two factories
+// cannot drift apart. The level arrives as a plain code ('B1'), never as the
+// object getLevel returns: importing getLevel here would pull the whole
+// question bank into events.js, and events.js is loaded by every page that
+// tracks a click.
+const testScoreProperties = (testType, score, totalQuestions, level) => ({
+  test_type: testType,
+  test_level: level,
+  score,
+  total_questions: totalQuestions,
+  score_percent: Math.round((score / totalQuestions) * 100),
+});
+
 export const HOME_BANNER_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
@@ -137,17 +150,34 @@ export const TEST_PROGRESS = (testType, question, total) => ({
   label: `${testType} - question ${paddedQuestion(question, total)}/${total}`,
   posthogEvent: 'test_progressed',
 });
-export const TEST_COMPLETED = (testType) => ({
+export const TEST_COMPLETED = (testType, score, totalQuestions, level) => ({
   category: 'Test',
   action: 'Complete',
   label: testType,
   posthogEvent: 'test_completed',
+  posthogProperties: testScoreProperties(
+    testType,
+    score,
+    totalQuestions,
+    level,
+  ),
 });
-export const TEST_CONTACT_DETAILS_SENT = (testType) => ({
+export const TEST_CONTACT_DETAILS_SENT = (
+  testType,
+  score,
+  totalQuestions,
+  level,
+) => ({
   category: 'Test',
   action: 'Send',
   label: testType,
   posthogEvent: 'test_lead_submitted',
+  posthogProperties: testScoreProperties(
+    testType,
+    score,
+    totalQuestions,
+    level,
+  ),
 });
 
 export const CONTACT_SEND_FORM = {
