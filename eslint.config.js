@@ -156,7 +156,7 @@ module.exports = [
 
   // Configuration for Node.js files (CommonJS)
   {
-    files: ['app.js', '.release-it.js'],
+    files: ['app.js'],
     languageOptions: {
       sourceType: 'commonjs',
       globals: {

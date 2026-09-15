@@ -21,7 +21,6 @@ npm run lint                   # eslint, --max-warnings=0
 npm run lint:fix
 npm run prettier               # check formatting
 npm run prettier:fix
-npm run release                # release-it; master only, clean tree
 ```
 
 **There are no automated tests** — `npm test` just echoes `No tests`, and CI runs it as-is. Do not report "tests pass" as evidence; verify changes by running the app.
@@ -69,6 +68,10 @@ The client sends `x-api-key` from `NEXT_PUBLIC_API_KEY`; the server compares aga
 - Prettier uses single quotes; `public/libs` is excluded from both Prettier and ESLint.
 - `public/mail.php` and `public/.htaccess` are leftovers from the old PHP hosting and are unused by the Next app.
 
-## Release and deploy
+## Deploy
 
-Merge to `master` → `npm run release` locally (release-it bumps, generates `CHANGELOG.md`, tags, publishes a GitHub Release) → publishing the Release triggers `deploy-production.yml`. Staging deploys are manual (`workflow_dispatch`). Both workflows build, write `.env.local` from `.env.example` with GitHub secrets, rsync a tarball to the server, swap a symlink and `touch tmp/restart.txt` (Passenger). `rollback.yml` repoints the symlink at a previous release.
+There is **no release process** — no version bumps, no tags, no `CHANGELOG.md`. Git history is the record of what shipped.
+
+Both deploys are manual `workflow_dispatch` runs from the Actions tab, and nothing runs on the maintainer's machine. `deploy-production.yml` refuses any ref other than `master` (a guard step fails the job); `deploy-staging.yml` accepts any branch. Both build, write `.env.local` from `.env.example` with GitHub secrets, write the commit SHA to a `REVISION` file (it ships in the tarball, so a release directory can be traced back to a commit) and to the job summary, rsync a tarball to the server, swap a symlink and `touch tmp/restart.txt` (Passenger). `rollback.yml` repoints the symlink at a previous release.
+
+Release directories on the server are named by timestamp (`YYYYMMDDHHMM`), not by version — `REVISION` inside them is what maps one to a commit.

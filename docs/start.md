@@ -33,7 +33,7 @@ testu poziomującego.
 | Analityka   | Google Analytics 4 (`react-ga4`), Facebook Pixel (`react-facebook-pixel`) – szczegóły: [tracking.md](tracking.md) |
 | Inne        | `react-cookie-consent`, `react-multi-carousel` (opinie)                                                           |
 | Jakość kodu | ESLint 9 (flat config), Prettier, Husky + lint-staged, commitlint                                                 |
-| Release     | `release-it` + conventional changelog                                                                             |
+| Release     | brak – deploy ręcznie z GitHub Actions, historia wersji w git logu                                                |
 | Node (CI)   | 22.18.0                                                                                                           |
 
 **Brak testów automatycznych** – `npm test` wypisuje tylko `No tests`.
@@ -86,14 +86,13 @@ npm run dev                    # http://localhost:3000
 
 Inne skrypty:
 
-| Skrypt                              | Co robi                                             |
-| ----------------------------------- | --------------------------------------------------- |
-| `npm run build`                     | build produkcyjny                                   |
-| `npm start`                         | serwer produkcyjny (po buildzie)                    |
-| `node app.js`                       | alternatywny custom server na porcie 3000           |
-| `npm run lint` / `lint:fix`         | ESLint, zero ostrzeżeń dozwolonych                  |
-| `npm run prettier` / `prettier:fix` | sprawdzenie / formatowanie                          |
-| `npm run release`                   | release-it (tylko na `master`, czysty working tree) |
+| Skrypt                              | Co robi                                   |
+| ----------------------------------- | ----------------------------------------- |
+| `npm run build`                     | build produkcyjny                         |
+| `npm start`                         | serwer produkcyjny (po buildzie)          |
+| `node app.js`                       | alternatywny custom server na porcie 3000 |
+| `npm run lint` / `lint:fix`         | ESLint, zero ostrzeżeń dozwolonych        |
+| `npm run prettier` / `prettier:fix` | sprawdzenie / formatowanie                |
 
 Uwagi:
 
@@ -442,7 +441,7 @@ podmianę placeholderów sekretami GitHuba.
 
 ---
 
-## 10. Jakość kodu, commity, release
+## 10. Jakość kodu i commity
 
 - **Pre-commit** (Husky + lint-staged): ESLint `--fix` dla `*.js/*.jsx`,
   Prettier dla wszystkiego.
@@ -451,9 +450,9 @@ podmianę placeholderów sekretami GitHuba.
 - **CI na PR** (`.github/workflows/test.yml`): `npm run lint` + `npm test`
   na Node 22.18.0. Dodatkowo CodeQL na push/PR do `master` i co tydzień.
 - **Renovate** aktualizuje zależności (większość historii commitów to `chore(deps)`).
-- **Release**: `npm run release` → release-it na `master` z czystym drzewem;
-  `before:bump` uruchamia `npm test`, `after:bump` `npm run build`; generuje
-  `CHANGELOG.md`, commit `chore: release X.Y.Z`, tag `vX.Y.Z` i GitHub Release.
+- **Brak procesu release'owego**: nie ma wersjonowania ani `CHANGELOG.md`;
+  historią wydań jest git log, a wdrożenie odpala się ręcznie z GitHub Actions
+  (patrz sekcja 11). Tagi `v*` sprzed 2.3.1 zostają, ale nie powstają nowe.
 
 ---
 
@@ -461,23 +460,30 @@ podmianę placeholderów sekretami GitHuba.
 
 Dwa workflowy o identycznej logice, różniące się tylko katalogiem i nazwą symlinku:
 
-| Środowisko | Wyzwalacz                     | Katalog release'ów                               | Symlink            | CSV                                           |
-| ---------- | ----------------------------- | ------------------------------------------------ | ------------------ | --------------------------------------------- |
-| Production | publikacja GitHub Release     | `/home/rozmowni/rails/rozmowni_releases`         | `rozmowni`         | `/home/rozmowni/rails/prod-test-results.csv`  |
-| Staging    | ręcznie (`workflow_dispatch`) | `/home/rozmowni/rails/rozmowni_staging_releases` | `rozmowni_staging` | `/home/rozmowni/rails/stage-test-results.csv` |
+| Środowisko | Wyzwalacz                                     | Katalog release'ów                               | Symlink            | CSV                                           |
+| ---------- | --------------------------------------------- | ------------------------------------------------ | ------------------ | --------------------------------------------- |
+| Production | ręcznie (`workflow_dispatch`, tylko `master`) | `/home/rozmowni/rails/rozmowni_releases`         | `rozmowni`         | `/home/rozmowni/rails/prod-test-results.csv`  |
+| Staging    | ręcznie (`workflow_dispatch`, dowolna gałąź)  | `/home/rozmowni/rails/rozmowni_staging_releases` | `rozmowni_staging` | `/home/rozmowni/rails/stage-test-results.csv` |
 
 Kroki:
 
 1. `npm ci`, podmiana `<NEXT_PUBLIC_API_KEY>` w `src/utils/apiAuth.js`, `npm run build`.
 2. Utworzenie `.env.local` z `.env.example` i sekretów.
-3. Spakowanie repo (bez `.git`, `.github`) do `app_<YYYYMMDDHHMM>.tar.gz`, `rsync` na serwer.
+3. Zapisanie SHA commita do pliku `REVISION` (trafia do katalogu release'u na
+   serwerze i do podsumowania joba), spakowanie repo (bez `.git`, `.github`) do
+   `app_<YYYYMMDDHHMM>.tar.gz`, `rsync` na serwer.
 4. Na serwerze: rozpakowanie do katalogu release'u, przepięcie symlinku,
    podlinkowanie `public` → `/home/rozmowni/rails/shared` (tam leży m.in. e-book),
    usunięcie starszych release'ów (zostają 2 ostatnie), `touch tmp/restart.txt`
    (restart aplikacji przez Passenger).
 
-Ścieżka pełnego wydania: PR → merge do `master` → `npm run release` lokalnie →
-GitHub Release → automatyczny deploy na produkcję.
+Ścieżka pełnego wydania: PR → merge do `master` → zakładka **Actions** →
+**Deploy to production** → **Run workflow** (gałąź `master`) → deploy.
+Nic nie trzeba odpalać lokalnie. Deploy z innej gałęzi niż `master` kończy się
+błędem w pierwszym kroku workflow.
+
+Cofnięcie wdrożenia: workflow **Rollback** (`workflow_dispatch`) – przepina
+symlink na poprzedni (lub wskazany) katalog release'u.
 
 ---
 

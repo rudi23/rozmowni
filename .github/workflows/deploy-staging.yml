@@ -48,6 +48,10 @@ jobs:
         run: echo "RELEASES_DIR=/home/rozmowni/rails/rozmowni_staging_releases" >> $GITHUB_ENV
       - name: Set symlink name as env variable
         run: echo "SYMLINK_NAME=rozmowni_staging" >> $GITHUB_ENV
+      - name: Record revision
+        run: |
+          echo "${GITHUB_SHA}" > REVISION
+          echo "Deploying \`${GITHUB_SHA:0:7}\` as release \`${RELEASE}\`" >> $GITHUB_STEP_SUMMARY
       - name: Create app archive
         run: tar --exclude=".git" --exclude=".github" --exclude=".next/cache" -zcf app_${{ env.RELEASE }}.tar.gz * .??*
       - name: Upload app archive to server
