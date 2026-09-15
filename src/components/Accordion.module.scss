@@ -63,25 +63,44 @@
 
     button[aria-expanded='true'] {
       border-bottom: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
       background: #f0f9ff;
       border-color: rgba(15, 141, 140, 0.3);
     }
   }
 }
 
-.content {
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 15px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 0 0 var(--radius-control) var(--radius-control);
-  animation: slideDown 0.3s ease-out;
-  overflow: hidden;
+// Collapses the same way it expands: the row goes 1fr to 0fr and back.
+// visibility flips discretely, so it waits out the close and leads the open.
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.3s ease,
+    visibility 0.3s;
 
   @media (prefers-reduced-motion: reduce) {
-    animation: none;
+    transition: none;
   }
+}
+
+.panelOpen {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.content {
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid rgba(15, 141, 140, 0.3);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-control) var(--radius-control);
 
   p {
     font-size: 15px;
@@ -113,18 +132,5 @@
   svg {
     margin-right: 10px;
     color: #0f8d8c;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    max-height: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    max-height: 500px;
-    transform: translateY(0);
   }
 }

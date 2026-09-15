@@ -30,7 +30,7 @@ export default function Accordion({
     }
   };
 
-  function renderCard({ id, parentId, items, title, content }) {
+  function renderCard({ id, items, title, content }) {
     return (
       <div className={cx('card', styles.card)} key={id}>
         <div
@@ -57,22 +57,27 @@ export default function Accordion({
           </button>
         </div>
 
+        {/* A grid row that animates from 0fr to 1fr, so the panel closes the
+            same way it opens. Bootstrap's .collapse only ever hid it. */}
         <div
           id={`collapse-${id}`}
-          className={collapsedTab === id ? 'collapse show' : 'collapse'}
+          className={cx(styles.panel, {
+            [styles.panelOpen]: collapsedTab === id,
+          })}
           aria-labelledby={`heading-${id}`}
-          data-parent={`#${parentId}`}
         >
-          {content && <div className={styles.content}>{content} </div>}
-          {items &&
-            items.map((item) => (
-              <div className={styles.item} key={item}>
-                <div>
-                  <FontAwesomeIcon icon={faCheck} />
-                  <span>{item}</span>
+          <div className={styles.panelInner}>
+            {content && <div className={styles.content}>{content}</div>}
+            {items &&
+              items.map((item) => (
+                <div className={styles.item} key={item}>
+                  <div>
+                    <FontAwesomeIcon icon={faCheck} />
+                    <span>{item}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
       </div>
     );
@@ -81,7 +86,7 @@ export default function Accordion({
   return (
     <div className={styles.root}>
       <div className="accordion" id={id}>
-        {cards.map((card) => renderCard({ ...card, parentId: id }))}
+        {cards.map(renderCard)}
       </div>
     </div>
   );
