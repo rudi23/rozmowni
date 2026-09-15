@@ -1,19 +1,52 @@
 @import '../styles/mixins';
 
+// A plain row of four equal tiles under the hero. They used to be pulled
+// up over the section above, which left them ending at different heights.
 .featuresSection {
-  margin-top: -80px;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 10;
+  padding: $section-gap-mobile 0;
 
-  @media screen and (min-width: 1200px) {
-    margin-top: -100px;
-    margin-bottom: 3rem;
-  }
-
-  .feature-item {
-    transition: all 0.3s ease;
+  @include onTabletAndDesktop() {
+    padding: $section-gap 0;
   }
 }
 
-// Keyframes animations
+.grid {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+
+  @include onTabletAndDesktop() {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.item {
+  @include card();
+}
+
+.icon {
+  margin-bottom: 16px;
+  font-size: 28px;
+  color: $teal;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.description {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-body;
+}

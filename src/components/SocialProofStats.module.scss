@@ -1,23 +1,13 @@
 @import '../styles/mixins';
 
 .socialProofSection {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 40px 0;
-  border-top: 3px solid #0f8d8c;
-  position: relative;
+  padding: 48px 0;
+  background: $surface-alt;
+  border-top: 1px solid $line;
+  border-bottom: 1px solid $line;
 
   @media screen and (min-width: 1200px) {
-    padding: 50px 0;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #0f8d8c, transparent);
+    padding: 56px 0;
   }
 }
 
@@ -39,7 +29,6 @@
 .stat {
   text-align: center;
   padding: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,23 +49,23 @@
   .number {
     font-size: 2.8rem;
     font-weight: 900;
-    color: #0f8d8c;
+    color: $teal;
     margin-bottom: 1.5rem;
-    line-height: 1;
-    height: 60px;
+    line-height: 1.1;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     @include onMobile() {
       font-size: 2rem;
-      height: 48px;
+      min-height: 48px;
       margin-bottom: 0.75rem;
     }
 
     @media screen and (min-width: 1200px) {
       font-size: 3rem;
-      height: 72px;
+      min-height: 72px;
       margin-bottom: 2rem;
     }
   }
@@ -87,11 +76,11 @@
     font-weight: 600;
     line-height: 1.2;
     min-height: 36px;
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex: 1;
 
     @include onMobile() {
       color: #343a40; // Stronger on mobile
@@ -110,12 +99,7 @@
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-rest);
   position: relative;
-  border-left: 4px solid #0f8d8c;
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-  }
+  border-left: 4px solid $teal;
 
   @include onMobile() {
     margin-top: 2rem;
@@ -172,7 +156,7 @@
     font-weight: 700;
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
     background: rgba(15, 141, 140, 0.08);
     padding: 4px 8px;
     border-radius: var(--radius-control);
@@ -183,5 +167,3 @@
     }
   }
 }
-
-// Keyframes animations

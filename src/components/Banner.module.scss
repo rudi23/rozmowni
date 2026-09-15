@@ -1,313 +1,85 @@
 @import '../styles/mixins';
 
+.bannerSection {
+  padding: 48px 0;
+  background: $cream;
+
+  @include onTabletAndDesktop() {
+    padding: 72px 0;
+  }
+}
+
+// One row: the pitch on the left, the photograph filling the column on the
+// right. Everything else the hero used to carry now lives further down.
 .bannerGrid {
   display: grid;
-  gap: 2rem;
-  align-items: start;
-
-  // Mobile: single column, 5 rows (social, content-top, image, content-bottom, buttons)
-  @include onMobile() {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    row-gap: 1rem;
-    grid-template-areas:
-      'social'
-      'content-top'
-      'image'
-      'content-bottom'
-      'buttons';
-  }
-
-  // Tablet and up: two columns, 3 rows (content combines back)
-  @include onTabletAndDesktop() {
-    grid-template-columns: 1.2fr 1fr;
-    grid-template-rows: auto auto auto;
-    row-gap: 1.5rem;
-    column-gap: 3rem;
-    grid-template-areas:
-      'social social'
-      'content image'
-      'buttons buttons';
-  }
-
-  // Large screens: adjust proportions
-  @media screen and (min-width: 1200px) {
-    row-gap: 2rem;
-    column-gap: 4rem;
-    grid-template-columns: 1.3fr 1fr;
-  }
-
-  @media screen and (min-width: 1400px) {
-    row-gap: 2.5rem;
-    column-gap: 5rem;
-    max-width: 1200px;
-  }
-}
-
-.socialProofRow {
-  grid-area: social;
-
-  @include onMobile() {
-    text-align: center;
-  }
-
-  @include onTabletAndDesktop() {
-    text-align: left;
-  }
-}
-
-.contentWrapper {
-  // Na mobile: nie ma wrappera, children są bezpośrednio w gridzie
-  @include onMobile() {
-    display: contents; // Children przeskakują do parent grida
-  }
-
-  // Na desktop: wrapper staje się content area
-  @include onTabletAndDesktop() {
-    grid-area: content;
-  }
-}
-
-.contentColumnTop {
-  @include onMobile() {
-    grid-area: content-top;
-  }
-}
-
-.contentColumnBottom {
-  @include onMobile() {
-    grid-area: content-bottom;
-  }
-}
-
-.imageColumn {
-  grid-area: image;
-
-  @include onMobile() {
-    margin: -0.5rem 0 0.5rem 0; // Ujemny margin-top zmniejsza odległość od content-top
-  }
-}
-
-.ctaRow {
-  grid-area: buttons;
-}
-
-.bannerImage {
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-  }
-
-  @include onMobile() {
-    max-width: 100%;
-    margin: 0;
-  }
-
-  @media screen and (min-width: 768px) and (max-width: 991px) {
-    max-width: 350px;
-  }
-
-  @media screen and (min-width: 1200px) {
-    max-width: 450px;
-  }
-
-  @media screen and (min-width: 1400px) {
-    max-width: 500px;
-  }
-}
-
-.bannerSection {
-  padding: 20px 0 140px;
-  background: #ffefd5;
-  position: relative;
-
-  // Więcej paddingu na dużych ekranach
-  @media screen and (min-width: 1200px) {
-    padding: 40px 0 140px;
-  }
-}
-
-.socialProof {
-  display: inline-flex;
+  gap: 32px;
   align-items: center;
-  background: #e8f5e8;
-  color: #2d5016;
-  padding: 8px 16px;
-  border-radius: var(--radius-pill);
-  font-size: 14px;
-  font-weight: 600;
 
-  @media screen and (min-width: 1200px) {
-    padding: 10px 20px;
-    font-size: 15px;
+  @include onTabletAndDesktop() {
+    grid-template-columns: 1.1fr 1fr;
+    column-gap: 48px;
   }
 
-  @media screen and (min-width: 1400px) {
-    padding: 12px 24px;
-    font-size: 16px;
+  @media screen and (min-width: 1200px) {
+    column-gap: 64px;
   }
 }
 
-.schoolBranding {
-  margin-bottom: 1.5rem;
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: $radius-pill;
+  color: $teal-dark;
+  font-size: 14px;
+  font-weight: 700;
+}
 
-  @media screen and (min-width: 1200px) {
-    margin-bottom: 2rem;
-  }
-
-  @media screen and (min-width: 1400px) {
-    margin-bottom: 2.5rem;
-  }
-
+.content {
   h1 {
-    margin-bottom: 0.5rem;
-    font-size: 28px;
-    line-height: 1.2;
+    margin: 0 0 16px;
+    font-size: 32px;
+    line-height: 1.15;
     font-weight: 700;
-    color: #2c3e50; // Oficjalny kolor z mixins
+    color: $navy;
 
     @include onTabletAndDesktop() {
-      font-size: 36px;
+      font-size: 40px;
     }
 
     @media screen and (min-width: 1200px) {
-      font-size: 42px;
-    }
-
-    @media screen and (min-width: 1400px) {
       font-size: 48px;
     }
   }
 }
 
-.schoolInfo {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.4;
-  font-weight: 500;
-  color: #2c3e50; // Taki sam kolor jak slogan szkoły
+.lede {
+  margin: 0 0 32px;
+  max-width: 48ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $text-body;
 
   @include onTabletAndDesktop() {
     font-size: 18px;
   }
-
-  @media screen and (min-width: 1200px) {
-    font-size: 19px;
-  }
-
-  @media screen and (min-width: 1400px) {
-    font-size: 20px;
-  }
 }
 
-.testPromotion {
-  margin-bottom: 1.5rem;
-
-  @media screen and (min-width: 1200px) {
-    margin-bottom: 2rem;
-  }
-
-  @media screen and (min-width: 1400px) {
-    margin-bottom: 2.5rem;
-  }
-
-  h2 {
-    margin-bottom: 0.75rem;
-    font-size: 22px;
-    line-height: 1.3;
-    font-weight: 600;
-    color: #ff6b35; // Oficjalny primary color z mixins
-
-    @include onTabletAndDesktop() {
-      font-size: 26px;
-    }
-
-    @media screen and (min-width: 1200px) {
-      font-size: 28px;
-    }
-
-    @media screen and (min-width: 1400px) {
-      font-size: 30px;
-    }
-  }
-}
-
-.testDescription {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.4;
-  font-weight: 400;
-  color: #535967; // Oficjalny kolor tekstu z style.css
-
-  @include onTabletAndDesktop() {
-    font-size: 17px;
-  }
-
-  @media screen and (min-width: 1200px) {
-    font-size: 18px;
-  }
-
-  @media screen and (min-width: 1400px) {
-    font-size: 19px;
-  }
-}
-
-.benefits {
-  margin-bottom: 2rem;
-
-  @media screen and (min-width: 1200px) {
-    margin-bottom: 2.5rem;
-  }
-
-  @media screen and (min-width: 1400px) {
-    margin-bottom: 3rem;
-  }
-}
-
-.benefit {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 16px;
-  color: #535967; // Spójny z głównym kolorem tekstu
-  transition: all 0.2s ease;
-
-  &:hover {
-    color: #0f8d8c; // Oficjalny teal color
-  }
-
-  @media screen and (min-width: 1200px) {
-    margin-bottom: 1rem;
-    font-size: 17px;
-  }
-
-  @media screen and (min-width: 1400px) {
-    margin-bottom: 1.25rem;
-    font-size: 18px;
-  }
+.nowrap {
+  white-space: nowrap;
 }
 
 .ctaButtons {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
 
-  @include onTabletAndDesktop() {
-    flex-direction: row;
-    gap: 1.5rem;
-    justify-content: flex-start;
-  }
-
-  @media screen and (min-width: 1200px) {
-    gap: 2rem;
-  }
-
-  @media screen and (min-width: 1400px) {
-    gap: 2.5rem;
+  @include onMobile() {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
 
@@ -316,27 +88,13 @@
 }
 
 .secondaryCta {
-  @include ctaSecondary();
+  @include ctaSecondary('lg');
 }
 
 .trustElements {
-  small {
-    color: #495057; // Better contrast (was #7a8a99)
-    font-size: 13px;
-    font-style: italic;
-
-    @include onMobile() {
-      color: #343a40; // Even stronger on mobile
-    }
-
-    @media screen and (min-width: 1200px) {
-      font-size: 14px;
-    }
-
-    @media screen and (min-width: 1400px) {
-      font-size: 15px;
-    }
-  }
+  margin-top: 4px;
 }
 
-// Keyframes animations
+.bannerImage {
+  @include imageFrame();
+}

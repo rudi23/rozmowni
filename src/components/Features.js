@@ -34,23 +34,17 @@ const features = [
 
 function Features() {
   return (
-    <section className={`feature-2 ${styles.featuresSection}`}>
+    <section className={styles.featuresSection}>
       <div className="container">
-        <div className="row no-gutters">
+        <ul className={styles.grid}>
           {features.map(({ icon, title, description }) => (
-            <div className="col-lg-3 col-md-6" key={title}>
-              <div className="feature-item feature-style-2">
-                <div className="feature-icon">
-                  <FontAwesomeIcon icon={icon} />
-                </div>
-                <div className="feature-text">
-                  <h4>{title}</h4>
-                  <p>{description}</p>
-                </div>
-              </div>
-            </div>
+            <li className={styles.item} key={title}>
+              <FontAwesomeIcon icon={icon} className={styles.icon} />
+              <h3 className={styles.title}>{title}</h3>
+              <p className={styles.description}>{description}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -2,7 +2,6 @@
   .card {
     margin-bottom: 20px;
     border: 0 solid transparent;
-    transition: all 0.3s ease;
 
     &:hover {
       box-shadow: var(--shadow-rest);
@@ -20,7 +19,9 @@
       padding: 20px;
       background: transparent;
       position: relative;
-      transition: all 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
       border-radius: var(--radius-control);
 
       &:hover {
@@ -43,6 +44,10 @@
           top: 50%;
           transform: translateY(-50%);
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+          @media (prefers-reduced-motion: reduce) {
+            transition: none;
+          }
 
           svg {
             font-size: 16px;
@@ -73,6 +78,10 @@
   border-radius: 0 0 var(--radius-control) var(--radius-control);
   animation: slideDown 0.3s ease-out;
   overflow: hidden;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 
   p {
     font-size: 15px;
@@ -106,8 +115,6 @@
     color: #0f8d8c;
   }
 }
-
-// Keyframes animations
 
 @keyframes slideDown {
   from {

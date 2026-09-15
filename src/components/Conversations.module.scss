@@ -5,12 +5,12 @@
 }
 
 .floatingImage {
+  @include imageFrame();
+
   float: right;
   margin: 0 0 1.5rem 2rem;
   max-width: 350px;
   width: 40%;
-  border-radius: var(--radius-card);
-  overflow: hidden;
 
   @include onMobile() {
     float: none;
@@ -30,113 +30,58 @@
   }
 }
 
-.conversationCards {
+.topicsHeading {
+  margin-bottom: 24px;
+}
+
+.topicGroups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
+  gap: 32px;
+  grid-template-columns: 1fr;
 
-  @include onMobile() {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
+  @media screen and (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.conversationCard {
-  background: linear-gradient(135deg, #fff 0%, #f8fcff 100%);
-  border-radius: var(--radius-card);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-rest);
-  border: 1px solid rgba(15, 141, 140, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0f8d8c 0%, #17a2b8 100%);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-    border-color: rgba(15, 141, 140, 0.2);
-  }
-}
-
-.cardHeader {
+.groupTitle {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $navy;
 }
 
-.levelBadge {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  &.levelBasic {
-    background: linear-gradient(135deg, #d4f7d4 0%, #a8e6a3 100%);
-  }
-
-  &.levelIntermediate {
-    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-  }
-
-  &.levelAdvanced {
-    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-  }
+// The level used to be a coloured dot with nothing to read it by.
+.level {
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  background: rgba(15, 141, 140, 0.1);
+  color: $teal-dark;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
-.cardTitle {
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #2c3e50;
+  padding: 0;
+  list-style: none;
 }
 
-.cardContent {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.topicItem {
-  background: rgba(15, 141, 140, 0.08);
-  color: #2c3e50;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-control);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-left: 3px solid #0f8d8c;
-
-  &:hover {
-    background: rgba(15, 141, 140, 0.15);
-  }
-}
-
-.ctaSection {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e9ecef;
-}
-
-.ctaText {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1.5rem;
-
-  @include onMobile() {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
+.chip {
+  padding: 8px 14px;
+  border: 1px solid rgba(15, 141, 140, 0.25);
+  border-radius: $radius-pill;
+  background: rgba(15, 141, 140, 0.06);
+  color: $navy;
+  font-size: 14px;
+  line-height: 1.3;
 }

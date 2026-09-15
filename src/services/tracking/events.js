@@ -38,11 +38,6 @@ export const HOME_FINAL_CTA_CLICK_TEST = {
   action: 'Click',
   label: 'Final CTA - test',
 };
-export const HOME_STICKY_CTA_CLICK_TEST = {
-  category: 'Home',
-  action: 'Click',
-  label: 'Sticky CTA - test',
-};
 export const HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST = {
   category: 'Home',
   action: 'Click',

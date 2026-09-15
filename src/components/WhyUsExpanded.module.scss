@@ -5,12 +5,12 @@
 }
 
 .imageFloat {
+  @include imageFrame();
+
   float: left;
   margin: 0 2rem 1rem 0;
   max-width: 350px;
   width: 40%;
-  border-radius: var(--radius-card);
-  overflow: hidden;
 
   @include onMobile() {
     float: none;
@@ -127,29 +127,7 @@
 }
 
 .topicCard {
-  background: linear-gradient(135deg, #fff 0%, #f8fcff 100%);
-  border-radius: var(--radius-card);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-rest);
-  border: 1px solid rgba(15, 141, 140, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0f8d8c 0%, #17a2b8 100%);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-    border-color: rgba(15, 141, 140, 0.2);
-  }
+  @include card(1.5rem);
 }
 
 .cardHeader {
@@ -163,8 +141,8 @@
   font-size: 1.5rem;
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #e8f5f5 0%, #d4f3f3 100%);
-  border-radius: 50%;
+  background: rgba(15, 141, 140, 0.1);
+  border-radius: $radius-pill;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,21 +169,11 @@
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 600;
-  transition: all 0.2s ease;
   border: 1px solid rgba(15, 141, 140, 0.2);
-
-  &:hover {
-    background: #0f8d8c;
-    color: white;
-  }
 }
 
 .highlight {
-  background: linear-gradient(
-    120deg,
-    rgba(40, 167, 69, 0.1) 0%,
-    rgba(40, 167, 69, 0.1) 100%
-  );
+  background: rgba(15, 141, 140, 0.08);
   padding: 1rem;
   border-radius: var(--radius-control);
   border-left: 4px solid #0f8d8c;
@@ -225,13 +193,8 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  background: #f8f9fa;
-  border-radius: var(--radius-control);
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: #f1f8ff;
-  }
+  background: $surface-alt;
+  border-radius: $radius-control;
 
   .skillIcon {
     color: #0f8d8c;
@@ -301,47 +264,18 @@
 }
 
 .motivationCard {
-  background: linear-gradient(135deg, #fff 0%, #fff8f4 100%);
-  border-radius: var(--radius-card);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-rest);
-  border: 1px solid rgba(255, 107, 53, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-    border-color: rgba(255, 107, 53, 0.2);
-  }
+  @include card(1.5rem);
 }
 
 .finalCtaButton {
   @include ctaPrimary();
-
-  // Ensure consistent transition timing
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .motivationFooter {
-  background: linear-gradient(
-    120deg,
-    rgba(23, 162, 184, 0.1) 0%,
-    rgba(23, 162, 184, 0.1) 100%
-  );
+  background: rgba(15, 141, 140, 0.08);
   padding: 1rem;
-  border-radius: var(--radius-control);
-  border-left: 4px solid #17a2b8;
+  border-radius: $radius-control;
+  border-left: 4px solid $teal;
   margin: 1rem 0 0 0;
   font-style: italic;
   text-align: center;
@@ -351,7 +285,7 @@
   text-align: center;
   margin-top: 2.5rem;
   padding-top: 2rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid $line;
 
   p {
     margin-bottom: 1rem;
@@ -359,5 +293,3 @@
     color: #2c3e50;
   }
 }
-
-// Keyframes animations

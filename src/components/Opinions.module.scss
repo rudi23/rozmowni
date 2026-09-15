@@ -74,34 +74,16 @@
   line-height: 1.4;
 }
 
+// A fourth button variant (solid teal) used to live here.
 .googleLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 12px 24px;
-  background: #0f8d8c;
-  color: white;
-  text-decoration: none;
-  border-radius: var(--radius-control);
-  font-family: 'Mulish', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: #0c6b6a;
-    color: white;
-    text-decoration: none;
-    box-shadow: var(--shadow-rest);
-  }
+  @include ctaSecondary();
 
   svg {
     font-size: 18px;
   }
 
   @include onMobile() {
-    padding: 10px 20px;
-    font-size: 15px;
+    @include ctaSize('sm');
 
     svg {
       font-size: 16px;

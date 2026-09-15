@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowDown,
-  faCheck,
-  faClock,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect } from 'react';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
@@ -17,89 +11,23 @@ import ResponsiveImage from './ResponsiveImage';
 
 export default function Banner() {
   const trackClick = useClickTracking();
-  const [_isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-
-  const SocialProofBadge = () => (
-    <div className={styles.socialProof}>
-      <FontAwesomeIcon icon={faUsers} className="me-2" />
-      <span>Ponad 100 zadowolonych uczniów</span>
-    </div>
-  );
 
   return (
     <section className={styles.bannerSection}>
       <div className="container">
         <div className={styles.bannerGrid}>
-          {/* Social Proof Row - spans all columns */}
-          <div className={styles.socialProofRow}>
-            <SocialProofBadge />
-          </div>
+          <div className={styles.content}>
+            <p className={styles.eyebrow}>Ponad 100 zadowolonych uczniów</p>
 
-          {/* Content Wrapper - combines both parts on desktop */}
-          <div className={styles.contentWrapper}>
-            {/* Content Column - Part 1: School Branding */}
-            <div className={styles.contentColumnTop}>
-              {/* School Branding */}
-              <div className={styles.schoolBranding}>
-                <h1>Mów swobodnie po angielsku!</h1>
-                <p className={styles.schoolInfo}>
-                  Indywidualne oraz grupowe kursy online
-                </p>
-              </div>
-            </div>
+            <h1>Mów swobodnie po angielsku</h1>
 
-            {/* Content Column - Part 2: Test Promotion */}
-            <div className={styles.contentColumnBottom}>
-              {/* Test Promotion */}
-              <div className={styles.testPromotion}>
-                <h2>
-                  Sprawdź swój poziom angielskiego
-                  <br />
-                  za DARMO!
-                </h2>
-                <p className={styles.testDescription}>
-                  Otrzymaj bezpłatną lekcję próbną + spersonalizowany plan nauki
-                  + e-book
-                </p>
-              </div>
+            <p className={styles.lede}>
+              Indywidualne i grupowe kursy online, na których rozmawiasz od
+              pierwszej lekcji. Zacznij od bezpłatnego testu poziomującego —
+              dostaniesz swój poziom, lekcję próbną i{' '}
+              <span className={styles.nowrap}>e-book</span>.
+            </p>
 
-              {/* Benefits List */}
-              <div className={styles.benefits}>
-                <div className={styles.benefit}>
-                  <FontAwesomeIcon icon={faClock} className="me-2" />
-                  <span>Test zajmuje tylko 10 minut</span>
-                </div>
-                <div className={styles.benefit}>
-                  <FontAwesomeIcon icon={faCheck} className="me-2" />
-                  <span>Natychmiastowy wynik</span>
-                </div>
-                <div className={styles.benefit}>
-                  <FontAwesomeIcon icon={faCheck} className="me-2" />
-                  <span>Indywidualne podejście</span>
-                </div>
-              </div>
-
-              {/* Trust Elements */}
-              <TrustPoints
-                className={styles.trustElements}
-                items={['Wynik od razu', 'Bez spamu', 'Dane bezpieczne']}
-              />
-            </div>
-          </div>
-
-          {/* CTA Buttons Row - spans both columns */}
-          <div className={styles.ctaRow}>
             <div className={styles.ctaButtons}>
               <Link
                 href={routeMap[routeNames.TEST]}
@@ -118,19 +46,22 @@ export default function Banner() {
                 Zobacz, jak uczymy
               </Link>
             </div>
+
+            <TrustPoints
+              className={styles.trustElements}
+              items={['Test zajmuje 10 minut', 'Wynik od razu', 'Bez spamu']}
+            />
           </div>
 
-          {/* Image Column */}
-          <div className={styles.imageColumn}>
-            <div className={styles.bannerImage}>
-              <ResponsiveImage
-                src={mainImage}
-                alt="Małgorzata Rudowska przy biurku"
-                placeholder="blur"
-                sizes="(min-width: 1200px) 500px, (min-width: 992px) 400px, (min-width: 768px) 350px, 100vw"
-                quality="75"
-              />
-            </div>
+          <div className={styles.bannerImage}>
+            <ResponsiveImage
+              src={mainImage}
+              alt="Małgorzata Rudowska przy biurku"
+              placeholder="blur"
+              sizes="(min-width: 1200px) 520px, (min-width: 768px) 45vw, 100vw"
+              quality="75"
+              style={{ maxWidth: '100%' }}
+            />
           </div>
         </div>
       </div>

@@ -1,0 +1,32 @@
+@import '../styles/mixins';
+
+.root {
+  position: relative;
+}
+
+.floatingImage {
+  @include imageFrame();
+
+  float: right;
+  margin: 0 0 1.5rem 2rem;
+  max-width: 300px;
+  width: 35%;
+
+  @include onMobile() {
+    float: none;
+    margin: 1.5rem 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.closing {
+  margin-top: 1.5rem;
+  padding: 16px 12px;
+  border-left: 3px solid $teal;
+  border-radius: $radius-control;
+  background: rgba(15, 141, 140, 0.08);
+  color: $teal-dark;
+  font-size: 1rem;
+  font-weight: 600;
+}

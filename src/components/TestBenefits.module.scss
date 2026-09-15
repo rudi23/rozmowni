@@ -1,219 +1,71 @@
 @import '../styles/mixins';
 
 .intro {
-  font-size: 1.1rem;
-  color: #495057; // Better contrast (was #6c757d)
-  margin-bottom: 3rem;
+  max-width: 60ch;
+  margin: 0 auto 48px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $text-secondary;
 
   @include onMobile() {
-    color: #343a40; // Stronger on mobile
+    margin-bottom: 32px;
+    font-size: 16px;
+    color: $text-tertiary;
+  }
+}
+
+// Four plain tiles. The package used to be listed here with a price tag on
+// every item and again in the closing section; it is stated once now.
+.grid {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+
+  @include onTabletAndDesktop() {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (min-width: 1200px) {
-    font-size: 1.2rem;
+  @media screen and (min-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .benefit {
-  background: white;
-  padding: 2rem;
-  border-radius: var(--radius-card);
-  text-align: center;
-  box-shadow: var(--shadow-rest);
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  border: 2px solid transparent;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  @include onMobile() {
-    margin-bottom: 1.5rem;
-  }
-
-  @include onTabletAndDesktop() {
-    margin-bottom: 0;
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-  }
-
-  &.highlighted {
-    border-color: #ff6b35;
-    background: linear-gradient(135deg, #fff 0%, #fff8f4 100%);
-
-    .icon {
-      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    }
-  }
-
-  .icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    font-size: 1.8rem;
-    box-shadow: var(--shadow-rest);
-  }
-
-  h4 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    font-size: 1.3rem;
-  }
-
-  p {
-    color: #495057; // Better contrast (was #6c757d)
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    flex-grow: 1;
-
-    @include onMobile() {
-      color: #343a40; // Stronger on mobile
-    }
-  }
-
-  .value {
-    font-size: 0.9rem;
-    color: #28a745;
-    font-weight: 600;
-    background: #e8f5e8;
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-pill);
-    display: inline-block;
-  }
-
-  .badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: #ff6b35;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: var(--shadow-rest);
-  }
+  @include card();
 }
 
-.additionalBenefit {
-  background: white;
-  padding: 1.5rem;
-  border-radius: var(--radius-control);
-  box-shadow: var(--shadow-rest);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  border-left: 4px solid #28a745;
-
-  .smallIcon {
-    color: #28a745;
-    font-size: 1.2rem;
-    margin-top: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  h5 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  p {
-    color: #495057; // Better contrast (was #6c757d)
-    margin-bottom: 0;
-    font-size: 0.95rem;
-    line-height: 1.4;
-
-    @include onMobile() {
-      color: #343a40; // Stronger on mobile
-      font-size: 0.9rem;
-    }
-  }
+.icon {
+  margin-bottom: 16px;
+  font-size: 28px;
+  color: $teal;
 }
 
-.urgencyBox {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  color: white;
-  padding: 2.5rem;
-  border-radius: var(--radius-card);
+.title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.description {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-body;
+}
+
+.cta {
+  margin-top: 40px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-
-  @include onMobile() {
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-  }
-
-  h4 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-
-    @include onMobile() {
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  p {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-
-    @include onMobile() {
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-  }
-
-  .freeText {
-    font-size: 1.3em;
-    color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
 }
 
 .mainCta {
-  @include ctaPrimary('lg', $inverse: true);
-
-  // Ensure consistent transition timing
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  @include ctaPrimary('lg');
 }
 
 .guarantee {
-  margin-top: 0.5rem;
-
-  small {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.8rem;
-  }
+  margin-top: 16px;
 }

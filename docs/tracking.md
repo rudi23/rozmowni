@@ -233,25 +233,20 @@ więc w GA4 widać, która sekcja realnie konwertuje.
 
 | Sekcja (komponent)       | Event                                    | Label                           |
 | ------------------------ | ---------------------------------------- | ------------------------------- |
-| `Banner.js:105`          | `HOME_BANNER_CLICK_TEST`                 | `Banner - test`                 |
-| `Banner.js:114`          | `HOME_BANNER_CLICK_LEARN_MORE`           | `Banner - learn more`           |
-| `SocialProofStats.js:68` | `HOME_SOCIAL_PROOF_CLICK_TEST`           | `Social proof - test`           |
-| `WhyUsExpanded.js:290`   | `HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST` | `Why us expanded - test bottom` |
-| `TestBenefits.js:116`    | `HOME_TEST_BENEFITS_CLICK_TEST`          | `Test benefits - test`          |
-| `TestFAQ.js:104`         | `HOME_FAQ_CLICK_TEST`                    | `FAQ - test`                    |
-| `TestFAQ.js:112`         | `HOME_FAQ_CLICK_CONTACT`                 | `FAQ - contact`                 |
-| `FinalCTA.js:126`        | `HOME_FINAL_CTA_CLICK_TEST`              | `Final CTA - test`              |
-| `StickyCTA.js:110`       | `HOME_STICKY_CTA_CLICK_TEST`             | `Sticky CTA - test`             |
+| `Banner.js:34`           | `HOME_BANNER_CLICK_TEST`                 | `Banner - test`                 |
+| `Banner.js:42`           | `HOME_BANNER_CLICK_LEARN_MORE`           | `Banner - learn more`           |
+| `SocialProofStats.js:69` | `HOME_SOCIAL_PROOF_CLICK_TEST`           | `Social proof - test`           |
+| `WhyUsExpanded.js:298`   | `HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST` | `Why us expanded - test bottom` |
+| `TestBenefits.js:76`     | `HOME_TEST_BENEFITS_CLICK_TEST`          | `Test benefits - test`          |
+| `TestFAQ.js:105`         | `HOME_FAQ_CLICK_TEST`                    | `FAQ - test`                    |
+| `TestFAQ.js:113`         | `HOME_FAQ_CLICK_CONTACT`                 | `FAQ - contact`                 |
+| `FinalCTA.js:25`         | `HOME_FINAL_CTA_CLICK_TEST`              | `Final CTA - test`              |
 
 Poza lejkiem testu strona główna ma jedno wyjście na zewnątrz: link do opinii
-w Google (`Opinions.js:213`, `OPINIONS_CLICK_GOOGLE_REVIEWS`). Ta sama sekcja
+w Google (`Opinions.js:217`, `OPINIONS_CLICK_GOOGLE_REVIEWS`). Ta sama sekcja
 renderuje się również na `/o-nas`, dlatego event ma kategorię `Opinions`,
 a nie `Home`, a label niesie ścieżkę: `Google reviews from '/'` kontra
 `Google reviews from '/o-nas'`.
-
-`StickyCTA` ma dodatkową zależność: nie renderuje się, dopóki widoczny jest
-baner cookie (`cookieConsentVisible`), więc jego eventy nie mogą polecieć
-przed akceptacją cookies – w odróżnieniu od pozostałych.
 
 ### 4.4 Formularz kontaktowy
 
@@ -367,9 +362,7 @@ po 90 dniach.
 **Baner jest wyłącznie informacyjny – nie bramkuje trackingu.** GA4 i FB Pixel
 inicjalizują się i wysyłają page view przy pierwszym renderze, niezależnie od
 tego, czy użytkownik kliknął „Akceptuję", czy w ogóle zauważył baner. Nie ma
-kodu, który czytałby ciasteczko `cookieConsent` przed wysłaniem czegokolwiek –
-jedyny komponent, który je sprawdza, to `StickyCTA`, i robi to tylko po to, żeby
-nie nachodzić na baner wizualnie.
+kodu, który czytałby ciasteczko `cookieConsent` przed wysłaniem czegokolwiek.
 
 Treść banera odsyła do [polityki prywatności](../src/pages/polityka-prywatnosci/index.js),
 a kliknięcie w ten link wysyła `COOKIE_CONSENT_CLICK_PRIVACY_POLICY`. Nie tworzy

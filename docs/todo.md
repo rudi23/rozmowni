@@ -126,28 +126,6 @@ konwersji, bez sygnału, że to awaria, a nie gorszy ruch.
 
 ## P3 – martwy kod i czystość
 
-### 9. Martwy warunek `localStorage` w `StickyCTA`
-
-**Gdzie:** `src/components/StickyCTA.js:22, 38, 57, 79` (4 wystąpienia)
-
-```js
-const hasCookieConsentAccepted =
-  localStorage.getItem('cookieConsent') === 'true';
-```
-
-`react-cookie-consent` zapisuje zgodę przez `Cookies.set()` (zweryfikowane
-w `node_modules/react-cookie-consent/src/CookieConsent.tsx:107`) – **nigdy
-w `localStorage`**. Wyrażenie zawsze zwraca `false`, więc cała gałąź logiki
-jest martwa. O widoczności paska decyduje wyłącznie obecność `.CookieConsent`
-w DOM, odpytywana `setInterval` co 300 ms.
-
-Efekt jest przypadkiem zbliżony do zamierzonego (pasek pojawia się po zamknięciu
-banera), ale kod wprowadza w błąd i utrwala pollingowy `setInterval` tam, gdzie
-wystarczyłby odczyt ciasteczka w `onAccept`.
-
-**Fix:** czytać ciasteczko (`Cookies.get('cookieConsent')`) albo usunąć
-martwy warunek i polling, opierając się na callbacku `onAccept` z `CookieConsent`.
-
 ### 12. Sztuczne opóźnienie i nieaktualny komentarz po wysłaniu formularza testu
 
 **Gdzie:** `src/components/test/TestResultsView.js:97-101`

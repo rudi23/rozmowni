@@ -8,7 +8,6 @@ import Opinions from '../components/Opinions';
 import TestFAQ from '../components/TestFAQ';
 import FinalCTA from '../components/FinalCTA';
 import Idea from '../components/Idea';
-import StickyCTA from '../components/StickyCTA';
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       <Opinions />
       <TestFAQ />
       <FinalCTA />
-      <StickyCTA />
     </>
   );
 }

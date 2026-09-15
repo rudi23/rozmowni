@@ -1,7 +1,4 @@
 @media (min-width: 1200px) {
-  .feature-item {
-    margin-bottom: 0;
-  }
   .nav-item.dropdown .dropdown-menu {
     display: block;
     visibility: hidden;
@@ -54,9 +51,6 @@
   }
   .section-heading h3 {
     font-size: 32px;
-  }
-  .feature-item.feature-style-2 {
-    margin-bottom: 20px;
   }
   .nav-tp {
     margin-bottom: 0;

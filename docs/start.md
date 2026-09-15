@@ -148,17 +148,16 @@ prowadzą do `/test-poziomujacy` i mają osobny event GA, więc widać, która
 sekcja konwertuje. Mapa „sekcja → event” jest w
 [tracking.md](tracking.md#43-lejek-na-stronie-głównej).
 
-1. `Banner` – hero „Mów swobodnie po angielsku!”, CTA test + „dowiedz się więcej”
+1. `Banner` – hero „Mów swobodnie po angielsku”, CTA test + „Zobacz, jak uczymy”
 2. `Features` – 4 kafelki: konwersacje, ciekawe zajęcia, online, szybkie efekty
 3. `SocialProofStats` – 100+ uczniów, 95% poleca, 15+ lat, 10 min test; CTA test
 4. `WhyUsExpanded` – „Poznajmy się”, rozwijana sekcja; CTA test (na dole sekcji)
 5. `Conversations` – jak uczymy, tematy konwersacji
 6. `Idea` – filozofia nauki
-7. `TestBenefits` – co zyskujesz robiąc test (wynik, lekcja próbna, plan, e-book); CTA test
+7. `TestBenefits` – co zyskujesz robiąc test (wynik, lekcja próbna, plan, e-book); CTA test. Oferta „pakietu startowego” jest opisana **tylko tutaj** – `FinalCTA` jej nie powtarza
 8. `Opinions` – karuzela opinii uczniów
 9. `TestFAQ` – 8 pytań w akordeonie (czas, cena, kiedy wynik, spam, poziomy, zobowiązania, powtórka, niski poziom); CTA test + kontakt
-10. `FinalCTA` – końcowe wezwanie do testu
-11. `StickyCTA` – pływający pasek „Sprawdź swój poziom!”; pokazuje się po przewinięciu >500px, gdy w DOM nie ma banera `.CookieConsent` (obecność banera jest sprawdzana co 300 ms). Uwaga: dodatkowy warunek `localStorage.getItem('cookieConsent') === 'true'` w kodzie **nigdy nie jest spełniony** – `react-cookie-consent` zapisuje zwykłe ciasteczko, nie `localStorage`. W praktyce pasek pojawia się po zamknięciu banera
+10. `FinalCTA` – końcowe wezwanie do testu (nagłówek, zdanie, przycisk, linijka zapewnienia). Zastępuje na stronie głównej pasek `footer-cta`, który `Footer` ukrywa tu i na stronie testu
 
 ### 5.4 Wspólny layout (`_app.js`)
 
@@ -212,7 +211,7 @@ flowchart TD
 
 - Menu (desktop i mobile): pozycja „Test poziomujący” z klasą `test-cta`.
 - Strona główna: `Banner`, `SocialProofStats`, `WhyUsExpanded`,
-  `TestBenefits`, `TestFAQ`, `FinalCTA`, `StickyCTA`.
+  `TestBenefits`, `TestFAQ`, `FinalCTA`.
 - `/kursy/indywidualne`: komponent `NewSemesterSignUp` (eksportuje `WhyUs`) linkuje do testu.
 - Każde kliknięcie ma własny event GA (`HOME_*_CLICK_TEST`, `NAVIGATION_CLICK_MENU_ITEM`)
   – pełna lista w [tracking.md](tracking.md#43-lejek-na-stronie-głównej).

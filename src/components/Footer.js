@@ -62,14 +62,17 @@ const siteRoutes = [
 export default function Footer() {
   const trackClick = useClickTracking();
   const { pathname } = useRouter();
-  const onTestPage = pathname === routeMap[routeNames.TEST];
+  // Pages that close with a call to action of their own do not need the strip.
+  const hasOwnClosingCta =
+    pathname === routeMap[routeNames.TEST] ||
+    pathname === routeMap[routeNames.HOME];
 
   const trackMenuItem = (routeName) => () =>
     trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeName]));
 
   return (
     <>
-      {!onTestPage && (
+      {!hasOwnClosingCta && (
         <section className="footer-cta">
           <div className="container">
             <div className="footer-cta-inner">
