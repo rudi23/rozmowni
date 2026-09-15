@@ -45,8 +45,8 @@
     "react-multi-carousel": "2.8.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
+    "@commitlint/cli": "21.2.2",
+    "@commitlint/config-conventional": "21.2.2",
     "@eslint/js": "9.39.5",
     "@next/eslint-plugin-next": "15.5.25",
     "eslint": "9.39.5",
