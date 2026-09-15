@@ -1,5 +1,50 @@
 # Changelog
 
+## [2.3.0](https://github.com/rudi23/rozmowni/compare/v2.2.0...v2.3.0) (2026-09-15)
+
+### Features
+
+- measure level test drop-off and fix falsified GA4 events ([6b21a0b](https://github.com/rudi23/rozmowni/commit/6b21a0bc3028729c6bb60c5886f208ce7acb1bcc))
+- show the test level on screen right after finishing the test ([3c1c97a](https://github.com/rudi23/rozmowni/commit/3c1c97a4ad624a6b158b3084d1470f519fa186d3))
+
+### Bug Fixes
+
+- add missing space in exam course description ([22d8737](https://github.com/rudi23/rozmowni/commit/22d8737b53264924ae1ebcb9d7904ebbe48556f6))
+- correct level descriptions and reduce spam signals in result email ([bcf957d](https://github.com/rudi23/rozmowni/commit/bcf957dfa94f7f3944f327fa3b6b122d3cca4cad))
+- correct wrong GA4 events and track the Google reviews link ([86b697f](https://github.com/rudi23/rozmowni/commit/86b697fd506a1418aebc0620cda4d2a830e07009))
+- **deps:** update dependency react-hook-form to v7.88.0 ([#413](https://github.com/rudi23/rozmowni/issues/413)) ([d4d3ac5](https://github.com/rudi23/rozmowni/commit/d4d3ac5c2f2fe128862821ec66544a3846f72b6d))
+- **deps:** update nextjs monorepo to v15.5.25 ([#411](https://github.com/rudi23/rozmowni/issues/411)) ([252d15f](https://github.com/rudi23/rozmowni/commit/252d15f193dae589b74a13c61c137bd8b4c4378b))
+- fit the test question view on small screens ([c24a990](https://github.com/rudi23/rozmowni/commit/c24a990b67cbcdc346f37987020e9406ef68b25e))
+- package-lock.json ([94a195f](https://github.com/rudi23/rozmowni/commit/94a195f4a5e62f2a6bef2ee7108acc8624be4375))
+- scroll to top after the new test view has rendered ([6433523](https://github.com/rudi23/rozmowni/commit/6433523091524b4a9e2fe01c27da697a04872980))
+
+### Documentation
+
+- describe the project, its pages and the test flow ([5a57da1](https://github.com/rudi23/rozmowni/commit/5a57da10c294b72df1737d25ca7a76cfa9e6f066))
+- document analytics tracking and list issues to fix ([54aebcd](https://github.com/rudi23/rozmowni/commit/54aebcd41440b721336b9f4cb64bec2ba63546a9))
+
+### Miscellaneous Chores
+
+- add ai skills ([f4a2af9](https://github.com/rudi23/rozmowni/commit/f4a2af9810eefa19acf057b549c3f5126c2fa373))
+- **deps:** update dependency sass to v1.104.1 ([#412](https://github.com/rudi23/rozmowni/issues/412)) ([22923ef](https://github.com/rudi23/rozmowni/commit/22923efbeb5cfec6b2eea63820d0cb8d0d5cb63e))
+- **deps:** update linters ([#409](https://github.com/rudi23/rozmowni/issues/409)) ([62a28e0](https://github.com/rudi23/rozmowni/commit/62a28e04d0e9c20798bc3926b689ad1f525b59a8))
+- **deps:** update release-related tools ([#410](https://github.com/rudi23/rozmowni/issues/410)) ([47ceaa7](https://github.com/rudi23/rozmowni/commit/47ceaa77a71adfa86463b8ee5c7dc2f064ef4025))
+- format the whole repo with prettier ([74d4b5e](https://github.com/rudi23/rozmowni/commit/74d4b5eaa79d5008cc8faeaa0494dc3be0d0cfe3))
+- setup CLAUDE.md and ai skills ([33b2a1c](https://github.com/rudi23/rozmowni/commit/33b2a1c16dba76325585a439059cbec34605ce9c))
+- update copyright and enrolment year to 2026 ([8f5fad0](https://github.com/rudi23/rozmowni/commit/8f5fad0f25a4a02faafd1d3afe2acb3717ca4344))
+
+### Build System
+
+- pin conventional-changelog preset to v9 so release-it can bump ([d409a4a](https://github.com/rudi23/rozmowni/commit/d409a4a940558c2e93c64ef744c06c3fe9d7ecb2))
+
+### Continuous Integration
+
+- shrink releases on the server and add a rollback workflow ([443e9c0](https://github.com/rudi23/rozmowni/commit/443e9c024c95083180b107c0ed1c5e11e1586acf))
+
+### Configuration changes
+
+- add prettier config with single quotes ([577c99f](https://github.com/rudi23/rozmowni/commit/577c99f1f7da76f9a9278879749197cd32278d4f))
+
 ## 2.2.0 (2026-09-13)
 
 - chore(deps): update actions/checkout action to v7 (#402) ([174ac21](https://github.com/rudi23/rozmowni/commit/174ac21)), closes [#402](https://github.com/rudi23/rozmowni/issues/402)
