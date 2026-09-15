@@ -1,11 +1,7 @@
 @import '../styles/mixins';
 
 .section {
-  padding: $section-gap-mobile 0;
-
-  @include onTabletAndDesktop() {
-    padding: $section-gap 0;
-  }
+  @include sectionPadding();
 
   p {
     margin-bottom: 1rem;

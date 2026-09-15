@@ -3,13 +3,10 @@
 // The closing band. It used to be an orange gradient repeating the whole
 // package with crossed-out prices; the offer is now stated once, higher up.
 .finalCTA {
-  padding: $section-gap-mobile 0;
+  @include sectionPadding();
+
   background: $surface-alt;
   border-top: 1px solid $line;
-
-  @include onTabletAndDesktop() {
-    padding: $section-gap 0;
-  }
 }
 
 .inner {

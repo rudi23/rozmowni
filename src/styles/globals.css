@@ -15,6 +15,8 @@
   --shadow-raised: 0 8px 24px rgba(7, 41, 77, 0.1);
 
   /* Vertical rhythm between sections */
+  /* The space between two sections. Each section pads half of it, so use
+     the sectionPadding() mixin rather than these directly. */
   --section-gap: 88px;
   --section-gap-mobile: 56px;
 

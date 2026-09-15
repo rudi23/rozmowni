@@ -1,14 +1,11 @@
 @import '../styles/mixins';
 
 .socialProofSection {
-  padding: 48px 0;
+  @include sectionPadding();
+
   background: $surface-alt;
   border-top: 1px solid $line;
   border-bottom: 1px solid $line;
-
-  @media screen and (min-width: 1200px) {
-    padding: 56px 0;
-  }
 }
 
 .statsContainer {

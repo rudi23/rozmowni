@@ -129,6 +129,20 @@ $breakpoint-tablet: 980px;
 }
 
 // ========================================
+// RHYTHM
+// ========================================
+// $section-gap is the space between two sections, so a section pads half
+// of it top and bottom and the boundary adds up to the gap, not twice it.
+
+@mixin sectionPadding() {
+  padding: calc(#{$section-gap-mobile} / 2) 0;
+
+  @include onTabletAndDesktop() {
+    padding: calc(#{$section-gap} / 2) 0;
+  }
+}
+
+// ========================================
 // BUTTONS
 // ========================================
 // Three variants and nothing else: ctaPrimary, ctaSecondary, ctaLink.

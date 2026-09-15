@@ -3,11 +3,7 @@
 // A plain row of four equal tiles under the hero. They used to be pulled
 // up over the section above, which left them ending at different heights.
 .featuresSection {
-  padding: $section-gap-mobile 0;
-
-  @include onTabletAndDesktop() {
-    padding: $section-gap 0;
-  }
+  @include sectionPadding();
 }
 
 .grid {
