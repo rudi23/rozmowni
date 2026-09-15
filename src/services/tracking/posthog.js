@@ -50,11 +50,18 @@ function initializeAsync() {
   return clientPromise;
 }
 
-function sendEvent(posthog, { category, action, label, posthogEvent }) {
+function sendEvent(
+  posthog,
+  { category, action, label, posthogEvent, posthogProperties },
+) {
   const properties = {
     source_category: category,
     source_action: action,
     source_label: label,
+    // Domain properties from the event constant. The `source_` prefix is
+    // reserved for the fields mapped over from the GA4 model, so a constant can
+    // never collide with them.
+    ...posthogProperties,
   };
 
   if (isDev) {
