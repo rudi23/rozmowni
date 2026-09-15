@@ -143,6 +143,7 @@ export default function FinalCTA() {
                 <strong>Gwarancja 100% bezpieczeństwa:</strong>
                 <br />
                 <TrustPoints
+                  align="center"
                   variant="light"
                   items={[
                     'Żadnego spamu',

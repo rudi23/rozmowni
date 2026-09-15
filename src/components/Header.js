@@ -1,6 +1,7 @@
 // import './Header.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleDown,
@@ -242,6 +243,7 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
 
 export default function Header() {
   const trackClick = useClickTracking();
+  const router = useRouter();
   const [isOpen, setOpen] = useState(false);
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [width, setWidth] = useState(1600);
@@ -291,16 +293,47 @@ export default function Header() {
     };
   }, [isOpen, width]);
 
+  // Picking a link closes whatever it was picked from. Toggling here left the
+  // courses panel open on the page it navigated to.
+  useEffect(() => {
+    setOpen(false);
+    setDropDownOpen(false);
+    // Focus left inside the panel would keep it in view after navigating.
+    document.activeElement?.blur?.();
+  }, [router.asPath]);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setDropDownOpen(false);
+        setOpen(false);
+      }
+    };
+    const onPointerDown = (event) => {
+      if (!event.target.closest?.('.nav-item.dropdown')) {
+        setDropDownOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+    };
+  }, []);
+
   const onLinkClick = (routeName) => () => {
     trackClick(events.NAVIGATION_CLICK_MENU_ITEM(routeTitles[routeName]));
-    setOpen(!isOpen);
+    setOpen(false);
+    setDropDownOpen(false);
   };
   const onToggleClick = () => {
     setOpen(!isOpen);
   };
   const onDropdownClick = () => {
     if (width >= 992) {
-      setDropDownOpen(!isDropDownOpen);
+      setDropDownOpen((wasOpen) => !wasOpen);
     }
   };
 

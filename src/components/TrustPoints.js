@@ -5,12 +5,20 @@ import styles from './TrustPoints.module.scss';
 
 // The short reassurance line that sits under a call to action.
 // Pass variant="light" when it runs on a coloured or dark section.
-function TrustPoints({ items, variant = 'default', className }) {
+function TrustPoints({
+  items,
+  variant = 'default',
+  align = 'start',
+  className,
+}) {
   return (
     <ul
       className={cx(
         styles.root,
-        { [styles.light]: variant === 'light' },
+        {
+          [styles.light]: variant === 'light',
+          [styles.center]: align === 'center',
+        },
         className,
       )}
     >

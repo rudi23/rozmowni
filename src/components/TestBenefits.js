@@ -119,6 +119,7 @@ export default function TestBenefits() {
                   Zrób test teraz
                 </Link>
                 <TrustPoints
+                  align="center"
                   className={styles.guarantee}
                   variant="light"
                   items={['100% darmowy', 'Bez zobowiązań']}

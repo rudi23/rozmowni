@@ -117,6 +117,7 @@ export default function TestFAQ() {
               </div>
 
               <TrustPoints
+                align="center"
                 className={styles.guarantee}
                 items={[
                   'Odpowiedź w ciągu 24h',
