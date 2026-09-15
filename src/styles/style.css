@@ -243,6 +243,15 @@ ol {
   box-shadow: none;
 }
 
+/* Clearance for the placement test's fixed navigation bar (mobile only).
+   It goes on the app wrapper, not on body: body is height: 100% above, so
+   padding there sits inside a fixed box and adds no scrollable room. */
+@media (max-width: 767px) {
+  body.has-fixed-test-nav #__next {
+    padding-bottom: 80px;
+  }
+}
+
 /*========================
  Contact Section
 ============================*/

@@ -1,50 +1,29 @@
 @import '../../styles/mixins';
 
-.testCompletionForm {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+// The level and the form used to sit three sections apart, with two cards
+// in between repeating what the form already promises.
+.resultsGrid {
+  display: grid;
+  gap: 32px;
+  align-items: start;
+  grid-template-columns: 1fr;
 
-  @include onTablet() {
-    max-width: 900px;
-    padding: 0 1.5rem;
-  }
-
-  @include onMobile() {
-    max-width: none;
-    margin: 0;
-    padding: 0 1rem;
+  @media screen and (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
   }
 }
 
-.quickScore {
-  text-align: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.levelHeading,
+.formHeading {
+  margin: 0 0 16px;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: $navy;
 
-  @include onTablet() {
-    max-width: 800px;
-    padding: 0 1.5rem;
-  }
-
-  @include onMobile() {
-    max-width: none;
-    padding: 0 1rem;
-  }
-
-  h2 {
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-
-    @include onMobile() {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
+  @include onTabletAndDesktop() {
+    font-size: 28px;
   }
 }
 
@@ -52,23 +31,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: var(--radius-card);
-  border: 2px solid #0f8d8c;
-  box-shadow: var(--shadow-rest);
-  margin-bottom: 2rem;
+  gap: 12px;
+  padding: 32px 24px;
+  background: $surface-alt;
+  border: 1px solid $line;
+  border-radius: $radius-card;
+  text-align: center;
 
   @include onMobile() {
-    padding: 1.5rem 1rem;
+    padding: 24px 16px;
   }
 }
 
 .scoreNumber {
+  font-family: Montserrat, sans-serif;
   font-size: 3rem;
   font-weight: 700;
-  color: #0f8d8c;
+  color: $teal;
   line-height: 1;
 
   @include onMobile() {
@@ -77,240 +56,224 @@
 }
 
 .levelText {
+  font-family: Montserrat, sans-serif;
   font-size: 1.2rem;
-  color: #333;
-  font-weight: 500;
+  font-weight: 700;
+  color: $navy;
 }
 
 .levelDescription {
   margin: 0;
-  max-width: 540px;
-  color: #555;
+  color: $text-body;
   font-size: 1rem;
   line-height: 1.6;
 }
 
 .scoreDetails {
-  color: #666;
+  color: $text-secondary;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.infoBox {
-  background: #e8f5f5;
-  padding: 2rem;
-  border-radius: var(--radius-card);
-  margin-bottom: 3rem;
-  border-left: 4px solid #0f8d8c;
+.socialProof {
+  margin: 16px 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: $text-secondary;
+  text-align: center;
 
-  @include onMobile() {
-    padding: 1.5rem;
-    border-radius: var(--radius-card);
-    margin-bottom: 2rem;
+  strong {
+    color: $teal-dark;
   }
+}
 
-  h3 {
-    color: #0f8d8c;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
-
-    @include onMobile() {
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
-    }
-  }
-
-  p {
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-
-    @include onMobile() {
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-  }
+.formNote {
+  margin: 0 0 24px;
+  color: $text-secondary;
 }
 
 .contactForm {
-  background: white;
-  padding: 2.5rem;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-rest);
-  border: 1px solid #e9ecef;
+  @include card(2rem);
 
   @include onMobile() {
-    padding: 1.5rem 1rem;
-    border-radius: var(--radius-card);
-    display: flex;
-    flex-direction: column;
+    padding: 1.5rem 1.25rem;
   }
 }
 
 .formGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 
-  @include onMobile() {
-    margin-bottom: 1.25rem;
-  }
-
-  label {
+  label,
+  .radioLabel {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
-
-    @include onMobile() {
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-    }
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: $text-primary;
   }
+}
+
+.required {
+  color: #dc3545;
 }
 
 .formControl {
   width: 100%;
-  padding: 0.8rem 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: var(--radius-control);
+  padding: 12px 14px;
+  border: 1.5px solid $line;
+  border-radius: $radius-control;
   font-size: 1rem;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: border-color 0.2s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   @include onMobile() {
-    padding: 0.75rem 0.875rem;
     font-size: 16px; // Prevents zoom on iOS
-    border-radius: var(--radius-control);
   }
 
   &:focus {
     outline: none;
-    border-color: #0f8d8c;
-    box-shadow: 0 0 0 3px rgba(15, 141, 140, 0.1);
-  }
-
-  &:invalid {
-    border-color: #dc3545;
-  }
-}
-
-.radioLabel {
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 1rem;
-  display: block;
-
-  @include onMobile() {
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem;
+    border-color: $teal;
+    box-shadow: 0 0 0 3px rgba(15, 141, 140, 0.15);
   }
 }
 
 .radioGroup {
   display: flex;
-  gap: 2rem;
-  margin-top: 0.5rem;
-
-  @include onMobile() {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
+  gap: 24px;
+  margin-top: 4px;
 }
 
 .radioOption {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-
-  @include onMobile() {
-    padding: 0.5rem 0;
-  }
+  gap: 8px;
 
   input[type='radio'] {
     width: auto;
     margin: 0;
-    accent-color: #0f8d8c;
-
-    @include onMobile() {
-      transform: scale(1.1);
-    }
+    accent-color: var(--color-teal);
   }
 
   label {
     margin: 0;
     cursor: pointer;
-    font-weight: normal;
-
-    @include onMobile() {
-      font-size: 0.95rem;
-    }
+    font-weight: 400;
   }
 }
 
 .submitButton {
   @include ctaPrimary();
+
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
+  margin-top: 8px;
 
   @include onMobile() {
-    margin-top: 1.5rem;
     font-size: 16px; // Prevents zoom on iOS
-    padding: 16px 32px; // Larger touch target
   }
+}
 
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
+.guarantee {
+  justify-content: center;
+  margin-top: 16px;
 }
 
 .error {
   color: #dc3545;
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  margin-top: 4px;
   display: block;
+}
 
-  @include onMobile() {
-    font-size: 0.8rem;
+.trialBenefitsSection {
+  text-align: center;
+}
+
+.trialHeading {
+  margin: 0 0 32px;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: $navy;
+
+  @include onTabletAndDesktop() {
+    font-size: 32px;
+  }
+}
+
+// Three of these, not six; the other three repeated the email's promises.
+.benefitsGrid {
+  display: grid;
+  gap: 24px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+  text-align: left;
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.benefitCard {
+  @include card();
+}
+
+.benefitIcon {
+  margin-bottom: 16px;
+  font-size: 28px;
+  color: $teal;
+}
+
+.benefitTitle {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.benefitText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-body;
+}
+
+.socialProofBanner {
+  margin: 0;
+  padding: 20px 24px;
+  background: rgba(15, 141, 140, 0.08);
+  border-left: 4px solid $teal;
+  border-radius: $radius-control;
+  color: $text-primary;
+  font-size: 1.05rem;
+  text-align: center;
+
+  strong {
+    color: $teal-dark;
   }
 }
 
 .successMessage {
+  @include card(3rem 2rem);
+
+  max-width: 720px;
+  margin: 0 auto;
   text-align: center;
-  padding: 3rem 2rem;
-  background: white;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-rest);
 
   @include onMobile() {
     padding: 2rem 1.5rem;
-    border-radius: var(--radius-card);
   }
 }
 
 .successIcon {
-  margin-bottom: 2rem;
-
-  @include onMobile() {
-    margin-bottom: 1.5rem;
-  }
+  margin-bottom: 24px;
 
   svg {
     font-size: 4rem;
-    color: #28a745;
+    color: $teal;
 
     @include onMobile() {
       font-size: 3rem;
@@ -319,44 +282,33 @@
 }
 
 .successContent {
-  h3 {
-    color: #2c3e50; // Spójny z nagłówkami na stronie głównej
-    margin-bottom: 1.5rem;
+  h2 {
+    color: $navy;
+    margin-bottom: 20px;
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: 700;
 
     @include onMobile() {
       font-size: 1.5rem;
-      margin-bottom: 1rem;
     }
   }
 
   p {
-    color: #535967; // Spójny z tekstem na stronie głównej
+    color: $text-body;
     line-height: 1.6;
     margin-bottom: 1rem;
-    font-size: 1.1rem;
-
-    @include onMobile() {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.75rem;
-    }
+    font-size: 1.05rem;
 
     &:last-of-type {
-      margin-bottom: 2rem;
-
-      @include onMobile() {
-        margin-bottom: 1.5rem;
-      }
+      margin-bottom: 0;
     }
   }
 }
 
 .mailCheckReminder {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: var(--radius-control);
+  background: $surface-alt;
+  border: 1px solid $line;
+  border-radius: $radius-control;
   padding: 1.5rem;
   margin: 1.5rem 0;
   text-align: center;
@@ -365,9 +317,9 @@
     margin-bottom: 0.5rem;
 
     &:first-child {
-      color: #0f8d8c; // Spójny z kolorem brand na stronie głównej
-      font-size: 1.1rem;
-      font-weight: 600;
+      color: $teal-dark;
+      font-size: 1.05rem;
+      font-weight: 700;
     }
 
     &:last-child {
@@ -376,331 +328,8 @@
   }
 
   .reminderText {
-    color: #535967; // Spójny z tekstem na stronie głównej
+    color: $text-body;
     font-size: 0.9rem;
     line-height: 1.5;
-  }
-
-  @include onMobile() {
-    padding: 1rem;
-    margin: 1rem 0;
-
-    p:first-child {
-      font-size: 1rem;
-    }
-
-    .reminderText {
-      font-size: 0.85rem;
-    }
-  }
-}
-
-.inlineIcon {
-  color: #0f8d8c;
-  font-size: 1rem;
-  margin-left: 0.5rem;
-
-  // Hide icon on mobile to prevent layout issues with line breaks
-  @include onMobile() {
-    display: none;
-  }
-}
-
-// Modern sections styles inspired by homepage
-.socialProof {
-  font-size: 1.2rem;
-  color: #535967;
-  margin: 0;
-  line-height: 1.5;
-
-  @include onMobile() {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-
-  strong {
-    color: #0f8d8c;
-    font-weight: 600;
-  }
-}
-
-// Section headings
-.sectionHeading {
-  text-align: center;
-  margin-bottom: 3rem;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 2rem;
-
-  @include onTablet() {
-    max-width: 700px;
-    padding: 0 1.5rem;
-  }
-
-  @include onMobile() {
-    margin-bottom: 2rem;
-    padding: 0 1rem;
-  }
-
-  h3 {
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    line-height: 1.2;
-
-    @include onMobile() {
-      font-size: 1.6rem;
-      line-height: 1.3;
-      margin-bottom: 0.75rem;
-    }
-  }
-}
-
-.sectionSubtitle {
-  font-size: 1.1rem;
-  color: #535967;
-  margin: 0;
-  line-height: 1.5;
-
-  @include onMobile() {
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-}
-
-// Value cards section
-
-.introText {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 2rem;
-
-  p {
-    font-size: 1.1rem;
-    color: #2c3e50;
-    margin: 0;
-
-    @include onMobile() {
-      font-size: 1rem;
-    }
-
-    strong {
-      color: #0f8d8c;
-    }
-  }
-}
-
-.valueGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-
-  @include onTablet() {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  @include onMobile() {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-}
-
-.valueCard {
-  background: white;
-  padding: 2.5rem 2rem;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-rest);
-  text-align: center;
-  border-top: 4px solid #0f8d8c;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  @include onMobile() {
-    padding: 2rem 1.5rem;
-    border-radius: var(--radius-card);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-
-    @include onMobile() {
-      transform: translateY(-2px);
-    }
-  }
-}
-
-.cardIcon {
-  margin-bottom: 1.5rem;
-
-  @include onMobile() {
-    margin-bottom: 1rem;
-  }
-}
-
-.iconWrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #e8f5f5, #d4edec);
-  border-radius: 50%;
-  border: 3px solid #0f8d8c;
-
-  @include onMobile() {
-    width: 60px;
-    height: 60px;
-    border-width: 2px;
-  }
-
-  svg {
-    font-size: 2.2rem;
-    color: #0f8d8c;
-
-    @include onMobile() {
-      font-size: 1.6rem;
-    }
-  }
-}
-
-.cardContent {
-  h4 {
-    font-size: 1.3rem;
-    color: #2c3e50;
-    margin: 0 0 1rem 0;
-    font-weight: 600;
-
-    @include onMobile() {
-      font-size: 1.1rem;
-      margin-bottom: 0.75rem;
-    }
-  }
-
-  p {
-    font-size: 1rem;
-    color: #535967;
-    margin: 0;
-    line-height: 1.5;
-
-    @include onMobile() {
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-  }
-}
-
-// Trial benefits section
-
-.benefitsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 3rem;
-
-  @include onTablet() {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  @include onMobile() {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-  }
-}
-
-.benefitCard {
-  background: white;
-  padding: 2rem;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-rest);
-  border: 1px solid #e9ecef;
-  text-align: center;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  @include onMobile() {
-    padding: 1.5rem 1rem;
-    border-radius: var(--radius-card);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-rest);
-
-    @include onMobile() {
-      transform: translateY(-2px);
-    }
-  }
-}
-
-.benefitIcon {
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @include onMobile() {
-    margin-bottom: 1rem;
-  }
-
-  svg {
-    font-size: 2.5rem;
-    color: #0f8d8c;
-
-    @include onMobile() {
-      font-size: 2rem;
-    }
-  }
-}
-
-.benefitContent {
-  h4 {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    margin: 0 0 0.75rem 0;
-    font-weight: 600;
-
-    @include onMobile() {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: #535967;
-    margin: 0;
-    line-height: 1.5;
-
-    @include onMobile() {
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-  }
-}
-
-.socialProofBanner {
-  text-align: center;
-  background: rgba(15, 141, 140, 0.08);
-  color: #2c3e50;
-  padding: 1.5rem 2rem;
-  border-radius: var(--radius-card);
-  font-size: 1.1rem;
-  border-left: 4px solid #0f8d8c;
-
-  @include onMobile() {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    border-radius: var(--radius-control);
-  }
-
-  strong {
-    color: #0f8d8c;
-    font-weight: 700;
   }
 }

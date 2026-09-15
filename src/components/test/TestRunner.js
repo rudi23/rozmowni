@@ -17,6 +17,14 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
 
   const totalQuestions = testData[selectedTest].questions.length;
 
+  // On a phone the navigation is a bar fixed to the bottom of the screen, so
+  // the document needs room under it or it covers the end of the footer.
+  useEffect(() => {
+    document.body.classList.add('has-fixed-test-nav');
+
+    return () => document.body.classList.remove('has-fixed-test-nav');
+  }, []);
+
   // Reported on display, before the user answers: the last event a visitor
   // sends is then literally the last question they saw, which is where they
   // gave up.
@@ -96,52 +104,49 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <div className={styles.progressInfo}>
-              <span className={styles.progressText}>
-                {answeredCount} z {totalQuestions} odpowiedzi
-              </span>
-              <span className={styles.questionNumber}>
-                Pytanie {currentQuestion + 1}/{totalQuestions}
-              </span>
-            </div>
+            <p className={styles.progressInfo}>
+              Pytanie {currentQuestion + 1} z {totalQuestions}
+            </p>
           </div>
 
           <div className={styles.questionContainer}>
-            <h3 className={styles.questionText}>
-              {currentQuestion + 1}. {currentQuestionData.question}
-            </h3>
+            <h2 className={styles.questionText}>
+              {currentQuestionData.question}
+            </h2>
 
             <div className={styles.answersContainer}>
               {currentQuestionData.options.map((option, index) => (
-                <div
+                <button
+                  type="button"
                   key={index}
                   className={`${styles.answerOption} ${
                     selectedAnswer === index ? styles.selected : ''
                   }`}
+                  aria-pressed={selectedAnswer === index}
                   onClick={() => handleAnswerSelect(index)}
                 >
-                  <span className={styles.answerLetter}>
-                    {String.fromCharCode(97 + index)})
+                  <span className={styles.answerLetter} aria-hidden="true">
+                    {String.fromCharCode(97 + index)}
                   </span>
                   <span className={styles.answerText}>{option}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
 
           <div className={styles.navigationButtons}>
-            <div className={styles.leftButton}>
-              {currentQuestion > 0 && (
-                <button
-                  className={styles.prevButton}
-                  onClick={handlePreviousQuestion}
-                >
-                  Poprzednie
-                </button>
-              )}
-            </div>
+            {currentQuestion > 0 && (
+              <button
+                type="button"
+                className={styles.prevButton}
+                onClick={handlePreviousQuestion}
+              >
+                Wstecz
+              </button>
+            )}
 
             <button
+              type="button"
               className={`${styles.nextButton} ${selectedAnswer === null ? styles.disabled : ''}`}
               onClick={handleNextQuestion}
               disabled={selectedAnswer === null}

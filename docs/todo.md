@@ -55,7 +55,7 @@ punktów jest celowo bez zmian.
 
 ### 1. Dane osobowe trafiają do konsoli przeglądarki na produkcji
 
-**Gdzie:** `src/components/test/TestResultsView.js:98`
+**Gdzie:** `src/components/test/TestResultsView.js:118`
 
 ```js
 // Here you would normally send to your backend for contact form
@@ -107,7 +107,7 @@ dla `src/components/**` i `src/pages/**` z wyłączeniem `src/pages/api/**`.
 ### 6. Brak jakiegokolwiek trackingu błędów
 
 **Gdzie:** `src/components/ContactForm.js:44-52`,
-`src/components/test/TestResultsView.js:55-120` (`onSubmitContactForm`)
+`src/components/test/TestResultsView.js:72-142` (`onSubmitContactForm`)
 
 Zdarzenia lecą wyłącznie po sukcesie:
 

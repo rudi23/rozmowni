@@ -335,7 +335,7 @@ To jedyne miejsce, gdzie mierzone są realne konwersje. Definicje w
 | Moment                                                            | Event FB               | Gdzie                    | Payload                                                             |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------ | ------------------------------------------------------------------- |
 | Użytkownik skończył pytania, pokazuje się ekran wyniku            | `Lead`                 | `test-poziomujacy.js:53` | `content_name: 'Test poziomujący'`, `content_category: <typ testu>` |
-| Użytkownik zostawił dane kontaktowe i **mail faktycznie wyszedł** | `CompleteRegistration` | `TestResultsView.js:93`  | jw. + `status: true`                                                |
+| Użytkownik zostawił dane kontaktowe i **mail faktycznie wyszedł** | `CompleteRegistration` | `TestResultsView.js:113` | jw. + `status: true`                                                |
 
 Szczegóły, które łatwo przeoczyć:
 

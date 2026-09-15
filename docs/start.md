@@ -197,7 +197,7 @@ flowchart TD
     A[CTA na stronie / menu] --> B["/test-poziomujacy<br/>TestIntroView"]
     B -->|wybór: teens 11-16 / adults 17+| C["TestRunner<br/>25 pytań, 1 na ekran"]
     C -->|Zakończ test| D["score = liczba poprawnych<br/>FB Pixel: Lead"]
-    D --> E["TestResultsFormView<br/>gratulacje + formularz<br/>(wynik NIE jest pokazany)"]
+    D --> E["TestResultsFormView<br/>karta z poziomem + formularz obok"]
     E -->|submit| F["POST /api/send-test-results<br/>x-api-key"]
     F -->|401 / 429 / 400 / 500| E
     F -->|200| G["FB Pixel: CompleteRegistration<br/>komunikat sukcesu (3 s)"]
@@ -233,20 +233,26 @@ Stan jest tylko w pamięci – odświeżenie strony zaczyna test od nowa.
 
 ### 6.4 Ekrany
 
-**Ekran 1 – `TestIntroView`.** Landing z korzyściami (10 minut, wynik od razu,
-A1–C2, darmowy; po teście: poziom, zaproszenie na lekcję próbną, e-book
-„Czas na angielski”). Na dole dwa kafelki wyboru:
+**Ekran 1 – `TestIntroView`.** Tytuł strony, jedno zdanie, trzy fakty w linii
+(10 minut, poziomy A1–C2, bezpłatny) i **od razu pod nimi** dwa kafelki wyboru:
 „Test dla młodzieży” (11–16 lat, `teens`) i „Test dla dorosłych” (17+, `adults`).
-Oba mają 25 pytań.
+Oba mają 25 pytań. Każdy kafelek jest jednym `<button>`, więc działa z klawiatury.
+Niżej sekcja „Co otrzymasz” (poziom na piśmie, lekcja próbna, e-book). Wybór
+wersji mieści się nad krawędzią ekranu zarówno na komputerze, jak i na telefonie
+– to najkrótsza droga do rozpoczęcia lejka.
 
 **Ekran 2 – `TestRunner`.**
 
-- Jedno pytanie na ekran, odpowiedzi jako klikane kafelki `a) b) c) (d)`.
+- Jedno pytanie na ekran, odpowiedzi jako `<button>` z literą `a b c (d)`.
 - Test dla dorosłych ma 4 opcje, dla młodzieży 3.
 - Przycisk „Następne” jest nieaktywny, dopóki nie wybrano odpowiedzi.
-- „Poprzednie” cofa i przywraca wcześniej wybraną odpowiedź (odpowiedzi trzymane
+- „Wstecz” cofa i przywraca wcześniej wybraną odpowiedź (odpowiedzi trzymane
   w tablicy `answers[indeksPytania]`).
-- Pasek postępu liczy **udzielone odpowiedzi**, nie numer pytania.
+- Pasek postępu liczy **udzielone odpowiedzi**, a podpis pod nim – numer
+  pytania („Pytanie 1 z 25”). Wcześniej były dwie etykiety mówiące to samo.
+- Na telefonie nawigacja to pasek przyklejony do dołu ekranu. `TestRunner`
+  dokłada wtedy klasę `has-fixed-test-nav` na `body`, a reguła w `style.css`
+  daje `#__next` zapas na dole, żeby pasek nie zasłaniał stopki.
 - Na ostatnim pytaniu przycisk zmienia się na „Zakończ test”. Wynik to liczba
   pozycji, gdzie `answers[i] === questions[i].correct`. Wywołuje `onTestComplete(score)`.
 
@@ -255,11 +261,17 @@ ustawia `showResults=true` i wysyła do FB Pixel event **`Lead`**
 (`TEST_COMPLETED_LEAD(selectedTest)`, `content_name: 'Test poziomujący'`,
 `content_category: 'adults'|'teens'`). Event odpala się raz na ukończony test.
 
-**Ekran 3 – `TestResultsFormView`.** Celowo **nie pokazuje wyniku ani poziomu**
-na stronie. Użytkownik widzi:
+**Ekran 3 – `TestResultsFormView`.** Dwie kolumny: po lewej karta z poziomem,
+po prawej formularz. Użytkownik widzi:
 
-- „Gratulacje! Test ukończony!” + social proof (100+ osób),
-- co dostanie mailem (szczegółowy wynik, e-book 12 stron),
+- kartę z poziomem (`A1`…`C2`), opisem i liczbą poprawnych odpowiedzi, oraz
+  social proof (100+ osób),
+
+  > **Do ustalenia:** ten ekran **pokazuje** poziom i punktację, mimo że
+  > `CLAUDE.md` i poprzednia wersja tego opisu twierdzą, że wynik trafia
+  > wyłącznie mailem. Audyt designu wskazał tę rozbieżność; póki nie zapadnie
+  > decyzja, kod zostaje bez zmian.
+
 - **formularz** (react-hook-form):
 
   | Pole                | Wymagane                                  | Walidacja             |
@@ -269,7 +281,7 @@ na stronie. Użytkownik widzi:
   | Numer telefonu      | tylko gdy „Preferowany kontakt” = Telefon | `/^[+]?[\d\s\-()]+$/` |
   | Preferowany kontakt | tak (radio: Telefon / Email)              |                       |
 
-- korzyści z lekcji próbnej i social proof „90% uczniów poleca”.
+- niżej trzy korzyści z lekcji próbnej i social proof „90% uczniów poleca”.
 
 Poziom liczony jest po stronie klienta: `getLevel(score, selectedTest)` zwraca
 obiekt `{ level, title, description }`; do API idzie `testLevel` jako
