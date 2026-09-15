@@ -1,8 +1,12 @@
 import CookieConsentCore from 'react-cookie-consent';
 import Link from 'next/link';
+import useClickTracking from '../hooks/useClickTracking';
+import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
 
 export function CookieConsent() {
+  const trackClick = useClickTracking();
+
   return (
     <CookieConsentCore
       location="bottom"
@@ -29,7 +33,10 @@ export function CookieConsent() {
     >
       Używamy plików cookies, aby poprawić funkcjonalność strony. Możesz je
       wyłączyć w ustawieniach przeglądarki. Więcej w naszej{' '}
-      <Link href={routeMap[routeNames.PRIVACY_POLICY]}>
+      <Link
+        href={routeMap[routeNames.PRIVACY_POLICY]}
+        onClick={() => trackClick(events.COOKIE_CONSENT_CLICK_PRIVACY_POLICY)}
+      >
         polityce prywatności.
       </Link>
     </CookieConsentCore>

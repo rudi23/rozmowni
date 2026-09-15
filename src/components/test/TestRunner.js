@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import useClickTracking from '../../hooks/useClickTracking';
+import { events } from '../../services/tracking';
 import PageHeader from '../PageHeader';
 import Section from '../Section';
 import { testData } from '../../data/testData';
@@ -8,6 +10,28 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const trackClick = useClickTracking();
+  // Highest question already reported to GA. Going back and forward again must
+  // not report a question twice, or the drop-off curve stops being monotonic.
+  const furthestQuestionRef = useRef(0);
+
+  const totalQuestions = testData[selectedTest].questions.length;
+
+  // Reported on display, before the user answers: the last event a visitor
+  // sends is then literally the last question they saw, which is where they
+  // gave up.
+  useEffect(() => {
+    const questionNumber = currentQuestion + 1;
+
+    if (questionNumber <= furthestQuestionRef.current) {
+      return;
+    }
+
+    furthestQuestionRef.current = questionNumber;
+    trackClick(
+      events.TEST_PROGRESS(selectedTest, questionNumber, totalQuestions),
+    );
+  }, [currentQuestion, selectedTest, totalQuestions, trackClick]);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
@@ -19,7 +43,7 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
 
   const handleNextQuestion = () => {
     if (selectedAnswer !== null) {
-      if (currentQuestion < testData[selectedTest].questions.length - 1) {
+      if (currentQuestion < totalQuestions - 1) {
         setCurrentQuestion(currentQuestion + 1);
         // Set selectedAnswer to the answer for the next question if it exists
         setSelectedAnswer(
@@ -58,8 +82,7 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
   const currentQuestionData = testData[selectedTest].questions[currentQuestion];
   // Calculate progress based on number of answered questions
   const answeredCount = answers.filter((answer) => answer !== undefined).length;
-  const progress =
-    (answeredCount / testData[selectedTest].questions.length) * 100;
+  const progress = (answeredCount / totalQuestions) * 100;
 
   return (
     <>
@@ -75,12 +98,10 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
             </div>
             <div className={styles.progressInfo}>
               <span className={styles.progressText}>
-                {answeredCount} z {testData[selectedTest].questions.length}{' '}
-                odpowiedzi
+                {answeredCount} z {totalQuestions} odpowiedzi
               </span>
               <span className={styles.questionNumber}>
-                Pytanie {currentQuestion + 1}/
-                {testData[selectedTest].questions.length}
+                Pytanie {currentQuestion + 1}/{totalQuestions}
               </span>
             </div>
           </div>
@@ -125,7 +146,7 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
               onClick={handleNextQuestion}
               disabled={selectedAnswer === null}
             >
-              {currentQuestion === testData[selectedTest].questions.length - 1
+              {currentQuestion === totalQuestions - 1
                 ? 'Zakończ test'
                 : 'Następne'}
             </button>

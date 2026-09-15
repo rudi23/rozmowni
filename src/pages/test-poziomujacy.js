@@ -4,11 +4,13 @@ import TestIntroView from '../components/test/TestIntroView';
 import TestRunner from '../components/test/TestRunner';
 import TestResultsView from '../components/test/TestResultsView';
 import useFacebookEventTracking from '../hooks/useFacebookEventTracking';
-import { facebookEvents } from '../services/tracking';
+import useClickTracking from '../hooks/useClickTracking';
+import { events, facebookEvents } from '../services/tracking';
 
 export default function TestPage() {
   const router = useRouter();
   const trackFacebookEvent = useFacebookEventTracking();
+  const trackClick = useClickTracking();
   const [selectedTest, setSelectedTest] = useState(null);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
@@ -39,12 +41,15 @@ export default function TestPage() {
     setSelectedTest(testType);
     setShowResults(false);
     setScore(0);
+    // Start of the funnel: the user picked a test type, not just landed here
+    trackClick(events.TEST_START(testType));
   };
 
   const handleTestComplete = (finalScore) => {
     setScore(finalScore);
     setShowResults(true);
-    // Fires once per completed test, at the transition to the results screen
+    // Both fire once per completed test, at the transition to the results screen
+    trackClick(events.TEST_COMPLETED(selectedTest));
     trackFacebookEvent(facebookEvents.TEST_COMPLETED_LEAD(selectedTest));
   };
 

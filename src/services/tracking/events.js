@@ -1,3 +1,8 @@
+// Dopełnione do szerokości `total`, bo GA4 sortuje etykiety leksykalnie:
+// 'question 02' musi wypaść przed 'question 10' także przy >99 pytaniach.
+const paddedQuestion = (question, total) =>
+  String(question).padStart(String(total).length, '0');
+
 export const HOME_BANNER_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
@@ -99,6 +104,33 @@ export const HOLIDAY_COURSE_CLICK_PHONE = {
   action: 'Click',
   label: 'Contact phone',
 };
+
+export const COURSE_REQUIREMENTS_CLICK_PLATFORM = (platform, path) => ({
+  category: 'Course requirements',
+  action: 'Click',
+  label: `${platform} from '${path}'`,
+});
+
+export const TEST_START = (testType) => ({
+  category: 'Test',
+  action: 'Start',
+  label: testType,
+});
+export const TEST_PROGRESS = (testType, question, total) => ({
+  category: 'Test',
+  action: 'Progress',
+  label: `${testType} - question ${paddedQuestion(question, total)}/${total}`,
+});
+export const TEST_COMPLETED = (testType) => ({
+  category: 'Test',
+  action: 'Complete',
+  label: testType,
+});
+export const TEST_CONTACT_DETAILS_SENT = (testType) => ({
+  category: 'Test',
+  action: 'Send',
+  label: testType,
+});
 
 export const CONTACT_SEND_FORM = {
   category: 'Contact',
@@ -217,3 +249,9 @@ export const NAVIGATION_CLICK_MENU_ITEM = (path) => ({
   action: 'Click',
   label: `Navigate to '${path}'`,
 });
+
+export const COOKIE_CONSENT_CLICK_PRIVACY_POLICY = {
+  category: 'Cookie consent',
+  action: 'Click',
+  label: 'Privacy policy',
+};

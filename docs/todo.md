@@ -32,8 +32,19 @@ analityczne, **P3** – martwy kod i czystość.
   `router.pathname` (jak `FOOTER_CLICK_MENU_ITEM`), więc w GA4 widać osobno
   `Google reviews from '/'` i `Google reviews from '/o-nas'`.
 - **10 i 11** – usunięte sześć nigdy niewysyłanych stałych, w tym
-  `NOTIFCATION_CLICK` z literówką. `events.js` ma teraz 42 stałe i **wszystkie
+  `NOTIFCATION_CLICK` z literówką. `events.js` ma teraz 47 stałych i **wszystkie
   są używane**.
+- **7** – pełny lejek testu w GA4: `TEST_START` (wybór typu),
+  `TEST_PROGRESS` (każde z 25 pytań, przy wyświetleniu) i `TEST_COMPLETED`
+  (ekran wyników). Widać teraz, **na którym pytaniu ludzie porzucają test**.
+  Szczegóły i pułapki w [tracking.md](tracking.md), sekcja 4.6.
+- **Dodatkowo** (spoza numeracji, z audytu klikalnych elementów): otrackowane
+  wychodzące linki do Zoom / Google Meet / Teams w `CourseRequirements`
+  oraz link do polityki prywatności w banerze cookies. **Nie ma już
+  nieotrackowanych linków ani CTA** – pozostałe klikalne elementy to czyste UI
+  (rozwijanie sekcji, hamburger, zwijanie paska). Wysyłka danych kontaktowych
+  z testu, wcześniej raportowana wyłącznie na Pixela, ma teraz także event GA
+  (`TEST_CONTACT_DETAILS_SENT`), więc lejek domyka się w samym GA4.
 
 Zaktualizowany opis stanu: [tracking.md](tracking.md). Numeracja pozostałych
 punktów jest celowo bez zmian.
@@ -110,21 +121,6 @@ konwersji, bez sygnału, że to awaria, a nie gorszy ruch.
 
 **Fix:** dodać eventy błędów z kodem odpowiedzi, np.
 `{ category: 'Test', action: 'Error', label: 'send-test-results 500' }`.
-
-### 7. Postęp i porzucenia testu są niemierzalne
-
-**Gdzie:** `src/pages/test-poziomujacy.js`, `src/components/test/TestRunner.js`
-
-Przejścia intro → pytania → wyniki to zmiany stanu Reacta, a page view zależy
-od `router.pathname`, więc **cały test to jeden page view w GA4**. Nie ma też
-eventu na start testu ani na poszczególne pytania.
-
-Da się policzyć wyłącznie: page view `/test-poziomujacy` → FB `Lead` →
-FB `CompleteRegistration`. Nie wiadomo, ilu ludzi w ogóle zaczęło test ani na
-którym z 25 pytań odpadają – a to najważniejszy lejek w całym serwisie.
-
-**Fix:** event GA na wybór typu testu (`adults`/`teens`) i na ukończenie, plus
-opcjonalnie co N pytań. GA4 dziś **nie widzi ukończenia testu w ogóle**.
 
 ---
 
@@ -203,8 +199,8 @@ staging bez zmiennych jest automatycznie „cichy").
 1. **Punkty 1 i 12** – jedna zmiana w jednym pliku, usuwa wyciek danych
    osobowych i sztuczne opóźnienie. Zero ryzyka.
 2. **Punkt 3** – reguła ESLint, żeby punkt 1 się nie powtórzył.
-3. **Punkty 6 i 7** – rozbudowa trackingu; największa wartość biznesowa,
-   ale też najwięcej pracy.
+3. **Punkt 6** – tracking błędów; bez niego spadku konwersji nie odróżnisz
+   od awarii.
 4. **Punkt 13** – wymaga zmian w CI i sekretach.
 5. **Punkty 2 i 9** – zgoda na cookies; punkt 2 wymaga decyzji biznesowej,
    punkt 9 najlepiej zrobić razem z nim.

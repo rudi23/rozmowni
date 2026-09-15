@@ -6,7 +6,11 @@ export default function useFacebookEventTracking() {
       return;
     }
 
-    initializeAsync().then((ReactPixel) => sendEvent(ReactPixel, eventData));
+    initializeAsync()
+      .then((ReactPixel) => sendEvent(ReactPixel, eventData))
+      // Pixel is blocked far more often than GA; a failed chunk must not show
+      // up as an unhandled rejection.
+      .catch(() => {});
   }
 
   return trackFacebookEvent;
