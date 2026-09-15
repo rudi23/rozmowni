@@ -6,12 +6,12 @@
    for by the notice above the menu and by the home page's opening section,
    and grey keeps the page alternating grey / white / grey. */
 .root {
-  padding: 40px 0 44px;
+  padding: 40px 0 36px;
   background: $surface-alt;
   border-bottom: 1px solid $line;
 
   @include onMobile() {
-    padding: 28px 0 32px;
+    padding: 28px 0 28px;
   }
 
   h1 {

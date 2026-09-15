@@ -6,7 +6,7 @@ import styles from './PageHeader.module.scss';
 
 function PageHeader({ title, lede, breadcrumb = false }) {
   return (
-    <section className={styles.root}>
+    <section className={`page-header ${styles.root}`}>
       <div className="container">
         {breadcrumb && (
           <nav className={styles.breadcrumb} aria-label="Ścieżka nawigacji">

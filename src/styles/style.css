@@ -301,6 +301,18 @@ ol {
   color: #385777;
 }
 
+/* The band already separates the header from the content, so the section
+   right after it does not need the full gap meant for section-to-section. */
+.page-header + section {
+  padding-top: 48px;
+}
+
+@media (max-width: 767px) {
+  .page-header + section {
+    padding-top: 32px;
+  }
+}
+
 /* =========================
  Course pages
 ==============================*/
