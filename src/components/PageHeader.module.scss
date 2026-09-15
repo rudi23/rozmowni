@@ -1,12 +1,17 @@
 @import '../styles/mixins';
 
-/* The page opens with its own title in the content column.
-   No full-width band, so the page starts where the reading starts. */
+/* The title, the breadcrumb and the lede sit on their own ground, so the
+   header reads as a block instead of running into the content on the same
+   white. Cool grey, not the cream the old template used: cream is spoken
+   for by the notice above the menu and by the home page's opening section,
+   and grey keeps the page alternating grey / white / grey. */
 .root {
-  padding: 56px 0 0;
+  padding: 40px 0 44px;
+  background: $surface-alt;
+  border-bottom: 1px solid $line;
 
   @include onMobile() {
-    padding: 32px 0 0;
+    padding: 28px 0 32px;
   }
 
   h1 {
