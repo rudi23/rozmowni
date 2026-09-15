@@ -20,12 +20,14 @@ import { CookieConsent } from '../components/CookieConsent';
 import Metadata from '../components/Metadata';
 import useFacebookTracking from '../hooks/useFacebookTracking';
 import usePageViewTracking from '../hooks/usePageViewTracking';
+import usePostHogTracking from '../hooks/usePostHogTracking';
 
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 function MyApp({ Component, pageProps }) {
   useFacebookTracking();
   usePageViewTracking();
+  usePostHogTracking();
   const router = useRouter();
 
   return (
