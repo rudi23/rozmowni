@@ -1,0 +1,23 @@
+@import '../styles/mixins';
+
+// Scrolls away; the header sticks over it.
+.bar {
+  padding: 10px 0;
+  background: $cream;
+  text-align: center;
+}
+
+.text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $navy;
+
+  strong {
+    font-family: Montserrat, sans-serif;
+  }
+
+  @include onMobile() {
+    font-size: 14px;
+  }
+}

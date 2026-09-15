@@ -211,7 +211,7 @@ potencjalny adres e-mail – nie wstawiaj do etykiet danych użytkownika.
 | `Navigation`          | 6   | header – logo, social media, telefon, menu                                |
 | `Holiday course`      | 4   | `/kursy/intensywne-kursy-wakacyjne`                                       |
 | `Test`                | 4   | lejek testu – `Start`, `Progress`, `Complete`, `Send` (4.6)               |
-| `Individual course`   | 2   | `/kursy/indywidualne` – „Zapisz się" i CTA testu w `NewSemesterSignUp`    |
+| `Individual course`   | 1   | `/kursy/indywidualne` – przycisk „Zapisz się"                             |
 | `* course` (3 kat.)   | 3   | przycisk „Zapisz się" w `CourseSidebar` na pozostałych stronach kursów    |
 | `Pricing`             | 1   | przycisk „Zapisz się" na każdej karcie cennika (label niesie nazwę kursu) |
 | `About us`            | 1   | CTA na lekcję próbną przed opiniami na `/o-nas`                           |
@@ -272,10 +272,10 @@ Cztery strony przekazują: `INDIVIDUAL_COURSE_CLICK_ENROLL`,
 (`if (!eventData) return;`), więc brak propa nie wywala strony – po cichu
 nic nie wyśle.
 
-`/kursy/indywidualne` ma dodatkowo CTA prowadzące do testu poziomującego
-(`NewSemesterSignUp.js`, `INDIVIDUAL_COURSE_CLICK_TEST`), a `/o-nas` CTA przed
-opiniami (`ABOUT_CLICK_TEST`) – to jedyne otrackowane wejścia do lejka testu
-spoza strony głównej.
+`/o-nas` ma CTA przed opiniami (`ABOUT_CLICK_TEST`) – to jedyne otrackowane
+wejście do lejka testu spoza strony głównej poza menu i paskiem `footer-cta`.
+Pasek ogłoszenia nad menu (`AnnouncementBar`) jest samym tekstem, bez linku,
+więc nic nie wysyła; stała `INDIVIDUAL_COURSE_CLICK_TEST` została usunięta.
 
 `/cennik` wysyła `PRICING_CLICK_ENROLL(nazwa kursu)` z każdej karty. To fabryka,
 więc w GA4 jedna stała daje po jednym labelu na kurs

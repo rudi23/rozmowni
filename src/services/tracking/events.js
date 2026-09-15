@@ -55,11 +55,6 @@ export const INDIVIDUAL_COURSE_CLICK_ENROLL = {
   action: 'Click',
   label: 'Enroll',
 };
-export const INDIVIDUAL_COURSE_CLICK_TEST = {
-  category: 'Individual course',
-  action: 'Click',
-  label: 'New semester - test',
-};
 
 export const GROUP_COURSE_CLICK_ENROLL = {
   category: 'Group course',

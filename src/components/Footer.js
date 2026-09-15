@@ -63,9 +63,12 @@ export default function Footer() {
   const trackClick = useClickTracking();
   const { pathname } = useRouter();
   // Pages that close with a call to action of their own do not need the strip.
-  const hasOwnClosingCta =
-    pathname === routeMap[routeNames.TEST] ||
-    pathname === routeMap[routeNames.HOME];
+  // On /kontakt it landed directly under the form's own send button.
+  const hasOwnClosingCta = [
+    routeMap[routeNames.HOME],
+    routeMap[routeNames.TEST],
+    routeMap[routeNames.CONTACT],
+  ].includes(pathname);
 
   const trackMenuItem = (routeName) => () =>
     trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeName]));
@@ -92,7 +95,7 @@ export default function Footer() {
       <footer className="footer">
         <div className="container">
           <div className="row">
-            <div className="col-lg-5 col-md-12">
+            <div className="col-lg-4 col-md-12">
               <div className="footer-widget mb-5 mb-lg-0">
                 <div className="widget-title">Rozmowni.pl</div>
                 <p>
@@ -139,7 +142,25 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="col-lg-4 col-md-6">
+            <div className="col-lg-2 col-md-6">
+              <div className="footer-widget mb-5 mb-lg-0">
+                <div className="widget-title">Szkoła</div>
+                <ul className="footer-links">
+                  {siteRoutes.map(([routeName, label]) => (
+                    <li key={routeName}>
+                      <Link
+                        href={routeMap[routeName]}
+                        onClick={trackMenuItem(routeName)}
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
               <div className="footer-widget footer-contact mb-5 mb-lg-0">
                 <div className="widget-title">Kontakt</div>
                 <ul>
@@ -187,18 +208,6 @@ export default function Footer() {
 
           <div className="footer-btm">
             <p className="copyright">© 2026 Rozmowni.pl</p>
-            <ul className="footer-btm-links">
-              {siteRoutes.map(([routeName, label]) => (
-                <li key={routeName}>
-                  <Link
-                    href={routeMap[routeName]}
-                    onClick={trackMenuItem(routeName)}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </footer>

@@ -13,6 +13,7 @@ import '../components/Footer.css';
 import '../components/Header.scss';
 import '../../public/fonts/fonts.css';
 import '../../public/fonts/fonts2.css';
+import AnnouncementBar from '../components/AnnouncementBar';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { CookieConsent } from '../components/CookieConsent';
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }) {
         <title />
       </Head>
       <Metadata routePath={router.pathname} />
+      <AnnouncementBar />
       <Header />
       <Component {...pageProps} />
       <Footer />

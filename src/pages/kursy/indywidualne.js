@@ -6,7 +6,6 @@ import CourseHeader from '../../components/CourseHeader';
 import CourseInfo from '../../components/CourseInfo';
 import CourseLayout from '../../components/CourseLayout';
 import courseIndividualImage from '../../../public/images/course-individual.jpg';
-import NewSemesterSignUp from '../../components/NewSemesterSignUp';
 
 export default function CoursesIndividual() {
   return (
@@ -17,10 +16,7 @@ export default function CoursesIndividual() {
         lede="Lekcje jeden na jeden, dopasowane do Twojego tempa, celów i grafiku."
       />
 
-      <NewSemesterSignUp />
-
       <CourseLayout
-        background="gray"
         sidebar={
           <CourseSidebar
             image={courseIndividualImage}

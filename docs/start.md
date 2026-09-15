@@ -167,14 +167,16 @@ sekcja konwertuje. Mapa „sekcja → event” jest w
 7. `TestBenefits` – co zyskujesz robiąc test (wynik, lekcja próbna, plan, e-book); CTA test. Oferta „pakietu startowego” jest opisana **tylko tutaj** – `FinalCTA` jej nie powtarza
 8. `Opinions` – karuzela opinii uczniów
 9. `TestFAQ` – 8 pytań w akordeonie (czas, cena, kiedy wynik, spam, poziomy, zobowiązania, powtórka, niski poziom); CTA test + kontakt
-10. `FinalCTA` – końcowe wezwanie do testu (nagłówek, zdanie, przycisk, linijka zapewnienia). Zastępuje na stronie głównej pasek `footer-cta`, który `Footer` ukrywa tu i na stronie testu
+10. `FinalCTA` – końcowe wezwanie do testu (nagłówek, zdanie, przycisk, linijka zapewnienia). Zastępuje na stronie głównej pasek `footer-cta`, który `Footer` ukrywa tam, gdzie strona ma własną akcję: `/`, `/test-poziomujacy` i `/kontakt` (formularz ma własny przycisk wysyłki)
 
 ### 5.4 Wspólny layout (`_app.js`)
 
 Każda strona jest owinięta w: `Metadata` (title/description/OG/JSON-LD z
-`getMetadata`), `Header` (menu desktop + mobile), treść strony, `Footer`
-(linki, social media, telefon, e-mail), `CookieConsent` (baner na dole,
-cookie `cookieConsent` na 90 dni). Hooki `usePageViewTracking` (GA4) i
+`getMetadata`), `AnnouncementBar` (kremowy pasek nad menu z informacją
+o zapisach – sam tekst, bez linku; przewija się, menu przykleja się nad nim),
+`Header` (menu desktop + mobile), treść strony, `Footer` (cztery kolumny:
+o szkole + social media, Kursy, Szkoła, Kontakt; na dole sam copyright),
+`CookieConsent` (baner na dole, cookie `cookieConsent` na 90 dni). Hooki `usePageViewTracking` (GA4) i
 `useFacebookTracking` (FB Pixel PageView) odpalają się przy każdej zmianie
 `router.pathname` – zmiana samego query stringa **nie** wysyła page view
 ([tracking.md](tracking.md#33-konsekwencje-użycia-routerpathname)).
@@ -222,7 +224,6 @@ flowchart TD
 - Menu (desktop i mobile): pozycja „Test poziomujący” z klasą `test-cta`.
 - Strona główna: `Banner`, `SocialProofStats`, `WhyUsExpanded`,
   `TestBenefits`, `TestFAQ`, `FinalCTA`.
-- `/kursy/indywidualne`: pasek ogłoszenia `NewSemesterSignUp` nad treścią linkuje do testu.
 - `/o-nas`: CTA „Poznaj nas na lekcji próbnej” przed sekcją opinii.
 - Każde kliknięcie ma własny event GA (`HOME_*_CLICK_TEST`, `NAVIGATION_CLICK_MENU_ITEM`)
   – pełna lista w [tracking.md](tracking.md#43-lejek-na-stronie-głównej).
