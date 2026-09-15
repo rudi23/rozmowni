@@ -145,7 +145,7 @@ MOBILE PANEL
 @media (max-width: 991px) {
   .navbar-collapse.show {
     position: fixed;
-    top: var(--header-h, 72px);
+    top: var(--header-bottom, 72px);
     right: 0;
     bottom: 0;
     left: 0;

@@ -269,18 +269,31 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // The mobile sheet starts below the bar, so it needs the bar's real height.
+  // Two different measurements. --header-h is how tall the sticky bar is, for
+  // anything sticking under it. --header-bottom is where it currently ends:
+  // the announcement above pushes the bar down until the page scrolls past it,
+  // and the mobile sheet has to start below whatever is on screen right now.
   useEffect(() => {
-    const publishHeight = () => {
-      const height = headerRef.current?.offsetHeight;
-      if (height) {
-        document.documentElement.style.setProperty('--header-h', `${height}px`);
+    const publishOffset = () => {
+      const bar = headerRef.current;
+      if (!bar) {
+        return;
       }
+      const root = document.documentElement.style;
+      root.setProperty('--header-h', `${bar.offsetHeight}px`);
+      root.setProperty(
+        '--header-bottom',
+        `${Math.max(0, Math.round(bar.getBoundingClientRect().bottom))}px`,
+      );
     };
-    publishHeight();
-    window.addEventListener('resize', publishHeight);
+    publishOffset();
+    window.addEventListener('resize', publishOffset);
+    window.addEventListener('scroll', publishOffset, { passive: true });
 
-    return () => window.removeEventListener('resize', publishHeight);
+    return () => {
+      window.removeEventListener('resize', publishOffset);
+      window.removeEventListener('scroll', publishOffset);
+    };
   }, [isClient]);
 
   // Nothing scrolls behind an open sheet.
