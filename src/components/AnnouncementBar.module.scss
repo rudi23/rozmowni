@@ -21,3 +21,10 @@
     font-size: 14px;
   }
 }
+
+// Three lines at the top of a phone screen is too much for a notice.
+.detail {
+  @include onMobile() {
+    display: none;
+  }
+}

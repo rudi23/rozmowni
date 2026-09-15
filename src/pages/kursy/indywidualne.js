@@ -79,6 +79,7 @@ export default function CoursesIndividual() {
         <p>Możesz zdecydować się na jeden z czterech rodzajów zajęć:</p>
 
         <Accordion
+          openFirstOnDesktop
           id="individualTypes"
           cards={[
             {

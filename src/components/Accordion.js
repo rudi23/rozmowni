@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './Accordion.module.scss';
 
-export default function Accordion({ id = 'accordion', cards }) {
+export default function Accordion({
+  id = 'accordion',
+  cards,
+  openFirstOnDesktop = false,
+}) {
   const [collapsedTab, setCollapsedTab] = useState();
+
+  // Opened after mount, not during render: on a phone the first panel would
+  // push everything below it off the screen, and the server has no width.
+  useEffect(() => {
+    if (!openFirstOnDesktop || !cards.length) {
+      return;
+    }
+    if (window.matchMedia('(min-width: 992px)').matches) {
+      setCollapsedTab(cards[0].id);
+    }
+  }, [openFirstOnDesktop, cards]);
 
   const onClick = (id) => {
     if (collapsedTab === id) {
