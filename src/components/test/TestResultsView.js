@@ -102,6 +102,11 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
           testLevel: formDataWithScore.testLevel,
           testType: formDataWithScore.testType,
           totalQuestions: testData[selectedTest].questions.length,
+          // Analytics only: `testScore` is the display string that goes to the
+          // CSV and the emails, and `testLevel` carries the level title with it.
+          // Neither can change shape, so PostHog gets its own plain values.
+          correctAnswers: score,
+          testLevelCode: level?.level,
         }),
       });
 

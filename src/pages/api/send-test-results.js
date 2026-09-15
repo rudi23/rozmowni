@@ -170,6 +170,8 @@ export default async function handler(req, res) {
       testLevel,
       testType,
       totalQuestions,
+      correctAnswers,
+      testLevelCode,
     } = req.body;
 
     // Validate required fields
@@ -279,10 +281,19 @@ export default async function handler(req, res) {
       event: 'test_results_processed',
       properties: {
         test_type: testType,
-        test_level: testLevel,
+        // Prefer the plain code, so this property matches the client-side test
+        // events. `testLevel` ('B1 - Intermediate') is the fallback for a stale
+        // cached bundle that does not send the code yet.
+        test_level: testLevelCode || testLevel,
         contact_method: contactMethod,
         delivery_type: deliveryType,
         total_questions: totalQuestions,
+        // Omitted rather than zeroed when the client did not send them: zero is
+        // a valid score and a default would skew the distribution.
+        ...(typeof correctAnswers === 'number' && {
+          score: correctAnswers,
+          score_percent: Math.round((correctAnswers / totalQuestions) * 100),
+        }),
       },
     });
 
