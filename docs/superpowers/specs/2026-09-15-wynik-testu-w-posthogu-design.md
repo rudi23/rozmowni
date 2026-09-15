@@ -150,9 +150,9 @@ Wspólny helper trzyma zestaw z sekcji 5 w jednym miejscu, żeby obie fabryki ni
 rozjechały się przy kolejnej zmianie:
 
 ```js
-const testScoreProperties = (testType, score, totalQuestions) => ({
+const testScoreProperties = (testType, score, totalQuestions, level) => ({
   test_type: testType,
-  test_level: getLevel(score, testType)?.level,
+  test_level: level,
   score,
   total_questions: totalQuestions,
   score_percent: Math.round((score / totalQuestions) * 100),
@@ -160,27 +160,47 @@ const testScoreProperties = (testType, score, totalQuestions) => ({
 ```
 
 ```js
-export const TEST_COMPLETED = (testType, score, totalQuestions) => ({
+export const TEST_COMPLETED = (testType, score, totalQuestions, level) => ({
   category: 'Test',
   action: 'Complete',
   label: testType,
   posthogEvent: 'test_completed',
-  posthogProperties: testScoreProperties(testType, score, totalQuestions),
+  posthogProperties: testScoreProperties(
+    testType,
+    score,
+    totalQuestions,
+    level,
+  ),
 });
 
-export const TEST_CONTACT_DETAILS_SENT = (testType, score, totalQuestions) => ({
+export const TEST_CONTACT_DETAILS_SENT = (
+  testType,
+  score,
+  totalQuestions,
+  level,
+) => ({
   category: 'Test',
   action: 'Send',
   label: testType,
   posthogEvent: 'test_lead_submitted',
-  posthogProperties: testScoreProperties(testType, score, totalQuestions),
+  posthogProperties: testScoreProperties(
+    testType,
+    score,
+    totalQuestions,
+    level,
+  ),
 });
 ```
 
 `category`, `action` i `label` zostają **bez zmian** –
 raporty GA4 z poprzedniego kroku muszą dalej działać.
 
-**Guard na `getLevel`.** `getLevel` w `src/data/testData.js` to `levels.find(...)`,
+**Poziom wyliczają wywołujący, nie helper.** `events.js` nie może importować
+`getLevel`: funkcja odwołuje się do `testData`, więc import wciągnąłby cały bank
+pytań (~470 linii) do modułu ładowanego przez **każdą** stronę, która śledzi
+kliknięcie. Oba wywołania mają `testData` w swoim bundlu tak czy inaczej.
+
+**Guard na `getLevel` po stronie wywołujących.** `getLevel` w `src/data/testData.js` to `levels.find(...)`,
 które zwraca `undefined`, jeśli wynik wypadnie poza wszystkimi przedziałami.
 Dziś progi pokrywają pełny zakres, ale helper nie może wywrócić trackingu przy
 literówce w `testData.js` – odczyt poziomu musi być opcjonalny (`?.level`).
@@ -201,7 +221,13 @@ maili**. Dwie drogi:
 - **Nowe, jawnie liczbowe pole w body** – wybrane. Klient dokłada
   `correctAnswers` (number) obok istniejącego `testScore`.
 
-Pole jest **opcjonalne** i nie wchodzi do walidacji wymaganych pól. Dzięki temu
+Drugim nowym polem jest `testLevelCode` (string). Klient wysyła dziś w
+`testLevel` łańcuch złożony `"B1 - Intermediate"`, bo w takiej postaci czyta się
+go w mailu i w CSV-ce. Bez osobnego pola właściwość `test_level` miałaby na
+zdarzeniu serwerowym inną wartość niż na klienckich. Serwer woli `testLevelCode`,
+a `testLevel` zostaje fallbackiem dla zacache'owanego starego bundle'a.
+
+Oba pola są **opcjonalne** i nie wchodzą do walidacji wymaganych pól. Dzięki temu
 przeglądarka z zacache'owanym starym bundle'em nadal dostarcza leada – traci
 tylko jedną właściwość w analityce. Przy braku pola właściwości `score`
 i `score_percent` nie są wysyłane wcale; nie podstawiamy zera, bo zero jest
