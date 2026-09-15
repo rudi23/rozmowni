@@ -34,9 +34,11 @@
   font-size: 16px;
   color: $text-secondary;
 
+  // On a phone it costs two lines to say what both cards already say on
+  // their own ("11-16 lat", "17+ lat"), and it pushes the second card
+  // past the fold.
   @include onMobile() {
-    margin-bottom: 24px;
-    color: $text-tertiary;
+    display: none;
   }
 }
 

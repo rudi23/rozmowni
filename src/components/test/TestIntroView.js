@@ -46,7 +46,7 @@ const TestIntroView = ({ onTestSelection }) => {
     <>
       <PageHeader
         title="Test poziomujący"
-        lede="Wynik, zaproszenie na bezpłatną lekcję próbną i e-book wyślemy na Twój adres e-mail."
+        lede="Wynik otrzymasz od razu po teście, a zaproszenie na bezpłatną lekcję próbną oraz e-book wyślemy na Twój adres e-mail."
       />
 
       <Section>
