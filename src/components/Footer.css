@@ -81,27 +81,29 @@
   color: #fff;
 }
 
+/* One row per item, so the column is a list like the two beside it. */
 .footer .footer-contact ul li {
   display: flex;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 12px;
+  padding: 5px 0;
 }
 
 .footer .footer-contact ul li svg {
   color: var(--color-teal);
-  margin-top: 5px;
+  margin-top: 8px;
   width: 16px;
   flex-shrink: 0;
 }
 
-.footer .footer-contact ul li div {
-  font-size: 14px;
+.footer .footer-contact ul li a,
+.footer .footer-contact ul li span {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.footer .footer-contact ul li div strong {
-  display: block;
+.footer .footer-contact ul li a:hover {
   color: #fff;
-  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .footer-btm {

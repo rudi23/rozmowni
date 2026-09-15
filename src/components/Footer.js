@@ -163,43 +163,35 @@ export default function Footer() {
             <div className="col-lg-3 col-md-6">
               <div className="footer-widget footer-contact mb-5 mb-lg-0">
                 <div className="widget-title">Kontakt</div>
+                {/* The icon and the value say what each row is; the bold
+                    "Telefon" / "Email" / "Biuro" above them doubled the
+                    height of the column for nothing. */}
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPhone} aria-hidden="true" />
-                    <div>
-                      <strong>Telefon</strong>
-                      <a
-                        href="tel:+48506262227"
-                        onClick={() => trackClick(events.FOOTER_CLICK_PHONE)}
-                      >
-                        +48 506 262 227
-                      </a>
-                    </div>
+                    <a
+                      href="tel:+48506262227"
+                      onClick={() => trackClick(events.FOOTER_CLICK_PHONE)}
+                    >
+                      +48 506 262 227
+                    </a>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
-                    <div>
-                      <strong>Email</strong>
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
-                          trackClick(events.FOOTER_CLICK_EMAIL);
-                          e.preventDefault();
-                        }}
-                      >
-                        kontakt@rozmowni.pl
-                      </a>
-                    </div>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
+                        trackClick(events.FOOTER_CLICK_EMAIL);
+                        e.preventDefault();
+                      }}
+                    >
+                      kontakt@rozmowni.pl
+                    </a>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faLocationDot} aria-hidden="true" />
-                    <div>
-                      <strong>Biuro</strong>
-                      Witkowicka 68G/1
-                      <br />
-                      31-242 Kraków
-                    </div>
+                    <span>Witkowicka 68G/1, 31-242 Kraków</span>
                   </li>
                 </ul>
               </div>
