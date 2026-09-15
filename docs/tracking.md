@@ -213,6 +213,8 @@ potencjalny adres e-mail – nie wstawiaj do etykiet danych użytkownika.
 | `Test`                | 4   | lejek testu – `Start`, `Progress`, `Complete`, `Send` (4.6)               |
 | `Individual course`   | 2   | `/kursy/indywidualne` – „Zapisz się" i CTA testu w `NewSemesterSignUp`    |
 | `* course` (3 kat.)   | 3   | przycisk „Zapisz się" w `CourseSidebar` na pozostałych stronach kursów    |
+| `Pricing`             | 1   | przycisk „Zapisz się" na każdej karcie cennika (label niesie nazwę kursu) |
+| `About us`            | 1   | CTA na lekcję próbną przed opiniami na `/o-nas`                           |
 | `Opinions`            | 1   | link do opinii Google (sekcja jest na `/` **i** `/o-nas`)                 |
 | `Course requirements` | 1   | linki do Zoom / Google Meet / Teams (4 strony kursów)                     |
 | `Cookie consent`      | 1   | link do polityki prywatności w banerze cookies                            |
@@ -271,8 +273,13 @@ Cztery strony przekazują: `INDIVIDUAL_COURSE_CLICK_ENROLL`,
 nic nie wyśle.
 
 `/kursy/indywidualne` ma dodatkowo CTA prowadzące do testu poziomującego
-(`NewSemesterSignUp.js:59`, `INDIVIDUAL_COURSE_CLICK_TEST`) – to jedyne wejście
-do lejka testu spoza strony głównej, które jest otrackowane.
+(`NewSemesterSignUp.js`, `INDIVIDUAL_COURSE_CLICK_TEST`), a `/o-nas` CTA przed
+opiniami (`ABOUT_CLICK_TEST`) – to jedyne otrackowane wejścia do lejka testu
+spoza strony głównej.
+
+`/cennik` wysyła `PRICING_CLICK_ENROLL(nazwa kursu)` z każdej karty. To fabryka,
+więc w GA4 jedna stała daje po jednym labelu na kurs
+(`Enroll - Kurs konwersacji` itd.) bez konfigurowania czegokolwiek w GA4.
 
 ### 4.6 Lejek testu poziomującego
 

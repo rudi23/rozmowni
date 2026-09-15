@@ -1,8 +1,10 @@
-export default function CourseHeader({ title, children, className = '' }) {
+import styles from './CourseHeader.module.scss';
+
+export default function CourseHeader({ title, children }) {
   return (
-    <div className={`course-single-header ${className}`}>
-      <h2 className="single-course-title">{title}</h2>
+    <header className={styles.root}>
+      <h2 className={styles.title}>{title}</h2>
       {children}
-    </div>
+    </header>
   );
 }

@@ -122,15 +122,25 @@ Metadane SEO dla każdej trasy są w `src/services/metadata/getMetadata.js`.
 | `/kursy/grupowe`                    | `pages/kursy/grupowe.js`                    | Grupy 2–3 os., 1650 zł/semestr, 30 lekcji, poziomy A2–C2                                                                                                                                                                     | tak                  | tak                 |
 | `/kursy/egzamin-8-klasisty`         | `pages/kursy/egzamin-8-klasisty.js`         | Grupy 3–4 os., 1430 zł/semestr, 26 lekcji                                                                                                                                                                                    | tak                  | tak                 |
 | `/kursy/egzamin-maturalny`          | `pages/kursy/egzamin-maturalny.js`          | Grupy 3–4 os., 1430 zł/semestr, poziom podst./rozsz.                                                                                                                                                                         | tak                  | tak                 |
-| `/cennik`                           | `pages/cennik/index.js`                     | Akordeony z cenami wszystkich kursów + dane do przelewu                                                                                                                                                                      | tak                  | tak                 |
-| `/o-nas`                            | `pages/o-nas/index.js`                      | Sylwetki lektorów (Gosia, Denis, Angelika, Ania, Georgia, Wiktor, Weronika) + opinie                                                                                                                                         | tak                  | tak                 |
+| `/cennik`                           | `pages/cennik/index.js`                     | Karty cenowe wszystkich kursów (nazwa, cena, jednostka, punkty, „Zapisz się” → `/kontakt`) + karta z danymi do przelewu i numerem konta do skopiowania                                                                       | tak                  | tak                 |
+| `/o-nas`                            | `pages/o-nas/index.js`                      | Sekcja o założycielce (Gosia), siatka kart zespołu (Denis, Angelika, Ania, Georgia, Wiktor, Weronika), CTA na lekcję próbną, opinie                                                                                          | tak                  | tak                 |
 | `/kontakt`                          | `pages/kontakt/index.js`                    | Dane kontaktowe, social media, formularz kontaktowy (reCAPTCHA v3)                                                                                                                                                           | tak                  | tak                 |
 | `/polityka-prywatnosci`             | `pages/polityka-prywatnosci/index.js`       | Polityka prywatności, `robots: noindex, follow`                                                                                                                                                                              | stopka               | nie                 |
 | `/kursy/intensywne-kursy-wakacyjne` | `pages/kursy/intensywne-kursy-wakacyjne.js` | **Wyłączona.** Wpis w `routeMap` jest zakomentowany, więc `getServerSideProps` zwraca `notFound` (404). Linki w menu, stopce i cenniku renderują się warunkowo. Aby włączyć, odkomentuj wpis w `routeMap` i w `sitemap.xml`. | nie                  | nie (zakomentowana) |
 
 Strony kursów używają wspólnych klocków: `CourseLayout`, `CourseHeader`,
-`CourseSidebar` (cena + szczegóły + przycisk „Zapisz się” → `/kontakt`),
+`CourseSidebar` (zdjęcie + cena + przycisk „Zapisz się” → `/kontakt`),
 `CourseInfo`, `CourseRequirements`, `CourseDetails`.
+
+`CourseSidebar` jest przyklejony (`position: sticky`) od 992 px w górę, a poniżej
+tej szerokości cenę i przycisk przejmuje pasek przyklejony do dołu ekranu.
+Komponent dokłada wtedy klasę `has-course-price-bar` na `body`, a reguła
+w `style.css` daje `#__next` zapas na dole, żeby pasek nie zasłaniał stopki –
+ten sam wzorzec co `has-fixed-test-nav` w `TestRunner`.
+
+Style panelu, jego widgetów („W skrócie”, „Wymagania”) oraz kafelków
+„co obejmuje kurs” są w `CourseSidebar.module.scss` i `CourseInfo.module.scss`.
+W `style.css` został tylko `.course-section-title` i zapas dla paska.
 
 ### 5.2 Strony techniczne
 
@@ -212,7 +222,8 @@ flowchart TD
 - Menu (desktop i mobile): pozycja „Test poziomujący” z klasą `test-cta`.
 - Strona główna: `Banner`, `SocialProofStats`, `WhyUsExpanded`,
   `TestBenefits`, `TestFAQ`, `FinalCTA`.
-- `/kursy/indywidualne`: komponent `NewSemesterSignUp` (eksportuje `WhyUs`) linkuje do testu.
+- `/kursy/indywidualne`: pasek ogłoszenia `NewSemesterSignUp` nad treścią linkuje do testu.
+- `/o-nas`: CTA „Poznaj nas na lekcji próbnej” przed sekcją opinii.
 - Każde kliknięcie ma własny event GA (`HOME_*_CLICK_TEST`, `NAVIGATION_CLICK_MENU_ITEM`)
   – pełna lista w [tracking.md](tracking.md#43-lejek-na-stronie-głównej).
 

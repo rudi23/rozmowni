@@ -9,6 +9,7 @@ import {
   faTag,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import styles from './CourseSidebar.module.scss';
 
 // Semantic keys the course pages pass, mapped to one icon set.
 const courseIcons = {
@@ -23,24 +24,20 @@ const courseIcons = {
 };
 
 function CourseDetails({ items }) {
-  function renderItem({ title, content, icon }) {
-    return (
-      <li key={`${title}_${content}`}>
-        <div className="d-flex justify-content-between align-items-center">
-          <span>
-            <FontAwesomeIcon icon={courseIcons[icon] ?? faListCheck} />
-            {title}
-          </span>
-          {content}
-        </div>
-      </li>
-    );
-  }
-
   return (
-    <div className="course-widget course-details-info">
-      <h3 className="course-title">W skrócie</h3>
-      <ul>{items.map(renderItem)}</ul>
+    <div className={styles.widget}>
+      <h2 className={styles.widgetTitle}>W skrócie</h2>
+      <ul className={styles.detailsList}>
+        {items.map(({ title, content, icon }) => (
+          <li key={`${title}_${content}`}>
+            <span className={styles.detailLabel}>
+              <FontAwesomeIcon icon={courseIcons[icon] ?? faListCheck} />
+              {title}
+            </span>
+            <span className={styles.detailValue}>{content}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

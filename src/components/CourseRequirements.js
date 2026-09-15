@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
+import styles from './CourseSidebar.module.scss';
 
 export default function CourseRequirements() {
   const trackClick = useClickTracking();
   const { pathname } = useRouter();
 
   return (
-    <div className="course-widget course-metarials">
-      <h3 className="course-title">Wymagania</h3>
+    <div className={`${styles.widget} ${styles.requirements}`}>
+      <h2 className={styles.widgetTitle}>Wymagania</h2>
       <p>
         Do udziału w lekcji potrzebujesz komputera, kamerki (ewentualnie
         smartfona) dostępu do internetu oraz słuchawek z mikrofonem.

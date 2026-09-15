@@ -1,0 +1,24 @@
+@import '../styles/mixins';
+
+.root {
+  margin-bottom: 24px;
+
+  p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: $text-body;
+  }
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: $navy;
+
+  @include onTabletAndDesktop() {
+    font-size: 34px;
+  }
+}

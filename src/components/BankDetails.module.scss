@@ -1,0 +1,83 @@
+@import '../styles/mixins';
+
+// The transfer details used to be four plain paragraphs at the end of the page.
+.card {
+  @include card(32px);
+
+  background: $surface-alt;
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.rows {
+  margin: 0 0 20px;
+}
+
+.row {
+  display: grid;
+  gap: 4px 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid $line;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @include onTabletAndDesktop() {
+    grid-template-columns: 180px 1fr;
+    align-items: baseline;
+  }
+
+  dt {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: $text-secondary;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    color: $text-primary;
+  }
+}
+
+.account {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.accountNumber {
+  font-family: Montserrat, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.copy {
+  @include ctaLink();
+
+  font-size: 15px;
+
+  svg {
+    font-size: 14px;
+  }
+}
+
+.note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: $text-body;
+}

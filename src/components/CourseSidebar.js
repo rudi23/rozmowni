@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 import useClickTracking from '../hooks/useClickTracking';
 import { routeMap, routeNames } from '../routes';
 import CourseRequirements from './CourseRequirements';
 import CourseDetails from './CourseDetails';
 import ResponsiveImage from './ResponsiveImage';
+import styles from './CourseSidebar.module.scss';
 
 export default function CourseSidebar({
   image,
@@ -12,40 +14,62 @@ export default function CourseSidebar({
   enrollEvent,
   courseDetails,
   showRequirements = true,
-  className = '',
-  thumbClassName = '',
 }) {
   const trackClick = useClickTracking();
 
+  // Below the sidebar breakpoint the price and the button move to a bar fixed
+  // to the bottom of the screen, so the document needs room under it.
+  useEffect(() => {
+    document.body.classList.add('has-course-price-bar');
+
+    return () => document.body.classList.remove('has-course-price-bar');
+  }, []);
+
   return (
-    <div className={`course-sidebar ${className}`}>
-      <div className={`course-single-thumb ${thumbClassName}`}>
-        <ResponsiveImage
-          src={image}
-          alt={imageAlt}
-          placeholder="blur"
-          sizes="(min-width: 1200px) 318px, (min-width: 992px) 258px, (min-width: 768px) 658px, (min-width: 576px) 478px, calc(100vw - 62px)"
-          quality="75"
-        />
-        <div className="course-price-wrapper">
-          <div className="course-price ms-3">
-            <h4>
-              Cena: <span>{price}</span>
-            </h4>
+    <>
+      {/* Sticky, so the price stays in reach however long the content runs. */}
+      <aside className={styles.sidebar}>
+        <div className={styles.priceCard}>
+          <div className={styles.thumb}>
+            <ResponsiveImage
+              src={image}
+              alt={imageAlt}
+              placeholder="blur"
+              sizes="(min-width: 1200px) 350px, (min-width: 992px) 290px, (min-width: 768px) 690px, 100vw"
+              quality="75"
+              style={{ height: '100%', maxWidth: '100%' }}
+            />
           </div>
-          <div className="buy-btn">
+          <div className={styles.priceBody}>
+            <p className={styles.priceLabel}>Cena</p>
+            <p className={styles.price}>{price}</p>
             <Link
               href={routeMap[routeNames.CONTACT]}
-              className="btn btn-main w-100"
+              className={styles.enroll}
               onClick={() => trackClick(enrollEvent)}
             >
               Zapisz się
             </Link>
           </div>
         </div>
+
+        <CourseDetails items={courseDetails} />
+        {showRequirements && <CourseRequirements />}
+      </aside>
+
+      <div className={styles.priceBar}>
+        <div className={styles.priceBarText}>
+          <span className={styles.priceBarLabel}>Cena</span>
+          <strong className={styles.priceBarValue}>{price}</strong>
+        </div>
+        <Link
+          href={routeMap[routeNames.CONTACT]}
+          className={styles.priceBarButton}
+          onClick={() => trackClick(enrollEvent)}
+        >
+          Zapisz się
+        </Link>
       </div>
-      <CourseDetails items={courseDetails} />
-      {showRequirements && <CourseRequirements />}
-    </div>
+    </>
   );
 }

@@ -1,0 +1,180 @@
+@import '../styles/mixins';
+
+// The panel used to scroll away while the content column ran on, so on the
+// longer courses the price and the button were nowhere near the reader.
+.sidebar {
+  @media screen and (min-width: 992px) {
+    position: sticky;
+    top: calc(var(--header-h, 72px) + 24px);
+  }
+}
+
+.priceCard {
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: #fff;
+  border: 1px solid $line;
+  border-radius: $radius-card;
+  box-shadow: var(--shadow-rest);
+}
+
+// Edge to edge inside the card; it used to sit in a frame with its own inset.
+.thumb {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.priceBody {
+  padding: 24px;
+}
+
+.priceLabel {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: $text-secondary;
+  text-transform: uppercase;
+}
+
+.price {
+  margin: 0 0 20px;
+  font-family: Montserrat, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: $navy;
+}
+
+.enroll {
+  @include ctaPrimary();
+
+  width: 100%;
+}
+
+// Shared by the "W skrócie" and "Wymagania" blocks.
+.widget {
+  @include card();
+
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.widgetTitle {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: $navy;
+}
+
+.detailsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid $line;
+    font-size: 15px;
+    line-height: 1.4;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+}
+
+.detailLabel {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 600;
+  color: $text-primary;
+
+  svg {
+    width: 16px;
+    color: $teal;
+    flex-shrink: 0;
+  }
+}
+
+.detailValue {
+  text-align: right;
+  color: $text-body;
+}
+
+.requirements {
+  p {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.6;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Below the sidebar breakpoint the panel lands under the whole page, about
+// five screens down. The price and the button stay on screen instead.
+.priceBar {
+  display: none;
+
+  @media screen and (max-width: 991px) {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1020;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 1px solid $line;
+    box-shadow: var(--shadow-raised);
+  }
+}
+
+.priceBarText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.priceBarLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: $text-secondary;
+  text-transform: uppercase;
+}
+
+.priceBarValue {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  color: $navy;
+}
+
+.priceBarButton {
+  @include ctaPrimary('sm');
+
+  flex-shrink: 0;
+}

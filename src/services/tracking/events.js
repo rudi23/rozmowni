@@ -79,6 +79,18 @@ export const MATURA_EXAM_COURSE_CLICK_ENROLL = {
   label: 'Enroll',
 };
 
+export const ABOUT_CLICK_TEST = {
+  category: 'About us',
+  action: 'Click',
+  label: 'Trial lesson - test',
+};
+
+export const PRICING_CLICK_ENROLL = (courseName) => ({
+  category: 'Pricing',
+  action: 'Click',
+  label: `Enroll - ${courseName}`,
+});
+
 export const HOLIDAY_COURSE_CLICK_BANNER = {
   category: 'Holiday course',
   action: 'Click',

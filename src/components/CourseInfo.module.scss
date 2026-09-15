@@ -1,0 +1,35 @@
+@import '../styles/mixins';
+
+// Two by two tiles instead of one grey box with ticks in two text columns.
+.grid {
+  display: grid;
+  gap: 16px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+
+  @include onTabletAndDesktop() {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  background: $surface-alt;
+  border: 1px solid $line;
+  border-radius: $radius-control;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-primary;
+}
+
+.icon {
+  margin-top: 4px;
+  font-size: 14px;
+  color: $teal;
+  flex-shrink: 0;
+}

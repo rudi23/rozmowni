@@ -79,7 +79,7 @@ export default function CoursesIndividual() {
           ]}
         />
 
-        <h3 className="course-title">Rodzaje zajęć</h3>
+        <h3 className="course-section-title">Rodzaje zajęć</h3>
         <p>Możesz zdecydować się na jeden z czterech rodzajów zajęć:</p>
 
         <Accordion

@@ -1,5 +1,19 @@
-.accountInfo {
-  p {
-    margin-bottom: 10px;
+@import '../../styles/mixins';
+
+.groupHeading {
+  margin: 0 0 24px;
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: $navy;
+
+  @include onTabletAndDesktop() {
+    font-size: 32px;
   }
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 15px;
+  color: $text-secondary;
 }
