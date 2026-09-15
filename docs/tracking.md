@@ -11,11 +11,12 @@ poprawić, są w osobnym pliku: **[todo.md](todo.md)**.
 
 ## 1. Podsumowanie
 
-| Narzędzie                 | Biblioteka             | ID                                          | Co wysyła                    |
-| ------------------------- | ---------------------- | ------------------------------------------- | ---------------------------- |
-| **Google Analytics 4**    | `react-ga4`            | `G-2XD6SZL2GR`                              | page view + eventy kliknięć  |
-| **Facebook (Meta) Pixel** | `react-facebook-pixel` | `1757361357785350`                          | PageView + konwersje z testu |
-| Google Search Console     | –                      | meta `google-site-verification` w `_app.js` | tylko weryfikacja własności  |
+| Narzędzie                 | Biblioteka             | ID                                                 | Co wysyła                                       |
+| ------------------------- | ---------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| **Google Analytics 4**    | `react-ga4`            | `G-2XD6SZL2GR`                                     | page view + eventy kliknięć                     |
+| **Facebook (Meta) Pixel** | `react-facebook-pixel` | `1757361357785350`                                 | PageView + konwersje z testu                    |
+| **PostHog**               | `posthog-js`           | `phc_o3mGYJXuiM3KXXY52BZYiy96bMqWnhErSwt4t36RHVsj` | page view (`$pageview`) + autocapture + wyjątki |
+| Google Search Console     | –                      | meta `google-site-verification` w `_app.js`        | tylko weryfikacja własności                     |
 
 Nie ma Google Tag Managera, Hotjara, Clarity ani żadnego innego skryptu
 analitycznego. Cały tracking przechodzi przez własną warstwę w
@@ -37,12 +38,14 @@ src/services/tracking/
 ├── index.js             # fasada: default export (GA) + named exports eventów
 ├── googleAnalytics.js   # ID GA4, initializeAsync, sendEvent, sendPageView
 ├── facebookPixel.js     # ID Pixela, initializeAsync, sendEvent, sendPageView
+├── postHog.js           # token PostHog, initializeAsync, sendPageView
 ├── events.js            # 47 stałych eventów GA4 (category/action/label)
 └── facebookEvents.js    # 2 fabryki eventów FB (Lead, CompleteRegistration)
 
 src/hooks/
 ├── usePageViewTracking.js     # GA4 page view      (wołany w _app.js)
 ├── useFacebookTracking.js     # FB PageView        (wołany w _app.js)
+├── usePostHogTracking.js      # PostHog $pageview  (wołany w _app.js)
 ├── useClickTracking.js        # GA4 event          (wołany w komponentach)
 └── useFacebookEventTracking.js# FB event           (tylko w testie)
 ```
