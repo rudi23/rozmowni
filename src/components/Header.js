@@ -36,7 +36,7 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
         }
         id="navbarMenu"
       >
-        <ul className="navbar-nav mx-auto">
+        <ul className="navbar-nav ms-auto">
           {routeMap[routeNames.HOLIDAY_COURSE] && (
             <li className="nav-item">
               <Link
@@ -130,7 +130,7 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
 function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
   return (
     <div className="collapse navbar-collapse">
-      <ul className="navbar-nav mx-auto">
+      <ul className="navbar-nav ms-auto">
         <li
           data-key="refresh"
           className={
@@ -343,7 +343,7 @@ export default function Header() {
       className={cx('site-navigation', { 'is-scrolled': isScrolled })}
     >
       <nav className="navbar navbar-expand-lg">
-        <div className="container pl-3 pe-3">
+        <div className="container">
           <Link
             href={routeMap[routeNames.HOME]}
             className="navbar-brand"
