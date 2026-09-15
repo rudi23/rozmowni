@@ -5,13 +5,17 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useState } from 'react';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
+import {
+  getRequestHeadersAsync,
+  sendExceptionAsync,
+} from '../services/tracking/posthog';
 import { createAuthHeaders } from '../utils/apiAuth';
 import styles from './ContactForm.module.scss';
 
 const sendForm = async (data) =>
   fetch('/api/send-contact-form-notification', {
     method: 'POST',
-    headers: createAuthHeaders(),
+    headers: { ...createAuthHeaders(), ...(await getRequestHeadersAsync()) },
     body: JSON.stringify(data),
   });
 
@@ -48,7 +52,8 @@ export default function ContactForm() {
         } else {
           setSentError(true);
         }
-      } catch (_error) {
+      } catch (error) {
+        sendExceptionAsync(error);
         setSentError(true);
       } finally {
         setLoading(false);

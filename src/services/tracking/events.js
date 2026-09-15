@@ -7,6 +7,7 @@ export const HOME_BANNER_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Banner - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const HOME_BANNER_CLICK_LEARN_MORE = {
   category: 'Home',
@@ -17,16 +18,19 @@ export const HOME_SOCIAL_PROOF_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Social proof - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const HOME_TEST_BENEFITS_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Test benefits - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const HOME_FAQ_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'FAQ - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const HOME_FAQ_CLICK_CONTACT = {
   category: 'Home',
@@ -37,11 +41,13 @@ export const HOME_FINAL_CTA_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Final CTA - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST = {
   category: 'Home',
   action: 'Click',
   label: 'Why us expanded - test bottom',
+  posthogEvent: 'test_cta_clicked',
 };
 
 export const OPINIONS_CLICK_GOOGLE_REVIEWS = (path) => ({
@@ -54,36 +60,42 @@ export const INDIVIDUAL_COURSE_CLICK_ENROLL = {
   category: 'Individual course',
   action: 'Click',
   label: 'Enroll',
+  posthogEvent: 'course_enrollment_clicked',
 };
 
 export const GROUP_COURSE_CLICK_ENROLL = {
   category: 'Group course',
   action: 'Click',
   label: 'Enroll',
+  posthogEvent: 'course_enrollment_clicked',
 };
 
 export const EXAM_8_COURSE_CLICK_ENROLL = {
   category: '8 class exam course',
   action: 'Click',
   label: 'Enroll',
+  posthogEvent: 'course_enrollment_clicked',
 };
 
 export const MATURA_EXAM_COURSE_CLICK_ENROLL = {
   category: 'Matura exam course',
   action: 'Click',
   label: 'Enroll',
+  posthogEvent: 'course_enrollment_clicked',
 };
 
 export const ABOUT_CLICK_TEST = {
   category: 'About us',
   action: 'Click',
   label: 'Trial lesson - test',
+  posthogEvent: 'test_cta_clicked',
 };
 
 export const PRICING_CLICK_ENROLL = (courseName) => ({
   category: 'Pricing',
   action: 'Click',
   label: `Enroll - ${courseName}`,
+  posthogEvent: 'course_enrollment_clicked',
 });
 
 export const HOLIDAY_COURSE_CLICK_BANNER = {
@@ -117,27 +129,32 @@ export const TEST_START = (testType) => ({
   category: 'Test',
   action: 'Start',
   label: testType,
+  posthogEvent: 'test_started',
 });
 export const TEST_PROGRESS = (testType, question, total) => ({
   category: 'Test',
   action: 'Progress',
   label: `${testType} - question ${paddedQuestion(question, total)}/${total}`,
+  posthogEvent: 'test_progressed',
 });
 export const TEST_COMPLETED = (testType) => ({
   category: 'Test',
   action: 'Complete',
   label: testType,
+  posthogEvent: 'test_completed',
 });
 export const TEST_CONTACT_DETAILS_SENT = (testType) => ({
   category: 'Test',
   action: 'Send',
   label: testType,
+  posthogEvent: 'test_lead_submitted',
 });
 
 export const CONTACT_SEND_FORM = {
   category: 'Contact',
   action: 'Send',
   label: 'Form',
+  posthogEvent: 'contact_form_submitted',
 };
 export const CONTACT_CLICK_FB = {
   category: 'Contact',
@@ -219,6 +236,7 @@ export const FOOTER_CLICK_TEST = {
   category: 'Footer',
   action: 'Click',
   label: 'Footer CTA - test',
+  posthogEvent: 'test_cta_clicked',
 };
 export const FOOTER_CLICK_MENU_ITEM = (path) => ({
   category: 'Footer',

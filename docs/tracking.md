@@ -11,11 +11,12 @@ poprawić, są w osobnym pliku: **[todo.md](todo.md)**.
 
 ## 1. Podsumowanie
 
-| Narzędzie                 | Biblioteka             | ID                                          | Co wysyła                    |
-| ------------------------- | ---------------------- | ------------------------------------------- | ---------------------------- |
-| **Google Analytics 4**    | `react-ga4`            | `G-2XD6SZL2GR`                              | page view + eventy kliknięć  |
-| **Facebook (Meta) Pixel** | `react-facebook-pixel` | `1757361357785350`                          | PageView + konwersje z testu |
-| Google Search Console     | –                      | meta `google-site-verification` w `_app.js` | tylko weryfikacja własności  |
+| Narzędzie                 | Biblioteka                   | ID                                          | Co wysyła                                                        |
+| ------------------------- | ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
+| **Google Analytics 4**    | `react-ga4`                  | `G-2XD6SZL2GR`                              | page view + eventy kliknięć                                      |
+| **Facebook (Meta) Pixel** | `react-facebook-pixel`       | `1757361357785350`                          | PageView + konwersje z testu                                     |
+| **PostHog**               | `posthog-js`, `posthog-node` | z `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN`       | page view, kliknięcia, eventy serwerowe, wyjątki, session replay |
+| Google Search Console     | –                            | meta `google-site-verification` w `_app.js` | tylko weryfikacja własności                                      |
 
 Nie ma Google Tag Managera, Hotjara, Clarity ani żadnego innego skryptu
 analitycznego. Cały tracking przechodzi przez własną warstwę w
@@ -24,9 +25,17 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 **Podział odpowiedzialności:**
 
 - **GA4** – cały ruch i wszystkie kliknięcia w CTA/nawigację/kontakt
-  (47 zdefiniowanych eventów typu category/action/label).
+  (49 zdefiniowanych eventów typu category/action/label).
 - **FB Pixel** – wyłącznie page view + **dwie konwersje z testu poziomującego**
   (`Lead`, `CompleteRegistration`). Kliknięcia nie idą na Pixel.
+- **PostHog** – to samo pokrycie co GA4 (page view + wszystkie kliknięcia),
+  plus trzy rzeczy, których nie ma nigdzie indziej: **session replay**,
+  **wyjątki** z przeglądarki i z tras API oraz **eventy serwerowe** wysyłane
+  po faktycznej wysyłce maila. Jako jedyny jest sterowany zmiennymi
+  środowiskowymi – bez nich nie działa wcale (sekcja 2.4).
+
+Żadne dane osobowe nie trafiają do PostHoga; imię, e-mail i telefon leada idą
+wyłącznie mailem i do CSV-ki (sekcja 5.5).
 
 ---
 
@@ -34,21 +43,29 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 
 ```
 src/services/tracking/
-├── index.js             # fasada: default export (GA) + named exports eventów
+├── index.js             # re-eksport stałych: events + facebookEvents
 ├── googleAnalytics.js   # ID GA4, initializeAsync, sendEvent, sendPageView
 ├── facebookPixel.js     # ID Pixela, initializeAsync, sendEvent, sendPageView
-├── events.js            # 47 stałych eventów GA4 (category/action/label)
+├── posthog.js           # konfiguracja z env, initializeAsync, sendEvent,
+│                        # sendExceptionAsync, getRequestHeadersAsync
+├── events.js            # 49 stałych eventów GA4 (category/action/label
+│                        # + opcjonalne posthogEvent, sekcja 5.1)
 └── facebookEvents.js    # 2 fabryki eventów FB (Lead, CompleteRegistration)
+
+src/utils/
+└── posthogServer.js     # posthog-node: captureEvent, captureException
+                         # (wołane z tras /api/*)
 
 src/hooks/
 ├── usePageViewTracking.js     # GA4 page view      (wołany w _app.js)
 ├── useFacebookTracking.js     # FB PageView        (wołany w _app.js)
-├── useClickTracking.js        # GA4 event          (wołany w komponentach)
+├── usePostHogTracking.js      # init PostHoga      (wołany w _app.js)
+├── useClickTracking.js        # GA4 + PostHog      (wołany w komponentach)
 └── useFacebookEventTracking.js# FB event           (tylko w testie)
 ```
 
-Zasada: **komponenty nigdy nie wołają GA/Pixela bezpośrednio**. Importują hook
-i stałą eventu:
+Zasada: **komponenty nigdy nie wołają GA/Pixela/PostHoga bezpośrednio**.
+Importują hook i stałą eventu:
 
 ```js
 import useClickTracking from '../hooks/useClickTracking';
@@ -59,10 +76,14 @@ const trackClick = useClickTracking();
 <Link onClick={() => trackClick(events.HOME_BANNER_CLICK_TEST)}>
 ```
 
+Jedno wywołanie `trackClick` wysyła event **i do GA4, i do PostHoga** – dwoma
+niezależnymi łańcuchami, każdy z własnym `.catch(() => {})`. Komponent nie wie
+o żadnym z dostawców i nie zmienia się, gdy dochodzi kolejny.
+
 ### 2.1 Lazy loading
 
-Obie biblioteki są ładowane dynamicznie (`import()`), dopiero gdy tracking ma
-faktycznie coś wysłać:
+Wszystkie trzy biblioteki są ładowane dynamicznie (`import()`), dopiero gdy
+tracking ma faktycznie coś wysłać:
 
 ```js
 export function initializeAsync() {
@@ -73,6 +94,12 @@ export function initializeAsync() {
 Dzięki temu nie powiększają głównego bundla i nie blokują pierwszego renderu.
 `_document.js` robi `preconnect` do `connect.facebook.net`, `www.facebook.com`,
 `www.google.com` i `www.gstatic.com`, żeby zmniejszyć koszt późniejszego strzału.
+Hosta PostHoga na tej liście **nie ma**.
+
+Przy PostHogu waży to najwięcej: `posthog-js` to ~90 kB gzipped, o rząd
+wielkości więcej niż `react-ga4` czy `react-facebook-pixel`. Statyczny import
+wrzuciłby to do wspólnego bundla wszystkich stron – dlatego inicjalizacja siedzi
+w `usePostHogTracking`, a nie w imporcie na górze `_app.js`.
 
 ### 2.2 Inicjalizacja przy każdym wysłaniu
 
@@ -92,6 +119,13 @@ operacją pustą – nie generuje dodatkowego PageView.
 `send_page_view: false` w GA jest ważne: automatyczny page view jest wyłączony,
 bo page view'y wysyła ręcznie `usePageViewTracking` (patrz 3.1).
 
+**PostHog działa dokładnie odwrotnie i to też jest celowe.** `posthog.init()`
+**nie** jest idempotentne – powtórzenie go zdublowałoby klienta i nasłuchy.
+Dlatego `posthog.js` trzyma `clientPromise` w module i inicjalizuje dokładnie
+raz na załadowanie strony, a każdy kolejny `initializeAsync()` dostaje tę samą
+obietnicę. Kopiowanie wzorca „inicjalizuj przed każdym wysłaniem" z GA/Pixela na
+PostHoga jest więc błędem.
+
 ### 2.3 Tryb deweloperski
 
 W obu modułach:
@@ -106,10 +140,19 @@ Przy `npm run dev` **nic nie leci na zewnątrz** – zamiast tego logi w konsoli
 GA: initialize (click)
 GA: send event {category: 'Home', action: 'Click', label: 'Banner - test'}
 FB: send event: Lead {content_name: 'Test poziomujący', content_category: 'adults'}
+PostHog: send event: test_cta_clicked {source_category: 'Home', source_action: 'Click', source_label: 'Banner - test'}
+PostHog (server): send event: test_results_processed {test_type: 'adults', ...}
 ```
 
 To jedyny sposób weryfikacji trackingu lokalnie – nie ma testów automatycznych
 ani trybu debug flagowanego zmienną środowiskową.
+
+**Przy PostHogu ma to lukę.** W dev `initializeAsync()` zwraca `null` jeszcze
+przed `import('posthog-js')`, więc biblioteka w ogóle nie startuje. Eventy
+zobaczysz (logują się same), ale odsłon, `$pageleave`, session replay i
+autocapture wyjątków **nie da się sprawdzić lokalnie w żaden sposób** – robi je
+biblioteka, której nie ma. Zostaje podgląd na stagingu, który raportuje do tego
+samego projektu co produkcja.
 
 ### 2.4 Konfiguracja
 
@@ -117,6 +160,27 @@ ID GA4 i Pixela są **zahardkodowane w kodzie** (`googleAnalytics.js:1`,
 `facebookPixel.js:1`). Nie ma ich w `.env.example` ani w `.env.local` – zmiana
 konta analitycznego wymaga edycji kodu i deployu. Środowisko staging i produkcja
 raportują więc do tej samej właściwości GA4 i tego samego Pixela.
+
+**PostHog jest tu wyjątkiem** – czyta dwie zmienne, tę samą parę po stronie
+klienta (`posthog.js:1`) i serwera (`posthogServer.js:3`):
+
+```
+NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
+NEXT_PUBLIC_POSTHOG_HOST
+```
+
+Jeśli brakuje choćby jednej, `isConfigured` jest `false` i PostHog jest
+wyłączony **w całości**, po obu stronach – zamiast rzucać błędem. Brak
+konfiguracji degraduje się więc do „brak analityki", a nie do zepsutej strony
+czy wywalonej trasy API. Obie zmienne są `NEXT_PUBLIC_*`, także ta używana
+serwerowo: token projektu PostHoga jest z założenia publicznym kluczem zapisu.
+
+Na serwer trafiają przez `.env.local` budowane w workflowach deployu, tak samo
+jak reszta zmiennych z `.env.example`: token z `secrets.*`, host z `vars.*`.
+Oba workflowy podstawiają **te same** nazwy i żaden nie używa `environment:`,
+więc staging i produkcja raportują do jednego projektu PostHog – dokładnie tak
+samo, jak dzielą właściwość GA4 i Pixela. Rozdzielenie środowisk wymagałoby
+osobnych sekretów per environment.
 
 ---
 
@@ -128,9 +192,9 @@ Wołany raz, w `_app.js`, więc obejmuje wszystkie strony.
 
 ```js
 useEffect(() => {
-  tracking
-    .initializeAsync()
-    .then((tracker) => tracking.sendPageView(tracker, router.pathname));
+  initializeGaAsync().then((ReactGA) =>
+    sendGaPageView(ReactGA, router.pathname),
+  );
 }, [router.pathname]);
 ```
 
@@ -141,9 +205,42 @@ Wysyła `{ hitType: 'pageview', page: router.pathname }`.
 Analogicznie w `_app.js`, wysyła `ReactPixel.pageView()` bez parametrów
 (Pixel sam odczytuje URL z przeglądarki).
 
-### 3.3 Konsekwencje użycia `router.pathname`
+### 3.3 PostHog – `usePostHogTracking`
 
-Oba hooki zależą od `router.pathname`, a nie `router.asPath`:
+Jedyny z trzech hooków, który **nie wysyła page view'a**. `useEffect` z pustą
+tablicą zależności podnosi klienta raz na pełne załadowanie strony i na tym
+kończy rolę:
+
+```js
+useEffect(() => {
+  initializeAsync();
+}, []);
+```
+
+Odsłony liczy sam `posthog-js`, bo `posthog.init()` dostaje
+`defaults: '2026-01-30'` (`posthog.js:33`), a w `posthog-core.js:187` jest:
+
+```js
+capture_pageview: defaults && defaults >= '2025-05-24' ? 'history_change' : true,
+```
+
+Czyli tryb `history_change`: `$pageview` przy inicjalizacji i ponownie przy
+każdej zmianie pathname, łącznie z nawigacją SPA po History API. Domyślne
+`capture_pageleave: 'if_capture_pageview'` dokłada `$pageleave` – jedyne
+zdarzenie „wyjścia" w całym trackingu, GA ani Pixel go nie mają.
+
+W repo nie ma żadnego `capture('$pageview')` i nie powinno się pojawić: ręczna
+odsłona obok automatycznej **podwoiłaby** statystyki.
+
+Jedna różnica względem GA: init siedzi w `useEffect` po zamontowaniu, a
+`posthog-js` jest importowany leniwie, więc pierwszy `$pageview` leci z URL-em
+aktualnym w chwili rozwiązania importu. Kto zdąży kliknąć dalej wcześniej,
+tego strona wejścia przepadnie. `usePageViewTracking` ma ten sam mechanizm, ale
+o rząd wielkości mniejszy chunk.
+
+### 3.4 Konsekwencje użycia `router.pathname`
+
+Oba hooki page view'owe zależą od `router.pathname`, a nie `router.asPath`:
 
 - **Nie ma query stringów ani hashy** – GA4 dostaje czystą ścieżkę trasy.
 - **Nawigacja zmieniająca tylko query nie wysyła page view.** Ma to znaczenie
@@ -151,6 +248,12 @@ Oba hooki zależą od `router.pathname`, a nie `router.asPath`:
   stanu Reacta, a nie zmiany trasy. **Cały test jest w GA4 jednym page view'em.**
   Postępu nie mierzy się więc page view'ami, tylko osobnymi eventami
   `Test / Progress` (sekcja 4.6).
+
+**PostHog wychodzi na tym samym, choć inną drogą.** `history_change` też reaguje
+na zmianę pathname, więc test jest jednym `$pageview` również tam. Różnica jest
+na korzyść PostHoga w dwóch miejscach: `$current_url` niesie **pełny** URL,
+z query i parametrami utm, których GA4 w ogóle nie dostaje, a przebieg testu
+widać dodatkowo w nagraniu sesji.
 
 ---
 
@@ -334,7 +437,132 @@ Q01 → Q25 czyta się z jednego posortowanego raportu.
 
 ---
 
-## 5. Eventy Facebook Pixel (konwersje z testu)
+## 5. Eventy PostHog
+
+### 5.1 Kliknięcia – ten sam hook, inny model danych
+
+GA4 modeluje event jako category/action/label, PostHog jako nazwę + properties.
+Tłumaczy to `sendEvent` w `posthog.js:53`:
+
+```js
+posthog?.capture(posthogEvent || 'link_clicked', {
+  source_category: category,
+  source_action: action,
+  source_label: label,
+});
+```
+
+Skąd bierze się nazwa:
+
+- Stała w `events.js` z polem **`posthogEvent`** dostaje własną, czytelną nazwę.
+  Ma je 18 z 49 stałych – te, które są częścią lejka.
+- Wszystko pozostałe leci jako **`link_clicked`** z tymi samymi properties.
+  Żadne kliknięcie nie ginie po cichu; 31 eventów siedzi pod tą nazwą
+  i rozróżnia się je po `source_label`.
+
+| `posthogEvent`              | Stałych | Co obejmuje                                                                                  |
+| --------------------------- | ------- | -------------------------------------------------------------------------------------------- |
+| `test_cta_clicked`          | 8       | każde CTA do testu: banner, social proof, benefity, FAQ, final CTA, why us, stopka, `/o-nas` |
+| `course_enrollment_clicked` | 5       | „Zapisz się" – cztery strony kursów + karty cennika                                          |
+| `test_started`              | 1       | `TEST_START`                                                                                 |
+| `test_progressed`           | 1       | `TEST_PROGRESS`                                                                              |
+| `test_completed`            | 1       | `TEST_COMPLETED`                                                                             |
+| `test_lead_submitted`       | 1       | `TEST_CONTACT_DETAILS_SENT`                                                                  |
+| `contact_form_submitted`    | 1       | `CONTACT_SEND_FORM`                                                                          |
+| `link_clicked`              | 31      | reszta: nawigacja, stopka, social media, telefon, e-mail, baner cookies                      |
+
+Nazwy są w `snake_case`, celowo inne niż `Click`/`Send`/`Start` z GA4 (4.1):
+w GA4 nazwą zdarzenia jest `action`, więc CTA do testu i klik w social media to
+to samo zdarzenie `Click`. W PostHogu lejek nazywa się sam.
+
+**`toTitleCase` nie dotyczy PostHoga.** To formatowanie robi `react-ga4`
+(4.1), więc `source_label` ma wartość dokładnie taką, jak w `events.js` –
+`adults - question 01/25`, nie `Adults - Question 01/25`. Filtry po surowym
+tekście działają tam, gdzie w GA4 trzeba zgadywać kapitalizację, a redakcja
+wszystkiego z `@` też jest wyłącznie zachowaniem `react-ga4`.
+
+### 5.2 Eventy serwerowe
+
+`src/utils/posthogServer.js` (`posthog-node`) wysyła dwa eventy z tras API,
+**po** tym, jak mail faktycznie wyszedł:
+
+| Event                    | Trasa                                 | Properties                                                                      |
+| ------------------------ | ------------------------------------- | ------------------------------------------------------------------------------- |
+| `test_results_processed` | `/api/send-test-results`              | `test_type`, `test_level`, `contact_method`, `delivery_type`, `total_questions` |
+| `contact_form_processed` | `/api/send-contact-form-notification` | –                                                                               |
+
+Oba dostają dodatkowo `source: 'api'`, co odróżnia je od eventów z przeglądarki.
+
+Dublują się z eventami klienckimi (`test_lead_submitted`,
+`contact_form_submitted`) tylko pozornie – mówią co innego. Kliencki znaczy
+„przeglądarka doczekała `res.ok`", serwerowy „handler doszedł do końca". Serwer
+zawsze policzy tyle samo albo więcej; różnica to zamknięte karty i zerwane
+połączenia.
+
+**`test_level` jest w PostHogu i nigdzie indziej poza CSV-ką.** Wynik testu
+celowo nie pojawia się w przeglądarce – dostaje go wyłącznie mail – więc ten
+event jest jedynym miejscem, gdzie rozkład poziomów da się przeglądać
+raportem, bez schodzenia do pliku na serwerze.
+
+### 5.3 Sklejanie sesji klient ↔ serwer
+
+Event serwerowy sam z siebie nie wie, kto go wywołał.
+`getRequestHeadersAsync()` (`posthog.js:96`) dokłada do fetchy obu formularzy
+dwa nagłówki:
+
+```
+X-PostHog-Distinct-ID
+X-PostHog-Session-ID
+```
+
+Trasy czytają je (`send-test-results.js:141`,
+`send-contact-form-notification.js:89`) i podają dalej do `captureEvent`, więc
+event serwerowy ląduje na tej samej osobie i tej samej sesji co kliknięcia
+i nagranie. Gdy nagłówka nie ma – PostHog wyłączony, zablokowany chunk, ktoś
+woła API bezpośrednio – trasa generuje `randomUUID()`: event istnieje, ale jest
+osierocony.
+
+Obie strony są odporne na brak PostHoga i **żadna nie może opóźnić odpowiedzi**:
+
+- `getRequestHeadersAsync()` zwraca `{}`, więc wynik rozsypuje się spreadem
+  bezwarunkowo, a nagłówki o wartości `undefined` są odfiltrowane (poszłyby
+  jako dosłowny string `"undefined"`).
+- `captureEvent` jest **fire-and-forget**. `posthog-node` dostaje `flushAt: 1`
+  i `flushInterval: 0`, bo Passenger trzyma proces między żądaniami, więc
+  biblioteka sama dowozi event w tle. **Nigdy nie `await`-uj flusha w handlerze**
+  – w tym miejscu mail leada już wyszedł i problem z analityką nie ma prawa
+  zamienić dostarczonego leada w 500.
+
+### 5.4 Wyjątki
+
+Trzy źródła, wszystkie do PostHoga:
+
+- **Nieobsłużone w przeglądarce** – łapie je sama biblioteka
+  (`capture_exceptions: true`).
+- **Obsłużone w przeglądarce** – `sendExceptionAsync(error)` w blokach `catch`
+  obu formularzy (`ContactForm.js:56`, `TestResultsView.js:141`). Funkcja sama
+  inicjalizuje klienta, więc komponent nie musi trzymać instancji.
+- **Serwerowe** – `captureException` w `catch` obu tras API, razem
+  z `distinctId` i `sessionId`, więc błąd 500 widać na tej samej sesji co próbę,
+  która go wywołała.
+
+To jedyny kanał raportowania błędów w serwisie – nie ma Sentry ani innego
+monitoringu.
+
+### 5.5 Session replay i dane osobowe
+
+`session_recording.maskAllInputs: true` (`posthog.js:39`). Każdy input na tej
+stronie zbiera dane leada – imię, e-mail, telefon – a replay nagrywa ekran,
+więc maskowanie jest tu warunkiem działania, nie ustawieniem do podkręcenia.
+
+Poza tym **do PostHoga nie idą żadne dane osobowe**. Eventy niosą typ testu,
+poziom, sposób kontaktu i etykiety kliknięć; imię, e-mail i telefon trafiają
+wyłącznie do maila i do CSV-ki (`CSV_FILE_PATH`). Przy dokładaniu properties
+trzymaj tę granicę – raz wysłanego property nie da się cofnąć z projektu.
+
+---
+
+## 6. Eventy Facebook Pixel (konwersje z testu)
 
 To jedyne miejsce, gdzie mierzone są realne konwersje. Definicje w
 `facebookEvents.js`, obie parametryzowane typem testu (`adults` / `teens`):
@@ -360,16 +588,22 @@ Szczegóły, które łatwo przeoczyć:
 
 ---
 
-## 6. Zgoda na cookies
+## 7. Zgoda na cookies
 
 `src/components/CookieConsent.js` (`react-cookie-consent`) renderuje baner
 w `_app.js` z przyciskiem „Akceptuję", ciasteczkiem `cookieConsent` i wygaśnięciem
 po 90 dniach.
 
-**Baner jest wyłącznie informacyjny – nie bramkuje trackingu.** GA4 i FB Pixel
-inicjalizują się i wysyłają page view przy pierwszym renderze, niezależnie od
-tego, czy użytkownik kliknął „Akceptuję", czy w ogóle zauważył baner. Nie ma
-kodu, który czytałby ciasteczko `cookieConsent` przed wysłaniem czegokolwiek.
+**Baner jest wyłącznie informacyjny – nie bramkuje trackingu.** GA4, FB Pixel
+i PostHog inicjalizują się i wysyłają page view przy pierwszym renderze,
+niezależnie od tego, czy użytkownik kliknął „Akceptuję", czy w ogóle zauważył
+baner. Nie ma kodu, który czytałby ciasteczko `cookieConsent` przed wysłaniem
+czegokolwiek.
+
+Dotyczy to teraz trzech dostawców zamiast dwóch, a PostHog dokłada do tego
+**nagranie sesji**, które startuje razem z klientem – też przed jakąkolwiek
+decyzją użytkownika. Maskowanie inputów (5.5) ogranicza, co jest w nagraniu,
+ale nie zmienia tego, kiedy się zaczyna.
 
 Treść banera odsyła do [polityki prywatności](../src/pages/polityka-prywatnosci/index.js),
 a kliknięcie w ten link wysyła `COOKIE_CONSENT_CLICK_PRIVACY_POLICY`. Nie tworzy
@@ -380,17 +614,27 @@ z definicji leci od kogoś, kto jeszcze nie zdecydował.
 
 ---
 
-## 7. Jak dodać nowy event
+## 8. Jak dodać nowy event
 
-1. Dodaj stałą w `src/services/tracking/events.js` (GA4) lub
+1. Dodaj stałą w `src/services/tracking/events.js` (GA4 + PostHog) lub
    `facebookEvents.js` (Pixel). Trzymaj się konwencji
    `<OBSZAR>_<AKCJA>_<CEL>` i istniejących kategorii.
-2. W komponencie: `const trackClick = useClickTracking();` i
-   `onClick={() => trackClick(events.TWOJ_EVENT)}`.
-   Dla konwersji FB: `useFacebookEventTracking()`.
-3. Jeśli event ma oznaczać sukces operacji (wysyłka maila, zapis), wywołaj go
+2. Jeśli event jest częścią lejka (CTA do testu, zapis na kurs, krok testu,
+   wysyłka formularza), dodaj w tej samej stałej pole `posthogEvent` z nazwą
+   w `snake_case` – najlepiej istniejącą, żeby nie mnożyć wariantów tego samego
+   kroku. Bez tego pola event i tak trafi do PostHoga, jako `link_clicked`
+   (5.1); pomijaj je świadomie, a nie przez zapomnienie.
+3. W komponencie: `const trackClick = useClickTracking();` i
+   `onClick={() => trackClick(events.TWOJ_EVENT)}` – to jedno wywołanie obsłuży
+   GA4 i PostHoga. Dla konwersji FB: `useFacebookEventTracking()`.
+4. Jeśli event ma oznaczać sukces operacji (wysyłka maila, zapis), wywołaj go
    **po** potwierdzeniu sukcesu, nie w handlerze kliknięcia – tak jak
    `CONTACT_SEND_FORM` i `TEST_CONTACT_DETAILS_SUBMITTED`.
-4. Sprawdź lokalnie (`npm run dev`) – event musi pojawić się w konsoli jako
-   `GA: send event` / `FB: send event`. Na produkcji zweryfikuj w GA4 DebugView
-   i Meta Events Manager.
+5. Event serwerowy (coś, co da się stwierdzić dopiero w trasie API) dodaj przez
+   `captureEvent` z `utils/posthogServer.js`, z `distinctId` i `sessionId`
+   odczytanymi z nagłówków (5.3). **Bez `await`** i zawsze po wysyłce maila.
+6. Sprawdź lokalnie (`npm run dev`) – event musi pojawić się w konsoli jako
+   `GA: send event` / `FB: send event` / `PostHog: send event`. Na produkcji
+   zweryfikuj w GA4 DebugView, Meta Events Manager i w widoku Activity
+   w PostHogu. Pamiętaj, że page view'ów i replay PostHoga lokalnie nie
+   zobaczysz w ogóle (2.3).

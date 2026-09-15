@@ -1,5 +1,7 @@
+import { randomUUID } from 'crypto';
 import { sendContactFormEmailNotification } from '../../utils/emailService';
 import { validateApiKey } from '../../utils/apiAuth';
+import { captureEvent, captureException } from '../../utils/posthogServer';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map();
@@ -81,6 +83,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // The browser sends its own ids so the server event joins the session that
+  // is already being recorded; a random id keeps the event usable when it does
+  // not (PostHog off in the browser, blocked chunk, direct API call).
+  const distinctId = req.headers['x-posthog-distinct-id'] || randomUUID();
+  const sessionId = req.headers['x-posthog-session-id'];
+
   try {
     // Check authentication
     const authResult = authenticateRequest(req);
@@ -133,6 +141,12 @@ export default async function handler(req, res) {
       message,
     });
 
+    captureEvent({
+      distinctId,
+      sessionId,
+      event: 'contact_form_processed',
+    });
+
     res.status(200).json({
       success: true,
       message: 'Contact form notification sent successfully',
@@ -140,6 +154,7 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Error sending contact form notification:', error);
+    captureException(error, { distinctId, sessionId });
 
     // Return appropriate error response
     res.status(500).json({

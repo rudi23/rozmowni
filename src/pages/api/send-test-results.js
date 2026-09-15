@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { randomUUID } from 'crypto';
 import {
   sendTestResultsEmail,
   sendTestResultsEmailNotification,
 } from '../../utils/emailService';
 import { validateApiKey } from '../../utils/apiAuth';
+import { captureEvent, captureException } from '../../utils/posthogServer';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map();
@@ -133,6 +135,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // The browser sends its own ids so the server event joins the session that
+  // is already being recorded; a random id keeps the event usable when it does
+  // not (PostHog off in the browser, blocked chunk, direct API call).
+  const distinctId = req.headers['x-posthog-distinct-id'] || randomUUID();
+  const sessionId = req.headers['x-posthog-session-id'];
+
   try {
     // Check authentication
     const authResult = authenticateRequest(req);
@@ -207,6 +215,10 @@ export default async function handler(req, res) {
     // Check query parameter to determine which email to send
     const { emailType } = req.query;
 
+    let deliveryType;
+    let responseMessage;
+    let responseRecipient;
+
     if (emailType === 'notification-only') {
       // Send only notification email to admin
       await sendTestResultsEmailNotification({
@@ -219,12 +231,9 @@ export default async function handler(req, res) {
         testType,
         totalQuestions,
       });
-
-      res.status(200).json({
-        success: true,
-        message: 'Notification email sent successfully',
-        debug: { emailType, recipient: 'admin' },
-      });
+      deliveryType = emailType;
+      responseMessage = 'Notification email sent successfully';
+      responseRecipient = 'admin';
     } else if (emailType === 'results-only') {
       // Send only test results email to user
       await sendTestResultsEmail({
@@ -235,12 +244,9 @@ export default async function handler(req, res) {
         testType,
         totalQuestions,
       });
-
-      res.status(200).json({
-        success: true,
-        message: 'Test results email sent successfully',
-        debug: { emailType, recipient: email },
-      });
+      deliveryType = emailType;
+      responseMessage = 'Test results email sent successfully';
+      responseRecipient = email;
     } else {
       // Default: send both emails (original behavior)
       await sendTestResultsEmail({
@@ -262,15 +268,32 @@ export default async function handler(req, res) {
         testType,
         totalQuestions,
       });
-
-      res.status(200).json({
-        success: true,
-        message: 'Both emails sent successfully',
-        debug: { emailType: 'both', recipient: email },
-      });
+      deliveryType = 'both';
+      responseMessage = 'Both emails sent successfully';
+      responseRecipient = email;
     }
+
+    captureEvent({
+      distinctId,
+      sessionId,
+      event: 'test_results_processed',
+      properties: {
+        test_type: testType,
+        test_level: testLevel,
+        contact_method: contactMethod,
+        delivery_type: deliveryType,
+        total_questions: totalQuestions,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: responseMessage,
+      debug: { emailType: deliveryType, recipient: responseRecipient },
+    });
   } catch (error) {
     console.error('Error sending test results emails:', error);
+    captureException(error, { distinctId, sessionId });
 
     // Return appropriate error response
     res.status(500).json({

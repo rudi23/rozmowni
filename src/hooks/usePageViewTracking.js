@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import tracking from '../services/tracking';
+import {
+  initializeAsync as initializeGaAsync,
+  sendPageView as sendGaPageView,
+} from '../services/tracking/googleAnalytics';
 
 function usePageViewTracking() {
   const router = useRouter();
 
   useEffect(() => {
-    tracking
-      .initializeAsync()
-      .then((tracker) => tracking.sendPageView(tracker, router.pathname));
+    initializeGaAsync().then((ReactGA) =>
+      sendGaPageView(ReactGA, router.pathname),
+    );
   }, [router.pathname]);
 }
 

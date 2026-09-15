@@ -15,6 +15,10 @@ import { createAuthHeaders } from '../../utils/apiAuth';
 import useFacebookEventTracking from '../../hooks/useFacebookEventTracking';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events, facebookEvents } from '../../services/tracking';
+import {
+  getRequestHeadersAsync,
+  sendExceptionAsync,
+} from '../../services/tracking/posthog';
 import styles from './TestResultsView.module.scss';
 
 const trialBenefits = [
@@ -85,7 +89,10 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       // Send email with test results
       const emailResponse = await fetch('/api/send-test-results', {
         method: 'POST',
-        headers: createAuthHeaders(),
+        headers: {
+          ...createAuthHeaders(),
+          ...(await getRequestHeadersAsync()),
+        },
         body: JSON.stringify({
           fullName: data.fullName,
           email: data.email,
@@ -131,6 +138,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
         resetForm();
       }, 3000);
     } catch (error) {
+      sendExceptionAsync(error);
       console.error('Error submitting form:', error);
       setMessage({
         type: 'error',

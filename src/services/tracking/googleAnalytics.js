@@ -6,7 +6,12 @@ export function initializeAsync() {
   return import('react-ga4').then((x) => x.default);
 }
 
-export function sendEvent(ReactGA, eventData) {
+// Picks the GA fields explicitly: react-ga4 forwards every unknown key to gtag
+// as a custom parameter, and the event objects also carry `posthogEvent`, which
+// has no meaning in GA4.
+export function sendEvent(ReactGA, { category, action, label }) {
+  const eventData = { category, action, label };
+
   if (!isDev) {
     ReactGA.initialize(TRACKING_ID, {
       gtagOptions: {
