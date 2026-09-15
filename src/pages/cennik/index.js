@@ -5,7 +5,7 @@ import BankDetails from '../../components/BankDetails';
 import { routeMap, routeNames } from '../../routes';
 import styles from './index.module.scss';
 
-const individual = [
+const perLesson = [
   {
     name: 'Lekcje indywidualne',
     price: '120 zł',
@@ -13,6 +13,16 @@ const individual = [
     items: [
       'Zajęcia 1 lub 2 razy w tygodniu',
       'Płatność miesięczna, z góry podczas zajęć',
+    ],
+  },
+  {
+    name: 'Lekcje w 2 osoby',
+    price: '65 zł',
+    unit: 'za lekcję od osoby',
+    items: [
+      'Zajęcia 1 lub 2 razy w tygodniu',
+      'Płatność miesięczna, z góry',
+      'Grupa 2 osób',
     ],
   },
 ];
@@ -92,19 +102,6 @@ const groups = [
   },
 ];
 
-const miniGroups = [
-  {
-    name: 'Lekcje w 2 osoby',
-    price: '65 zł',
-    unit: 'za lekcję od osoby',
-    items: [
-      'Zajęcia 1 lub 2 razy w tygodniu',
-      'Płatność miesięczna, z góry',
-      'Grupa 2 osób',
-    ],
-  },
-];
-
 export default function Pricing() {
   return (
     <>
@@ -113,8 +110,10 @@ export default function Pricing() {
         lede="Ceny lekcji indywidualnych, zajęć w mini grupach i kursów semestralnych."
       />
       <Section>
-        <h2 className={styles.groupHeading}>Lekcje indywidualne</h2>
-        <PricingCards cards={individual} />
+        <h2 className={styles.groupHeading}>
+          Lekcje indywidualne i w mini grupach
+        </h2>
+        <PricingCards cards={perLesson} />
 
         {routeMap[routeNames.HOLIDAY_COURSE] && (
           <>
@@ -125,9 +124,6 @@ export default function Pricing() {
 
         <h2 className={styles.groupHeading}>Kursy w grupach 3-4 osoby</h2>
         <PricingCards cards={groups} />
-
-        <h2 className={styles.groupHeading}>Lekcje w mini grupach</h2>
-        <PricingCards cards={miniGroups} />
 
         <p className={styles.disclaimer}>
           Cennik ma charakter informacyjny i nie stanowi oferty w świetle prawa.
