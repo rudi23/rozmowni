@@ -4,217 +4,48 @@
    MENU
 ----------------------*/
 .site-navigation {
-  border-bottom: 1px solid #f5f7fa;
-  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: #fff;
+  border-bottom: 1px solid var(--color-line);
+  padding: 10px 0;
+  transition: box-shadow 0.2s ease;
+}
+
+/* The bar only lifts off the page once there is content behind it. */
+.site-navigation.is-scrolled {
+  box-shadow: var(--shadow-rest);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-navigation {
+    transition: none;
+  }
 }
 
 .navbar {
   padding: 0;
 }
 
+.logo {
+  width: 200px;
+}
+
 .navbar-nav .nav-link {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 14px 16px;
   font-weight: 600;
   font-size: 15px;
   color: #111;
+  border-radius: var(--radius-control);
 }
 
 .navbar-nav .nav-link:hover {
   color: #0f8d8c;
-  font-weight: 600;
 }
 
 .navbar-nav .nav-link .icon {
-  margin-left: 5px;
-}
-
-.navbar-nav .nav-link .icon {
-  margin-left: 5px;
-}
-
-.navbar-toggler-icon {
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  content: '';
-  vertical-align: middle;
-  background: no-repeat 50%;
-  background-size: 100% 100%;
-}
-
-/*-------------------
-DROPDOWN MENU
-----------------------*/
-.dropdown-menu.show {
-}
-
-.dropdown-item {
-  font-weight: 500;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  transition: background-color 0.1s;
-  border-bottom: 1px solid #eee;
-}
-
-.dropdown-item:last-child {
-  border-color: transparent;
-}
-
-.dropdown-item:hover {
-  color: #fff;
-  text-decoration: none;
-  background-color: #0f8d8c;
-}
-
-.dropdown-toggle::after {
-  display: none;
-}
-
-.nav-item.dropdown .dropdown-menu {
-  transition: all 300ms ease;
-  box-shadow: var(--shadow-raised);
-  border: 0;
-  padding: 0;
-  position: absolute;
-  border-top: 2px solid #0f8d8c;
-  min-width: 220px;
-}
-
-/* Header Right */
-
-.header-contact-phone {
-  margin-right: 5px;
-}
-
-.header-contact-phone a {
-  color: #0f8d8c;
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.header-contact-right {
-  margin-bottom: 0;
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.header-contact-right li {
-  display: inline-block;
-  margin-left: 5px;
-}
-
-.header-contact-right li i {
-  width: 45px;
-  height: 45px;
-  border: 1px solid #eee;
-  text-align: center;
-  padding-top: 14px;
-  border-radius: 100%;
-  background: #f9f9f9;
-  color: #0f8d8c;
-  transition: all 0.4s ease;
-}
-
-.header-contact-right li .icon {
-  display: inline-block;
-  line-height: 1;
-  width: 45px;
-  height: 45px;
-  border: 1px solid #eee;
-  text-align: center;
-  padding-top: 14px;
-  border-radius: 100%;
-  background: #f9f9f9;
-  color: #0f8d8c;
-  transition: all 0.4s ease;
-}
-
-.header-contact-right li .icon:hover {
-  background: #0f8d8c;
-  border-color: #0f8d8c;
-  color: #fff;
-}
-
-.btn-small {
-  padding: 11px 24px;
-}
-
-.btn-small i {
-  margin-right: 5px;
-}
-
-.header-form {
-  position: relative;
-}
-
-.header-form .form-control {
-  height: 50px;
-  background: #f9f9f9;
-  border: 0 solid transparent;
-}
-
-.header-form i {
-  position: absolute;
-  right: 14px;
-  top: 15px;
-}
-
-/* Search Option*/
-.search-wrap {
-  position: relative;
-  z-index: 1200;
-  top: 20px;
-  right: 16px;
-  display: block;
-  float: right;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  overflow: hidden;
-  width: 100%;
-  height: 0;
-  transition:
-    opacity 0.35s,
-    visibility 0.35s,
-    height 0.4s;
-  opacity: 0;
-  background: #1f1f1f;
-}
-
-.overlay.open {
-  visibility: visible;
-  height: 100%;
-  opacity: 1;
-}
-
-.overlay .search-form {
-  position: relative;
-  height: 400px;
-  padding-top: 120px;
-  background: #222;
-}
-
-.search-form .form-control {
-  height: 50px;
-}
-
-.search-form h3 {
-  color: #fff;
-  margin-bottom: 28px;
-  font-weight: 400;
-}
-
-/* Menu Transpaarent */
-.menu-2 .navbar-nav .nav-link {
-  text-transform: uppercase;
-  font-size: 13px;
+  margin-left: 6px;
 }
 
 .nav-link.active {
@@ -222,24 +53,75 @@ DROPDOWN MENU
   font-weight: 700;
 }
 
-.nav-tp {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 12px 0;
-  z-index: 999;
-  margin-bottom: -100px;
-  position: relative;
+.navbar-toggler {
+  padding: 8px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: #fff;
+  color: #111;
+  font-size: 18px;
+  line-height: 1;
 }
 
-.nav-tp .navbar-nav .nav-link {
-  color: #fff;
+.navbar-toggler:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
 }
 
-.nav-tp .navbar-brand h3 {
-  color: #fff;
+/*-------------------
+DROPDOWN MENU
+----------------------*/
+.dropdown-toggle {
+  cursor: pointer;
 }
 
-.logo {
-  width: 200px;
+.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-item.dropdown .dropdown-menu {
+  position: absolute;
+  min-width: 250px;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-raised);
+  transition: all 200ms ease;
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  font-weight: 600;
+  font-size: 15px;
+  color: #111;
+  white-space: normal;
+  transition: background-color 0.15s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #0c6b6a;
+  background-color: #e8f5f5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-item.dropdown .dropdown-menu,
+  .dropdown-item {
+    transition: none;
+  }
+}
+
+/* On wide screens responsive.css opens the panel on hover; a click or a
+   keyboard focus has to open it too, or there is no way in without a mouse. */
+@media (min-width: 1200px) {
+  .nav-item.dropdown .dropdown-menu.show,
+  .nav-item.dropdown:focus-within .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    top: 100%;
+  }
 }
 
 /* CTA Test Button */
@@ -254,14 +136,52 @@ DROPDOWN MENU
   margin-left: 12px;
 }
 
-/* Mobile specific styles */
+/*-------------------
+MOBILE PANEL
+----------------------*/
+/* Below the breakpoint the menu is a sheet over the page, not a list
+   that shoves the page down. The bar itself stays on top of it. */
 @media (max-width: 991px) {
+  .navbar-collapse.show {
+    position: fixed;
+    top: var(--header-h, 72px);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1020;
+    display: block;
+    padding: 8px 20px 40px;
+    background: #fff;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .navbar-collapse.show .navbar-nav {
+    margin: 0 auto;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 14px 4px;
+    font-size: 17px;
+    border-bottom: 1px solid var(--color-line);
+    border-radius: 0;
+  }
+
+  .nav-item.dropdown .dropdown-menu {
+    box-shadow: none;
+    border: 0;
+    padding: 0 0 0 12px;
+    margin: 0;
+  }
+
   .nav-item.test-cta {
     display: block;
   }
 
   .nav-item.test-cta .nav-link {
-    margin: 15px 0 !important;
+    margin: 20px 0 0;
     text-align: center;
+    border-bottom: 0;
+    font-size: 15px;
   }
 }

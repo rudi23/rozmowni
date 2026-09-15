@@ -10,7 +10,11 @@ import courseGroupImage from '../../../public/images/course-group.jpg';
 export default function CoursesGroup() {
   return (
     <>
-      <PageHeader title="Kursy grupowe" />
+      <PageHeader
+        breadcrumb
+        title="Kursy grupowe"
+        lede="Zajęcia w małej grupie, z naciskiem na swobodną rozmowę."
+      />
       <CourseLayout
         sidebar={
           <CourseSidebar

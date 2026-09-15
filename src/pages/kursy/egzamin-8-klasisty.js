@@ -9,7 +9,11 @@ import courseGroupImage from '../../../public/images/course-group.jpg';
 export default function Courses8Exam() {
   return (
     <>
-      <PageHeader title="Egzamin ósmoklasisty" />
+      <PageHeader
+        breadcrumb
+        title="Egzamin ósmoklasisty"
+        lede="Roczny kurs przygotowujący do egzaminu ósmoklasisty z języka angielskiego."
+      />
       <CourseLayout
         sidebar={
           <CourseSidebar

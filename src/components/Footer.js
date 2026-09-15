@@ -1,5 +1,5 @@
-// import './Footer.css';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFacebookF,
@@ -17,274 +17,188 @@ import { events } from '../services/tracking';
 import { decryptEmail } from '../utils';
 import { routeMap, routeNames, routeTitles } from '../routes';
 
+const socials = [
+  {
+    href: 'https://www.facebook.com/Rozmownipl-141305311401481',
+    icon: faFacebookF,
+    label: 'Facebook',
+    event: 'FOOTER_CLICK_FB',
+  },
+  {
+    href: 'https://www.instagram.com/rozmowni.pl/',
+    icon: faInstagram,
+    label: 'Instagram',
+    event: 'FOOTER_CLICK_IG',
+  },
+  {
+    href: 'https://www.tiktok.com/@rozmowni.pl',
+    icon: faTiktok,
+    label: 'TikTok',
+    event: 'FOOTER_CLICK_TIKTOK',
+  },
+  {
+    href: 'https://www.linkedin.com/in/ma%C5%82gorzata-rudowska-08a29a219/',
+    icon: faLinkedin,
+    label: 'LinkedIn',
+    event: 'FOOTER_CLICK_LINKEDIN',
+  },
+];
+
+const courseRoutes = [
+  [routeNames.HOLIDAY_COURSE, 'Intensywne kursy wakacyjne'],
+  [routeNames.INDIVIDUAL_COURSE, 'Zajęcia indywidualne'],
+  [routeNames.GROUP_COURSE, 'Zajęcia grupowe'],
+  [routeNames.EXAM_8_COURSE, 'Egzamin 8-klasisty'],
+  [routeNames.MATURA_EXAM_COURSE, 'Egzamin maturalny'],
+];
+
+const siteRoutes = [
+  [routeNames.ABOUT_US, 'O nas'],
+  [routeNames.PRICING, 'Cennik'],
+  [routeNames.CONTACT, 'Kontakt'],
+  [routeNames.PRIVACY_POLICY, 'Polityka prywatności'],
+];
+
 export default function Footer() {
   const trackClick = useClickTracking();
+  const { pathname } = useRouter();
+  const onTestPage = pathname === routeMap[routeNames.TEST];
+
+  const trackMenuItem = (routeName) => () =>
+    trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeName]));
 
   return (
-    <section className="footer">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-4 me-auto col-sm-6 col-md-6">
-            <div className="widget footer-widget mb-5 mb-lg-0">
-              <div className="widget-title">O nas</div>
-              <p className="mt-3">
-                Szkoła językowa rozmowni.pl jest dla Ciebie jeśli chcesz nie
-                tylko podnosić swój poziom angielskiego, ale także rozmawiać
-                swobodnie po angielsku na tematy ważne dla Ciebie.
-              </p>
-              <ul className="list-inline footer-socials">
-                <li className="list-inline-item">
-                  <a
-                    href="https://www.facebook.com/Rozmownipl-141305311401481"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackClick(events.FOOTER_CLICK_FB)}
-                    title="Facebook profile page"
-                  >
-                    {' '}
-                    <FontAwesomeIcon icon={faFacebookF} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a
-                    href="https://www.instagram.com/rozmowni.pl/"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackClick(events.FOOTER_CLICK_IG)}
-                    title="Instagram profile page"
-                  >
-                    {' '}
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a
-                    href="https://www.tiktok.com/@rozmowni.pl"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackClick(events.FOOTER_CLICK_TIKTOK)}
-                    title="TikTok profile page"
-                  >
-                    {' '}
-                    <FontAwesomeIcon icon={faTiktok} />
-                  </a>
-                </li>
-                <li className="list-inline-item">
-                  <a
-                    href="https://www.linkedin.com/in/ma%C5%82gorzata-rudowska-08a29a219/"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackClick(events.FOOTER_CLICK_LINKEDIN)}
-                    title="Linkedin profile page"
-                  >
-                    {' '}
-                    <FontAwesomeIcon icon={faLinkedin} />
-                  </a>
-                </li>
-              </ul>
+    <>
+      {!onTestPage && (
+        <section className="footer-cta">
+          <div className="container">
+            <div className="footer-cta-inner">
+              <p>Nie wiesz, od czego zacząć? Sprawdź swój poziom w 10 minut.</p>
+              <Link
+                href={routeMap[routeNames.TEST]}
+                className="btn btn-main"
+                onClick={() => trackClick(events.FOOTER_CLICK_TEST)}
+              >
+                Zrób bezpłatny test
+              </Link>
             </div>
           </div>
+        </section>
+      )}
 
-          <div className="col-lg-2 col-sm-6 col-md-6">
-            <div className="footer-widget mb-5 mb-lg-0">
-              <div className="widget-title">Rozmowni.pl</div>
-              <ul className="list-unstyled footer-links">
-                <li>
-                  <Link
-                    href={routeMap[routeNames.ABOUT_US]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.ABOUT_US],
-                        ),
-                      )
-                    }
-                  >
-                    O nas
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.PRICING]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.PRICING],
-                        ),
-                      )
-                    }
-                  >
-                    Cennik
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.CONTACT]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.CONTACT],
-                        ),
-                      )
-                    }
-                  >
-                    Kontakt
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.PRIVACY_POLICY]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.PRIVACY_POLICY],
-                        ),
-                      )
-                    }
-                  >
-                    Polityka prywatności
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-lg-2 col-sm-6 col-md-6">
-            <div className="footer-widget mb-5 mb-lg-0">
-              <div className="widget-title">Kursy</div>
-              <ul className="list-unstyled footer-links">
-                {routeMap[routeNames.HOLIDAY_COURSE] && (
-                  <li>
-                    <Link
-                      href={routeMap[routeNames.HOLIDAY_COURSE]}
-                      onClick={() =>
-                        trackClick(
-                          events.FOOTER_CLICK_MENU_ITEM(
-                            routeNames[routeNames.HOLIDAY_COURSE],
-                          ),
-                        )
-                      }
-                    >
-                      Intensywne kursy wakacyjne
-                    </Link>
-                  </li>
-                )}
-                <li>
-                  <Link
-                    href={routeMap[routeNames.INDIVIDUAL_COURSE]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeNames[routeNames.INDIVIDUAL_COURSE],
-                        ),
-                      )
-                    }
-                  >
-                    Zajęcia indywidualne
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.GROUP_COURSE]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.GROUP_COURSE],
-                        ),
-                      )
-                    }
-                  >
-                    Zajęcia grupowe
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.EXAM_8_COURSE]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.EXAM_8_COURSE],
-                        ),
-                      )
-                    }
-                  >
-                    Egzamin 8-klasisty
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={routeMap[routeNames.MATURA_EXAM_COURSE]}
-                    onClick={() =>
-                      trackClick(
-                        events.FOOTER_CLICK_MENU_ITEM(
-                          routeTitles[routeNames.MATURA_EXAM_COURSE],
-                        ),
-                      )
-                    }
-                  >
-                    Egzamin maturalny
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6 col-md-6">
-            <div className="footer-widget footer-contact mb-5 mb-lg-0">
-              <div className="widget-title">Kontakt</div>
-
-              <ul className="list-unstyled">
-                <li>
-                  <FontAwesomeIcon icon={faPhone} />
-                  <div>
-                    <strong>Telefon</strong>
-                    <a
-                      href="tel:+48506262227"
-                      onClick={() => trackClick(events.FOOTER_CLICK_PHONE)}
-                    >
-                      +48 506 262 227
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faEnvelope} />
-                  <div>
-                    <strong>Email</strong>
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
-                        trackClick(events.FOOTER_CLICK_EMAIL);
-                        e.preventDefault();
-                      }}
-                    >
-                      kontakt@rozmowni.pl
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faLocationDot} />
-                  <div>
-                    <strong>Biuro</strong>
-                    Witkowicka 68G/1
-                    <br />
-                    31-242 Kraków
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="footer-btm">
+      <footer className="footer">
         <div className="container">
-          <div className="row justify-content-center align-items-center">
-            <div className="col-12">
-              <div className="copyright text-lg-center">
-                <p>Copyright © 2026 by Rozmowni.pl | All Rights Reserved</p>
+          <div className="row">
+            <div className="col-lg-5 col-md-12">
+              <div className="footer-widget mb-5 mb-lg-0">
+                <div className="widget-title">Rozmowni.pl</div>
+                <p>
+                  Szkoła językowa rozmowni.pl jest dla Ciebie jeśli chcesz nie
+                  tylko podnosić swój poziom angielskiego, ale także rozmawiać
+                  swobodnie po angielsku na tematy ważne dla Ciebie.
+                </p>
+                <ul className="footer-socials">
+                  {socials.map(({ href, icon, label, event }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        title={label}
+                        aria-label={label}
+                        onClick={() => trackClick(events[event])}
+                      >
+                        <FontAwesomeIcon icon={icon} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+              <div className="footer-widget mb-5 mb-lg-0">
+                <div className="widget-title">Kursy</div>
+                <ul className="footer-links">
+                  {courseRoutes
+                    .filter(([routeName]) => routeMap[routeName])
+                    .map(([routeName, label]) => (
+                      <li key={routeName}>
+                        <Link
+                          href={routeMap[routeName]}
+                          onClick={trackMenuItem(routeName)}
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-lg-4 col-md-6">
+              <div className="footer-widget footer-contact mb-5 mb-lg-0">
+                <div className="widget-title">Kontakt</div>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPhone} aria-hidden="true" />
+                    <div>
+                      <strong>Telefon</strong>
+                      <a
+                        href="tel:+48506262227"
+                        onClick={() => trackClick(events.FOOTER_CLICK_PHONE)}
+                      >
+                        +48 506 262 227
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
+                    <div>
+                      <strong>Email</strong>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
+                          trackClick(events.FOOTER_CLICK_EMAIL);
+                          e.preventDefault();
+                        }}
+                      >
+                        kontakt@rozmowni.pl
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faLocationDot} aria-hidden="true" />
+                    <div>
+                      <strong>Biuro</strong>
+                      Witkowicka 68G/1
+                      <br />
+                      31-242 Kraków
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
+
+          <div className="footer-btm">
+            <p className="copyright">© 2026 Rozmowni.pl</p>
+            <ul className="footer-btm-links">
+              {siteRoutes.map(([routeName, label]) => (
+                <li key={routeName}>
+                  <Link
+                    href={routeMap[routeName]}
+                    onClick={trackMenuItem(routeName)}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
+      </footer>
+    </>
   );
 }

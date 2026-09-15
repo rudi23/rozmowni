@@ -24,7 +24,11 @@ export default function HolidayCourse() {
 
   return (
     <>
-      <PageHeader title="Intensywne kursy wakacyjne" />
+      <PageHeader
+        breadcrumb
+        title="Intensywne kursy wakacyjne"
+        lede="Wakacyjny kurs w małej grupie, dla osób, które chcą szybko wrócić do mówienia."
+      />
       <Section>
         <div className="row">
           <div className="col-lg-2"></div>

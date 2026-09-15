@@ -9,7 +9,11 @@ import courseGroupImage from '../../../public/images/course-group.jpg';
 export default function CoursesMaturaExam() {
   return (
     <>
-      <PageHeader title="Egzamin maturalny" />
+      <PageHeader
+        breadcrumb
+        title="Egzamin maturalny"
+        lede="Roczny kurs przygotowujący do matury z języka angielskiego."
+      />
       <CourseLayout
         sidebar={
           <CourseSidebar

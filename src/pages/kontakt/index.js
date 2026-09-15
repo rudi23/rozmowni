@@ -31,7 +31,10 @@ export default function Contact() {
         defer: true,
       }}
     >
-      <PageHeader title="Kontakt" />
+      <PageHeader
+        title="Kontakt"
+        lede="Napisz, zadzwoń albo wyślij formularz — chętnie odpowiemy na Twoje pytania."
+      />
       <Section>
         <div className="row">
           <div className="col-lg-7 col-md-12">

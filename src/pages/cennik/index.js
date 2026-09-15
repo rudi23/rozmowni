@@ -7,7 +7,10 @@ import styles from './index.module.scss';
 export default function Pricing() {
   return (
     <>
-      <PageHeader title="Cennik" />
+      <PageHeader
+        title="Cennik"
+        lede="Ceny lekcji indywidualnych, zajęć w mini grupach i kursów semestralnych."
+      />
       <Section>
         <div className="row">
           <div className="col-lg-12 col-md-12">

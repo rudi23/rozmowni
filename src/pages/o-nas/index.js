@@ -13,7 +13,10 @@ import ResponsiveImage from '../../components/ResponsiveImage';
 export default function AboutUs() {
   return (
     <>
-      <PageHeader title="O nas" />
+      <PageHeader
+        title="O nas"
+        lede="Poznaj nauczycieli, którzy poprowadzą Twoje lekcje, i sposób, w jaki uczymy."
+      />
       <Section>
         <div className="row">
           <div className="col-lg-6 col-md-12">

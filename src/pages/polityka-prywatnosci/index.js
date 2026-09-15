@@ -5,7 +5,10 @@ import styles from './index.module.scss';
 export default function Index() {
   return (
     <>
-      <PageHeader title="Polityka prywatności" />
+      <PageHeader
+        title="Polityka prywatności"
+        lede="Jak zbieramy, przetwarzamy i chronimy Twoje dane osobowe."
+      />
       <Section>
         <div className={`row ${styles.root}`}>
           <div className="col-lg-12 col-md-12 order-md-1">

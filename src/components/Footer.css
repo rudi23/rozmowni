@@ -1,8 +1,31 @@
+/* A slim band so every page ends with something to do. */
+.footer-cta {
+  background: var(--color-surface-alt);
+  border-top: 1px solid var(--color-line);
+  padding: 32px 0;
+}
+
+.footer-cta-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.footer-cta-inner p {
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--color-navy);
+}
+
 .footer {
-  background: rgba(7, 41, 77, 0.98);
-  padding: 80px 0 0;
-  position: relative;
-  color: rgba(255, 255, 255, 0.8);
+  background: var(--color-navy);
+  padding: 64px 0 0;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .footer .footer-widget .widget-title {
@@ -10,104 +33,113 @@
   font-weight: 700;
   line-height: 1.3;
   color: #fff;
-  margin-bottom: 20px;
-  font-size: 22px;
+  margin-bottom: 18px;
+  font-size: 18px;
 }
 
 .footer .footer-widget p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 46ch;
 }
 
-.footer .footer-contact ul {
-  margin-top: 30px;
-}
-
-.footer .footer-contact ul li {
-  margin-bottom: 20px;
-}
-
-.footer .footer-contact ul li svg {
-  color: #0f8d8c;
-  margin-right: 20px;
-  float: left;
-  margin-top: 7px;
-  min-width: 30px;
-}
-
-.footer .footer-contact ul li div {
-  overflow: hidden;
-  font-size: 14px;
-}
-
-.footer .footer-contact ul li div strong {
-  display: block;
-  text-transform: capitalize;
-  font-size: 16px;
+.footer .footer-links,
+.footer .footer-socials,
+.footer .footer-contact ul,
+.footer .footer-btm-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .footer .footer-links li {
   padding: 5px 0;
 }
 
-.footer .footer-links a {
-  color: rgba(255, 255, 255, 0.8);
+.footer .footer-links a,
+.footer .footer-btm-links a {
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.footer .footer-links a:hover {
-  color: #0f8d8c;
+.footer .footer-links a:hover,
+.footer .footer-btm-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
+/* Plain icons, no white discs. */
 .footer .footer-socials {
-  margin-top: 30px;
+  display: flex;
+  gap: 22px;
+  margin-top: 24px;
 }
 
 .footer .footer-socials a {
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  display: inline-block;
-  text-align: center;
-  padding-top: 6px;
-  font-size: 14px;
-  color: #222;
-  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
+  line-height: 1;
 }
 
 .footer .footer-socials a:hover {
-  background: #0f8d8c;
   color: #fff;
 }
 
+.footer .footer-contact ul li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.footer .footer-contact ul li svg {
+  color: var(--color-teal);
+  margin-top: 5px;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.footer .footer-contact ul li div {
+  font-size: 14px;
+}
+
+.footer .footer-contact ul li div strong {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+}
+
 .footer-btm {
-  margin-top: 30px;
-  padding: 20px 0 25px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 56px;
+  padding: 20px 0 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
 }
 
-.footer-btm .copyright p {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0;
+.footer-btm .copyright {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.form-subscribe {
-  position: relative;
+.footer .footer-btm-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
 }
 
-.form-subscribe .form-control {
-  height: 50px;
-  border-color: rgba(255, 255, 255, 0.2);
-  background: transparent;
-  border-radius: var(--radius-control);
-}
+@media (max-width: 767px) {
+  .footer {
+    padding-top: 48px;
+  }
 
-.form-subscribe button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: #0f8d8c;
-}
+  .footer-cta-inner p {
+    font-size: 18px;
+  }
 
-.form-subscribe button:hover {
-  background: #fff;
-  color: #222;
+  .footer-btm {
+    margin-top: 32px;
+  }
 }

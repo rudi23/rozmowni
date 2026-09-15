@@ -11,7 +11,11 @@ import NewSemesterSignUp from '../../components/NewSemesterSignUp';
 export default function CoursesIndividual() {
   return (
     <>
-      <PageHeader title="Kursy indywidualne" />
+      <PageHeader
+        breadcrumb
+        title="Kursy indywidualne"
+        lede="Lekcje jeden na jeden, dopasowane do Twojego tempa, celów i grafiku."
+      />
 
       <NewSemesterSignUp />
 

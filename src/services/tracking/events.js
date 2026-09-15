@@ -213,6 +213,11 @@ export const FOOTER_CLICK_PHONE = {
   action: 'Click',
   label: 'Phone',
 };
+export const FOOTER_CLICK_TEST = {
+  category: 'Footer',
+  action: 'Click',
+  label: 'Footer CTA - test',
+};
 export const FOOTER_CLICK_MENU_ITEM = (path) => ({
   category: 'Footer',
   action: 'Click',

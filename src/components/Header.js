@@ -2,22 +2,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faFacebookF,
-  faInstagram,
-  faTiktok,
-} from '@fortawesome/free-brands-svg-icons';
-import { useEffect, useState } from 'react';
+  faAngleDown,
+  faBars,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import cx from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeMap, routeNames, routeTitles } from '../routes';
 import logoImage from '../../public/images/logo-rozmowni.png';
-
-library.add(faFacebookF);
-library.add(faInstagram);
-library.add(faTiktok);
 
 function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
   return (
@@ -25,15 +20,13 @@ function MenuMobile({ isOpen, onToggleClick, onLinkClick }) {
       <button
         className="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarMenu"
         aria-controls="navbarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'Zamknij menu' : 'Otwórz menu'}
         onClick={onToggleClick}
       >
         <span className="icon">
-          <FontAwesomeIcon icon={faBars} />
+          <FontAwesomeIcon icon={isOpen ? faXmark : faBars} />
         </span>
       </button>
       <div
@@ -147,10 +140,16 @@ function MenuDesktop({ isDropDownOpen, onDropdownClick, onLinkClick }) {
             className="nav-link dropdown-toggle"
             id="navbar3"
             role="button"
-            data-toggle="dropdown"
+            tabIndex={0}
             aria-haspopup="true"
             aria-expanded={isDropDownOpen}
             onClick={onDropdownClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onDropdownClick();
+              }
+            }}
           >
             Kursy
             <span className="icon">
@@ -247,6 +246,8 @@ export default function Header() {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [width, setWidth] = useState(1600);
   const [isClient, setIsClient] = useState(false);
+  const [isScrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -256,6 +257,39 @@ export default function Header() {
 
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
+
+  // The bar only grows a shadow once there is page behind it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // The mobile sheet starts below the bar, so it needs the bar's real height.
+  useEffect(() => {
+    const publishHeight = () => {
+      const height = headerRef.current?.offsetHeight;
+      if (height) {
+        document.documentElement.style.setProperty('--header-h', `${height}px`);
+      }
+    };
+    publishHeight();
+    window.addEventListener('resize', publishHeight);
+
+    return () => window.removeEventListener('resize', publishHeight);
+  }, [isClient]);
+
+  // Nothing scrolls behind an open sheet.
+  useEffect(() => {
+    const locked = isOpen && width <= 976;
+    document.body.style.overflow = locked ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, width]);
 
   const onLinkClick = (routeName) => () => {
     trackClick(events.NAVIGATION_CLICK_MENU_ITEM(routeTitles[routeName]));
@@ -271,107 +305,55 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <div className="site-navigation">
-        <nav className="navbar navbar-expand-lg">
-          <div className="container pl-3 pe-3">
-            <Link
-              href={routeMap[routeNames.HOME]}
-              className="navbar-brand"
-              onClick={() => trackClick(events.NAVIGATION_CLICK_LOGO)}
-              title="Strona główna"
-            >
-              <Image
-                src={logoImage}
-                alt="Logo rozmowni.pl"
-                width="200"
-                height="51"
-                quality="100"
-              />
-            </Link>
-            {!isClient ? (
-              // Server-side render both menus to prevent hydration mismatch
-              <>
-                <MenuMobile
-                  isOpen={isOpen}
-                  onToggleClick={onToggleClick}
-                  onLinkClick={onLinkClick}
-                />
-                <MenuDesktop
-                  isDropDownOpen={isDropDownOpen}
-                  onDropdownClick={onDropdownClick}
-                  onLinkClick={onLinkClick}
-                />
-              </>
-            ) : width <= 976 ? (
+    <header
+      ref={headerRef}
+      className={cx('site-navigation', { 'is-scrolled': isScrolled })}
+    >
+      <nav className="navbar navbar-expand-lg">
+        <div className="container pl-3 pe-3">
+          <Link
+            href={routeMap[routeNames.HOME]}
+            className="navbar-brand"
+            onClick={() => trackClick(events.NAVIGATION_CLICK_LOGO)}
+            title="Strona główna"
+          >
+            <Image
+              src={logoImage}
+              alt="Logo rozmowni.pl"
+              width="200"
+              height="51"
+              quality="100"
+            />
+          </Link>
+          {!isClient ? (
+            // Server-side render both menus to prevent hydration mismatch
+            <>
               <MenuMobile
                 isOpen={isOpen}
                 onToggleClick={onToggleClick}
                 onLinkClick={onLinkClick}
               />
-            ) : (
               <MenuDesktop
                 isDropDownOpen={isDropDownOpen}
                 onDropdownClick={onDropdownClick}
                 onLinkClick={onLinkClick}
               />
-            )}
-
-            {/* <div className="header-contact-phone d-none d-lg-block">
-                            <span>Tel.:</span>&nbsp;
-                            <a
-                                href="tel:+48506262227"
-                                onClick={() => trackClick(events.NAVIGATION_CLICK_PHONE)}
-                                title="Zadzwoń"
-                            >
-                                506 262 227
-                            </a>
-                        </div> */}
-
-            <ul className="header-contact-right d-none d-lg-block">
-              <li>
-                <a
-                  href="https://www.facebook.com/Rozmownipl-141305311401481"
-                  onClick={() => trackClick(events.NAVIGATION_CLICK_FB)}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Facebook profile page"
-                >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faFacebookF} />
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/rozmowni.pl/"
-                  onClick={() => trackClick(events.NAVIGATION_CLICK_IG)}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Instagram profile page"
-                >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.tiktok.com/@rozmowni.pl"
-                  onClick={() => trackClick(events.NAVIGATION_CLICK_TIKTOK)}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="TikTok profile page"
-                >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faTiktok} />
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+            </>
+          ) : width <= 976 ? (
+            <MenuMobile
+              isOpen={isOpen}
+              onToggleClick={onToggleClick}
+              onLinkClick={onLinkClick}
+            />
+          ) : (
+            <MenuDesktop
+              isDropDownOpen={isDropDownOpen}
+              onDropdownClick={onDropdownClick}
+              onLinkClick={onLinkClick}
+            />
+          )}
+        </div>
+      </nav>
     </header>
   );
 }

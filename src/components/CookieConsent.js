@@ -4,6 +4,43 @@ import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
 
+// A compact card in the corner. The old full-width dark bar covered
+// close to a third of a phone screen.
+const card = {
+  left: '16px',
+  right: 'auto',
+  bottom: '16px',
+  width: 'min(380px, calc(100vw - 32px))',
+  display: 'block',
+  padding: '20px',
+  background: '#fff',
+  color: 'var(--color-text)',
+  border: '1px solid var(--color-line)',
+  borderRadius: 'var(--radius-card)',
+  boxShadow: 'var(--shadow-raised)',
+  fontSize: '14px',
+  lineHeight: '1.55',
+  zIndex: 9999,
+};
+
+const content = {
+  flex: 'auto',
+  margin: '0 0 16px',
+};
+
+const button = {
+  margin: '0',
+  padding: '12px 20px',
+  background: 'transparent',
+  color: 'var(--color-navy)',
+  border: '1.5px solid var(--color-navy)',
+  borderRadius: 'var(--radius-control)',
+  fontFamily: 'Montserrat, sans-serif',
+  fontWeight: '700',
+  fontSize: '14px',
+  lineHeight: '1.2',
+};
+
 export function CookieConsent() {
   const trackClick = useClickTracking();
 
@@ -12,23 +49,9 @@ export function CookieConsent() {
       location="bottom"
       buttonText="Akceptuję"
       cookieName="cookieConsent"
-      style={{
-        background: 'rgba(7, 41, 77, 0.98)',
-        color: 'rgba(255, 255, 255, 0.8)',
-        alignItems: 'center',
-        fontSize: '14px',
-        zIndex: 9999,
-      }}
-      buttonStyle={{
-        fontSize: '14px',
-        color: '#fff',
-        borderColor: '#0f8d8c',
-        background: '#0f8d8c',
-        fontWeight: '500',
-        borderRadius: '5px',
-        fontFamily: 'Montserrat, sans-serif',
-        padding: '8px 15px',
-      }}
+      style={card}
+      contentStyle={content}
+      buttonStyle={button}
       expires={90}
     >
       Używamy plików cookies, aby poprawić funkcjonalność strony. Możesz je
@@ -36,9 +59,11 @@ export function CookieConsent() {
       <Link
         href={routeMap[routeNames.PRIVACY_POLICY]}
         onClick={() => trackClick(events.COOKIE_CONSENT_CLICK_PRIVACY_POLICY)}
+        style={{ color: 'var(--color-teal-dark)', textDecoration: 'underline' }}
       >
-        polityce prywatności.
+        polityce prywatności
       </Link>
+      .
     </CookieConsentCore>
   );
 }
