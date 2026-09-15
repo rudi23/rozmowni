@@ -10,16 +10,16 @@
 
 .facts {
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   font-size: 15px;
 
   @include onMobile() {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 }
 
 .chooserHeading {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   font-size: 26px;
   line-height: 1.2;
   color: $navy;
@@ -35,7 +35,7 @@
   color: $text-secondary;
 
   @include onMobile() {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: $text-tertiary;
   }
 }
