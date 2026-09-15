@@ -1,19 +1,20 @@
 /* eslint-disable no-use-before-define */
 import {
   Body,
+  Column,
   Container,
   Head,
   Heading,
+  Hr,
   Html,
   Img,
   Link,
   Preview,
+  Row,
   Section,
   Text,
-  Hr,
-  Row,
-  Column,
 } from '@react-email/components';
+import * as theme from './theme';
 
 function ContactFormNotificationEmail({
   name,
@@ -24,102 +25,82 @@ function ContactFormNotificationEmail({
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rozmowni.pl';
 
+  const details = [
+    { label: 'Imię i nazwisko', value: name },
+    { label: 'Email', value: email, href: `mailto:${email}` },
+    { label: 'Telefon', value: phone, href: `tel:${phone}` },
+    { label: 'Temat', value: subject },
+  ];
+
   return (
     <Html>
       <Head />
       <Preview>Nowa wiadomość z formularza kontaktowego - {subject}</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          {/* Header with Logo */}
-          <Section style={header}>
+      <Body style={theme.main}>
+        <Container style={theme.container}>
+          <Section style={theme.header}>
             <Img
               src={`${baseUrl}/images/logo-rozmowni.png`}
               width="250"
               height="75"
               alt="Rozmowni.pl"
-              style={logo}
+              style={theme.logo}
             />
           </Section>
 
-          <Hr style={hr} />
+          <Hr style={theme.hr} />
 
-          {/* Main Content */}
-          <Section style={content}>
-            <Heading style={h1}>
+          <Section style={theme.content}>
+            <Heading style={theme.h1}>
               Nowa wiadomość z formularza kontaktowego
             </Heading>
 
-            <Text style={introText}>
+            <Text style={theme.textMuted}>
               Otrzymano nową wiadomość z formularza kontaktowego na stronie
               Rozmowni.pl.
             </Text>
 
-            {/* Contact Details */}
-            <Section style={detailsSection}>
-              <Heading style={h2}>Dane kontaktowe</Heading>
-
-              <Row style={detailRow}>
-                <Column style={detailLabel}>
-                  <Text style={labelText}>Imię i nazwisko:</Text>
-                </Column>
-                <Column style={detailValue}>
-                  <Text style={valueText}>{name}</Text>
-                </Column>
-              </Row>
-
-              <Row style={detailRow}>
-                <Column style={detailLabel}>
-                  <Text style={labelText}>Email:</Text>
-                </Column>
-                <Column style={detailValue}>
-                  <Link href={`mailto:${email}`} style={emailLink}>
-                    {email}
-                  </Link>
-                </Column>
-              </Row>
-
-              <Row style={detailRow}>
-                <Column style={detailLabel}>
-                  <Text style={labelText}>Telefon:</Text>
-                </Column>
-                <Column style={detailValue}>
-                  <Link href={`tel:${phone}`} style={phoneLink}>
-                    {phone}
-                  </Link>
-                </Column>
-              </Row>
-
-              <Row style={detailRow}>
-                <Column style={detailLabel}>
-                  <Text style={labelText}>Temat:</Text>
-                </Column>
-                <Column style={detailValue}>
-                  <Text style={valueText}>{subject}</Text>
-                </Column>
-              </Row>
+            <Section style={theme.cardSubtle}>
+              <Heading style={theme.h2}>Dane kontaktowe</Heading>
+              {details.map(({ label, value, href }) => (
+                <Row style={detailRow} key={label}>
+                  <Column style={detailLabel}>
+                    <Text style={labelText}>{label}</Text>
+                  </Column>
+                  <Column style={detailValue}>
+                    {href ? (
+                      <Link href={href} style={theme.link}>
+                        {value}
+                      </Link>
+                    ) : (
+                      <Text style={valueText}>{value}</Text>
+                    )}
+                  </Column>
+                </Row>
+              ))}
             </Section>
 
-            {/* Message Content */}
-            <Section style={messageSection}>
-              <Heading style={h2}>Treść wiadomości</Heading>
+            <Section style={theme.card}>
+              <Heading style={theme.h2}>Treść wiadomości</Heading>
               <Text style={messageText}>{message}</Text>
             </Section>
 
-            {/* Quick Actions */}
             <Section style={actionsSection}>
-              <Heading style={h2}>Szybkie akcje</Heading>
-
-              <Row style={actionRow}>
-                <Column style={actionColumn}>
+              <Heading style={theme.h2}>Szybkie akcje</Heading>
+              <Row>
+                <Column style={theme.actionColumnLeft}>
                   <Link
                     href={`mailto:${email}?subject=Odpowiedź: ${subject}`}
-                    style={actionButton}
+                    style={theme.buttonBlock}
                   >
                     Odpowiedz na email
                   </Link>
                 </Column>
-                <Column style={actionColumn}>
-                  <Link href={`tel:${phone}`} style={actionButtonSecondary}>
+                <Column style={theme.actionColumnRight}>
+                  <Link
+                    href={`tel:${phone}`}
+                    style={theme.buttonBlockSecondary}
+                  >
                     Zadzwoń
                   </Link>
                 </Column>
@@ -127,19 +108,18 @@ function ContactFormNotificationEmail({
             </Section>
           </Section>
 
-          <Hr style={hr} />
+          <Hr style={theme.hr} />
 
-          {/* Footer */}
-          <Section style={footer}>
-            <Text style={footerText}>
+          <Section style={theme.footer}>
+            <Text style={theme.footerText}>
               Wiadomość została wysłana automatycznie z formularza kontaktowego
               na stronie{' '}
-              <Link href={baseUrl} style={footerLink}>
+              <Link href={baseUrl} style={theme.footerLink}>
                 Rozmowni.pl
               </Link>
             </Text>
-            <Text style={footerText}>
-              © {new Date().getFullYear()} Rozmowni.pl - Wszystkie prawa
+            <Text style={theme.footerText}>
+              © {new Date().getFullYear()} Rozmowni.pl — Wszystkie prawa
               zastrzeżone
             </Text>
           </Section>
@@ -149,182 +129,43 @@ function ContactFormNotificationEmail({
   );
 }
 
-// Styles
-const main = {
-  backgroundColor: '#f6f9fc',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  marginBottom: '64px',
-  maxWidth: '600px',
-};
-
-const header = {
-  padding: '20px 40px',
-  textAlign: 'center',
-};
-
-const logo = {
-  display: 'block',
-  maxWidth: '100%',
-  height: 'auto',
-};
-
-const hr = {
-  borderColor: '#e6ebf1',
-  margin: '20px 0',
-};
-
-const content = {
-  padding: '0 40px',
-};
-
-const h1 = {
-  color: '#1f2937',
-  fontSize: '24px',
-  fontWeight: 'bold',
-  margin: '40px 0 20px',
-  padding: '0',
-};
-
-const h2 = {
-  color: '#374151',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  margin: '30px 0 15px',
-  padding: '0',
-};
-
-const introText = {
-  color: '#6b7280',
-  fontSize: '16px',
-  lineHeight: '24px',
-  margin: '20px 0',
-};
-
-const detailsSection = {
-  backgroundColor: '#f9fafb',
-  padding: '20px',
-  borderRadius: '8px',
-  margin: '20px 0',
-};
-
 const detailRow = {
-  margin: '10px 0',
+  margin: '0 0 10px',
 };
 
 const detailLabel = {
-  width: '30%',
+  width: '38%',
   verticalAlign: 'top',
 };
 
 const detailValue = {
-  width: '70%',
+  width: '62%',
   verticalAlign: 'top',
 };
 
 const labelText = {
-  color: '#374151',
+  color: theme.colors.textMuted,
   fontSize: '14px',
   fontWeight: '600',
   margin: '0',
 };
 
 const valueText = {
-  color: '#1f2937',
+  color: theme.colors.navy,
   fontSize: '14px',
   margin: '0',
-};
-
-const emailLink = {
-  color: '#2563eb',
-  fontSize: '14px',
-  textDecoration: 'underline',
-  margin: '0',
-};
-
-const phoneLink = {
-  color: '#2563eb',
-  fontSize: '14px',
-  textDecoration: 'underline',
-  margin: '0',
-};
-
-const messageSection = {
-  backgroundColor: '#ffffff',
-  border: '1px solid #e5e7eb',
-  padding: '20px',
-  borderRadius: '8px',
-  margin: '20px 0',
 };
 
 const messageText = {
-  color: '#1f2937',
-  fontSize: '14px',
-  lineHeight: '20px',
+  color: theme.colors.text,
+  fontSize: '15px',
+  lineHeight: '24px',
   margin: '0',
   whiteSpace: 'pre-wrap',
 };
 
 const actionsSection = {
-  margin: '30px 0',
-};
-
-const actionRow = {
-  margin: '15px 0',
-};
-
-const actionColumn = {
-  width: '50%',
-  padding: '0 10px',
-};
-
-const actionButton = {
-  backgroundColor: '#2563eb',
-  borderRadius: '6px',
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: '600',
-  textDecoration: 'none',
-  textAlign: 'center',
-  display: 'block',
-  padding: '12px 20px',
-  margin: '0',
-};
-
-const actionButtonSecondary = {
-  backgroundColor: '#10b981',
-  borderRadius: '6px',
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: '600',
-  textDecoration: 'none',
-  textAlign: 'center',
-  display: 'block',
-  padding: '12px 20px',
-  margin: '0',
-};
-
-const footer = {
-  padding: '20px 40px',
-  textAlign: 'center',
-};
-
-const footerText = {
-  color: '#6b7280',
-  fontSize: '12px',
-  lineHeight: '16px',
-  margin: '5px 0',
-};
-
-const footerLink = {
-  color: '#2563eb',
-  textDecoration: 'underline',
+  margin: '24px 0 0',
 };
 
 export default ContactFormNotificationEmail;
