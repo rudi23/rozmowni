@@ -7,6 +7,11 @@ import {
 } from '../../utils/emailService';
 import { validateApiKey } from '../../utils/apiAuth';
 import { captureEvent, captureException } from '../../utils/posthogServer';
+import {
+  sendEvent as sendFacebookEvent,
+  getBrowserIdsFromRequest,
+} from '../../utils/metaCapi';
+import { TEST_CONTACT_DETAILS_SUBMITTED } from '../../services/tracking/facebookEvents';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map();
@@ -172,6 +177,7 @@ export default async function handler(req, res) {
       totalQuestions,
       correctAnswers,
       testLevelCode,
+      facebookEventId,
     } = req.body;
 
     // Validate required fields
@@ -273,6 +279,27 @@ export default async function handler(req, res) {
       deliveryType = 'both';
       responseMessage = 'Both emails sent successfully';
       responseRecipient = email;
+    }
+
+    // The strongest conversion signal the site can give Meta: a lead that has
+    // handed over a real email address. Hashed in metaCapi.js, never sent in the
+    // clear, and skipped entirely when the browser did not supply an event id -
+    // an unpaired copy would be counted a second time on top of the pixel's.
+    if (facebookEventId) {
+      const facebookEvent = TEST_CONTACT_DETAILS_SUBMITTED(testType);
+
+      sendFacebookEvent({
+        eventName: facebookEvent.name,
+        eventId: facebookEventId,
+        eventSourceUrl: req.headers.referer,
+        userData: {
+          email,
+          phone,
+          fullName,
+          ...getBrowserIdsFromRequest(req),
+        },
+        customData: facebookEvent.data,
+      });
     }
 
     captureEvent({

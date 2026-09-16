@@ -16,6 +16,10 @@ import useFacebookEventTracking from '../../hooks/useFacebookEventTracking';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events, facebookEvents } from '../../services/tracking';
 import {
+  createEventId,
+  getBrowserIds,
+} from '../../services/tracking/facebookPixel';
+import {
   getRequestHeadersAsync,
   sendExceptionAsync,
 } from '../../services/tracking/posthog';
@@ -76,6 +80,11 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
   const onSubmitContactForm = async (data) => {
     setIsSubmitting(true);
 
+    // Minted here rather than inside the tracking hook: the server copy of this
+    // conversion rides along in the request below, which is sent before the
+    // pixel fires, and both copies have to carry the same id to deduplicate.
+    const facebookEventId = createEventId();
+
     // Add test score to form data
     const formDataWithScore = {
       ...data,
@@ -107,6 +116,11 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
           // Neither can change shape, so PostHog gets its own plain values.
           correctAnswers: score,
           testLevelCode: level?.level,
+          // Lets the route report this conversion to Meta server-side, matched
+          // on the hashed email it already has and on Meta's own cookies, which
+          // the server cannot read for itself.
+          facebookEventId,
+          ...getBrowserIds(),
         }),
       });
 
@@ -131,6 +145,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       );
       trackFacebookEvent(
         facebookEvents.TEST_CONTACT_DETAILS_SUBMITTED(selectedTest),
+        facebookEventId,
       );
 
       // Here you would normally send to your backend for contact form

@@ -27,7 +27,7 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 - **GA4** – cały ruch i wszystkie kliknięcia w CTA/nawigację/kontakt
   (49 zdefiniowanych eventów typu category/action/label).
 - **FB Pixel** – wyłącznie page view + **dwie konwersje z testu poziomującego**
-  (`Lead`, `CompleteRegistration`). Kliknięcia nie idą na Pixel.
+  (`CompleteRegistration`, `Lead`). Kliknięcia nie idą na Pixel.
 - **PostHog** – to samo pokrycie co GA4 (page view + wszystkie kliknięcia),
   plus trzy rzeczy, których nie ma nigdzie indziej: **session replay**,
   **wyjątki** z przeglądarki i z tras API oraz **eventy serwerowe** wysyłane
@@ -35,7 +35,8 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
   środowiskowymi – bez nich nie działa wcale (sekcja 2.4).
 
 Żadne dane osobowe nie trafiają do PostHoga; imię, e-mail i telefon leada idą
-wyłącznie mailem i do CSV-ki (sekcja 5.5).
+mailem, do CSV-ki oraz – **zahashowane SHA-256, nigdy otwartym tekstem** – do
+Conversions API Mety (sekcje 5.5 i 6.1).
 
 ---
 
@@ -50,11 +51,15 @@ src/services/tracking/
 │                        # sendExceptionAsync, getRequestHeadersAsync
 ├── events.js            # 49 stałych eventów GA4 (category/action/label
 │                        # + opcjonalne posthogEvent, sekcja 5.1)
-└── facebookEvents.js    # 2 fabryki eventów FB (Lead, CompleteRegistration)
+├── facebookEvents.js    # 2 fabryki eventów FB (CompleteRegistration, Lead)
+└── facebookServerEvents.js # POST /api/track-test-completed (serwerowe CAPI)
 
 src/utils/
-└── posthogServer.js     # posthog-node: captureEvent, captureException
-                         # (wołane z tras /api/*)
+├── posthogServer.js     # posthog-node: captureEvent, captureException
+│                        # (wołane z tras /api/*)
+├── metaCapi.js          # Conversions API: hashowanie SHA-256, sendEvent
+│                        # (fire-and-forget, wołane z tras /api/*)
+└── rateLimit.js         # createRateLimiter (limit per IP w pamięci procesu)
 
 src/hooks/
 ├── usePageViewTracking.js     # GA4 page view      (wołany w _app.js)
@@ -181,6 +186,24 @@ Oba workflowy podstawiają **te same** nazwy i żaden nie używa `environment:`,
 więc staging i produkcja raportują do jednego projektu PostHog – dokładnie tak
 samo, jak dzielą właściwość GA4 i Pixela. Rozdzielenie środowisk wymagałoby
 osobnych sekretów per environment.
+
+**Conversions API czyta jedną zmienną**, wyłącznie serwerową – bez
+`NEXT_PUBLIC_`, bo to token dostępu, a nie klucz publiczny:
+
+```
+META_CAPI_ACCESS_TOKEN
+```
+
+Generuje się go w Events Manager → wybrany piksel → Ustawienia → Conversions API
+→ „Generuj token dostępu". Bez niego CAPI jest wyłączone w całości i zostaje sam
+Pixel – znowu degradacja do „mniej analityki", nie do błędu. ID piksela jest
+zahardkodowane tak samo jak po stronie przeglądarki (`metaCapi.js:1`).
+
+Jest jeszcze opcjonalne `META_CAPI_TEST_EVENT_CODE`, **celowo nieobecne
+w `.env.example`**. Służy do podglądu zdarzeń w zakładce „Testuj zdarzenia",
+a payload z tym kodem jest wyłączony z optymalizacji – gdyby placeholder trafił
+do `.env.example`, a workflow go nie podstawił, produkcja wysyłałaby konwersje,
+których Meta nie policzy. Ustawia się je tylko lokalnie, w `.env.local`.
 
 ---
 
@@ -403,12 +426,12 @@ page view /test-poziomujacy
   -> Test / Progress / adults - question 01/25
   -> ...
   -> Test / Progress / adults - question 25/25
-  -> Test / Complete / adults
-  -> Test / Send     / adults      (+ FB CompleteRegistration)
+  -> Test / Complete / adults      (+ FB CompleteRegistration)
+  -> Test / Send     / adults      (+ FB Lead)
 ```
 
 Ostatni krok leci dopiero po `emailResponse.ok`, razem z pixelowym
-`CompleteRegistration` – oba oznaczają to samo zdarzenie i przy zmianach trzeba
+`Lead` – oba oznaczają to samo zdarzenie i przy zmianach trzeba
 ruszać je naraz. Dzięki temu **cały lejek, od wejścia po leada, da się policzyć
 w samym GA4**, bez zestawiania go z Menedżerem zdarzeń Meta.
 
@@ -597,22 +620,79 @@ To jedyne miejsce, gdzie mierzone są realne konwersje. Definicje w
 
 | Moment                                                            | Event FB               | Gdzie                    | Payload                                                             |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------ | ------------------------------------------------------------------- |
-| Użytkownik skończył pytania, pokazuje się ekran wyniku            | `Lead`                 | `test-poziomujacy.js:53` | `content_name: 'Test poziomujący'`, `content_category: <typ testu>` |
-| Użytkownik zostawił dane kontaktowe i **mail faktycznie wyszedł** | `CompleteRegistration` | `TestResultsView.js:113` | jw. + `status: true`                                                |
+| Użytkownik skończył pytania, pokazuje się ekran wyniku            | `CompleteRegistration` | `test-poziomujacy.js:65` | `content_name: 'Test poziomujący'`, `content_category: <typ testu>` |
+| Użytkownik zostawił dane kontaktowe i **mail faktycznie wyszedł** | `Lead`                 | `TestResultsView.js:146` | jw.                                                                 |
+
+**Dlaczego akurat tak, a nie odwrotnie.** W słowniku Mety `Lead` znaczy
+„zostawił kontakt" – i to ten event Menedżer reklam podpowiada jako domyślny cel
+kampanii Kontakty. Gdyby wisiał na ukończeniu testu, kampania optymalizowałaby
+się pod ludzi kończących quiz i znikających: kupowałbyś porzucone testy w
+przekonaniu, że kupujesz kontakty. Ukończony test jest krokiem, który do
+formularza dopiero prowadzi, stąd `CompleteRegistration`.
 
 Szczegóły, które łatwo przeoczyć:
 
-- `Lead` leci w `handleTestComplete`, czyli **raz na ukończony test**, dokładnie
-  przy przejściu na ekran wyników.
-- `CompleteRegistration` leci **po** sprawdzeniu `emailResponse.ok`, a nie przy
-  kliknięciu „wyślij". Jeśli `/api/send-test-results` zwróci błąd, konwersja
+- `CompleteRegistration` leci w `handleTestComplete`, czyli **raz na ukończony
+  test**, dokładnie przy przejściu na ekran wyników.
+- `Lead` leci **po** sprawdzeniu `emailResponse.ok`, a nie przy kliknięciu „wyślij". Jeśli `/api/send-test-results` zwróci błąd, konwersja
   nie jest raportowana – zgodnie z komentarzem w kodzie
   („track only once the email actually went out").
 - **Porzucenia testu mierzy GA, nie Pixel** – Pixel zna wyłącznie dwa punkty
-  końcowe lejka (`Lead`, `CompleteRegistration`). Na którym z 25 pytań ludzie
+  końcowe lejka (`CompleteRegistration`, `Lead`). Na którym z 25 pytań ludzie
   odpadają, widać w eventach `Test / Progress` (sekcja 4.6).
-- `Lead` (FB) i `TEST_COMPLETED` (GA) lecą w tym samym miejscu i oznaczają to
-  samo zdarzenie – ukończenie testu. Przy zmianach trzeba ruszać oba naraz.
+- `CompleteRegistration` (FB) i `TEST_COMPLETED` (GA) lecą w tym samym miejscu
+  i oznaczają to samo zdarzenie – ukończenie testu. Przy zmianach trzeba ruszać oba naraz.
+
+### 6.1 Conversions API – ta sama konwersja drugim kanałem
+
+Obie konwersje z tabeli wyżej lecą **dwa razy**: raz z przeglądarki (Pixel) i raz
+z serwera (Conversions API, `utils/metaCapi.js`). Powód jest taki, że `fbq()`
+wykonuje się u użytkownika, więc adblock, ITP w Safari, odrzucona zgoda cookie
+albo zamknięta karta potrafią zgubić konwersję – a to jedyne zdarzenie, pod które
+optymalizuje się kampanię reklamową.
+
+**Deduplikacja jest obowiązkowa.** Meta skleja parę po `event_name` + `event_id`;
+bez wspólnego id ta sama konwersja policzyłaby się dwukrotnie. `createEventId()`
+(`facebookPixel.js`) generuje UUID, a obie strony wysyłają dokładnie ten sam.
+`ReactPixel.track()` przyjmuje tylko dwa argumenty i nie ma gdzie przyjąć id,
+dlatego `sendEvent` schodzi do `ReactPixel.fbq('track', name, data, { eventID })`
+– to własna furtka biblioteki do globalnego `fbq`.
+
+Oba zdarzenia idą inną drogą, bo serwer wie o użytkowniku co innego w każdym
+z tych dwóch momentów:
+
+| Event                  | Endpoint serwerowy                                | Dane dopasowania                                             |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| `CompleteRegistration` | `POST /api/track-test-completed`                  | tylko `_fbp` / `_fbc` – **bez danych osobowych**             |
+| `Lead`                 | `POST /api/send-test-results` (przy okazji maila) | `_fbp` / `_fbc` + haszowany e-mail, telefon, imię i nazwisko |
+
+`CompleteRegistration` leci przed formularzem, więc w tym momencie nie ma
+jeszcze żadnego maila – stąd osobny, lekki endpoint, który nie dotyka ani CSV, ani SMTP.
+
+Szczegóły, które łatwo przeoczyć:
+
+- **Wszystko, co użytkownik wpisał, jest hashowane SHA-256** w `metaCapi.js`
+  i nigdy nie opuszcza serwera otwartym tekstem. `_fbp` i `_fbc` to ciasteczka
+  samej Mety, nie dane osobowe, i lecą jawnie.
+- **Normalizacja musi się zgadzać, inaczej hash nie pasuje do niczego.** Mail
+  jest trimowany i lowercase'owany, a telefon sprowadzany do cyfr E.164 – numer
+  z formularza (`123 456 789`) dostaje prefiks `48`.
+- **`_fbc` bywa odtwarzane z URL-a.** Normalnie zapisuje je Pixel przy wejściu
+  z `fbclid`, ale zablokowany Pixel nigdy tego nie zrobi – a to dokładnie ta
+  wizyta, którą CAPI ma uratować. `buildClickIdFromUrl()` składa je ręcznie
+  w udokumentowanym formacie `fb.1.<timestamp>.<fbclid>`.
+- **Żądanie z przeglądarki idzie z `keepalive: true`** – ekran wyników to miejsce,
+  z którego ludzie wychodzą, a bez tego przeglądarka może anulować request przy
+  zamknięciu karty.
+- **Serwerowa strona jest fire-and-forget**, z tego samego powodu co
+  `posthogServer.js`: mail do leada już wyszedł, więc niedostępny Graph API nie
+  może ani opóźnić odpowiedzi, ani zamienić dostarczonego leada w 500.
+- **Bez `META_CAPI_ACCESS_TOKEN` CAPI jest wyłączone w całości** i zostaje sam
+  Pixel. W `NODE_ENV=development` nic nie wychodzi – jest tylko `console.log`,
+  i to z hashami, nie z wartościami.
+- `/api/track-test-completed` wymaga `x-api-key` i ma limit 10 żądań/min na IP
+  (`utils/rateLimit.js`). Fałszywe konwersje wstrzykiwane z zewnątrz psułyby
+  optymalizację kampanii, nie tylko statystyki.
 
 ---
 
