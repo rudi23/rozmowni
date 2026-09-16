@@ -34,7 +34,7 @@
     "next": "15.5.25",
     "nodemailer": "7.0.12",
     "posthog-js": "^1.433.4",
-    "posthog-node": "5.21.2",
+    "posthog-node": "5.52.4",
     "react": "19.3.0",
     "react-cookie-consent": "9.0.0",
     "react-dom": "19.3.0",
