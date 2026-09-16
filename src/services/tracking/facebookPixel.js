@@ -79,8 +79,10 @@ export function createEventId() {
 }
 
 // Meta's own cookies, forwarded to the server untouched: `_fbp` identifies the
-// browser, `_fbc` the ad click. Neither is personal data, and both are what let
-// a server-side conversion be matched back to a campaign.
+// browser, `_fbc` the ad click. They are what lets a server-side conversion be
+// matched back to a campaign - and they are personal data under GDPR, being
+// persistent identifiers that single out one browser and tie it to an ad
+// profile. Sending them is a disclosure decision, not a technical detail.
 export function getBrowserIds() {
   return {
     fbp: readCookie('_fbp'),

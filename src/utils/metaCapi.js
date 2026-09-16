@@ -1,4 +1,5 @@
 import { createHash } from 'crypto';
+import { getClientIp } from './clientIp';
 
 const PIXEL_ID = '1757361357785350';
 const ACCESS_TOKEN = process.env.META_CAPI_ACCESS_TOKEN;
@@ -30,7 +31,17 @@ function hash(value) {
 // separators. The form asks for a plain Polish number ('123 456 789'), so the
 // country code has to be added before hashing or the digest matches nothing.
 function normalizePhone(phone) {
-  const digits = String(phone || '').replace(/\D/g, '');
+  let digits = String(phone || '').replace(/\D/g, '');
+
+  // The form's pattern accepts '0048 123 456 789' as readily as '+48 ...', and
+  // E.164 carries neither '+' nor '00' - left in, the leading zeros go into the
+  // digest and the number matches nothing.
+  if (digits.startsWith('00')) {
+    digits = digits.slice(2);
+  } else if (digits.length === 10 && digits.startsWith('0')) {
+    // The trunk '0' was dropped in 2009 but is still typed out of habit.
+    digits = digits.slice(1);
+  }
 
   if (digits.length === 9) {
     return `48${digits}`;
@@ -105,9 +116,17 @@ async function postEventAsync(payload) {
     return;
   }
 
-  // A 200 that accepted nothing is not a delivered conversion either.
-  if (result && result.events_received === 0) {
-    console.error('Meta CAPI accepted 0 events:', body);
+  // Every call here sends exactly one event, so only an explicit count of one
+  // is a delivered conversion. Anything else - a 200 whose body did not parse,
+  // an empty body, a payload with no count at all - is treated as a loss rather
+  // than assumed to be fine, which is the silent path this parsing exists to
+  // close.
+  if (result?.events_received !== 1) {
+    console.error(
+      'Meta CAPI did not confirm the event:',
+      response.status,
+      body,
+    );
   }
 }
 
@@ -169,10 +188,10 @@ function getBrowserIdsFromRequest(req) {
   return {
     fbp: req.body?.fbp || undefined,
     fbc: req.body?.fbc || undefined,
-    clientIp:
-      req.headers['x-forwarded-for']?.split(',')[0].trim() ||
-      req.socket?.remoteAddress ||
-      undefined,
+    // Last hop, not first: the leftmost entry is the one a caller can forge,
+    // and forwarding a forged address to Meta as `client_ip_address` degrades
+    // matching for everyone. Same rule as the rate limiter - see clientIp.js.
+    clientIp: getClientIp(req),
     userAgent: req.headers['user-agent'] || undefined,
   };
 }
