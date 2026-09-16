@@ -4,6 +4,25 @@
 const WINDOW_MS = 60 * 1000;
 const CLEANUP_INTERVAL_MS = 5 * 60 * 1000;
 
+// `x-forwarded-for` is a list the client can seed: a caller sending its own
+// header gets that value prepended, so keying on the whole string - or on the
+// first entry - hands out a fresh bucket on every request and the limit stops
+// limiting anything. Only the last entry is written by the proxy in front of
+// the app, so that is the one worth trusting. This assumes exactly one such
+// proxy (Passenger's), which is what the deploy sets up; behind a second one
+// the correct entry would be the second from the end.
+function getClientKey(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+
+  if (typeof forwarded === 'string' && forwarded.trim()) {
+    const hops = forwarded.split(',');
+
+    return hops[hops.length - 1].trim();
+  }
+
+  return req.socket?.remoteAddress || 'unknown';
+}
+
 function createRateLimiter({ maxRequests, windowMs = WINDOW_MS }) {
   const store = new Map();
 
@@ -17,8 +36,7 @@ function createRateLimiter({ maxRequests, windowMs = WINDOW_MS }) {
   }, CLEANUP_INTERVAL_MS);
 
   return function check(req) {
-    const clientIp =
-      req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+    const clientIp = getClientKey(req);
     const now = Date.now();
     const client = store.get(clientIp);
 

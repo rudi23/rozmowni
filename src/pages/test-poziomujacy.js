@@ -61,7 +61,8 @@ export default function TestPage() {
     );
     // Reported twice on purpose - once from the browser, once from the server -
     // under one id, so Meta keeps a single conversion but still sees it when the
-    // pixel is blocked. This is the event the ad campaign optimises against.
+    // pixel is blocked. This is the upper-funnel step: the campaign optimises
+    // against `Lead`, which fires on the contact form in TestResultsView.
     const facebookEventId = trackFacebookEvent(
       facebookEvents.TEST_COMPLETED(selectedTest),
     );

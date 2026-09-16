@@ -31,6 +31,11 @@ jobs:
           sed -i 's|<NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN>|${{ secrets.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN }}|g' .env.local
           sed -i 's|<NEXT_PUBLIC_POSTHOG_HOST>|${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}|g' .env.local
           sed -i 's|<META_CAPI_ACCESS_TOKEN>|${{ secrets.META_CAPI_ACCESS_TOKEN }}|g' .env.local
+          # Staging only, and appended rather than substituted because this key
+          # is deliberately absent from .env.example: on production it would put
+          # every conversion in "Test events", where Meta excludes it from
+          # optimisation. Unset secret means an empty value, which is falsy.
+          echo 'META_CAPI_TEST_EVENT_CODE="${{ secrets.META_CAPI_TEST_EVENT_CODE }}"' >> .env.local
           sed -i 's/<CSV_FILE_PATH>/\/home\/rozmowni\/rails\/stage-test-results.csv/g' .env.local
       - name: Build project
         run: npm run build

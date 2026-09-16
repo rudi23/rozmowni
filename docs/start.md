@@ -449,16 +449,18 @@ Aplikacja Next ich nie używa.
 
 ## 9. Zmienne środowiskowe (`.env.local`)
 
-| Zmienna                                                           | Opis                                                                   |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Konfiguracja nodemailer                                                |
-| `SMTP_FROM`                                                       | Nadawca maili, np. `Rozmowni.pl <kontakt@rozmowni.pl>`                 |
-| `NOTIFICATIONS_EMAIL`                                             | Adres admina, na który idą powiadomienia (test + formularz kontaktowy) |
-| `API_KEY`                                                         | Klucz sprawdzany po stronie serwera w API routes                       |
-| `NEXT_PUBLIC_API_KEY`                                             | Ten sam klucz, wstrzykiwany do bundla klienta (nagłówek `x-api-key`)   |
-| `BASIC_AUTH_ENABLED`                                              | `false` wyłącza ochronę `/email-preview`                               |
-| `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`                              | Dane logowania do `/email-preview`                                     |
-| `CSV_FILE_PATH`                                                   | Ścieżka do pliku CSV z wynikami testu (domyślnie `./test-results.csv`) |
+| Zmienna                                                           | Opis                                                                                                                                                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Konfiguracja nodemailer                                                                                                                                                   |
+| `SMTP_FROM`                                                       | Nadawca maili, np. `Rozmowni.pl <kontakt@rozmowni.pl>`                                                                                                                    |
+| `NOTIFICATIONS_EMAIL`                                             | Adres admina, na który idą powiadomienia (test + formularz kontaktowy)                                                                                                    |
+| `API_KEY`                                                         | Klucz sprawdzany po stronie serwera w API routes                                                                                                                          |
+| `NEXT_PUBLIC_API_KEY`                                             | Ten sam klucz, wstrzykiwany do bundla klienta (nagłówek `x-api-key`)                                                                                                      |
+| `BASIC_AUTH_ENABLED`                                              | `false` wyłącza ochronę `/email-preview`                                                                                                                                  |
+| `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`                              | Dane logowania do `/email-preview`                                                                                                                                        |
+| `CSV_FILE_PATH`                                                   | Ścieżka do pliku CSV z wynikami testu (domyślnie `./test-results.csv`)                                                                                                    |
+| `META_CAPI_ACCESS_TOKEN`                                          | Token Conversions API, **tylko serwerowy**. Opcjonalny – bez niego CAPI jest wyłączone i zostaje sam Pixel                                                                |
+| `META_CAPI_TEST_EVENT_CODE`                                       | Opcjonalny kod z zakładki „Testuj zdarzenia”. Wstrzykiwany **tylko na staging**; celowo nieobecny w `.env.example`, bo na produkcji wykluczyłby konwersje z optymalizacji |
 
 `.env.local` jest w `.gitignore`. W CI plik powstaje z `.env.example` przez
 podmianę placeholderów sekretami GitHuba.

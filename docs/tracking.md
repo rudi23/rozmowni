@@ -203,7 +203,13 @@ Jest jeszcze opcjonalne `META_CAPI_TEST_EVENT_CODE`, **celowo nieobecne
 w `.env.example`**. Służy do podglądu zdarzeń w zakładce „Testuj zdarzenia",
 a payload z tym kodem jest wyłączony z optymalizacji – gdyby placeholder trafił
 do `.env.example`, a workflow go nie podstawił, produkcja wysyłałaby konwersje,
-których Meta nie policzy. Ustawia się je tylko lokalnie, w `.env.local`.
+których Meta nie policzy.
+
+Dlatego nie jest podstawiane jak reszta, tylko **dopisywane do `.env.local`
+i wyłącznie w workflow stagingowym** (`deploy-staging.yml`), z sekretu
+`META_CAPI_TEST_EVENT_CODE`. Produkcyjny workflow nie zna tej zmiennej w ogóle.
+Nieustawiony sekret daje pustą wartość, czyli falsy – więc staging bez sekretu
+zachowuje się jak produkcja. Lokalnie ustawia się je ręcznie w `.env.local`.
 
 ---
 
@@ -661,10 +667,10 @@ dlatego `sendEvent` schodzi do `ReactPixel.fbq('track', name, data, { eventID })
 Oba zdarzenia idą inną drogą, bo serwer wie o użytkowniku co innego w każdym
 z tych dwóch momentów:
 
-| Event                  | Endpoint serwerowy                                | Dane dopasowania                                             |
-| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
-| `CompleteRegistration` | `POST /api/track-test-completed`                  | tylko `_fbp` / `_fbc` – **bez danych osobowych**             |
-| `Lead`                 | `POST /api/send-test-results` (przy okazji maila) | `_fbp` / `_fbc` + haszowany e-mail, telefon, imię i nazwisko |
+| Event                  | Endpoint serwerowy                                | Dane dopasowania                                        |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------- |
+| `CompleteRegistration` | `POST /api/track-test-completed`                  | `_fbp` / `_fbc`, IP i User-Agent – **nic z formularza** |
+| `Lead`                 | `POST /api/send-test-results` (przy okazji maila) | jw. + haszowany e-mail, telefon, imię i nazwisko        |
 
 `CompleteRegistration` leci przed formularzem, więc w tym momencie nie ma
 jeszcze żadnego maila – stąd osobny, lekki endpoint, który nie dotyka ani CSV, ani SMTP.
@@ -672,8 +678,13 @@ jeszcze żadnego maila – stąd osobny, lekki endpoint, który nie dotyka ani C
 Szczegóły, które łatwo przeoczyć:
 
 - **Wszystko, co użytkownik wpisał, jest hashowane SHA-256** w `metaCapi.js`
-  i nigdy nie opuszcza serwera otwartym tekstem. `_fbp` i `_fbc` to ciasteczka
-  samej Mety, nie dane osobowe, i lecą jawnie.
+  i nigdy nie opuszcza serwera otwartym tekstem.
+- **Ale „bez danych osobowych" to nadużycie** i nie należy tak o tym pisać.
+  Jawnie lecą `_fbp`, `_fbc`, adres IP i User-Agent. To trwałe identyfikatory,
+  które pozwalają wyodrębnić konkretną przeglądarkę i powiązać ją z profilem
+  reklamowym – pod RODO są danymi osobowymi, a hashowanie pól formularza tego
+  nie zmienia. Endpoint ukończenia testu jest więc „bez pól z formularza",
+  a nie „bez danych osobowych".
 - **Normalizacja musi się zgadzać, inaczej hash nie pasuje do niczego.** Mail
   jest trimowany i lowercase'owany, a telefon sprowadzany do cyfr E.164 – numer
   z formularza (`123 456 789`) dostaje prefiks `48`.

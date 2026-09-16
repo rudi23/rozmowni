@@ -7,10 +7,13 @@ import { TEST_COMPLETED } from '../../services/tracking/facebookEvents';
 // ceiling only has to allow for a restarted test, not for a burst.
 const checkRateLimit = createRateLimiter({ maxRequests: 10 });
 
-// Carries no personal data by design: at test completion the lead has not typed
-// an email yet - that is the next screen, and /api/send-test-results reports it
-// with a hashed email attached. This endpoint exists purely so the test's own
-// `CompleteRegistration` survives a blocked pixel, matched on Meta's cookies.
+// Carries nothing the lead typed: at test completion there is no email yet -
+// that is the next screen, and /api/send-test-results reports it with a hashed
+// email attached. What does go out is `_fbp`/`_fbc` plus the request IP and
+// User-Agent (see getBrowserIdsFromRequest). Those are still personal data
+// under GDPR - persistent identifiers that single out a browser - so this
+// endpoint is "no form fields", not "no personal data". It exists so the test's
+// own `CompleteRegistration` survives a blocked pixel.
 export default function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });

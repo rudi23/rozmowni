@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -51,6 +51,8 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [message, setMessage] = useState(null);
+  // One id per mounted form, minted on the first submit and kept across retries.
+  const facebookEventIdRef = useRef(null);
   const level = getLevel(score, selectedTest);
   const trackFacebookEvent = useFacebookEventTracking();
   const trackClick = useClickTracking();
@@ -83,7 +85,16 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
     // Minted here rather than inside the tracking hook: the server copy of this
     // conversion rides along in the request below, which is sent before the
     // pixel fires, and both copies have to carry the same id to deduplicate.
-    const facebookEventId = createEventId();
+    //
+    // Held in a ref so a retry reuses it. The route reports the conversion to
+    // Meta before it answers, so a submit whose response is lost still counted
+    // - minting a fresh id on the retry would leave the first report unpaired
+    // and Meta would record two leads for one person.
+    if (!facebookEventIdRef.current) {
+      facebookEventIdRef.current = createEventId();
+    }
+
+    const facebookEventId = facebookEventIdRef.current;
 
     // Add test score to form data
     const formDataWithScore = {

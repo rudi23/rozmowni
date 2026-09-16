@@ -39,9 +39,11 @@ function normalizePhone(phone) {
   return digits;
 }
 
-// `fbp` and `fbc` identify the browser and the ad click and are sent in the
-// clear - they are Meta's own cookie values, not personal data. Everything
-// derived from what the lead typed is hashed here and never leaves unhashed.
+// Everything the lead typed is hashed here and never leaves unhashed. The rest
+// - `fbp`, `fbc`, the IP and the User-Agent - goes in the clear, because Meta
+// matches on those verbatim. They are still personal data under GDPR: they are
+// persistent identifiers that single out one browser and tie it to an ad
+// profile, and hashing the form fields does not change that.
 function buildUserData({
   email,
   phone,
@@ -71,25 +73,41 @@ function buildUserData({
   );
 }
 
-async function postEventAsync(body) {
+async function postEventAsync(payload) {
   const response = await fetch(
     `https://graph.facebook.com/${GRAPH_API_VERSION}/${PIXEL_ID}/events`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify(payload),
     },
   );
 
   // Meta answers 200 with an error object for a malformed payload as readily as
-  // it answers 4xx, and a silently rejected conversion is exactly the failure
-  // this module exists to prevent. Log it; there is no caller left to tell.
-  if (!response.ok) {
-    console.error(
-      'Meta CAPI rejected the event:',
-      response.status,
-      await response.text().catch(() => ''),
-    );
+  // it answers 4xx, so the status alone would report a rejected conversion as a
+  // success - and a silently rejected conversion is the exact failure this
+  // module exists to prevent. Read the body and judge on both. There is no
+  // caller left to tell, so this logs.
+  const body = await response.text().catch(() => '');
+
+  let result = null;
+
+  try {
+    result = JSON.parse(body);
+  } catch {
+    // A non-JSON body is itself a signal something is wrong; `result` stays
+    // null and the checks below fall through to the status.
+  }
+
+  if (!response.ok || result?.error) {
+    console.error('Meta CAPI rejected the event:', response.status, body);
+
+    return;
+  }
+
+  // A 200 that accepted nothing is not a delivered conversion either.
+  if (result && result.events_received === 0) {
+    console.error('Meta CAPI accepted 0 events:', body);
   }
 }
 
