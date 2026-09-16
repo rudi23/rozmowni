@@ -7,6 +7,7 @@ import { testData, getLevel } from '../data/testData';
 import useFacebookEventTracking from '../hooks/useFacebookEventTracking';
 import useClickTracking from '../hooks/useClickTracking';
 import { events, facebookEvents } from '../services/tracking';
+import { sendTestCompletedAsync } from '../services/tracking/facebookServerEvents';
 
 export default function TestPage() {
   const router = useRouter();
@@ -58,7 +59,18 @@ export default function TestPage() {
         getLevel(finalScore, selectedTest)?.level,
       ),
     );
-    trackFacebookEvent(facebookEvents.TEST_COMPLETED_LEAD(selectedTest));
+    // Reported twice on purpose - once from the browser, once from the server -
+    // under one id, so Meta keeps a single conversion but still sees it when the
+    // pixel is blocked. This is the upper-funnel step: the campaign optimises
+    // against `Lead`, which fires on the contact form in TestResultsView.
+    const facebookEventId = trackFacebookEvent(
+      facebookEvents.TEST_COMPLETED(selectedTest),
+    );
+
+    sendTestCompletedAsync({
+      eventId: facebookEventId,
+      testType: selectedTest,
+    });
   };
 
   // Show intro screen when no test is selected

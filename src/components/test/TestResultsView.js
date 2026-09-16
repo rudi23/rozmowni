@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,6 +15,10 @@ import { createAuthHeaders } from '../../utils/apiAuth';
 import useFacebookEventTracking from '../../hooks/useFacebookEventTracking';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events, facebookEvents } from '../../services/tracking';
+import {
+  createEventId,
+  getBrowserIds,
+} from '../../services/tracking/facebookPixel';
 import {
   getRequestHeadersAsync,
   sendExceptionAsync,
@@ -47,6 +51,8 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [message, setMessage] = useState(null);
+  // One id per mounted form, minted on the first submit and kept across retries.
+  const facebookEventIdRef = useRef(null);
   const level = getLevel(score, selectedTest);
   const trackFacebookEvent = useFacebookEventTracking();
   const trackClick = useClickTracking();
@@ -75,6 +81,20 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
 
   const onSubmitContactForm = async (data) => {
     setIsSubmitting(true);
+
+    // Minted here rather than inside the tracking hook: the server copy of this
+    // conversion rides along in the request below, which is sent before the
+    // pixel fires, and both copies have to carry the same id to deduplicate.
+    //
+    // Held in a ref so a retry reuses it. The route reports the conversion to
+    // Meta before it answers, so a submit whose response is lost still counted
+    // - minting a fresh id on the retry would leave the first report unpaired
+    // and Meta would record two leads for one person.
+    if (!facebookEventIdRef.current) {
+      facebookEventIdRef.current = createEventId();
+    }
+
+    const facebookEventId = facebookEventIdRef.current;
 
     // Add test score to form data
     const formDataWithScore = {
@@ -107,6 +127,11 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
           // Neither can change shape, so PostHog gets its own plain values.
           correctAnswers: score,
           testLevelCode: level?.level,
+          // Lets the route report this conversion to Meta server-side, matched
+          // on the hashed email it already has and on Meta's own cookies, which
+          // the server cannot read for itself.
+          facebookEventId,
+          ...getBrowserIds(),
         }),
       });
 
@@ -131,6 +156,7 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       );
       trackFacebookEvent(
         facebookEvents.TEST_CONTACT_DETAILS_SUBMITTED(selectedTest),
+        facebookEventId,
       );
 
       // Here you would normally send to your backend for contact form

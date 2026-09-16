@@ -208,11 +208,11 @@ To najważniejsza funkcja biznesowa. Pliki:
 flowchart TD
     A[CTA na stronie / menu] --> B["/test-poziomujacy<br/>TestIntroView"]
     B -->|wybór: teens 11-16 / adults 17+| C["TestRunner<br/>25 pytań, 1 na ekran"]
-    C -->|Zakończ test| D["score = liczba poprawnych<br/>FB Pixel: Lead"]
+    C -->|Zakończ test| D["score = liczba poprawnych<br/>FB Pixel: CompleteRegistration"]
     D --> E["TestResultsFormView<br/>karta z poziomem + formularz obok"]
     E -->|submit| F["POST /api/send-test-results<br/>x-api-key"]
     F -->|401 / 429 / 400 / 500| E
-    F -->|200| G["FB Pixel: CompleteRegistration<br/>komunikat sukcesu (3 s)"]
+    F -->|200| G["FB Pixel: Lead<br/>komunikat sukcesu (3 s)"]
     G --> H["TestResultsSuccessView<br/>„Sprawdź skrzynkę i spam”"]
     F -.-> I[CSV: CSV_FILE_PATH]
     F -.-> J["Mail do użytkownika<br/>wynik + poziom + e-book PDF"]
@@ -269,8 +269,9 @@ wersji mieści się nad krawędzią ekranu zarówno na komputerze, jak i na tele
   pozycji, gdzie `answers[i] === questions[i].correct`. Wywołuje `onTestComplete(score)`.
 
 **Przejście do wyników.** W `handleTestComplete` strona zapisuje `score`,
-ustawia `showResults=true` i wysyła do FB Pixel event **`Lead`**
-(`TEST_COMPLETED_LEAD(selectedTest)`, `content_name: 'Test poziomujący'`,
+ustawia `showResults=true` i wysyła do FB Pixel event
+**`CompleteRegistration`** (`TEST_COMPLETED(selectedTest)`,
+`content_name: 'Test poziomujący'`,
 `content_category: 'adults'|'teens'`). Event odpala się raz na ukończony test.
 
 **Ekran 3 – `TestResultsFormView`.** Dwie kolumny: po lewej karta z poziomem,
@@ -307,7 +308,7 @@ obiekt `{ level, title, description }`; do API idzie `testLevel` jako
 3. Gdy `!response.ok` → wyjątek → komunikat błędu „Wystąpił błąd podczas
    wysyłania. Spróbuj ponownie.”; formularz zostaje, można wysłać ponownie.
 4. Gdy OK → `isSubmitted=true` (przycisk zablokowany na stałe), FB Pixel
-   **`CompleteRegistration`** (`TEST_CONTACT_DETAILS_SUBMITTED(selectedTest)`),
+   **`Lead`** (`TEST_CONTACT_DETAILS_SUBMITTED(selectedTest)`),
    sztuczne opóźnienie 1 s, komunikat „Formularz został wysłany pomyślnie!”,
    po 3 s przejście do ekranu 4 i reset formularza.
 
@@ -434,8 +435,8 @@ Aplikacja Next ich nie używa.
   w formacie `{ category, action, label }` z `services/tracking/events.js`.
   Hook: `useClickTracking()`.
 - **FB Pixel**: `PageView` przy zmianie ścieżki oraz dwa eventy konwersji
-  z testu: `Lead` (ukończenie testu) i `CompleteRegistration` (dane kontaktowe
-  wysłane i mail faktycznie doszedł). Hook: `useFacebookEventTracking()`.
+  z testu: `CompleteRegistration` (ukończenie testu) i `Lead` (dane kontaktowe
+  wysłane i mail faktycznie doszedł - to jest prawdziwy lead). Hook: `useFacebookEventTracking()`.
   To jedyne miejsce, gdzie mierzone są realne konwersje – GA **nie widzi**
   ukończenia testu.
 - ID obu narzędzi są **zahardkodowane w kodzie**, nie ma ich w `.env` – staging
@@ -448,16 +449,18 @@ Aplikacja Next ich nie używa.
 
 ## 9. Zmienne środowiskowe (`.env.local`)
 
-| Zmienna                                                           | Opis                                                                   |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Konfiguracja nodemailer                                                |
-| `SMTP_FROM`                                                       | Nadawca maili, np. `Rozmowni.pl <kontakt@rozmowni.pl>`                 |
-| `NOTIFICATIONS_EMAIL`                                             | Adres admina, na który idą powiadomienia (test + formularz kontaktowy) |
-| `API_KEY`                                                         | Klucz sprawdzany po stronie serwera w API routes                       |
-| `NEXT_PUBLIC_API_KEY`                                             | Ten sam klucz, wstrzykiwany do bundla klienta (nagłówek `x-api-key`)   |
-| `BASIC_AUTH_ENABLED`                                              | `false` wyłącza ochronę `/email-preview`                               |
-| `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`                              | Dane logowania do `/email-preview`                                     |
-| `CSV_FILE_PATH`                                                   | Ścieżka do pliku CSV z wynikami testu (domyślnie `./test-results.csv`) |
+| Zmienna                                                           | Opis                                                                                                                                                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Konfiguracja nodemailer                                                                                                                                                   |
+| `SMTP_FROM`                                                       | Nadawca maili, np. `Rozmowni.pl <kontakt@rozmowni.pl>`                                                                                                                    |
+| `NOTIFICATIONS_EMAIL`                                             | Adres admina, na który idą powiadomienia (test + formularz kontaktowy)                                                                                                    |
+| `API_KEY`                                                         | Klucz sprawdzany po stronie serwera w API routes                                                                                                                          |
+| `NEXT_PUBLIC_API_KEY`                                             | Ten sam klucz, wstrzykiwany do bundla klienta (nagłówek `x-api-key`)                                                                                                      |
+| `BASIC_AUTH_ENABLED`                                              | `false` wyłącza ochronę `/email-preview`                                                                                                                                  |
+| `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`                              | Dane logowania do `/email-preview`                                                                                                                                        |
+| `CSV_FILE_PATH`                                                   | Ścieżka do pliku CSV z wynikami testu (domyślnie `./test-results.csv`)                                                                                                    |
+| `META_CAPI_ACCESS_TOKEN`                                          | Token Conversions API, **tylko serwerowy**. Opcjonalny – bez niego CAPI jest wyłączone i zostaje sam Pixel                                                                |
+| `META_CAPI_TEST_EVENT_CODE`                                       | Opcjonalny kod z zakładki „Testuj zdarzenia”. Wstrzykiwany **tylko na staging**; celowo nieobecny w `.env.example`, bo na produkcji wykluczyłby konwersje z optymalizacji |
 
 `.env.local` jest w `.gitignore`. W CI plik powstaje z `.env.example` przez
 podmianę placeholderów sekretami GitHuba.
