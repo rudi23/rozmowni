@@ -14,6 +14,43 @@ const isConfigured = Boolean(PROJECT_TOKEN && API_HOST);
 // through its properties, so nothing is silently dropped on the PostHog side.
 const DEFAULT_EVENT_NAME = 'link_clicked';
 
+// The site's own code is served over http(s); anything on another URI scheme -
+// iabjs:// from the Facebook in-app browser, chrome-extension:// from an
+// extension - is script injected into the page, not code we shipped.
+function isNonAppSchemeFrame(frame) {
+  const filename = frame && frame.filename;
+
+  if (typeof filename !== 'string') {
+    return false;
+  }
+
+  const scheme = filename.match(/^([a-z][a-z0-9+.-]*):/i);
+
+  return (
+    Boolean(scheme) && !['http', 'https'].includes(scheme[1].toLowerCase())
+  );
+}
+
+// `capture_exceptions` reports every unhandled error on the page, so an injected
+// script that throws on its way out (the in-app browser losing its Java binding)
+// opens an issue as if it were ours. Such an exception has frames and every one
+// of them loads from a non-app scheme; a genuine site error always keeps at
+// least one http(s) frame, so it is never matched.
+function isInjectedScriptException(properties) {
+  const exceptions = properties && properties.$exception_list;
+
+  if (!Array.isArray(exceptions)) {
+    return false;
+  }
+
+  const frames = exceptions.flatMap(
+    (exception) =>
+      (exception && exception.stacktrace && exception.stacktrace.frames) || [],
+  );
+
+  return frames.length > 0 && frames.every(isNonAppSchemeFrame);
+}
+
 let clientPromise = null;
 
 // posthog-js is ~90 kB gzipped - an order of magnitude more than react-ga4 or
@@ -32,6 +69,19 @@ function initializeAsync() {
           api_host: API_HOST,
           defaults: '2026-01-30',
           capture_exceptions: true,
+          // Drop exceptions thrown by injected scripts before they leave the
+          // browser, so third-party noise never opens an error-tracking issue.
+          before_send: (event) => {
+            if (
+              event &&
+              event.event === '$exception' &&
+              isInjectedScriptException(event.properties)
+            ) {
+              return null;
+            }
+
+            return event;
+          },
           session_recording: {
             // Every input on this site collects a lead's personal data - name,
             // email, phone. Session replay records the screen, so the typed
