@@ -50,6 +50,12 @@ export default function ContactForm() {
           trackClick(events.CONTACT_SEND_FORM);
           reset();
         } else {
+          // A refused submit used to end here silently - the visitor saw the
+          // error, nothing else did. The server counts its own refusals; this
+          // catches the ones it never got to answer.
+          sendExceptionAsync(
+            new Error(`Contact form submit failed: ${res.status}`),
+          );
           setSentError(true);
         }
       } catch (error) {

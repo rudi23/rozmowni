@@ -54,6 +54,24 @@ function captureEvent({ distinctId, sessionId, event, properties }) {
   }
 }
 
+// One name for every way a filled-in form can be turned away. Without it a lead
+// stopped by the rate limiter or by validation simply vanishes between
+// `test_completed` and `test_lead_submitted`, and nothing counts them.
+function captureRejection({
+  distinctId,
+  sessionId,
+  route,
+  reason,
+  statusCode,
+}) {
+  captureEvent({
+    distinctId,
+    sessionId,
+    event: 'lead_submission_rejected',
+    properties: { route, reason, status_code: statusCode },
+  });
+}
+
 function captureException(error, { distinctId, sessionId }) {
   if (isDev) {
     console.log('PostHog (server): send exception', error);
@@ -70,4 +88,4 @@ function captureException(error, { distinctId, sessionId }) {
   }
 }
 
-export { captureEvent, captureException };
+export { captureEvent, captureRejection, captureException };
