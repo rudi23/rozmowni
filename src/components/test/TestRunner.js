@@ -14,6 +14,10 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
   // Highest question already reported to GA. Going back and forward again must
   // not report a question twice, or the drop-off curve stops being monotonic.
   const furthestQuestionRef = useRef(0);
+  // When the previous question was reported, so each `test_progressed` can say
+  // how long the visitor took to reach this one. Null until the first report:
+  // there is nothing to measure before it.
+  const previousQuestionAtRef = useRef(null);
 
   const totalQuestions = testData[selectedTest].questions.length;
 
@@ -36,8 +40,21 @@ const TestRunner = ({ selectedTest, onTestComplete }) => {
     }
 
     furthestQuestionRef.current = questionNumber;
+
+    // Measured between reports, not between renders, so a detour back to an
+    // earlier question counts towards the time it took to move forward.
+    const now = Date.now();
+    const previousAt = previousQuestionAtRef.current;
+
+    previousQuestionAtRef.current = now;
+
     trackClick(
-      events.TEST_PROGRESS(selectedTest, questionNumber, totalQuestions),
+      events.TEST_PROGRESS(
+        selectedTest,
+        questionNumber,
+        totalQuestions,
+        previousAt === null ? undefined : Math.round((now - previousAt) / 1000),
+      ),
     );
   }, [currentQuestion, selectedTest, totalQuestions, trackClick]);
 
