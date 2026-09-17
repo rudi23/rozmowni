@@ -3,7 +3,9 @@
   "version": "2.3.1",
   "private": true,
   "scripts": {
+    "predev": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-sitemap.mjs",
     "dev": "next dev",
+    "prebuild": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-sitemap.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",

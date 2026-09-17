@@ -369,6 +369,7 @@ export default function Header() {
               width="200"
               height="51"
               quality="100"
+              priority
             />
           </Link>
           {!isClient ? (

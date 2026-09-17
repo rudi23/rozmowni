@@ -54,10 +54,13 @@ export default function Banner() {
           </div>
 
           <div className={styles.bannerImage}>
+            {/* The LCP element on every viewport: lazy-loading it pushed
+                mobile LCP past 9 s. */}
             <ResponsiveImage
               src={mainImage}
               alt="Małgorzata Rudowska przy biurku"
               placeholder="blur"
+              priority
               sizes="(min-width: 1200px) 520px, (min-width: 768px) 45vw, 100vw"
               quality="75"
               style={{ maxWidth: '100%' }}

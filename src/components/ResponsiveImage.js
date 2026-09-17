@@ -25,9 +25,14 @@ export default function ResponsiveImage({
   sizes,
   ...props
 }) {
-  // Auto-generate sizes if not provided
+  // Auto-generate sizes if not provided. Statically imported images arrive
+  // without `width`, and an "undefinedpx" entry makes the browser ignore the
+  // whole sizes list and download the largest candidate.
   const autoSizes =
-    sizes || `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, ${width}px`;
+    sizes ||
+    (width
+      ? `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, ${width}px`
+      : '(max-width: 768px) 100vw, 50vw');
 
   return (
     <Image
@@ -42,7 +47,7 @@ export default function ResponsiveImage({
       style={{
         width: '100%',
         height: 'auto',
-        maxWidth: `${width}px`,
+        maxWidth: width ? `${width}px` : undefined,
         ...style,
       }}
       {...props}

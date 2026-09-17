@@ -1,0 +1,14 @@
+@import '../styles/mixins';
+
+// Links in running text: the global `a` inherits colour, so prose links need
+// their own affordance.
+.link {
+  color: $teal-dark;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: $navy;
+  }
+}

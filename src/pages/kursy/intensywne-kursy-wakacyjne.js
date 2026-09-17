@@ -7,16 +7,23 @@ import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
 import { routeMap, routeNames } from '../../routes';
 import holidayCourseImage from '../../../public/images/course-holiday-2023.jpg';
-import { decryptEmail } from '../../utils';
 import Section from '../../components/Section';
 import ResponsiveImage from '../../components/ResponsiveImage';
 
 export const getServerSideProps = async () => {
   if (!routeMap[routeNames.HOLIDAY_COURSE]) {
+    // Seasonal page. While it is switched off, send visitors (and whatever
+    // links point here) to the group courses instead of a dead end. Temporary
+    // on purpose: search engines keep this address for when the course is back.
     return {
-      notFound: true, //redirects to 404 page
+      redirect: {
+        destination: routeMap[routeNames.GROUP_COURSE],
+        permanent: false,
+      },
     };
   }
+
+  return { props: {} };
 };
 
 export default function HolidayCourse() {
@@ -183,15 +190,8 @@ export default function HolidayCourse() {
                 </a>
                 , maila na{' '}
                 <a
-                  href="#"
-                  onClick={(e) => {
-                    decryptEmail(
-                      'a29udGFrdEByb3ptb3duaS5wbA==',
-                      'Kurs wakacyjny języka angielskiego w Rozmowni.pl',
-                    );
-                    trackClick(events.HOLIDAY_COURSE_CLICK_EMAIL);
-                    e.preventDefault();
-                  }}
+                  href={`mailto:kontakt@rozmowni.pl?subject=${encodeURIComponent('Kurs wakacyjny języka angielskiego w Rozmowni.pl')}`}
+                  onClick={() => trackClick(events.HOLIDAY_COURSE_CLICK_EMAIL)}
                 >
                   kontakt@rozmowni.pl
                 </a>{' '}

@@ -49,7 +49,8 @@ testu poziomującego.
 ├── .env.example                # szablon zmiennych środowiskowych
 ├── .github/workflows/          # CI: lint+test, CodeQL, deploy staging/production
 ├── docs/                       # dokumentacja: start.md (ten plik), tracking.md, todo.md
-├── public/                     # statyki: obrazki, fonty, sitemap.xml, robots.txt,
+├── scripts/                    # generate-sitemap.mjs (prebuild/predev), generate-og-images.mjs (ręcznie)
+├── public/                     # statyki: obrazki (w tym og-*.jpg), fonty, robots.txt, sitemap.xml (generowany, w .gitignore),
 │                               # .htaccess i mail.php (pozostałości po starym hostingu PHP)
 ├── test.md                     # STARY draft pytań testu – NIE jest źródłem danych (patrz 6.8)
 └── src/
@@ -114,23 +115,27 @@ Metadane SEO dla każdej trasy są w `src/services/metadata/getMetadata.js`.
 
 ### 5.1 Strony publiczne
 
-| URL                                 | Plik                                        | Opis                                                                                                                                                                                                                         | Menu                 | Sitemap             |
-| ----------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------- |
-| `/`                                 | `pages/index.js`                            | Strona główna – lejek do testu (patrz 5.3)                                                                                                                                                                                   | logo                 | tak                 |
-| `/test-poziomujacy`                 | `pages/test-poziomujacy.js`                 | Test poziomujący (intro → pytania → formularz → sukces)                                                                                                                                                                      | tak (wyróżnione CTA) | tak                 |
-| `/kursy/indywidualne`               | `pages/kursy/indywidualne.js`               | Lekcje 1:1, 120 zł / 45 min, typy: konwersacje, General/Business English, egzaminy                                                                                                                                           | tak                  | tak                 |
-| `/kursy/grupowe`                    | `pages/kursy/grupowe.js`                    | Grupy 2–3 os., 1650 zł/semestr, 30 lekcji, poziomy A2–C2                                                                                                                                                                     | tak                  | tak                 |
-| `/kursy/egzamin-8-klasisty`         | `pages/kursy/egzamin-8-klasisty.js`         | Grupy 3–4 os., 1430 zł/semestr, 26 lekcji                                                                                                                                                                                    | tak                  | tak                 |
-| `/kursy/egzamin-maturalny`          | `pages/kursy/egzamin-maturalny.js`          | Grupy 3–4 os., 1430 zł/semestr, poziom podst./rozsz.                                                                                                                                                                         | tak                  | tak                 |
-| `/cennik`                           | `pages/cennik/index.js`                     | Karty cenowe wszystkich kursów (nazwa, cena, jednostka, punkty, „Zapisz się” → `/kontakt`) + karta z danymi do przelewu i numerem konta do skopiowania                                                                       | tak                  | tak                 |
-| `/o-nas`                            | `pages/o-nas/index.js`                      | Sekcja o założycielce (Gosia), siatka kart zespołu (Denis, Angelika, Ania, Georgia, Wiktor, Weronika), CTA na lekcję próbną, opinie                                                                                          | tak                  | tak                 |
-| `/kontakt`                          | `pages/kontakt/index.js`                    | Dane kontaktowe, social media, formularz kontaktowy (reCAPTCHA v3)                                                                                                                                                           | tak                  | tak                 |
-| `/polityka-prywatnosci`             | `pages/polityka-prywatnosci/index.js`       | Polityka prywatności, `robots: noindex, follow`                                                                                                                                                                              | stopka               | nie                 |
-| `/kursy/intensywne-kursy-wakacyjne` | `pages/kursy/intensywne-kursy-wakacyjne.js` | **Wyłączona.** Wpis w `routeMap` jest zakomentowany, więc `getServerSideProps` zwraca `notFound` (404). Linki w menu, stopce i cenniku renderują się warunkowo. Aby włączyć, odkomentuj wpis w `routeMap` i w `sitemap.xml`. | nie                  | nie (zakomentowana) |
+| URL                                 | Plik                                        | Opis                                                                                                                                                                                                                                                                                 | Menu                 | Sitemap             |
+| ----------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- | ------------------- |
+| `/`                                 | `pages/index.js`                            | Strona główna – lejek do testu (patrz 5.3)                                                                                                                                                                                                                                           | logo                 | tak                 |
+| `/test-poziomujacy`                 | `pages/test-poziomujacy.js`                 | Test poziomujący (intro → pytania → formularz → sukces); ekran intro ma też sekcję „Jak działa test” i pełne FAQ (8 pytań, bez CTA)                                                                                                                                                  | tak (wyróżnione CTA) | tak                 |
+| `/kursy/indywidualne`               | `pages/kursy/indywidualne.js`               | Lekcje 1:1, 120 zł / 45 min, typy: konwersacje, General/Business English, egzaminy                                                                                                                                                                                                   | tak                  | tak                 |
+| `/kursy/grupowe`                    | `pages/kursy/grupowe.js`                    | Grupy 2–3 os., 1650 zł/semestr, 30 lekcji, poziomy A2–C2                                                                                                                                                                                                                             | tak                  | tak                 |
+| `/kursy/egzamin-8-klasisty`         | `pages/kursy/egzamin-8-klasisty.js`         | Grupy 3–4 os., 1430 zł/semestr, 26 lekcji                                                                                                                                                                                                                                            | tak                  | tak                 |
+| `/kursy/egzamin-maturalny`          | `pages/kursy/egzamin-maturalny.js`          | Grupy 3–4 os., 1430 zł/semestr, poziom podst./rozsz.                                                                                                                                                                                                                                 | tak                  | tak                 |
+| `/cennik`                           | `pages/cennik/index.js`                     | Karty cenowe wszystkich kursów (nazwa, cena, jednostka, punkty, „Zapisz się” → `/kontakt`) + karta z danymi do przelewu i numerem konta do skopiowania                                                                                                                               | tak                  | tak                 |
+| `/o-nas`                            | `pages/o-nas/index.js`                      | Sekcja o założycielce (Gosia), siatka kart zespołu (Denis, Angelika, Ania, Georgia, Wiktor, Weronika), CTA na lekcję próbną, opinie                                                                                                                                                  | tak                  | tak                 |
+| `/kontakt`                          | `pages/kontakt/index.js`                    | Dane kontaktowe, social media, formularz kontaktowy (reCAPTCHA v3)                                                                                                                                                                                                                   | tak                  | tak                 |
+| `/polityka-prywatnosci`             | `pages/polityka-prywatnosci/index.js`       | Polityka prywatności, `robots: noindex, follow`                                                                                                                                                                                                                                      | stopka               | nie                 |
+| `/kursy/intensywne-kursy-wakacyjne` | `pages/kursy/intensywne-kursy-wakacyjne.js` | **Wyłączona.** Wpis w `routeMap` jest zakomentowany, więc `getServerSideProps` przekierowuje tymczasowo (307) na `/kursy/grupowe`. Linki w menu, stopce i cenniku renderują się warunkowo. Aby włączyć, odkomentuj wpis w `routeMap` – sitemapa zaktualizuje się sama przy buildzie. | nie                  | nie (zakomentowana) |
 
 Strony kursów używają wspólnych klocków: `CourseLayout`, `CourseHeader`,
 `CourseSidebar` (zdjęcie + cena + przycisk „Zapisz się” → `/kontakt`),
-`CourseInfo`, `CourseRequirements`, `CourseDetails`.
+`CourseInfo`, `CourseRequirements`, `CourseDetails`. Pod opisem kursu jest blok
+`.course-prose` z sekcjami „Dla kogo”, „Jak wyglądają zajęcia”, „Cena i zapisy”,
+`CourseFAQ` (akordeon pytań) i `RelatedCourses` (linki do pozostałych kursów).
+Linki w treści idą przez `CourseLink`, który je trackuje (kategoria
+`Course content`, patrz tracking.md).
 
 `CourseSidebar` jest przyklejony (`position: sticky`) od 992 px w górę, a poniżej
 tej szerokości cenę i przycisk przejmuje pasek przyklejony do dołu ekranu.
@@ -144,12 +149,12 @@ W `style.css` został tylko `.course-section-title` i zapas dla paska.
 
 ### 5.2 Strony techniczne
 
-| URL                                        | Opis                                                                                                                                                                                                                 |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/email-preview`                           | Podgląd 3 szablonów maili z danymi testowymi i przyciski do wysyłki testowej. Chronione **HTTP Basic Auth** w `src/middleware.js` (`BASIC_AUTH_USER`/`BASIC_AUTH_PASS`; `BASIC_AUTH_ENABLED=false` wyłącza ochronę). |
-| `/404`                                     | Własna strona 404 z obrazkiem.                                                                                                                                                                                       |
-| `POST /api/send-test-results`              | Zapis wyniku do CSV + wysyłka maili po teście (patrz 6.5).                                                                                                                                                           |
-| `POST /api/send-contact-form-notification` | Powiadomienie mailowe z formularza kontaktowego (patrz 7).                                                                                                                                                           |
+| URL                                        | Opis                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/email-preview`                           | Podgląd 3 szablonów maili z danymi testowymi i przyciski do wysyłki testowej. Chronione **HTTP Basic Auth** w `src/middleware.js` (`BASIC_AUTH_USER`/`BASIC_AUTH_PASS`; `BASIC_AUTH_ENABLED=false` wyłącza ochronę).                                                                         |
+| `/404`                                     | Własna strona 404: nagłówek, obrazek, CTA do testu i na stronę główną (oba otrackowane, kategoria `Not found`). `/404` nie ma wpisu w `routeMap`, więc `Metadata` daje tylko fallback z `noindex`, a tytuł strona ustawia sama przez `next/head`. Stopka nie pokazuje tu paska `footer-cta`. |
+| `POST /api/send-test-results`              | Zapis wyniku do CSV + wysyłka maili po teście (patrz 6.5).                                                                                                                                                                                                                                   |
+| `POST /api/send-contact-form-notification` | Powiadomienie mailowe z formularza kontaktowego (patrz 7).                                                                                                                                                                                                                                   |
 
 ### 5.3 Strona główna – kolejność sekcji
 
@@ -166,7 +171,7 @@ sekcja konwertuje. Mapa „sekcja → event” jest w
 6. `Idea` – filozofia nauki
 7. `TestBenefits` – co zyskujesz robiąc test (wynik, lekcja próbna, plan, e-book); CTA test. Oferta „pakietu startowego” jest opisana **tylko tutaj** – `FinalCTA` jej nie powtarza
 8. `Opinions` – karuzela opinii uczniów
-9. `TestFAQ` – 8 pytań w akordeonie (czas, cena, kiedy wynik, spam, poziomy, zobowiązania, powtórka, niski poziom); CTA test + kontakt
+9. `TestFAQ` – pierwsze 5 pytań (`limit={5}`: czas, cena, kiedy wynik, spam, zobowiązania); CTA test + kontakt. Pełne 8 pytań jest na `/test-poziomujacy`
 10. `FinalCTA` – końcowe wezwanie do testu (nagłówek, zdanie, przycisk, linijka zapewnienia). Zastępuje na stronie głównej pasek `footer-cta`, który `Footer` ukrywa tam, gdzie strona ma własną akcję: `/`, `/test-poziomujacy` i `/kontakt` (formularz ma własny przycisk wysyłki)
 
 ### 5.4 Wspólny layout (`_app.js`)
@@ -520,7 +525,8 @@ symlink na poprzedni (lub wskazany) katalog release'u.
 - Zmiana treści maili: `src/emails/*.jsx`, podgląd na `/email-preview`.
 - Nowa strona: dodaj wpis w `src/routes/index.js`, metadane w
   `src/services/metadata/getMetadata.js`, plik w `src/pages`, link w `Header`
-  i `Footer`, wpis w `public/sitemap.xml`.
+  i `Footer`, mapowanie trasy na plik strony w `scripts/generate-sitemap.mjs`
+  (sitemapa generuje się z `routeMap` przy `npm run build` i `npm run dev`).
 - Nowy event analityczny: `src/services/tracking/events.js` (GA) lub
   `facebookEvents.js` (FB), potem `useClickTracking` / `useFacebookEventTracking`.
   Krok po kroku i konwencje nazw: [tracking.md](tracking.md#7-jak-dodać-nowy-event).

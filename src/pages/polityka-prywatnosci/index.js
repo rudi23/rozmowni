@@ -76,7 +76,7 @@ export default function Index() {
               Przedsiębiorca dąży do zapewnienia i dokłada wszelkich starań, aby
               dane osobowe przetwarzane przez Przedsiębiorcę były:
             </p>
-            <h5>I. Przetwarzane zgodnie z prawem</h5>
+            <h2>I. Przetwarzane zgodnie z prawem</h2>
             <p>
               Proces przetwarzania danych opiera się na co najmniej jednej z
               poniższych podstaw prawnych:
@@ -168,7 +168,7 @@ export default function Index() {
               danych osobowych, Przedsiębiorca podejmie starania o uzyskanie
               stosownej zgody podmiotów tych danych.
             </p>
-            <h5>II. Przetwarzane prawidłowo i rzetelnie</h5>
+            <h2>II. Przetwarzane prawidłowo i rzetelnie</h2>
             <p>
               1. Administrator danych zapewnia, że zgromadzone dane osobowe są
               poprawne i aktualne, a ich przetwarzanie przebiega bez zakłóceń.
@@ -184,7 +184,7 @@ export default function Index() {
               3. Osoba, której dane dotyczą jest uprawniona do żądania
               sprostowania i uzupełnienia danych.
             </p>
-            <h5>III. Przetwarzane zgodnie z zasadą ograniczenia celu</h5>
+            <h2>III. Przetwarzane zgodnie z zasadą ograniczenia celu</h2>
             <p>
               1. Zasada ograniczenia celu oznacza, że dane osobowe mogą być
               zbierane jedynie w konkretnym, wyraźnym i prawnie uzasadnionym
@@ -204,7 +204,7 @@ export default function Index() {
               4. Administrator danych informuje osoby, których dane dotyczą o
               celach przetwarzania.
             </p>
-            <h5>IV. Przetwarzane zgodnie z zasadą minimalizacji danych</h5>
+            <h2>IV. Przetwarzane zgodnie z zasadą minimalizacji danych</h2>
             <p>
               1. Zakres pozyskiwanych danych musi być adekwatny i ograniczony do
               minimum niezbędnego dla realizacji wskazanego celu.
@@ -225,7 +225,7 @@ export default function Index() {
               dłuższy, niż jest to konieczne dla potrzeb, dla których dane te
               zostały zebrane.
             </p>
-            <h5>V. Przetwarzane zgodnie z zasadą integralności i poufności</h5>
+            <h2>V. Przetwarzane zgodnie z zasadą integralności i poufności</h2>
             <p>
               1. Administrator danych przetwarza dane w sposób gwarantujący
               odpowiedni poziom bezpieczeństwa.
@@ -254,7 +254,7 @@ export default function Index() {
               bezpieczeństwa zostało poprzedzone analizą ryzyka w celu
               określenia wymaganych środków kontroli.
             </p>
-            <h5>VI. Przetwarzane zgodnie z zasadą rozliczalności</h5>
+            <h2>VI. Przetwarzane zgodnie z zasadą rozliczalności</h2>
             <p>
               1. Administrator dąży do posiadania udokumentowanej i okresowo
               weryfikowanej wiedzy dotyczącej danych osobowych w tym:
@@ -284,9 +284,9 @@ export default function Index() {
               2. Administrator danych zobowiązany jest do notyfikowania organowi
               nadzorczemu o stwierdzonych naruszeniach danych osobowych.
             </p>
-            <h5>
+            <h2>
               VII. Przetwarzane zgodnie z zasadą przejrzystości informacji
-            </h5>
+            </h2>
             <p>
               1. Administrator danych zapewnia, że wszelkie informacje kierowane
               do osób fizycznych, formułowane będą językiem prostym i
@@ -304,10 +304,10 @@ export default function Index() {
               których dane dotyczą w odniesieniu do przetwarzania eksportowanych
               danych.
             </p>
-            <h5>
+            <h2>
               Obowiązek informacyjny i uprawnienia przysługujące osobie, której
               dane dotyczą
-            </h5>
+            </h2>
             <p>
               1. Przedsiębiorca zapewnia i informuje osoby, których dane dotyczą
               o przysługujących im uprawnieniach, tj. o:
@@ -438,7 +438,7 @@ export default function Index() {
               11. Wszczęcie postępowania sądowego przeciwko administratorowi
               jest możliwe niezależnie od skarg złożonych do organu nadzoru.
             </p>
-            <h5>Postanowienia końcowe</h5>
+            <h2>Postanowienia końcowe</h2>
             <p>
               1. Przedsiębiorca jest świadomy swej odpowiedzialności za
               przestrzeganie stosownych przepisów i postępowanie zgodnie z dobrą

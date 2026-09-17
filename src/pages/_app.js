@@ -39,7 +39,6 @@ function MyApp({ Component, pageProps }) {
           name="google-site-verification"
           content="4W6QR83BrQqcoj5AbtFIQmoKFixeHj_ZVGHtnfsec_Q"
         />
-        <title />
       </Head>
       <Metadata routePath={router.pathname} />
       <AnnouncementBar />

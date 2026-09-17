@@ -1,4 +1,8 @@
 import PageHeader from '../../components/PageHeader';
+import CourseFAQ from '../../components/CourseFAQ';
+import CourseLink from '../../components/CourseLink';
+import RelatedCourses from '../../components/RelatedCourses';
+import { routeNames } from '../../routes';
 import Accordion from '../../components/Accordion';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
@@ -164,6 +168,96 @@ export default function CoursesGroup() {
             ]}
           />
         </>
+
+        <section className="course-prose">
+          <h3 className="course-section-title">Dla kogo jest kurs grupowy</h3>
+          <p>
+            Dla dorosłych i młodzieży na poziomach od A2 do C2, którzy chcą
+            regularnie mówić po angielsku w małej grupie – z osobami o podobnym
+            poziomie, ale różnych doświadczeniach, dzięki czemu zawsze jest o
+            czym rozmawiać. Grupy dobieramy poziomem, więc zanim się zapiszesz,
+            zrób{' '}
+            <CourseLink routeName={routeNames.TEST}>
+              bezpłatny test poziomujący
+            </CourseLink>
+            .
+          </p>
+
+          <h3 className="course-section-title">Jak wyglądają zajęcia</h3>
+          <p>
+            Spotykamy się raz w tygodniu na 90 minut (dwie lekcje), online przez
+            Zoom, Google Meet lub Teams. Semestr to 30 godzin lekcyjnych; kurs
+            trwa dwa semestry, od października do połowy czerwca. Na zajęciach
+            przede wszystkim rozmawiamy – o artykułach, nagraniach i tematach,
+            które sami wybieracie – a słownictwo i gramatykę wprowadzamy lub
+            powtarzamy w kontekście tych rozmów. Konwersacje prowadzą polscy
+            lektorzy i native speakerzy z{' '}
+            <CourseLink routeName={routeNames.ABOUT_US}>
+              zespołu Rozmowni.pl
+            </CourseLink>
+            .
+          </p>
+
+          <h3 className="course-section-title">Cena i zapisy</h3>
+          <p>
+            Kurs kosztuje 1650 zł za semestr, płatne z góry. Szczegóły i dane do
+            przelewu znajdziesz w{' '}
+            <CourseLink routeName={routeNames.PRICING}>cenniku</CourseLink>.
+            Zapisy przyjmujemy przez{' '}
+            <CourseLink routeName={routeNames.CONTACT}>
+              formularz kontaktowy
+            </CourseLink>{' '}
+            – po zgłoszeniu odezwiemy się, żeby dobrać grupę do Twojego poziomu.
+          </p>
+
+          <CourseFAQ
+            id="groupFaq"
+            items={[
+              {
+                question: 'Ile osób jest w grupie?',
+                answer:
+                  'Grupy są małe – od dwóch do czterech osób – tak, żeby każdy mówił na każdych zajęciach.',
+              },
+              {
+                question: 'Jak długo trwa kurs i kiedy startuje?',
+                answer:
+                  'Kurs trwa dwa semestry, od października do połowy czerwca; w semestrze jest 30 godzin lekcyjnych, po jednym 90-minutowym spotkaniu w tygodniu.',
+              },
+              {
+                question: 'Na jakim poziomie muszę być?',
+                answer: (
+                  <>
+                    Kursy prowadzimy na poziomach od A2 do C2. Jeśli nie znasz
+                    swojego poziomu, zrób{' '}
+                    <CourseLink routeName={routeNames.TEST}>
+                      bezpłatny test poziomujący
+                    </CourseLink>{' '}
+                    – zajmuje 10 minut, a wynik widzisz od razu.
+                  </>
+                ),
+              },
+              {
+                question: 'Jak płacę?',
+                answer: (
+                  <>
+                    Za semestr z góry, przelewem. Dane do przelewu są w{' '}
+                    <CourseLink routeName={routeNames.PRICING}>
+                      cenniku
+                    </CourseLink>
+                    .
+                  </>
+                ),
+              },
+              {
+                question: 'Czy mogę wybrać rodzaj kursu?',
+                answer:
+                  'Tak – do wyboru są konwersacje, General English i Business English (opisy wyżej). Konwersacje możesz mieć także z native speakerem.',
+              },
+            ]}
+          />
+
+          <RelatedCourses current={routeNames.GROUP_COURSE} />
+        </section>
       </CourseLayout>
     </>
   );

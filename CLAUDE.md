@@ -31,8 +31,8 @@ Node in CI is 22.18.0.
 
 ### Single sources of truth
 
-- **`src/routes/index.js`** — every URL lives in `routeMap`. Components must link via `routeMap[routeNames.X]`, never hardcoded strings. Commenting out a `routeMap` entry disables the page: the page's `getServerSideProps` returns `notFound` and conditional links disappear (see `pages/kursy/intensywne-kursy-wakacyjne.js`). Adding a page means touching `routeMap`, `getMetadata`, the page file, `Header`, `Footer` and `public/sitemap.xml`.
-- **`src/services/metadata/getMetadata.js`** — per-route title/description/OpenGraph/JSON-LD, rendered by `components/Metadata.js` from `_app.js`.
+- **`src/routes/index.js`** — every URL lives in `routeMap`. Components must link via `routeMap[routeNames.X]`, never hardcoded strings. Commenting out a `routeMap` entry disables the page: the page's `getServerSideProps` redirects (temporary 307) to the group course and conditional links disappear (see `pages/kursy/intensywne-kursy-wakacyjne.js`). Adding a page means touching `routeMap`, `getMetadata`, the page file, `Header`, `Footer` and the route→file map in `scripts/generate-sitemap.mjs`. `public/sitemap.xml` is gitignored and generated from `routeMap` by that script on `prebuild`/`predev`; `lastmod` comes from `git log`, which is why the deploy workflows check out the full history.
+- **`src/services/metadata/getMetadata.js`** — per-route title/description/OpenGraph/JSON-LD, rendered by `components/Metadata.js` from `_app.js`. Social preview images are `public/images/og-*.jpg` (1200×630), rendered by `scripts/generate-og-images.mjs` – run it by hand after changing the copy and commit the JPEGs.
 - **`src/data/testData.js`** — placement-test questions, answers (`correct` is a 0-based index into `options`) and score thresholds. Root-level `test.md` is an outdated draft, **not** a data source.
 
 ### Tracking layer (`src/services/tracking/`)
@@ -76,7 +76,7 @@ The client sends `x-api-key` from `NEXT_PUBLIC_API_KEY`; the server compares aga
 - ESLint enforces some less common rules that are easy to trip: `import/exports-last` (all exports at the bottom of the file), `import/order` with no blank lines between import groups, and a blank line required before every `return` and `export`. Run `npm run lint:fix` rather than hand-fixing.
 - Husky pre-commit runs lint-staged (ESLint `--fix` on JS/JSX, Prettier on everything); commit-msg runs commitlint. Conventional Commits with a restricted type list — `build, chore, ci, config, docs, feat, fix, perf, refactor, revert, test`.
 - Prettier uses single quotes; `public/libs` is excluded from both Prettier and ESLint.
-- `public/mail.php` and `public/.htaccess` are leftovers from the old PHP hosting and are unused by the Next app.
+- `public/mail.php` is a leftover from the old PHP hosting and is unused. `public/.htaccess` is **not** — its `mod_rewrite` block is what redirects `www` to the bare domain (verified against production: the redirect carries Apache's `charset=iso-8859-1` body, while the `http`→`https` one carries Cloudflare's). Rewrite rules run before Passenger hands the request to Node, so they work; the `ErrorDocument` line in the same file does not, because Next serves the 404s. Treat that file as live config.
 
 ## Deploy
 

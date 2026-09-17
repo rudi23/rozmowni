@@ -40,7 +40,7 @@ export default function WhyUsExpanded() {
             <div className={styles.topicCard}>
               <div className={styles.cardHeader}>
                 <FontAwesomeIcon icon={faBrain} className={styles.cardIcon} />
-                <h6 className={styles.cardTitle}>Rozwój osobisty</h6>
+                <h5 className={styles.cardTitle}>Rozwój osobisty</h5>
               </div>
               <div className={styles.cardContent}>
                 <span className={styles.topicTag}>Psychologia</span>
@@ -52,7 +52,7 @@ export default function WhyUsExpanded() {
             <div className={styles.topicCard}>
               <div className={styles.cardHeader}>
                 <FontAwesomeIcon icon={faUsers} className={styles.cardIcon} />
-                <h6 className={styles.cardTitle}>Relacje</h6>
+                <h5 className={styles.cardTitle}>Relacje</h5>
               </div>
               <div className={styles.cardContent}>
                 <span className={styles.topicTag}>Komunikacja</span>
@@ -67,7 +67,7 @@ export default function WhyUsExpanded() {
                   icon={faEarthEurope}
                   className={styles.cardIcon}
                 />
-                <h6 className={styles.cardTitle}>Świat wokół nas</h6>
+                <h5 className={styles.cardTitle}>Świat wokół nas</h5>
               </div>
               <div className={styles.cardContent}>
                 <span className={styles.topicTag}>Zdrowy styl życia</span>
@@ -101,21 +101,21 @@ export default function WhyUsExpanded() {
             <div className={styles.skill}>
               <FontAwesomeIcon icon={faHeart} className={styles.skillIcon} />
               <div>
-                <h6>Radzenie sobie z emocjami</h6>
+                <h5>Radzenie sobie z emocjami</h5>
                 <p>Przełamywanie bariery językowej, pokonywanie wstydu</p>
               </div>
             </div>
             <div className={styles.skill}>
               <FontAwesomeIcon icon={faBrain} className={styles.skillIcon} />
               <div>
-                <h6>Kreatywność i ciekawość</h6>
+                <h5>Kreatywność i ciekawość</h5>
                 <p>Poznawanie różnych kultur i sposobów myślenia</p>
               </div>
             </div>
             <div className={styles.skill}>
               <FontAwesomeIcon icon={faUsers} className={styles.skillIcon} />
               <div>
-                <h6>Efektywna komunikacja</h6>
+                <h5>Efektywna komunikacja</h5>
                 <p>Dyskusje, konwersacje i autentyczne relacje</p>
               </div>
             </div>
@@ -175,7 +175,7 @@ export default function WhyUsExpanded() {
                   icon={faGraduationCap}
                   className={styles.cardIcon}
                 />
-                <h6 className={styles.cardTitle}>Egzaminów</h6>
+                <h5 className={styles.cardTitle}>Egzaminów</h5>
               </div>
               <div className={styles.cardContent}>
                 <span className={styles.topicTag}>Egzamin ósmoklasisty</span>
@@ -188,7 +188,7 @@ export default function WhyUsExpanded() {
             <div className={styles.motivationCard}>
               <div className={styles.cardHeader}>
                 <FontAwesomeIcon icon={faRocket} className={styles.cardIcon} />
-                <h6 className={styles.cardTitle}>Celów życiowych</h6>
+                <h5 className={styles.cardTitle}>Celów życiowych</h5>
               </div>
               <div className={styles.cardContent}>
                 <span className={styles.topicTag}>Praca marzeń</span>

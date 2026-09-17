@@ -1,4 +1,8 @@
 import PageHeader from '../../components/PageHeader';
+import CourseFAQ from '../../components/CourseFAQ';
+import CourseLink from '../../components/CourseLink';
+import RelatedCourses from '../../components/RelatedCourses';
+import { routeNames } from '../../routes';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
 import CourseHeader from '../../components/CourseHeader';
@@ -125,6 +129,89 @@ export default function Courses8Exam() {
         <CourseInfo
           items={['Lekcje raz w tygodniu', 'Zajęcia trwają 90 min (2 lekcje)']}
         />
+
+        <section className="course-prose">
+          <h3 className="course-section-title">Dla kogo jest kurs</h3>
+          <p>
+            Dla uczniów klasy ósmej, którzy chcą podejść do egzaminu z języka
+            angielskiego pewnie i bez stresu. Pracujemy w grupach 3–4 osób
+            dobranych poziomem, więc każdy ma czas na mówienie i indywidualną
+            informację zwrotną. Poziom dziecka najłatwiej sprawdzić{' '}
+            <CourseLink routeName={routeNames.TEST}>
+              testem poziomującym dla młodzieży
+            </CourseLink>{' '}
+            (11–16 lat, 25 pytań, około 10 minut).
+          </p>
+
+          <h3 className="course-section-title">Jak wyglądają zajęcia</h3>
+          <p>
+            Raz w tygodniu 90 minut (dwie lekcje), online przez Zoom, Google
+            Meet lub Teams. Kurs jest roczny: dwa semestry po 26 godzin
+            lekcyjnych, od października do połowy marca. Ćwiczymy zadania ze
+            wszystkich części arkusza – słuchanie, czytanie, środki językowe i
+            wypowiedź pisemną – na materiałach egzaminacyjnych i testach
+            próbnych, a postępy regularnie omawiamy z uczniem.
+          </p>
+
+          <h3 className="course-section-title">Cena i zapisy</h3>
+          <p>
+            Kurs kosztuje 1430 zł za semestr, płatne z góry (razem 52 godziny
+            lekcyjne w roku). Szczegóły znajdziesz w{' '}
+            <CourseLink routeName={routeNames.PRICING}>cenniku</CourseLink>,
+            zapisy przyjmujemy przez{' '}
+            <CourseLink routeName={routeNames.CONTACT}>
+              formularz kontaktowy
+            </CourseLink>
+            . Po zgłoszeniu ustalimy poziom i termin zajęć.
+          </p>
+
+          <CourseFAQ
+            id="exam8Faq"
+            items={[
+              {
+                question: 'Kiedy zaczyna się kurs i jak długo trwa?',
+                answer:
+                  'Zajęcia ruszają w październiku i trwają do połowy marca: dwa semestry po 26 godzin lekcyjnych, raz w tygodniu po 90 minut.',
+              },
+              {
+                question: 'Ile osób jest w grupie?',
+                answer: '3–4 osoby, dobrane poziomem językowym.',
+              },
+              {
+                question: 'Jak sprawdzić poziom dziecka?',
+                answer: (
+                  <>
+                    <CourseLink routeName={routeNames.TEST}>
+                      Bezpłatnym testem poziomującym
+                    </CourseLink>{' '}
+                    w wersji dla młodzieży (11–16 lat): 25 pytań, około 10
+                    minut, wynik od razu. Po teście zapraszamy na bezpłatną
+                    lekcję próbną.
+                  </>
+                ),
+              },
+              {
+                question: 'Czy zajęcia są online?',
+                answer:
+                  'Tak, w całości – przez Zoom, Google Meet lub Teams. Potrzebny jest komputer lub smartfon z kamerą, słuchawki z mikrofonem i dostęp do internetu.',
+              },
+              {
+                question: 'Jak płacę?',
+                answer: (
+                  <>
+                    Za semestr z góry, przelewem. Dane do przelewu znajdziesz w{' '}
+                    <CourseLink routeName={routeNames.PRICING}>
+                      cenniku
+                    </CourseLink>
+                    .
+                  </>
+                ),
+              },
+            ]}
+          />
+
+          <RelatedCourses current={routeNames.EXAM_8_COURSE} />
+        </section>
       </CourseLayout>
     </>
   );

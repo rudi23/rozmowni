@@ -20,7 +20,7 @@ export default function Home() {
       <Idea />
       <TestBenefits />
       <Opinions />
-      <TestFAQ />
+      <TestFAQ limit={5} />
       <FinalCTA />
     </>
   );

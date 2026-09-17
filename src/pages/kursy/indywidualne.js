@@ -1,4 +1,8 @@
 import PageHeader from '../../components/PageHeader';
+import CourseFAQ from '../../components/CourseFAQ';
+import CourseLink from '../../components/CourseLink';
+import RelatedCourses from '../../components/RelatedCourses';
+import { routeNames } from '../../routes';
 import Accordion from '../../components/Accordion';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
@@ -174,6 +178,106 @@ export default function CoursesIndividual() {
             },
           ]}
         />
+
+        {/* Who it is for, how a lesson looks, price, FAQ - the questions people
+            search for before they book. */}
+        <section className="course-prose">
+          <h3 className="course-section-title">
+            Dla kogo są lekcje indywidualne
+          </h3>
+          <p>
+            Dla dorosłych i młodzieży, którzy chcą uczyć się we własnym tempie i
+            na własnych warunkach: wracasz do angielskiego po latach,
+            potrzebujesz języka w pracy, przygotowujesz się do egzaminu albo do
+            wyjazdu. Pracujemy na poziomach od A2 do C2. Jeśli nie wiesz, gdzie
+            jesteś, zrób{' '}
+            <CourseLink routeName={routeNames.TEST}>
+              bezpłatny test poziomujący
+            </CourseLink>{' '}
+            – zajmuje 10 minut, a wynik widzisz od razu.
+          </p>
+
+          <h3 className="course-section-title">Jak wygląda lekcja</h3>
+          <p>
+            Lekcja trwa 45 minut i odbywa się online przez Zoom, Google Meet lub
+            Teams. Spotykamy się raz, dwa lub trzy razy w tygodniu, w dni i
+            godziny dopasowane do Twojego kalendarza – między 7:00 a 22:00,
+            sześć dni w tygodniu. Materiał dobieramy do Twoich celów: artykuły i
+            nagrania jako punkt wyjścia do rozmowy, a gramatykę i słownictwo
+            tam, gdzie są potrzebne.
+          </p>
+          <p>
+            Zajęcia prowadzą lektorzy{' '}
+            <CourseLink routeName={routeNames.ABOUT_US}>
+              zespołu Rozmowni.pl
+            </CourseLink>{' '}
+            – polscy nauczyciele i native speakerzy; konwersacje możesz mieć z
+            jednymi i drugimi.
+          </p>
+
+          <h3 className="course-section-title">Cena i zapisy</h3>
+          <p>
+            Lekcja indywidualna kosztuje 120 zł za 45 minut, płatne za miesiąc z
+            góry. Pełne zestawienie cen znajdziesz w{' '}
+            <CourseLink routeName={routeNames.PRICING}>cenniku</CourseLink>.
+            Zapisy przyjmujemy przez{' '}
+            <CourseLink routeName={routeNames.CONTACT}>
+              formularz kontaktowy
+            </CourseLink>{' '}
+            – odezwiemy się, żeby ustalić poziom i terminy. Możesz też zacząć od
+            bezpłatnej lekcji próbnej po teście.
+          </p>
+
+          <CourseFAQ
+            id="individualFaq"
+            items={[
+              {
+                question: 'Jak często mogę mieć lekcje?',
+                answer:
+                  'Raz, dwa lub trzy razy w tygodniu – ustalamy to razem, w dni i godziny dopasowane do Twojego planu, między 7:00 a 22:00, sześć dni w tygodniu.',
+              },
+              {
+                question: 'Jak płacę za lekcje?',
+                answer: (
+                  <>
+                    Za miesiąc z góry, przelewem. Dane do przelewu znajdziesz w{' '}
+                    <CourseLink routeName={routeNames.PRICING}>
+                      cenniku
+                    </CourseLink>
+                    .
+                  </>
+                ),
+              },
+              {
+                question: 'Czego potrzebuję, żeby zacząć?',
+                answer:
+                  'Komputera lub smartfona z kamerą, słuchawek z mikrofonem i dostępu do internetu. Zajęcia odbywają się przez Zoom, Google Meet lub Teams.',
+              },
+              {
+                question: 'Nie znam swojego poziomu – co zrobić?',
+                answer: (
+                  <>
+                    Zrób{' '}
+                    <CourseLink routeName={routeNames.TEST}>
+                      bezpłatny test poziomujący
+                    </CourseLink>
+                    : 25 pytań, około 10 minut, wynik od A1 do C2 od razu na
+                    ekranie. Po teście zapraszamy na bezpłatną, 30-minutową
+                    lekcję próbną, na której porozmawiamy o Twoich celach i
+                    dobierzemy rodzaj zajęć.
+                  </>
+                ),
+              },
+              {
+                question: 'Czy lekcje indywidualne przygotowują do egzaminów?',
+                answer:
+                  'Tak. Jednym z rodzajów zajęć jest przygotowanie do egzaminu ósmoklasisty lub matury, a w ramach General English pracujemy też w stronę certyfikatów Cambridge (FCE, CAE, CPE).',
+              },
+            ]}
+          />
+
+          <RelatedCourses current={routeNames.INDIVIDUAL_COURSE} />
+        </section>
       </CourseLayout>
     </>
   );

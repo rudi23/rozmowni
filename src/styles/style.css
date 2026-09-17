@@ -314,6 +314,24 @@ ol {
   color: var(--color-navy);
 }
 
+/* The copy blocks under the course description: who it is for, how a lesson
+   looks, price, FAQ, related courses. */
+.course-prose {
+  margin-top: 40px;
+}
+
+.course-prose .course-section-title {
+  margin-top: 32px;
+}
+
+.course-prose .course-section-title:first-child {
+  margin-top: 0;
+}
+
+.course-prose p {
+  line-height: 1.7;
+}
+
 @media (max-width: 991px) {
   body.has-course-price-bar #__next {
     padding-bottom: 84px;

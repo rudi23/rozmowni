@@ -16,7 +16,6 @@ import PageHeader from '../../components/PageHeader';
 // import './index.css';
 import useClickTracking from '../../hooks/useClickTracking';
 import { events } from '../../services/tracking';
-import { decryptEmail } from '../../utils';
 import contactImage from '../../../public/images/contact.png';
 
 export default function Contact() {
@@ -46,7 +45,7 @@ export default function Contact() {
             <div className="join-content">
               <div className="join-text-block">
                 <FontAwesomeIcon icon={faShareNodes} />
-                <h4>Śledź nas w social media</h4>
+                <h3>Śledź nas w social media</h3>
                 <p>
                   Zapraszamy na nasze profile na{' '}
                   <a
@@ -85,7 +84,7 @@ export default function Contact() {
 
               <div className="join-text-block">
                 <FontAwesomeIcon icon={faPhone} />
-                <h4>Skontaktuj się z nami</h4>
+                <h3>Skontaktuj się z nami</h3>
                 <p>
                   Chętnie z Tobą porozmawiamy, odpowiadając na wszystkie Twoje
                   pytania.
@@ -98,6 +97,7 @@ export default function Contact() {
               <ResponsiveImage
                 src={contactImage}
                 alt="Małgorzata Rudowska z książką w rękach"
+                sizes="(min-width: 1200px) 450px, (min-width: 992px) 400px, 100vw"
               />
             </div>
           </div>
@@ -109,43 +109,39 @@ export default function Contact() {
               <div className="col-lg-12 col-md-6">
                 <div className="contact-item">
                   <p>Napisz do nas</p>
-                  <h4>
+                  <address className="contact-item-value">
                     <a
-                      href="#"
-                      onClick={(e) => {
-                        decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
-                        trackClick(events.CONTACT_CLICK_EMAIL);
-                        e.preventDefault();
-                      }}
+                      href="mailto:kontakt@rozmowni.pl"
+                      onClick={() => trackClick(events.CONTACT_CLICK_EMAIL)}
                     >
                       kontakt@rozmowni.pl
                     </a>
-                  </h4>
+                  </address>
                 </div>
               </div>
               <div className="col-lg-12 col-md-6">
                 <div className="contact-item">
                   <p>Zadzwoń do nas</p>
-                  <h4>
+                  <address className="contact-item-value">
                     <a
                       href="tel:+48506262227"
                       onClick={() => trackClick(events.CONTACT_CLICK_PHONE)}
                     >
                       +48 506 262 227
                     </a>
-                  </h4>
+                  </address>
                 </div>
               </div>
               <div className="col-lg-12 col-md-6">
                 <div className="contact-item">
                   <p>Adres</p>
-                  <h4>
+                  <address className="contact-item-value">
                     Witkowicka 68G/1
                     <br />
                     31-242 Kraków
                     <br />
                     NIP: 678-30-52-400
-                  </h4>
+                  </address>
                 </div>
               </div>
               <div className="col-lg-12 col-md-6">
