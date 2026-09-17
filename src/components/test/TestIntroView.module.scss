@@ -154,3 +154,27 @@
   line-height: 1.5;
   color: $text-body;
 }
+
+// "How the test works": one column of running text with real links.
+.about {
+  max-width: 760px;
+  margin: 0 auto;
+
+  p {
+    margin: 0 0 16px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: $text-body;
+  }
+
+  a {
+    color: $teal-dark;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: $navy;
+    }
+  }
+}

@@ -138,6 +138,28 @@ export const COURSE_REQUIREMENTS_CLICK_PLATFORM = (platform, path) => ({
   label: `${platform} from '${path}'`,
 });
 
+// Links inside the course copy (CourseLink): pricing, contact, about us and
+// the other courses. The test link is the funnel's CTA, so it keeps the
+// PostHog name every other test CTA uses.
+export const COURSE_CLICK_LINK = (target, path) => ({
+  category: 'Course content',
+  action: 'Click',
+  label: `${target} from '${path}'`,
+});
+export const COURSE_CLICK_TEST = (path) => ({
+  category: 'Course content',
+  action: 'Click',
+  label: `Test from '${path}'`,
+  posthogEvent: 'test_cta_clicked',
+});
+
+// Course links in the "how the test works" copy on the intro screen.
+export const TEST_INTRO_CLICK_COURSE = (target) => ({
+  category: 'Test',
+  action: 'Click',
+  label: `Intro - ${target}`,
+});
+
 export const TEST_START = (testType) => ({
   category: 'Test',
   action: 'Start',
@@ -309,4 +331,16 @@ export const COOKIE_CONSENT_CLICK_PRIVACY_POLICY = {
   category: 'Cookie consent',
   action: 'Click',
   label: 'Privacy policy',
+};
+
+export const NOT_FOUND_CLICK_TEST = {
+  category: 'Not found',
+  action: 'Click',
+  label: 'Not found - test',
+  posthogEvent: 'test_cta_clicked',
+};
+export const NOT_FOUND_CLICK_HOME = {
+  category: 'Not found',
+  action: 'Click',
+  label: 'Home',
 };

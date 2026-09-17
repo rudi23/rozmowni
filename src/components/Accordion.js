@@ -8,7 +8,10 @@ export default function Accordion({
   id = 'accordion',
   cards,
   openFirstOnDesktop = false,
+  // One level below the heading that introduces the accordion.
+  headingLevel = 'h4',
 }) {
+  const Heading = headingLevel;
   const [collapsedTab, setCollapsedTab] = useState();
 
   // Opened after mount, not during render: on a phone the first panel would
@@ -44,7 +47,7 @@ export default function Accordion({
             aria-expanded={collapsedTab === id}
             aria-controls={`collapse-${id}`}
           >
-            <h4>
+            <Heading className={styles.title}>
               {title}
               <span
                 className={cx(styles.chevronIcon, {
@@ -53,7 +56,7 @@ export default function Accordion({
               >
                 <FontAwesomeIcon icon={faChevronDown} />
               </span>
-            </h4>
+            </Heading>
           </button>
         </div>
 

@@ -1,4 +1,8 @@
 import PageHeader from '../../components/PageHeader';
+import CourseFAQ from '../../components/CourseFAQ';
+import CourseLink from '../../components/CourseLink';
+import RelatedCourses from '../../components/RelatedCourses';
+import { routeNames } from '../../routes';
 import { events } from '../../services/tracking';
 import CourseSidebar from '../../components/CourseSidebar';
 import CourseHeader from '../../components/CourseHeader';
@@ -135,6 +139,88 @@ export default function CoursesMaturaExam() {
         <CourseInfo
           items={['Lekcje raz w tygodniu', 'Zajęcia trwają 90 min (2 lekcje)']}
         />
+
+        <section className="course-prose">
+          <h3 className="course-section-title">Dla kogo jest kurs</h3>
+          <p>
+            Dla maturzystów, którzy zdają angielski na poziomie podstawowym lub
+            rozszerzonym i chcą przygotować się systematycznie, a nie w ostatnim
+            miesiącu. Grupy liczą 3–4 osoby i są dobierane poziomem oraz
+            wybranym zakresem egzaminu. Swój poziom sprawdzisz w 10 minut{' '}
+            <CourseLink routeName={routeNames.TEST}>
+              bezpłatnym testem poziomującym
+            </CourseLink>
+            .
+          </p>
+
+          <h3 className="course-section-title">Jak wyglądają zajęcia</h3>
+          <p>
+            Raz w tygodniu 90 minut (dwie lekcje), online przez Zoom, Google
+            Meet lub Teams, od października do połowy marca: dwa semestry po 26
+            godzin lekcyjnych. Pracujemy na arkuszach maturalnych i
+            przykładowych odpowiedziach – słuchanie, czytanie, środki językowe i
+            wypowiedź pisemna – z regularną informacją zwrotną do prac pisemnych
+            i strategiami rozwiązywania zadań.
+          </p>
+
+          <h3 className="course-section-title">Cena i zapisy</h3>
+          <p>
+            Kurs kosztuje 1430 zł za semestr, płatne z góry (razem 52 godziny
+            lekcyjne w roku). Szczegóły znajdziesz w{' '}
+            <CourseLink routeName={routeNames.PRICING}>cenniku</CourseLink>,
+            zapisy przyjmujemy przez{' '}
+            <CourseLink routeName={routeNames.CONTACT}>
+              formularz kontaktowy
+            </CourseLink>
+            . Po zgłoszeniu ustalimy poziom, zakres egzaminu i termin zajęć.
+          </p>
+
+          <CourseFAQ
+            id="maturaFaq"
+            items={[
+              {
+                question: 'Czy kurs obejmuje poziom rozszerzony?',
+                answer:
+                  'Tak – przygotowujemy do matury na poziomie podstawowym i rozszerzonym; grupę dobieramy do wybranego zakresu.',
+              },
+              {
+                question: 'Kiedy zaczyna się kurs i jak długo trwa?',
+                answer:
+                  'Zajęcia ruszają w październiku i trwają do połowy marca: dwa semestry po 26 godzin lekcyjnych, raz w tygodniu po 90 minut.',
+              },
+              {
+                question: 'Ile osób jest w grupie?',
+                answer: '3–4 osoby, dobrane poziomem i zakresem egzaminu.',
+              },
+              {
+                question: 'Jak sprawdzić swój poziom?',
+                answer: (
+                  <>
+                    <CourseLink routeName={routeNames.TEST}>
+                      Bezpłatnym testem poziomującym
+                    </CourseLink>{' '}
+                    w wersji dla dorosłych (17+): 25 pytań, około 10 minut,
+                    wynik od razu na ekranie.
+                  </>
+                ),
+              },
+              {
+                question: 'Czy mogę przygotowywać się indywidualnie?',
+                answer: (
+                  <>
+                    Tak – przygotowanie do matury jest też jednym z rodzajów{' '}
+                    <CourseLink routeName={routeNames.INDIVIDUAL_COURSE}>
+                      lekcji indywidualnych
+                    </CourseLink>{' '}
+                    (45 minut, 120 zł, terminy pod Twój plan).
+                  </>
+                ),
+              },
+            ]}
+          />
+
+          <RelatedCourses current={routeNames.MATURA_EXAM_COURSE} />
+        </section>
       </CourseLayout>
     </>
   );

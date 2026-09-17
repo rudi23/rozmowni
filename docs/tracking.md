@@ -25,7 +25,7 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 **Podział odpowiedzialności:**
 
 - **GA4** – cały ruch i wszystkie kliknięcia w CTA/nawigację/kontakt
-  (49 zdefiniowanych eventów typu category/action/label).
+  (54 zdefiniowanych eventów typu category/action/label).
 - **FB Pixel** – wyłącznie page view + **dwie konwersje z testu poziomującego**
   (`CompleteRegistration`, `Lead`). Kliknięcia nie idą na Pixel.
 - **PostHog** – to samo pokrycie co GA4 (page view + wszystkie kliknięcia),
@@ -49,7 +49,7 @@ src/services/tracking/
 ├── facebookPixel.js     # ID Pixela, initializeAsync, sendEvent, sendPageView
 ├── posthog.js           # konfiguracja z env, initializeAsync, sendEvent,
 │                        # sendExceptionAsync, getRequestHeadersAsync
-├── events.js            # 49 stałych eventów GA4 (category/action/label
+├── events.js            # 54 stałych eventów GA4 (category/action/label
 │                        # + opcjonalne posthogEvent, sekcja 5.1)
 ├── facebookEvents.js    # 2 fabryki eventów FB (CompleteRegistration, Lead)
 └── facebookServerEvents.js # POST /api/track-test-completed (serwerowe CAPI)
@@ -335,21 +335,23 @@ potencjalny adres e-mail – nie wstawiaj do etykiet danych użytkownika.
 
 ### 4.2 Kategorie
 
-| Kategoria             | Ile | Gdzie                                                                     |
-| --------------------- | --- | ------------------------------------------------------------------------- |
-| `Contact`             | 10  | `/kontakt` – formularz, social media, telefon, e-mail                     |
-| `Home`                | 9   | sekcje strony głównej (Banner, SocialProof, TestBenefits, FAQ, FinalCTA…) |
-| `Footer`              | 7   | stopka – social media, kontakt, menu                                      |
-| `Navigation`          | 6   | header – logo, social media, telefon, menu                                |
-| `Holiday course`      | 4   | `/kursy/intensywne-kursy-wakacyjne`                                       |
-| `Test`                | 4   | lejek testu – `Start`, `Progress`, `Complete`, `Send` (4.6)               |
-| `Individual course`   | 1   | `/kursy/indywidualne` – przycisk „Zapisz się"                             |
-| `* course` (3 kat.)   | 3   | przycisk „Zapisz się" w `CourseSidebar` na pozostałych stronach kursów    |
-| `Pricing`             | 1   | przycisk „Zapisz się" na każdej karcie cennika (label niesie nazwę kursu) |
-| `About us`            | 1   | CTA na lekcję próbną przed opiniami na `/o-nas`                           |
-| `Opinions`            | 1   | link do opinii Google (sekcja jest na `/` **i** `/o-nas`)                 |
-| `Course requirements` | 1   | linki do Zoom / Google Meet / Teams (4 strony kursów)                     |
-| `Cookie consent`      | 1   | link do polityki prywatności w banerze cookies                            |
+| Kategoria             | Ile | Gdzie                                                                                                                                                             |
+| --------------------- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Contact`             | 10  | `/kontakt` – formularz, social media, telefon, e-mail                                                                                                             |
+| `Home`                | 9   | sekcje strony głównej (Banner, SocialProof, TestBenefits, FAQ, FinalCTA…)                                                                                         |
+| `Footer`              | 7   | stopka – social media, kontakt, menu                                                                                                                              |
+| `Navigation`          | 6   | header – logo, social media, telefon, menu                                                                                                                        |
+| `Holiday course`      | 4   | `/kursy/intensywne-kursy-wakacyjne`                                                                                                                               |
+| `Test`                | 5   | lejek testu – `Start`, `Progress`, `Complete`, `Send` (4.6) + linki do kursów w opisie testu (`TEST_INTRO_CLICK_COURSE`)                                          |
+| `Individual course`   | 1   | `/kursy/indywidualne` – przycisk „Zapisz się"                                                                                                                     |
+| `* course` (3 kat.)   | 3   | przycisk „Zapisz się" w `CourseSidebar` na pozostałych stronach kursów                                                                                            |
+| `Pricing`             | 1   | przycisk „Zapisz się" na każdej karcie cennika (label niesie nazwę kursu)                                                                                         |
+| `About us`            | 1   | CTA na lekcję próbną przed opiniami na `/o-nas`                                                                                                                   |
+| `Opinions`            | 1   | link do opinii Google (sekcja jest na `/` **i** `/o-nas`)                                                                                                         |
+| `Course requirements` | 1   | linki do Zoom / Google Meet / Teams (4 strony kursów)                                                                                                             |
+| `Course content`      | 2   | linki w treści stron kursów przez `CourseLink`: cennik, kontakt, o nas, inne kursy (`COURSE_CLICK_LINK`) i test (`COURSE_CLICK_TEST`); label niesie cel i ścieżkę |
+| `Cookie consent`      | 1   | link do polityki prywatności w banerze cookies                                                                                                                    |
+| `Not found`           | 2   | strona 404 – CTA do testu i powrót na stronę główną                                                                                                               |
 
 `Opinions` liczy się jako jedna stała, ale w GA4 daje dwa labele – fabryka
 dokleja `router.pathname`, więc kliknięcia z `/` i z `/o-nas` są rozróżnialne
@@ -367,13 +369,13 @@ więc w GA4 widać, która sekcja realnie konwertuje.
 
 | Sekcja (komponent)       | Event                                    | Label                           |
 | ------------------------ | ---------------------------------------- | ------------------------------- |
-| `Banner.js:34`           | `HOME_BANNER_CLICK_TEST`                 | `Banner - test`                 |
-| `Banner.js:42`           | `HOME_BANNER_CLICK_LEARN_MORE`           | `Banner - learn more`           |
+| `Banner.js:35`           | `HOME_BANNER_CLICK_TEST`                 | `Banner - test`                 |
+| `Banner.js:43`           | `HOME_BANNER_CLICK_LEARN_MORE`           | `Banner - learn more`           |
 | `SocialProofStats.js:69` | `HOME_SOCIAL_PROOF_CLICK_TEST`           | `Social proof - test`           |
 | `WhyUsExpanded.js:298`   | `HOME_WHY_US_EXPANDED_BOTTOM_CLICK_TEST` | `Why us expanded - test bottom` |
 | `TestBenefits.js:76`     | `HOME_TEST_BENEFITS_CLICK_TEST`          | `Test benefits - test`          |
-| `TestFAQ.js:105`         | `HOME_FAQ_CLICK_TEST`                    | `FAQ - test`                    |
-| `TestFAQ.js:113`         | `HOME_FAQ_CLICK_CONTACT`                 | `FAQ - contact`                 |
+| `TestFAQ.js:114`         | `HOME_FAQ_CLICK_TEST`                    | `FAQ - test`                    |
+| `TestFAQ.js:122`         | `HOME_FAQ_CLICK_CONTACT`                 | `FAQ - contact`                 |
 | `FinalCTA.js:25`         | `HOME_FINAL_CTA_CLICK_TEST`              | `Final CTA - test`              |
 
 Poza lejkiem testu strona główna ma jedno wyjście na zewnątrz: link do opinii
@@ -484,21 +486,21 @@ posthog?.capture(posthogEvent || 'link_clicked', {
 Skąd bierze się nazwa:
 
 - Stała w `events.js` z polem **`posthogEvent`** dostaje własną, czytelną nazwę.
-  Ma je 18 z 49 stałych – te, które są częścią lejka.
+  Ma je 20 z 54 stałych – te, które są częścią lejka.
 - Wszystko pozostałe leci jako **`link_clicked`** z tymi samymi properties.
-  Żadne kliknięcie nie ginie po cichu; 31 eventów siedzi pod tą nazwą
+  Żadne kliknięcie nie ginie po cichu; 34 eventy siedzą pod tą nazwą
   i rozróżnia się je po `source_label`.
 
-| `posthogEvent`              | Stałych | Co obejmuje                                                                                  |
-| --------------------------- | ------- | -------------------------------------------------------------------------------------------- |
-| `test_cta_clicked`          | 8       | każde CTA do testu: banner, social proof, benefity, FAQ, final CTA, why us, stopka, `/o-nas` |
-| `course_enrollment_clicked` | 5       | „Zapisz się" – cztery strony kursów + karty cennika                                          |
-| `test_started`              | 1       | `TEST_START`                                                                                 |
-| `test_progressed`           | 1       | `TEST_PROGRESS`                                                                              |
-| `test_completed`            | 1       | `TEST_COMPLETED`                                                                             |
-| `test_lead_submitted`       | 1       | `TEST_CONTACT_DETAILS_SENT`                                                                  |
-| `contact_form_submitted`    | 1       | `CONTACT_SEND_FORM`                                                                          |
-| `link_clicked`              | 31      | reszta: nawigacja, stopka, social media, telefon, e-mail, baner cookies                      |
+| `posthogEvent`              | Stałych | Co obejmuje                                                                                                                                                 |
+| --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `test_cta_clicked`          | 10      | każde CTA do testu: banner, social proof, benefity, FAQ, final CTA, why us, stopka, `/o-nas`, strona 404, linki w treści stron kursów (`COURSE_CLICK_TEST`) |
+| `course_enrollment_clicked` | 5       | „Zapisz się" – cztery strony kursów + karty cennika                                                                                                         |
+| `test_started`              | 1       | `TEST_START`                                                                                                                                                |
+| `test_progressed`           | 1       | `TEST_PROGRESS`                                                                                                                                             |
+| `test_completed`            | 1       | `TEST_COMPLETED`                                                                                                                                            |
+| `test_lead_submitted`       | 1       | `TEST_CONTACT_DETAILS_SENT`                                                                                                                                 |
+| `contact_form_submitted`    | 1       | `CONTACT_SEND_FORM`                                                                                                                                         |
+| `link_clicked`              | 34      | reszta: nawigacja, stopka, social media, telefon, e-mail, baner cookies, powrót ze strony 404, linki w treści kursów i w opisie testu                       |
 
 Nazwy są w `snake_case`, celowo inne niż `Click`/`Send`/`Start` z GA4 (4.1):
 w GA4 nazwą zdarzenia jest `action`, więc CTA do testu i klik w social media to

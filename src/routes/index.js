@@ -40,7 +40,5 @@ export const routeMap = {
 };
 
 export function resolveRouteName(path) {
-  return Object.entries(routeMap).find(([_key, value]) =>
-    value.startsWith(path),
-  )?.[0];
+  return Object.entries(routeMap).find(([, value]) => value === path)?.[0];
 }

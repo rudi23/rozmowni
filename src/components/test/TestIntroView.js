@@ -1,13 +1,18 @@
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChartSimple,
   faEnvelope,
   faBook,
 } from '@fortawesome/free-solid-svg-icons';
+import useClickTracking from '../../hooks/useClickTracking';
+import { events } from '../../services/tracking';
+import { routeMap, routeNames, routeTitles } from '../../routes';
 import PageHeader from '../PageHeader';
 import Section from '../Section';
 import SectionHeading from '../SectionHeading';
 import TrustPoints from '../TrustPoints';
+import TestFAQ from '../TestFAQ';
 import styles from './TestIntroView.module.scss';
 
 const testVersions = [
@@ -42,6 +47,18 @@ const afterTest = [
 ];
 
 const TestIntroView = ({ onTestSelection }) => {
+  const trackClick = useClickTracking();
+  const courseLink = (routeName, label) => (
+    <Link
+      href={routeMap[routeName]}
+      onClick={() =>
+        trackClick(events.TEST_INTRO_CLICK_COURSE(routeTitles[routeName]))
+      }
+    >
+      {label}
+    </Link>
+  );
+
   return (
     <>
       <PageHeader
@@ -92,6 +109,42 @@ const TestIntroView = ({ onTestSelection }) => {
           </ul>
         </div>
       </Section>
+
+      {/* What the test is and is not - the page used to have one paragraph of
+          its own text, the rest was buttons. */}
+      <Section>
+        <div className={styles.about}>
+          <SectionHeading
+            subheading="O teście"
+            heading="Jak działa test poziomujący"
+          />
+          <p>
+            Test składa się z 25 pytań jednokrotnego wyboru i sprawdza
+            gramatykę, słownictwo oraz rozumienie prostych sytuacji
+            komunikacyjnych na poziomach od A1 do C2 według europejskiej skali
+            CEFR. Są dwie wersje – dla młodzieży (11–16 lat) i dla dorosłych
+            (17+) – różniące się tematyką pytań. Wypełnienie zajmuje około 10
+            minut.
+          </p>
+          <p>
+            Wynik wraz z opisem poziomu zobaczysz od razu na ekranie. Jeśli
+            zostawisz adres e-mail, wyślemy zapis wyniku, e-book „Czas na
+            angielski” i zaproszenie na bezpłatną, 30-minutową lekcję próbną
+            online, na której porozmawiamy o Twoich celach i ustalimy plan
+            nauki.
+          </p>
+          <p>
+            Test to punkt startowy, nie egzamin. Mówienia nie da się sprawdzić
+            testem wyboru, dlatego robimy to razem na lekcji próbnej, a na jej
+            podstawie proponujemy{' '}
+            {courseLink(routeNames.INDIVIDUAL_COURSE, 'lekcje indywidualne')}{' '}
+            albo {courseLink(routeNames.GROUP_COURSE, 'kurs w małej grupie')} na
+            Twoim poziomie.
+          </p>
+        </div>
+      </Section>
+
+      <TestFAQ showCta={false} background="gray" />
     </>
   );
 };

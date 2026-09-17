@@ -14,7 +14,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import useClickTracking from '../hooks/useClickTracking';
 import { events } from '../services/tracking';
-import { decryptEmail } from '../utils';
 import { routeMap, routeNames, routeTitles } from '../routes';
 
 const socials = [
@@ -64,11 +63,13 @@ export default function Footer() {
   const { pathname } = useRouter();
   // Pages that close with a call to action of their own do not need the strip.
   // On /kontakt it landed directly under the form's own send button.
-  const hasOwnClosingCta = [
-    routeMap[routeNames.HOME],
-    routeMap[routeNames.TEST],
-    routeMap[routeNames.CONTACT],
-  ].includes(pathname);
+  // '/404' is Next's pathname for the not-found page; it has no routeMap entry.
+  const hasOwnClosingCta =
+    [
+      routeMap[routeNames.HOME],
+      routeMap[routeNames.TEST],
+      routeMap[routeNames.CONTACT],
+    ].includes(pathname) || pathname === '/404';
 
   const trackMenuItem = (routeName) => () =>
     trackClick(events.FOOTER_CLICK_MENU_ITEM(routeTitles[routeName]));
@@ -179,12 +180,8 @@ export default function Footer() {
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
                     <a
-                      href="#"
-                      onClick={(e) => {
-                        decryptEmail('a29udGFrdEByb3ptb3duaS5wbA==');
-                        trackClick(events.FOOTER_CLICK_EMAIL);
-                        e.preventDefault();
-                      }}
+                      href="mailto:kontakt@rozmowni.pl"
+                      onClick={() => trackClick(events.FOOTER_CLICK_EMAIL)}
                     >
                       kontakt@rozmowni.pl
                     </a>

@@ -7,7 +7,6 @@ import styles from './TeamCard.module.scss';
 // Each teacher is a card now, with the rest of the bio behind a toggle.
 export default function TeamCard({ name, image, tags, bio }) {
   const [isOpen, setOpen] = useState(false);
-  const paragraphs = isOpen ? bio : bio.slice(0, 1);
 
   return (
     <li className={styles.card}>
@@ -34,9 +33,12 @@ export default function TeamCard({ name, image, tags, bio }) {
         </ul>
 
         <div className={styles.bio}>
-          {paragraphs.map((text, index) => (
+          {/* Every paragraph is rendered so the bio is indexable; the
+              toggle only hides the rest. */}
+          {bio.map((text, index) => (
             <p
               key={text}
+              hidden={!isOpen && index > 0}
               className={cx({ [styles.clamp]: !isOpen && index === 0 })}
             >
               {text}

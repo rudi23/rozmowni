@@ -36,6 +36,9 @@ function Features() {
   return (
     <section className={styles.featuresSection}>
       <div className="container">
+        {/* The strip has no visible title; the heading keeps the outline
+            h1 -> h2 -> h3 for assistive tech and crawlers. */}
+        <h2 className="visually-hidden">Co nas wyróżnia</h2>
         <ul className={styles.grid}>
           {features.map(({ icon, title, description }) => (
             <li className={styles.item} key={title}>
