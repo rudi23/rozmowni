@@ -56,7 +56,7 @@ API routes → `utils/emailService.js` (singleton, nodemailer + SMTP) → React 
 
 ### API routes
 
-`POST /api/send-test-results` and `POST /api/send-contact-form-notification` share a shape: POST-only → `x-api-key` check against `API_KEY` → per-IP rate limit held **in process memory** (resets on restart, not shared across instances) → field validation → side effects. The test endpoint also appends a row to `CSV_FILE_PATH`; a CSV write failure is logged but does not fail the request.
+`POST /api/send-test-results` and `POST /api/send-contact-form-notification` share a shape: POST-only → `x-api-key` check against `API_KEY` → per-IP rate limit held **in process memory** (resets on restart, not shared across instances) → field validation → side effects. The test endpoint also appends a row to `CSV_FILE_PATH`; a CSV write failure is logged but does not fail the request. Every one of those early exits reports itself to PostHog as `lead_submission_rejected` (carrying `reason`, `route` and `status_code`) before it answers, because a lead stopped by the rate limiter or by validation is a lost lead and nothing else counts them; the 405 is deliberately left out, since a non-POST is a scanner rather than a person with a filled-in form.
 
 `POST /api/track-test-completed` follows the same shape but is deliberately light: no CSV, no SMTP, and nothing the lead typed — it sends `_fbp`/`_fbc`, the request IP and the User-Agent, and exists only so the test's `CompleteRegistration` survives a blocked pixel. Those identifiers are personal data under GDPR even though no form field is among them; do not describe the route as PII-free. Its rate limiter comes from the shared `utils/rateLimit.js`; the two email routes still carry their own inline copies.
 

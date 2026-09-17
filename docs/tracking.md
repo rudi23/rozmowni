@@ -36,7 +36,7 @@ analitycznego. Cały tracking przechodzi przez własną warstwę w
 
 Żadne dane osobowe nie trafiają do PostHoga; imię, e-mail i telefon leada idą
 mailem, do CSV-ki oraz – **zahashowane SHA-256, nigdy otwartym tekstem** – do
-Conversions API Mety (sekcje 5.5 i 6.1).
+Conversions API Mety (sekcje 5.6 i 6.1).
 
 ---
 
@@ -514,8 +514,8 @@ wszystkiego z `@` też jest wyłącznie zachowaniem `react-ga4`.
 
 ### 5.2 Eventy serwerowe
 
-`src/utils/posthogServer.js` (`posthog-node`) wysyła dwa eventy z tras API,
-**po** tym, jak mail faktycznie wyszedł:
+`src/utils/posthogServer.js` (`posthog-node`) wysyła dwa eventy sukcesu z tras
+API, **po** tym, jak mail faktycznie wyszedł:
 
 | Event                    | Trasa                                 | Properties                                                                      |
 | ------------------------ | ------------------------------------- | ------------------------------------------------------------------------------- |
@@ -535,7 +535,44 @@ celowo nie pojawia się w przeglądarce – dostaje go wyłącznie mail – wię
 event jest jedynym miejscem, gdzie rozkład poziomów da się przeglądać
 raportem, bez schodzenia do pliku na serwerze.
 
-### 5.3 Sklejanie sesji klient ↔ serwer
+### 5.3 Odrzucone zgłoszenia
+
+Każde wczesne wyjście z obu tras formularzowych wysyła
+**`lead_submission_rejected`**, zanim odpowie klientowi. Bez tego zgłoszenie
+zatrzymane przez limiter albo walidację znikało bez śladu: lead wypełnił
+formularz, zobaczył komunikat o błędzie, a w lejku między `test_completed`
+a `test_lead_submitted` została po nim dziura nie do policzenia.
+
+| `reason`           | Status | Kiedy                                                |
+| ------------------ | ------ | ---------------------------------------------------- |
+| `auth_failed`      | 401    | brak albo zły `x-api-key`                            |
+| `rate_limited`     | 429    | limit na IP (5/min dla testu, 3/min dla kontaktu)    |
+| `missing_fields`   | 400    | brak wymaganego pola                                 |
+| `invalid_email`    | 400    | e-mail nie przechodzi walidacji                      |
+| `message_too_long` | 400    | wiadomość > 2000 znaków (tylko formularz kontaktowy) |
+
+Do tego `route` (`send-test-results` albo `send-contact-form-notification`)
+i `status_code`. Odpowiedź dla klienta jest bajt w bajt taka jak wcześniej –
+zmieniło się tylko to, że wyjście po drodze raportuje samo siebie.
+
+**Metody 405 celowo nie ma na tej liście.** Żądanie inne niż POST to skaner,
+nigdy człowiek z wypełnionym formularzem; liczenie go zaśmieciłoby jedyną
+metrykę, po którą się do tego zdarzenia chodzi. Z tego samego powodu odrzuceń
+nie raportuje `/api/track-test-completed` – ta trasa strzela sama z siebie,
+bez udziału użytkownika, więc jej 429 to utracony sygnał konwersji, a nie
+utracony lead.
+
+`auth_failed` warto mieć na oku osobno: pojawia się nie tylko przy botach, ale
+też wtedy, gdy deploy nie podstawi `<NEXT_PUBLIC_API_KEY>` i **każdy** formularz
+na produkcji zaczyna zwracać 401.
+
+Po stronie przeglądarki odpowiednikiem jest wyjątek, nie event. Oba formularze
+dokładają teraz status odpowiedzi do treści błędu
+(`Failed to send email: 429`, `Contact form submit failed: 502`), więc
+w PostHogu widać, czy porażkę widział też serwer. Awaria bez pary po stronie
+serwera oznacza, że żądanie w ogóle do niego nie dotarło.
+
+### 5.4 Sklejanie sesji klient ↔ serwer
 
 Event serwerowy sam z siebie nie wie, kto go wywołał.
 `getRequestHeadersAsync()` (`posthog.js:96`) dokłada do fetchy obu formularzy
@@ -564,7 +601,7 @@ Obie strony są odporne na brak PostHoga i **żadna nie może opóźnić odpowie
   – w tym miejscu mail leada już wyszedł i problem z analityką nie ma prawa
   zamienić dostarczonego leada w 500.
 
-### 5.4 Wyjątki
+### 5.5 Wyjątki
 
 Trzy źródła, wszystkie do PostHoga:
 
@@ -580,7 +617,7 @@ Trzy źródła, wszystkie do PostHoga:
 To jedyny kanał raportowania błędów w serwisie – nie ma Sentry ani innego
 monitoringu.
 
-### 5.5 Session replay i dane osobowe
+### 5.6 Session replay i dane osobowe
 
 `session_recording.maskAllInputs: true` (`posthog.js:39`). Każdy input na tej
 stronie zbiera dane leada – imię, e-mail, telefon – a replay nagrywa ekran,
@@ -591,7 +628,7 @@ poziom, sposób kontaktu i etykiety kliknięć; imię, e-mail i telefon trafiaj�
 wyłącznie do maila i do CSV-ki (`CSV_FILE_PATH`). Przy dokładaniu properties
 trzymaj tę granicę – raz wysłanego property nie da się cofnąć z projektu.
 
-### 5.6 Właściwości zdarzeń testu
+### 5.7 Właściwości zdarzeń testu
 
 Trzy zdarzenia raportujące ukończony test – `test_completed`,
 `test_lead_submitted` (przeglądarka) i `test_results_processed` (serwer) –
@@ -608,7 +645,28 @@ niosą ten sam zestaw właściwości:
 `test_completed` leci **zaraz po ostatnim pytaniu**, zanim pojawi się
 formularz. To jedyne źródło wiedzy o osobach, które porzuciły lejek na
 formularzu kontaktowym: do CSV-ki one nie trafiają, bo wiersz powstaje dopiero
-przy wysłaniu danych.
+przy wysłaniu danych. Niesie dodatkowo `duration_seconds` – czas od wyboru typu
+testu do ekranu wyników. Cały test jest jednym page view'em (3.4), więc PostHog
+nie ma dla niego żadnej innej miary czasu.
+
+Dwa zdarzenia z wnętrza lejka niosą własny, mniejszy zestaw:
+
+| Zdarzenie         | Właściwości                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------ |
+| `test_started`    | `test_type`                                                                          |
+| `test_progressed` | `test_type`, `question_number`, `total_questions`, `seconds_since_previous_question` |
+
+`question_number` jest tu najważniejszy: krzywa porzuceń to powód, dla którego
+to zdarzenie istnieje, a breakdown po liczbie bije wyciąganie `question 07/25`
+z `source_label` regexpem. Etykieta GA4 nie zmieniła się ani o znak – lejek
+`Test / Progress` w GA4 działa dokładnie tak jak wcześniej (4.6).
+
+`seconds_since_previous_question` mierzy czas **między raportami**, nie między
+renderami: cofnięcie się do wcześniejszego pytania i powrót wlicza się w czas
+dojścia do kolejnego. Na pierwszym pytaniu właściwości nie ma w ogóle – nie ma
+poprzedniego pytania, a zero czytałoby się jako „odpowiedział natychmiast"
+i zaniżało średnią. Jawne zero (ktoś przeskoczył pytanie w mniej niż sekundę)
+jest wysyłane normalnie.
 
 Właściwości pochodzą z opcjonalnego pola `posthogProperties` na stałej
 zdarzenia w `events.js`. `sendEvent` rozsypuje je obok pól `source_*`; ścieżka
@@ -723,7 +781,7 @@ czegokolwiek.
 
 Dotyczy to teraz trzech dostawców zamiast dwóch, a PostHog dokłada do tego
 **nagranie sesji**, które startuje razem z klientem – też przed jakąkolwiek
-decyzją użytkownika. Maskowanie inputów (5.5) ogranicza, co jest w nagraniu,
+decyzją użytkownika. Maskowanie inputów (5.6) ogranicza, co jest w nagraniu,
 ale nie zmienia tego, kiedy się zaczyna.
 
 Treść banera odsyła do [polityki prywatności](../src/pages/polityka-prywatnosci/index.js),
@@ -753,7 +811,7 @@ z definicji leci od kogoś, kto jeszcze nie zdecydował.
    `CONTACT_SEND_FORM` i `TEST_CONTACT_DETAILS_SUBMITTED`.
 5. Event serwerowy (coś, co da się stwierdzić dopiero w trasie API) dodaj przez
    `captureEvent` z `utils/posthogServer.js`, z `distinctId` i `sessionId`
-   odczytanymi z nagłówków (5.3). **Bez `await`** i zawsze po wysyłce maila.
+   odczytanymi z nagłówków (5.4). **Bez `await`** i zawsze po wysyłce maila.
 6. Sprawdź lokalnie (`npm run dev`) – event musi pojawić się w konsoli jako
    `GA: send event` / `FB: send event` / `PostHog: send event`. Na produkcji
    zweryfikuj w GA4 DebugView, Meta Events Manager i w widoku Activity
