@@ -136,7 +136,10 @@ const TestResultsFormView = ({ score, selectedTest, onFormSubmitted }) => {
       });
 
       if (!emailResponse.ok) {
-        throw new Error('Failed to send email');
+        // The status is the whole diagnostic value: the server reports its own
+        // refusals as `lead_submission_rejected`, so a failure that arrives here
+        // without a matching status is one the server never saw at all.
+        throw new Error(`Failed to send email: ${emailResponse.status}`);
       }
 
       // Close the form for good the moment the submission is known to be

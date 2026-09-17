@@ -1,7 +1,11 @@
 import { randomUUID } from 'crypto';
 import { sendContactFormEmailNotification } from '../../utils/emailService';
 import { validateApiKey } from '../../utils/apiAuth';
-import { captureEvent, captureException } from '../../utils/posthogServer';
+import {
+  captureEvent,
+  captureRejection,
+  captureException,
+} from '../../utils/posthogServer';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map();
@@ -89,11 +93,26 @@ export default async function handler(req, res) {
   const distinctId = req.headers['x-posthog-distinct-id'] || randomUUID();
   const sessionId = req.headers['x-posthog-session-id'];
 
+  // Answers exactly as before and reports the refusal on the way out. The 405
+  // above is deliberately left out: a non-POST is a scanner, never a person with
+  // a filled-in form, and counting it would only add noise to the funnel.
+  const reject = (status, reason, body) => {
+    captureRejection({
+      distinctId,
+      sessionId,
+      route: 'send-contact-form-notification',
+      reason,
+      statusCode: status,
+    });
+
+    return res.status(status).json(body);
+  };
+
   try {
     // Check authentication
     const authResult = authenticateRequest(req);
     if (!authResult.authenticated) {
-      return res.status(401).json({
+      return reject(401, 'auth_failed', {
         error: 'Authentication required',
         details: authResult.error,
       });
@@ -102,7 +121,7 @@ export default async function handler(req, res) {
     // Check rate limiting
     const rateLimitResult = checkRateLimit(req);
     if (!rateLimitResult.allowed) {
-      return res.status(429).json({
+      return reject(429, 'rate_limited', {
         error: 'Too many requests',
         details: rateLimitResult.error,
         resetTime: rateLimitResult.resetTime,
@@ -113,7 +132,7 @@ export default async function handler(req, res) {
 
     // Validate required fields
     if (!name || !email || !subject || !message) {
-      return res.status(400).json({
+      return reject(400, 'missing_fields', {
         error: 'Missing required fields',
         required: ['name', 'email', 'subject', 'message'],
       });
@@ -122,14 +141,14 @@ export default async function handler(req, res) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: 'Invalid email format' });
+      return reject(400, 'invalid_email', { error: 'Invalid email format' });
     }
 
     // Validate message length (prevent spam)
     if (message.length > 2000) {
-      return res
-        .status(400)
-        .json({ error: 'Message too long. Maximum 2000 characters.' });
+      return reject(400, 'message_too_long', {
+        error: 'Message too long. Maximum 2000 characters.',
+      });
     }
 
     // Send contact form notification

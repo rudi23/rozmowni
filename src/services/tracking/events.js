@@ -165,24 +165,51 @@ export const TEST_START = (testType) => ({
   action: 'Start',
   label: testType,
   posthogEvent: 'test_started',
+  posthogProperties: { test_type: testType },
 });
-export const TEST_PROGRESS = (testType, question, total) => ({
+// The question number is a property, not only part of the label: the drop-off
+// curve is the reason this event exists, and breaking it down by a number beats
+// parsing 'adults - question 07/25' out of `source_label` in PostHog.
+export const TEST_PROGRESS = (
+  testType,
+  question,
+  total,
+  secondsSincePrevious,
+) => ({
   category: 'Test',
   action: 'Progress',
   label: `${testType} - question ${paddedQuestion(question, total)}/${total}`,
   posthogEvent: 'test_progressed',
+  posthogProperties: {
+    test_type: testType,
+    question_number: question,
+    total_questions: total,
+    // Omitted on the first question, which has no previous one to time. A zero
+    // there would read as 'answered instantly' and drag the average down.
+    ...(typeof secondsSincePrevious === 'number' && {
+      seconds_since_previous_question: secondsSincePrevious,
+    }),
+  },
 });
-export const TEST_COMPLETED = (testType, score, totalQuestions, level) => ({
+export const TEST_COMPLETED = (
+  testType,
+  score,
+  totalQuestions,
+  level,
+  durationSeconds,
+) => ({
   category: 'Test',
   action: 'Complete',
   label: testType,
   posthogEvent: 'test_completed',
-  posthogProperties: testScoreProperties(
-    testType,
-    score,
-    totalQuestions,
-    level,
-  ),
+  posthogProperties: {
+    ...testScoreProperties(testType, score, totalQuestions, level),
+    // Separates 'stuck on a hard question' from 'walked away and came back':
+    // the test is a single page view, so PostHog has no other duration for it.
+    ...(typeof durationSeconds === 'number' && {
+      duration_seconds: durationSeconds,
+    }),
+  },
 });
 export const TEST_CONTACT_DETAILS_SENT = (
   testType,
