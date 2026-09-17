@@ -505,8 +505,10 @@ Kroki:
    `app_<YYYYMMDDHHMM>.tar.gz`, `rsync` na serwer.
 4. Na serwerze: rozpakowanie do katalogu release'u, przepięcie symlinku,
    podlinkowanie `public` → `/home/rozmowni/rails/shared` (tam leży m.in. e-book),
-   usunięcie starszych release'ów (zostają 2 ostatnie), `touch tmp/restart.txt`
-   (restart aplikacji przez Passenger).
+   usunięcie starszych release'ów, `touch tmp/restart.txt`
+   (restart aplikacji przez Passenger). Na produkcji zostają 2 ostatnie
+   release'y; na stagingu **tylko jeden** – poprzedni jest kasowany, zanim nowy
+   zostanie rozpakowany.
 
 Ścieżka pełnego wydania: PR → merge do `master` → zakładka **Actions** →
 **Deploy to production** → **Run workflow** (gałąź `master`) → deploy.
@@ -514,7 +516,9 @@ Nic nie trzeba odpalać lokalnie. Deploy z innej gałęzi niż `master` kończy 
 błędem w pierwszym kroku workflow.
 
 Cofnięcie wdrożenia: workflow **Rollback** (`workflow_dispatch`) – przepina
-symlink na poprzedni (lub wskazany) katalog release'u.
+symlink na poprzedni (lub wskazany) katalog release'u. Działa tylko na
+produkcji: staging trzyma jeden release, więc nie ma tam na co się cofnąć –
+zamiast rollbacku odpala się deploy poprzedniego commita.
 
 ---
 

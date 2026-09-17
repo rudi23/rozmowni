@@ -75,13 +75,16 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            CURRENT=$(basename "$(readlink ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }})")
-            find ${{ env.RELEASES_DIR }} -mindepth 1 -maxdepth 1 ! -name "${CURRENT:-${{ env.RELEASE }}}" -exec rm -rf {} +
+            # Staging keeps exactly one release: the current one is dropped
+            # before the new one is unpacked. That means no rollback on staging
+            # (production still keeps the previous release for that) and a short
+            # window with no release directory at all.
+            rm -f ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
+            rm -rf ${{ env.RELEASES_DIR }}
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             mv ~/app_${{ env.RELEASE }}.tar.gz ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             tar -xf ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/app_${{ env.RELEASE }}.tar.gz -C ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}
             rm ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/app_${{ env.RELEASE }}.tar.gz
-            rm ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
             ln -s ${{ env.RELEASES_DIR }}/${{ env.RELEASE }} ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}
             ln -s ${{ env.APP_DIR }}/shared ${{ env.APP_DIR }}/${{ env.SYMLINK_NAME }}/public
             mkdir -p ${{ env.RELEASES_DIR }}/${{ env.RELEASE }}/tmp
