@@ -5,27 +5,29 @@ import { events } from '../services/tracking';
 import { routeNames, routeMap } from '../routes';
 
 // A compact card in the corner. The old full-width dark bar covered
-// close to a third of a phone screen.
+// close to a third of a phone screen. It stays small on purpose: fixed to the
+// bottom, it sits over the lower page until dismissed, so a shorter card hides
+// less underneath - on the placement test, the "start the test" control.
 const card = {
   left: '16px',
   right: 'auto',
   bottom: '16px',
   width: 'min(380px, calc(100vw - 32px))',
   display: 'block',
-  padding: '20px',
+  padding: '16px',
   background: '#fff',
   color: 'var(--color-text)',
   border: '1px solid var(--color-line)',
   borderRadius: 'var(--radius-card)',
   boxShadow: 'var(--shadow-raised)',
-  fontSize: '14px',
-  lineHeight: '1.55',
+  fontSize: '13px',
+  lineHeight: '1.45',
   zIndex: 9999,
 };
 
 const content = {
   flex: 'auto',
-  margin: '0 0 16px',
+  margin: '0 0 12px',
 };
 
 const button = {
