@@ -174,7 +174,9 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1020;
+    // Below the header's mobile menu sheet (z-index 1020), so opening the menu
+    // covers this bar instead of the bar bleeding through the open menu.
+    z-index: 1010;
     padding: 12px 20px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
     background: #fff;
@@ -182,13 +184,17 @@
     box-shadow: var(--shadow-raised);
   }
 
+  // Both are full-height, comfortable tap targets: a mis-tap here is a lead
+  // that stalls mid-test.
   .prevButton {
     @include ctaSize('sm');
 
     flex-shrink: 0;
+    min-height: 48px;
   }
 
   .nextButton {
     flex: 1;
+    min-height: 48px;
   }
 }
