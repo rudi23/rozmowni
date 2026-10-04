@@ -51,6 +51,43 @@ function isInjectedScriptException(properties) {
   return frames.length > 0 && frames.every(isNonAppSchemeFrame);
 }
 
+// window.onerror reports a cross-origin script failure with the fixed, opaque
+// value "Script error." (some browsers drop the period). The browser withholds
+// the message, file, and line on purpose, so this value can never point at site
+// code.
+function isScriptErrorValue(value) {
+  return (
+    typeof value === 'string' &&
+    value.trim().replace(/\.$/, '') === 'Script error'
+  );
+}
+
+// A cross-origin script failure reaches posthog-js as a synthetic exception with
+// the opaque "Script error." value and no stack frames, and `capture_exceptions`
+// reports it because the error went unhandled. The frameless case slips past
+// isInjectedScriptException, which needs at least one frame; a genuine site error
+// carries a real message or frames, so this test never matches one.
+function isOpaqueCrossOriginException(properties) {
+  const exceptions = properties && properties.$exception_list;
+
+  if (!Array.isArray(exceptions)) {
+    return false;
+  }
+
+  return exceptions.some((exception) => {
+    const frames =
+      (exception && exception.stacktrace && exception.stacktrace.frames) || [];
+
+    return (
+      exception &&
+      exception.mechanism &&
+      exception.mechanism.synthetic === true &&
+      isScriptErrorValue(exception.value) &&
+      frames.length === 0
+    );
+  });
+}
+
 let clientPromise = null;
 
 // posthog-js is ~90 kB gzipped - an order of magnitude more than react-ga4 or
@@ -69,15 +106,20 @@ function initializeAsync() {
           api_host: API_HOST,
           defaults: '2026-01-30',
           capture_exceptions: true,
-          // Drop exceptions thrown by injected scripts before they leave the
-          // browser, so third-party noise never opens an error-tracking issue.
+          // Drop third-party exception noise before it leaves the browser, so
+          // it never opens an error-tracking issue: scripts injected into the
+          // page (Facebook in-app browser, extensions) and the opaque
+          // cross-origin "Script error." the browser reports without any detail.
           before_send: (event) => {
-            if (
-              event &&
-              event.event === '$exception' &&
-              isInjectedScriptException(event.properties)
-            ) {
-              return null;
+            if (event && event.event === '$exception') {
+              const { properties } = event;
+
+              if (
+                isInjectedScriptException(properties) ||
+                isOpaqueCrossOriginException(properties)
+              ) {
+                return null;
+              }
             }
 
             return event;
