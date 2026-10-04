@@ -1,10 +1,16 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import cx from 'classnames';
 import { routeMap, routeNames } from '../routes';
 import styles from './PageHeader.module.scss';
 
-function PageHeader({ title, lede, breadcrumb = false }) {
+function PageHeader({
+  title,
+  lede,
+  breadcrumb = false,
+  ledeMobileHidden = false,
+}) {
   return (
     <section className={`page-header ${styles.root}`}>
       <div className="container">
@@ -16,7 +22,15 @@ function PageHeader({ title, lede, breadcrumb = false }) {
           </nav>
         )}
         <h1>{title}</h1>
-        {lede && <p className={styles.lede}>{lede}</p>}
+        {lede && (
+          <p
+            className={cx(styles.lede, {
+              [styles.ledeMobileHidden]: ledeMobileHidden,
+            })}
+          >
+            {lede}
+          </p>
+        )}
       </div>
     </section>
   );

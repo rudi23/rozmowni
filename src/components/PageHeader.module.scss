@@ -58,3 +58,11 @@
     font-size: 16px;
   }
 }
+
+// On a narrow phone the lede is several lines that push the page's main
+// control below the fold; the pages that opt in restate it right underneath.
+.ledeMobileHidden {
+  @include onMobile() {
+    display: none;
+  }
+}
