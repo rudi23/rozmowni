@@ -38,7 +38,7 @@
     "posthog-js": "^1.433.4",
     "posthog-node": "5.56.2",
     "react": "19.3.1",
-    "react-cookie-consent": "9.0.0",
+    "react-cookie-consent": "10.0.2",
     "react-dom": "19.3.1",
     "react-facebook-pixel": "1.0.4",
     "react-ga4": "1.4.1",
